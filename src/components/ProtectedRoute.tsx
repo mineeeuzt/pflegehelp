@@ -1,32 +1,13 @@
-import { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { LoadingScreen } from './LoadingScreen'
-import { supabase } from '../lib/supabase'
 
 interface ProtectedRouteProps {
   children: React.ReactNode
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { user, isLoading, createUserProfile } = useAuthStore()
-
-  useEffect(() => {
-    // Handle email confirmation when user lands on protected route
-    const handleEmailConfirmation = async () => {
-      const { data: { user: authUser } } = await supabase.auth.getUser()
-      
-      if (authUser && !user) {
-        // User is authenticated but no profile exists - create it
-        const userName = authUser.user_metadata?.name || 'User'
-        await createUserProfile(authUser.id, authUser.email!, userName)
-      }
-    }
-
-    if (!isLoading && !user) {
-      handleEmailConfirmation()
-    }
-  }, [isLoading, user, createUserProfile])
+  const { user, isLoading } = useAuthStore()
 
   if (isLoading) {
     return <LoadingScreen />
@@ -34,6 +15,24 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   if (!user) {
     return <Navigate to="/login" replace />
+  }
+
+  // Check subscription status
+  const hasActiveSubscription = user.subscription_status === 'active' || 
+                                user.subscription_status === 'trial'
+
+  if (!hasActiveSubscription) {
+    return <Navigate to="/subscription" replace />
+  }
+
+  // If trial is expired, redirect to subscription
+  if (user.subscription_status === 'trial' && user.trial_ends_at) {
+    const trialEnd = new Date(user.trial_ends_at)
+    const now = new Date()
+    
+    if (now > trialEnd) {
+      return <Navigate to="/subscription" replace />
+    }
   }
 
   return <>{children}</>

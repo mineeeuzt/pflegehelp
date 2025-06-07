@@ -32,9 +32,12 @@ function App() {
       const accessToken = urlParams.get('access_token')
       const refreshToken = urlParams.get('refresh_token')
       const token = urlParams.get('token')
+      const type = urlParams.get('type')
       
-      if (accessToken || token) {
+      if ((accessToken || token) && type === 'signup') {
         try {
+          console.log('Processing email confirmation...')
+          
           // Set the session with tokens from URL
           const { data, error } = await supabase.auth.setSession({
             access_token: accessToken || token!,
@@ -42,16 +45,21 @@ function App() {
           })
           
           if (data.user && !error) {
+            console.log('User confirmed:', data.user.email)
+            
             // Create user profile
             const userName = data.user.user_metadata?.name || 'User'
-            await createUserProfile(data.user.id, data.user.email!, userName)
+            const profileResult = await createUserProfile(data.user.id, data.user.email!, userName)
             
-            // Force reload user data
-            await loadUser()
-            
-            // Clean URL and redirect to subscription
-            window.history.replaceState({}, document.title, '/subscription')
-            window.location.replace('/subscription')
+            if (profileResult.success) {
+              // Clean URL and redirect to subscription
+              window.history.replaceState({}, document.title, '/subscription')
+              window.location.replace('/subscription')
+            } else {
+              console.error('Profile creation failed:', profileResult.error)
+            }
+          } else {
+            console.error('Session setup failed:', error)
           }
         } catch (error) {
           console.error('Email confirmation error:', error)

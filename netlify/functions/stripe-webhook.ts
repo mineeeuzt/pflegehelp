@@ -17,29 +17,20 @@ export const handler: Handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
-      headers: { 'Allow': 'POST' },
       body: JSON.stringify({ error: 'Method not allowed' }),
-    }
-  }
-
-  const sig = event.headers['stripe-signature']
-  
-  if (!sig) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: 'Missing stripe-signature header' }),
     }
   }
 
   let stripeEvent: Stripe.Event
 
   try {
+    const sig = event.headers['stripe-signature']!
     stripeEvent = stripe.webhooks.constructEvent(event.body!, sig, endpointSecret)
   } catch (err) {
-    console.error('Webhook signature verification failed:', err)
+    console.log(`⚠️  Webhook signature verification failed.`, err)
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'Invalid signature' }),
+      body: JSON.stringify({ error: 'Webhook signature verification failed' }),
     }
   }
 
@@ -48,44 +39,30 @@ export const handler: Handler = async (event) => {
       case 'customer.subscription.created':
       case 'customer.subscription.updated': {
         const subscription = stripeEvent.data.object as Stripe.Subscription
-        
-        await updateUserSubscription(subscription, 'active')
+        await handleSubscriptionChange(subscription)
         break
       }
-
+      
       case 'customer.subscription.deleted': {
         const subscription = stripeEvent.data.object as Stripe.Subscription
-        
-        await updateUserSubscription(subscription, 'cancelled')
+        await handleSubscriptionCancellation(subscription)
         break
       }
-
+      
       case 'invoice.payment_succeeded': {
         const invoice = stripeEvent.data.object as Stripe.Invoice
-        
-        if (invoice.subscription) {
-          const subscription = await stripe.subscriptions.retrieve(
-            invoice.subscription as string
-          )
-          await updateUserSubscription(subscription, 'active')
-        }
+        await handlePaymentSucceeded(invoice)
         break
       }
-
+      
       case 'invoice.payment_failed': {
         const invoice = stripeEvent.data.object as Stripe.Invoice
-        
-        if (invoice.subscription) {
-          const subscription = await stripe.subscriptions.retrieve(
-            invoice.subscription as string
-          )
-          await updateUserSubscription(subscription, 'expired')
-        }
+        await handlePaymentFailed(invoice)
         break
       }
-
+      
       default:
-        console.log(`Unhandled event type: ${stripeEvent.type}`)
+        console.log(`Unhandled event type ${stripeEvent.type}`)
     }
 
     return {
@@ -96,31 +73,94 @@ export const handler: Handler = async (event) => {
     console.error('Error processing webhook:', error)
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Webhook processing failed' }),
+      body: JSON.stringify({ error: 'Internal server error' }),
     }
   }
 }
 
-async function updateUserSubscription(
-  subscription: Stripe.Subscription,
-  status: string
-) {
-  try {
+async function handleSubscriptionChange(subscription: Stripe.Subscription) {
+  console.log('Processing subscription change:', subscription.id)
+  
+  const customerId = subscription.customer as string
+  const status = subscription.status
+  
+  // Get customer email from Stripe
+  const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer
+  const email = customer.email
+  
+  if (!email) {
+    console.error('No email found for customer:', customerId)
+    return
+  }
+  
+  // Update user subscription status
+  const { error } = await supabase
+    .from('users')
+    .update({
+      subscription_status: status === 'active' ? 'active' : status,
+      stripe_customer_id: customerId,
+      stripe_subscription_id: subscription.id,
+      updated_at: new Date().toISOString()
+    })
+    .eq('email', email)
+  
+  if (error) {
+    console.error('Error updating user subscription:', error)
+  } else {
+    console.log('Updated subscription for user:', email)
+  }
+}
+
+async function handleSubscriptionCancellation(subscription: Stripe.Subscription) {
+  console.log('Processing subscription cancellation:', subscription.id)
+  
+  const { error } = await supabase
+    .from('users')
+    .update({
+      subscription_status: 'cancelled',
+      updated_at: new Date().toISOString()
+    })
+    .eq('stripe_subscription_id', subscription.id)
+  
+  if (error) {
+    console.error('Error updating subscription cancellation:', error)
+  }
+}
+
+async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
+  console.log('Processing successful payment:', invoice.id)
+  
+  if (invoice.subscription) {
+    // Ensure subscription is marked as active
     const { error } = await supabase
       .from('users')
       .update({
-        subscription_status: status,
-        stripe_customer_id: subscription.customer as string,
-        stripe_subscription_id: subscription.id,
-        payment_method_added: status === 'active',
-        updated_at: new Date().toISOString(),
+        subscription_status: 'active',
+        updated_at: new Date().toISOString()
       })
-      .eq('stripe_customer_id', subscription.customer)
-
+      .eq('stripe_subscription_id', invoice.subscription)
+    
     if (error) {
-      console.error('Error updating user subscription:', error)
+      console.error('Error updating payment success:', error)
     }
-  } catch (error) {
-    console.error('Error in updateUserSubscription:', error)
+  }
+}
+
+async function handlePaymentFailed(invoice: Stripe.Invoice) {
+  console.log('Processing failed payment:', invoice.id)
+  
+  if (invoice.subscription) {
+    // Mark subscription as past_due
+    const { error } = await supabase
+      .from('users')
+      .update({
+        subscription_status: 'past_due',
+        updated_at: new Date().toISOString()
+      })
+      .eq('stripe_subscription_id', invoice.subscription)
+    
+    if (error) {
+      console.error('Error updating payment failure:', error)
+    }
   }
 }

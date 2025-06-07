@@ -9,15 +9,16 @@ if (!stripePublishableKey) {
 export const stripePromise = loadStripe(stripePublishableKey)
 
 export const STRIPE_PRICES = {
-  monthly: import.meta.env.VITE_STRIPE_PRICE_ID_MONTHLY,
-  yearly: import.meta.env.VITE_STRIPE_PRICE_ID_YEARLY,
+  monthly: 'price_1RXM4QCdcLuUUaQSrPem8NJi', // €4.99/Monat - BITTE ERSETZEN MIT NEUER PRICE ID
+  yearly: 'price_YEARLY_TO_CREATE', // €49.75/Jahr - MUSS ERST ERSTELLT WERDEN
 }
 
 export const APP_CONFIG = {
-  monthlyPrice: parseFloat(import.meta.env.VITE_MONTHLY_PRICE || '29.99'),
-  yearlyPrice: parseFloat(import.meta.env.VITE_YEARLY_PRICE || '299.99'),
-  trialDays: parseInt(import.meta.env.VITE_TRIAL_DAYS || '7'),
-  appUrl: import.meta.env.VITE_APP_URL || 'http://localhost:3000',
+  monthlyPrice: 4.99,
+  yearlyPrice: 49.75,
+  yearlyDiscount: 17, // 17% Rabatt
+  trialDays: 7,
+  appUrl: import.meta.env.VITE_APP_URL || 'https://aquamarine-hummingbird-b63293.netlify.app',
 }
 
 export interface CreateCheckoutSessionRequest {
