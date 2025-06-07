@@ -46,9 +46,12 @@ function App() {
             const userName = data.user.user_metadata?.name || 'User'
             await createUserProfile(data.user.id, data.user.email!, userName)
             
+            // Force reload user data
+            await loadUser()
+            
             // Clean URL and redirect to subscription
             window.history.replaceState({}, document.title, '/subscription')
-            window.location.href = '/subscription'
+            window.location.replace('/subscription')
           }
         } catch (error) {
           console.error('Email confirmation error:', error)
