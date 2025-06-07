@@ -8,6 +8,7 @@ interface AuthState {
   signUp: (email: string, password: string, name: string) => Promise<{success: boolean, error?: string}>
   signOut: () => Promise<void>
   loadUser: () => Promise<void>
+  createUserProfile: (userId: string, email: string, name: string) => Promise<{success: boolean, error?: string}>
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -46,7 +47,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         options: {
           data: {
             name: name,
-          }
+          },
+          emailRedirectTo: `${window.location.origin}/email-confirmation`
         }
       })
 
@@ -55,35 +57,30 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       }
 
       if (data.user) {
-        // Sign in immediately after signup
-        const { error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        })
+        // Don't sign in immediately - wait for email confirmation
+        // The user profile will be created when they confirm their email
+        
+        // If the user is already confirmed (e.g., in development)
+        if (data.user.email_confirmed_at) {
+          // Create the user profile immediately
+          const { error: profileError } = await supabase
+            .from('users')
+            .insert([
+              {
+                id: data.user.id,
+                email: data.user.email!,
+                name,
+                subscription_status: 'trial',
+                trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+              }
+            ])
 
-        if (signInError) {
-          return { success: false, error: signInError.message }
+          if (profileError && !profileError.message.includes('duplicate')) {
+            console.error('Profile creation error:', profileError)
+          }
+
+          await get().loadUser()
         }
-
-        // Now create the user profile
-        const { error: profileError } = await supabase
-          .from('users')
-          .insert([
-            {
-              id: data.user.id,
-              email: data.user.email!,
-              name,
-              subscription_status: 'trial',
-              trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-            }
-          ])
-
-        if (profileError) {
-          console.error('Profile creation error:', profileError)
-          // Don't fail the signup if profile creation fails
-        }
-
-        await get().loadUser()
       }
 
       return { success: true }
@@ -98,6 +95,35 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   signOut: async () => {
     await supabase.auth.signOut()
     set({ user: null })
+  },
+
+  createUserProfile: async (userId: string, email: string, name: string) => {
+    try {
+      const { error } = await supabase
+        .from('users')
+        .insert([
+          {
+            id: userId,
+            email,
+            name,
+            subscription_status: 'trial',
+            trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          }
+        ])
+
+      if (error && !error.message.includes('duplicate key')) {
+        console.error('Profile creation error:', error)
+        return { success: false, error: error.message }
+      }
+
+      await get().loadUser()
+      return { success: true }
+    } catch (error) {
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Ein unbekannter Fehler ist aufgetreten' 
+      }
+    }
   },
 
   loadUser: async () => {

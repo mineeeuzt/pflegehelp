@@ -17,6 +17,7 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [passwordValidation, setPasswordValidation] = useState<string[]>([])
+  const [registrationSuccess, setRegistrationSuccess] = useState(false)
   
   const { signUp } = useAuthStore()
   const navigate = useNavigate()
@@ -73,13 +74,7 @@ const Register = () => {
       const result = await signUp(formData.email, formData.password, formData.name)
       
       if (result.success) {
-        const checkoutData = await createCheckoutSession({
-          priceId: STRIPE_PRICES.monthly,
-          successUrl: `${APP_CONFIG.appUrl}/dashboard?success=true`,
-          cancelUrl: `${APP_CONFIG.appUrl}/register?canceled=true`
-        })
-        
-        window.location.href = checkoutData.sessionUrl
+        setRegistrationSuccess(true)
       } else {
         setErrors({ general: result.error || 'Registrierung fehlgeschlagen' })
       }
@@ -129,136 +124,189 @@ const Register = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Registrierung</CardTitle>
+            <CardTitle>
+              {registrationSuccess ? 'Bestätigen Sie Ihre E-Mail' : 'Registrierung'}
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {errors.general && (
+            {registrationSuccess ? (
+              <div className="text-center space-y-6">
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.5 }}
                 >
-                  {errors.general}
+                  <Check className="h-16 w-16 text-green-500 mx-auto" />
                 </motion.div>
-              )}
+                
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold text-green-700">
+                    Registrierung erfolgreich!
+                  </h3>
+                  <p className="text-gray-600">
+                    Wir haben Ihnen eine E-Mail mit einem Bestätigungslink an{' '}
+                    <span className="font-medium">{formData.email}</span> gesendet.
+                  </p>
+                </div>
 
-              <Input
-                label="Vollständiger Name"
-                type="text"
-                value={formData.name}
-                onChange={(e) => handleInputChange('name', e.target.value)}
-                placeholder="Max Mustermann"
-                icon={<User className="h-5 w-5 text-gray-400" />}
-                error={errors.name}
-                required
-              />
+                <div className="bg-blue-50 border border-blue-200 p-4 rounded-md text-left">
+                  <h4 className="font-medium text-blue-900 mb-2">Nächste Schritte:</h4>
+                  <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
+                    <li>Überprüfen Sie Ihr E-Mail-Postfach (auch Spam-Ordner)</li>
+                    <li>Klicken Sie auf den Bestätigungslink in der E-Mail</li>
+                    <li>Sie werden automatisch angemeldet und zur Zahlungsseite weitergeleitet</li>
+                    <li>Nutzen Sie {APP_CONFIG.trialDays} Tage kostenlos alle Features</li>
+                  </ol>
+                </div>
 
-              <Input
-                label="E-Mail-Adresse"
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                placeholder="ihre.email@beispiel.de"
-                icon={<Mail className="h-5 w-5 text-gray-400" />}
-                error={errors.email}
-                required
-              />
+                <div className="space-y-3">
+                  <Button
+                    onClick={() => setRegistrationSuccess(false)}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Andere E-Mail verwenden
+                  </Button>
+                  
+                  <p className="text-xs text-gray-500">
+                    Keine E-Mail erhalten? Überprüfen Sie Ihren Spam-Ordner oder kontaktieren Sie uns unter{' '}
+                    <a href="mailto:support@pflegehelp.app" className="text-primary-600 hover:text-primary-500">
+                      support@pflegehelp.app
+                    </a>
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                {errors.general && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md"
+                  >
+                    {errors.general}
+                  </motion.div>
+                )}
 
-              <div>
                 <Input
-                  label="Passwort"
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) => handleInputChange('password', e.target.value)}
-                  placeholder="Sicheres Passwort"
-                  icon={<Lock className="h-5 w-5 text-gray-400" />}
-                  error={errors.password}
+                  label="Vollständiger Name"
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  placeholder="Max Mustermann"
+                  icon={<User className="h-5 w-5 text-gray-400" />}
+                  error={errors.name}
                   required
                 />
+
+                <Input
+                  label="E-Mail-Adresse"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  placeholder="ihre.email@beispiel.de"
+                  icon={<Mail className="h-5 w-5 text-gray-400" />}
+                  error={errors.email}
+                  required
+                />
+
+                <div>
+                  <Input
+                    label="Passwort"
+                    type="password"
+                    value={formData.password}
+                    onChange={(e) => handleInputChange('password', e.target.value)}
+                    placeholder="Sicheres Passwort"
+                    icon={<Lock className="h-5 w-5 text-gray-400" />}
+                    error={errors.password}
+                    required
+                  />
                 
-                {formData.password && (
-                  <div className="mt-2 space-y-1">
-                    {passwordRequirements.map((req, index) => (
-                      <div key={index} className="flex items-center text-sm">
-                        <Check 
-                          className={`h-4 w-4 mr-2 ${
-                            req.met ? 'text-green-500' : 'text-gray-400'
-                          }`} 
-                        />
-                        <span className={req.met ? 'text-green-700' : 'text-gray-600'}>
-                          {req.text}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <Input
-                label="Passwort bestätigen"
-                type="password"
-                value={formData.confirmPassword}
-                onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                placeholder="Passwort wiederholen"
-                icon={<Lock className="h-5 w-5 text-gray-400" />}
-                error={errors.confirmPassword}
-                required
-              />
-
-              <div className="bg-blue-50 border border-blue-200 p-4 rounded-md">
-                <h4 className="font-medium text-blue-900 mb-2">Was Sie erhalten:</h4>
-                <ul className="text-sm text-blue-800 space-y-1">
-                  <li>✓ {APP_CONFIG.trialDays} Tage kostenlos testen</li>
-                  <li>✓ Alle KI-Features verfügbar</li>
-                  <li>✓ Jederzeit kündbar</li>
-                  <li>✓ Sichere Zahlung mit Stripe</li>
-                </ul>
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full"
-                loading={isLoading}
-                disabled={!formData.name || !formData.email || !formData.password || !formData.confirmPassword || passwordValidation.length > 0}
-              >
-                Kostenlos registrieren
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </form>
-
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
+                  {formData.password && (
+                    <div className="mt-2 space-y-1">
+                      {passwordRequirements.map((req, index) => (
+                        <div key={index} className="flex items-center text-sm">
+                          <Check 
+                            className={`h-4 w-4 mr-2 ${
+                              req.met ? 'text-green-500' : 'text-gray-400'
+                            }`} 
+                          />
+                          <span className={req.met ? 'text-green-700' : 'text-gray-600'}>
+                            {req.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">
-                    Bereits registriert?
-                  </span>
+
+                <Input
+                  label="Passwort bestätigen"
+                  type="password"
+                  value={formData.confirmPassword}
+                  onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                  placeholder="Passwort wiederholen"
+                  icon={<Lock className="h-5 w-5 text-gray-400" />}
+                  error={errors.confirmPassword}
+                  required
+                />
+
+                <div className="bg-blue-50 border border-blue-200 p-4 rounded-md">
+                  <h4 className="font-medium text-blue-900 mb-2">Was Sie erhalten:</h4>
+                  <ul className="text-sm text-blue-800 space-y-1">
+                    <li>✓ {APP_CONFIG.trialDays} Tage kostenlos testen</li>
+                    <li>✓ Alle KI-Features verfügbar</li>
+                    <li>✓ Jederzeit kündbar</li>
+                    <li>✓ Sichere Zahlung mit Stripe</li>
+                  </ul>
                 </div>
-              </div>
+
+                <Button
+                  type="submit"
+                  className="w-full"
+                  loading={isLoading}
+                  disabled={!formData.name || !formData.email || !formData.password || !formData.confirmPassword || passwordValidation.length > 0}
+                >
+                  Kostenlos registrieren
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </form>
 
               <div className="mt-6">
-                <Link to="/login">
-                  <Button variant="outline" className="w-full">
-                    Jetzt anmelden
-                  </Button>
-                </Link>
-              </div>
-            </div>
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-300" />
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-gray-500">
+                      Bereits registriert?
+                    </span>
+                  </div>
+                </div>
 
-            <p className="mt-6 text-xs text-gray-500 text-center">
-              Mit der Registrierung stimmen Sie unseren{' '}
-              <a href="#" className="text-primary-600 hover:text-primary-500">
-                AGB
-              </a>{' '}
-              und{' '}
-              <a href="#" className="text-primary-600 hover:text-primary-500">
-                Datenschutzbestimmungen
-              </a>{' '}
-              zu.
-            </p>
+                <div className="mt-6">
+                  <Link to="/login">
+                    <Button variant="outline" className="w-full">
+                      Jetzt anmelden
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              <p className="mt-6 text-xs text-gray-500 text-center">
+                Mit der Registrierung stimmen Sie unseren{' '}
+                <a href="#" className="text-primary-600 hover:text-primary-500">
+                  AGB
+                </a>{' '}
+                und{' '}
+                <a href="#" className="text-primary-600 hover:text-primary-500">
+                  Datenschutzbestimmungen
+                </a>{' '}
+                zu.
+              </p>
+              </>
+            )}
           </CardContent>
         </Card>
       </motion.div>
