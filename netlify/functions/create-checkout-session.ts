@@ -6,6 +6,19 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 })
 
 export const handler: Handler = async (event) => {
+  // Handle preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
+      body: ''
+    }
+  }
+
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -69,10 +82,13 @@ export const handler: Handler = async (event) => {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 
         error: 'Failed to create checkout session',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        details: error instanceof Error ? error.message : 'Unknown error',
+        stripeKeyExists: !!process.env.STRIPE_SECRET_KEY,
+        priceIds: { priceId }
       }),
     }
   }
