@@ -48,7 +48,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           data: {
             name: name,
           },
-          emailRedirectTo: `${window.location.origin}/email-confirmation`
+          emailRedirectTo: `${window.location.origin}/dashboard`
         }
       })
 
@@ -152,6 +152,35 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     } catch (error) {
       console.error('Error loading user:', error)
       set({ user: null, isLoading: false })
+    }
+  },
+
+  createUserProfile: async (userId: string, email: string, name: string) => {
+    try {
+      const { error } = await supabase
+        .from('users')
+        .insert([
+          {
+            id: userId,
+            email,
+            name,
+            subscription_status: 'trial',
+            trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          }
+        ])
+
+      if (error && !error.message.includes('duplicate key')) {
+        console.error('Profile creation error:', error)
+        return { success: false, error: error.message }
+      }
+
+      await get().loadUser()
+      return { success: true }
+    } catch (error) {
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Ein unbekannter Fehler ist aufgetreten' 
+      }
     }
   },
 }))
