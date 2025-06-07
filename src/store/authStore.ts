@@ -56,33 +56,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         return { success: false, error: error.message }
       }
 
-      if (data.user) {
-        // Don't sign in immediately - wait for email confirmation
-        // The user profile will be created when they confirm their email
-        
-        // If the user is already confirmed (e.g., in development)
-        if (data.user.email_confirmed_at) {
-          // Create the user profile immediately
-          const { error: profileError } = await supabase
-            .from('users')
-            .insert([
-              {
-                id: data.user.id,
-                email: data.user.email!,
-                name,
-                subscription_status: 'trial',
-                trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-              }
-            ])
-
-          if (profileError && !profileError.message.includes('duplicate')) {
-            console.error('Profile creation error:', profileError)
-          }
-
-          await get().loadUser()
-        }
-      }
-
       return { success: true }
     } catch (error) {
       return { 
@@ -152,35 +125,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     } catch (error) {
       console.error('Error loading user:', error)
       set({ user: null, isLoading: false })
-    }
-  },
-
-  createUserProfile: async (userId: string, email: string, name: string) => {
-    try {
-      const { error } = await supabase
-        .from('users')
-        .insert([
-          {
-            id: userId,
-            email,
-            name,
-            subscription_status: 'trial',
-            trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-          }
-        ])
-
-      if (error && !error.message.includes('duplicate key')) {
-        console.error('Profile creation error:', error)
-        return { success: false, error: error.message }
-      }
-
-      await get().loadUser()
-      return { success: true }
-    } catch (error) {
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Ein unbekannter Fehler ist aufgetreten' 
-      }
     }
   },
 }))
