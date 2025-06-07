@@ -18,7 +18,6 @@ import PflegeinfoWorkflow from './pages/PflegeinfoWorkflow'
 import Profile from './pages/Profile'
 import Subscription from './pages/Subscription'
 import Test from './pages/Test'
-import EmailConfirmation from './pages/EmailConfirmation'
 
 function App() {
   const { loadUser, isLoading } = useAuthStore()
@@ -51,10 +50,6 @@ function App() {
           <Route 
             path="/register" 
             element={<Register />} 
-          />
-          <Route 
-            path="/email-confirmation" 
-            element={<EmailConfirmation />} 
           />
 
           {/* Protected Routes */}
