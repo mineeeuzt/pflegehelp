@@ -45,7 +45,9 @@ const Dashboard = () => {
       description: 'Erstelle realistische Fallbeispiele',
       icon: <Brain className="h-8 w-8" />,
       href: '/fallbeispiel-generator',
-      color: 'from-blue-500 to-blue-600'
+      color: 'from-blue-500 to-blue-600',
+      featured: true,
+      badge: 'Hauptfunktion'
     },
     {
       title: 'Pflegeplanung',
@@ -139,18 +141,66 @@ const Dashboard = () => {
           </motion.div>
         )}
 
-        {/* Quick Actions */}
+        {/* Featured Tool - Fallbeispiel Generator */}
+        <div className="mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <Link to="/fallbeispiel-generator">
+              <Card className="hover:shadow-xl transition-all duration-300 hover:scale-[1.02] bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200">
+                <CardContent className="p-8">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-6">
+                      <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 rounded-xl">
+                        <Brain className="h-12 w-12 text-white" />
+                      </div>
+                      <div>
+                        <div className="flex items-center space-x-3 mb-2">
+                          <h2 className="text-2xl font-bold text-gray-900">
+                            Fallbeispiel Generator
+                          </h2>
+                          <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                            Hauptfunktion
+                          </span>
+                        </div>
+                        <p className="text-lg text-gray-600 mb-2">
+                          Erstellen Sie maßgeschneiderte Fallbeispiele für Ihre Pflegeausbildung
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          • Step-by-Step Konfiguration • Alle Krankheitsbereiche • 3 Schwierigkeitsgrade
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="flex items-center text-blue-600 text-lg font-semibold mb-2">
+                        Jetzt starten
+                        <ArrowRight className="ml-2 h-6 w-6" />
+                      </div>
+                      <p className="text-sm text-gray-500">
+                        Für alle Ausbildungsjahre
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Other Tools */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-6">
-            KI-Lerntools
+            Weitere KI-Lerntools
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quickActions.map((action, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {quickActions.slice(1).map((action, index) => (
               <motion.div
                 key={action.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: 0.2 + index * 0.1 }}
               >
                 <Link to={action.href}>
                   <Card className="hover:shadow-lg transition-all duration-200 hover:scale-105 h-full">
