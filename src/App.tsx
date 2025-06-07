@@ -4,6 +4,7 @@ import { Layout } from './components/layout'
 import { LoadingScreen } from './components/LoadingScreen'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { useAuthStore } from './store/authStore'
+import { supabase } from './lib/supabase'
 
 // Pages
 import LandingPage from './pages/LandingPage'
@@ -20,11 +21,43 @@ import Subscription from './pages/Subscription'
 import Test from './pages/Test'
 
 function App() {
-  const { loadUser, isLoading } = useAuthStore()
+  const { loadUser, isLoading, createUserProfile } = useAuthStore()
 
   useEffect(() => {
     loadUser()
-  }, [loadUser])
+    
+    // Handle email confirmation from URL params
+    const handleEmailConfirmation = async () => {
+      const urlParams = new URLSearchParams(window.location.search)
+      const accessToken = urlParams.get('access_token')
+      const refreshToken = urlParams.get('refresh_token')
+      const token = urlParams.get('token')
+      
+      if (accessToken || token) {
+        try {
+          // Set the session with tokens from URL
+          const { data, error } = await supabase.auth.setSession({
+            access_token: accessToken || token!,
+            refresh_token: refreshToken || ''
+          })
+          
+          if (data.user && !error) {
+            // Create user profile
+            const userName = data.user.user_metadata?.name || 'User'
+            await createUserProfile(data.user.id, data.user.email!, userName)
+            
+            // Clean URL and redirect to subscription
+            window.history.replaceState({}, document.title, '/subscription')
+            window.location.href = '/subscription'
+          }
+        } catch (error) {
+          console.error('Email confirmation error:', error)
+        }
+      }
+    }
+    
+    handleEmailConfirmation()
+  }, [loadUser, createUserProfile])
 
   if (isLoading) {
     return <LoadingScreen />
