@@ -43,6 +43,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            name: name,
+          }
+        }
       })
 
       if (error) {
@@ -50,6 +55,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       }
 
       if (data.user) {
+        // Sign in immediately after signup
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        })
+
+        if (signInError) {
+          return { success: false, error: signInError.message }
+        }
+
+        // Now create the user profile
         const { error: profileError } = await supabase
           .from('users')
           .insert([
@@ -63,7 +79,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           ])
 
         if (profileError) {
-          return { success: false, error: profileError.message }
+          console.error('Profile creation error:', profileError)
+          // Don't fail the signup if profile creation fails
         }
 
         await get().loadUser()
