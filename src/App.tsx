@@ -17,6 +17,7 @@ import SMARTZielAssistent from './pages/SMARTZielAssistent'
 import PflegeinfoWorkflow from './pages/PflegeinfoWorkflow'
 import Profile from './pages/Profile'
 import Subscription from './pages/Subscription'
+import Test from './pages/Test'
 
 function App() {
   const { loadUser, isLoading } = useAuthStore()
@@ -133,6 +134,9 @@ function App() {
             } 
           />
 
+          {/* Test Route */}
+          <Route path="/test" element={<Test />} />
+          
           {/* Catch all route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
