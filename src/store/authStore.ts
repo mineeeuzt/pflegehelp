@@ -13,25 +13,31 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
-  isLoading: true,
+  isLoading: false,
 
   signIn: async (email: string, password: string) => {
     try {
+      set({ isLoading: true })
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
 
       if (error) {
+        set({ isLoading: false })
         return { success: false, error: error.message }
       }
 
       if (data.user) {
+        // Load user profile immediately after successful auth
         await get().loadUser()
       }
 
+      set({ isLoading: false })
       return { success: true }
     } catch (error) {
+      set({ isLoading: false })
       return { 
         success: false, 
         error: error instanceof Error ? error.message : 'Ein unbekannter Fehler ist aufgetreten' 
@@ -67,11 +73,25 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   signOut: async () => {
     await supabase.auth.signOut()
-    set({ user: null })
+    set({ user: null, isLoading: false })
   },
 
   createUserProfile: async (userId: string, email: string, name: string) => {
     try {
+      // First check if profile already exists
+      const { data: existingUser } = await supabase
+        .from('users')
+        .select('id')
+        .eq('id', userId)
+        .single()
+
+      if (existingUser) {
+        // Profile already exists, just load it
+        await get().loadUser()
+        return { success: true }
+      }
+
+      // Create new profile
       const { error } = await supabase
         .from('users')
         .insert([
@@ -84,7 +104,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           }
         ])
 
-      if (error && !error.message.includes('duplicate key')) {
+      if (error) {
         console.error('Profile creation error:', error)
         return { success: false, error: error.message }
       }
@@ -101,27 +121,37 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   loadUser: async () => {
     try {
-      set({ isLoading: true })
-      
       const { data: { user: authUser } } = await supabase.auth.getUser()
       
-      if (authUser) {
-        const { data: userData, error } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', authUser.id)
-          .single()
-
-        if (error) {
-          console.error('Error loading user profile:', error)
-          set({ user: null, isLoading: false })
-          return
-        }
-
-        set({ user: userData, isLoading: false })
-      } else {
+      if (!authUser) {
         set({ user: null, isLoading: false })
+        return
       }
+
+      const { data: userData, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', authUser.id)
+        .single()
+
+      if (error) {
+        console.error('Error loading user profile:', error)
+        
+        // If user profile doesn't exist, try to create it
+        if (error.code === 'PGRST116') {
+          const userName = authUser.user_metadata?.name || 'User'
+          const createResult = await get().createUserProfile(authUser.id, authUser.email!, userName)
+          
+          if (createResult.success) {
+            return // createUserProfile already calls loadUser again
+          }
+        }
+        
+        set({ user: null, isLoading: false })
+        return
+      }
+
+      set({ user: userData, isLoading: false })
     } catch (error) {
       console.error('Error loading user:', error)
       set({ user: null, isLoading: false })
@@ -129,10 +159,18 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 }))
 
-supabase.auth.onAuthStateChange((event, session) => {
-  if (event === 'SIGNED_OUT' || !session) {
-    useAuthStore.getState().user = null
-  } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-    useAuthStore.getState().loadUser()
+// Remove the problematic auth state change listener for now
+// We'll handle auth state manually
+let isInitialized = false
+
+export const initializeAuth = async () => {
+  if (isInitialized) return
+  isInitialized = true
+  
+  const { data: { session } } = await supabase.auth.getSession()
+  if (session) {
+    await useAuthStore.getState().loadUser()
+  } else {
+    useAuthStore.setState({ user: null, isLoading: false })
   }
-})
+}

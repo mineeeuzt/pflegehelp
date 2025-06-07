@@ -23,8 +23,8 @@ const Login = () => {
       const result = await signIn(email, password)
       
       if (result.success) {
-        // Force page reload to ensure proper authentication state
-        window.location.href = '/dashboard'
+        // Use navigate instead of window.location for SPA navigation
+        navigate('/dashboard')
       } else {
         setError(result.error || 'Anmeldung fehlgeschlagen')
       }

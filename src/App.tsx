@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Layout } from './components/layout'
 import { LoadingScreen } from './components/LoadingScreen'
 import { ProtectedRoute } from './components/ProtectedRoute'
-import { useAuthStore } from './store/authStore'
+import { useAuthStore, initializeAuth } from './store/authStore'
 import { supabase } from './lib/supabase'
 
 // Pages
@@ -21,17 +21,16 @@ import Subscription from './pages/Subscription'
 import Test from './pages/Test'
 
 function App() {
-  const { loadUser, isLoading, createUserProfile } = useAuthStore()
+  const { isLoading, createUserProfile } = useAuthStore()
 
   useEffect(() => {
-    loadUser()
-    
-    // Handle email confirmation from URL params
-    const handleEmailConfirmation = async () => {
+    const initApp = async () => {
+      // Handle email confirmation from URL params first
       const urlParams = new URLSearchParams(window.location.search)
       const accessToken = urlParams.get('access_token')
       const refreshToken = urlParams.get('refresh_token')
       const token = urlParams.get('token')
+      
       if (accessToken || token) {
         try {
           console.log('Processing email confirmation...')
@@ -53,6 +52,7 @@ function App() {
               // Clean URL and redirect to subscription
               window.history.replaceState({}, document.title, '/subscription')
               window.location.replace('/subscription')
+              return
             } else {
               console.error('Profile creation failed:', profileResult.error)
             }
@@ -63,10 +63,13 @@ function App() {
           console.error('Email confirmation error:', error)
         }
       }
+      
+      // Initialize auth if no email confirmation
+      await initializeAuth()
     }
     
-    handleEmailConfirmation()
-  }, [loadUser, createUserProfile])
+    initApp()
+  }, [createUserProfile])
 
   if (isLoading) {
     return <LoadingScreen />
