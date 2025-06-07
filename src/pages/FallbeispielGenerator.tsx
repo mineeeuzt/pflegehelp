@@ -115,17 +115,41 @@ const FallbeispielGenerator = () => {
     setError('')
 
     try {
+      // Get display names for better context
+      const alterLabel = altersgruppen.find(a => a.value === params.alter)?.label || params.alter
+      const bereichLabel = krankheitsbereiche.find(b => b.value === params.bereich)?.label || params.bereich
+      const settingLabel = settings.find(s => s.value === params.setting)?.label || params.setting
+      
       const generationParams: CaseGenerationParams = {
-        bereich: params.bereich,
+        bereich: bereichLabel,
         schwierigkeitsgrad: params.schwierigkeitsgrad,
-        anforderungen: `Alter: ${params.alter}, Setting: ${params.setting}${params.zusatzinfo ? `, Zusatzinfo: ${params.zusatzinfo}` : ''}`
+        anforderungen: `Alter: ${alterLabel}, Setting: ${settingLabel}${params.zusatzinfo ? `, Zusatzinfo: ${params.zusatzinfo}` : ''}`
       }
+      
+      console.log('Generating case with params:', generationParams)
       
       const response = await caseService.generateFallbeispiel(generationParams, user.id)
       setResult(response)
-      setCurrentStep(6)
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten')
+      console.error('Generation error:', error)
+      let errorMessage = 'Ein unbekannter Fehler ist aufgetreten'
+      
+      if (error instanceof Error) {
+        errorMessage = error.message
+      } else if (typeof error === 'string') {
+        errorMessage = error
+      }
+      
+      // Check for specific error types
+      if (errorMessage.includes('API key')) {
+        errorMessage = 'OpenAI API-Schlüssel fehlt oder ist ungültig. Bitte kontaktieren Sie den Support.'
+      } else if (errorMessage.includes('quota') || errorMessage.includes('rate limit')) {
+        errorMessage = 'API-Limit erreicht. Bitte versuchen Sie es später erneut.'
+      } else if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
+        errorMessage = 'Netzwerkfehler. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.'
+      }
+      
+      setError(errorMessage)
     } finally {
       setIsLoading(false)
     }
