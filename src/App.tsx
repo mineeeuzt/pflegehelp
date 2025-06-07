@@ -32,9 +32,7 @@ function App() {
       const accessToken = urlParams.get('access_token')
       const refreshToken = urlParams.get('refresh_token')
       const token = urlParams.get('token')
-      const type = urlParams.get('type')
-      
-      if ((accessToken || token) && type === 'signup') {
+      if (accessToken || token) {
         try {
           console.log('Processing email confirmation...')
           

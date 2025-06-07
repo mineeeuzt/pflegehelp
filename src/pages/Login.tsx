@@ -23,7 +23,8 @@ const Login = () => {
       const result = await signIn(email, password)
       
       if (result.success) {
-        navigate('/dashboard')
+        // Force page reload to ensure proper authentication state
+        window.location.href = '/dashboard'
       } else {
         setError(result.error || 'Anmeldung fehlgeschlagen')
       }
@@ -57,7 +58,7 @@ const Login = () => {
             </span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            Willkommen zurück
+            Anmelden
           </h2>
           <p className="mt-2 text-gray-600">
             Melden Sie sich in Ihrem Konto an
