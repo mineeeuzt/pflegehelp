@@ -1,4 +1,4 @@
-import { Handler } from '@netlify/functions'
+import type { Handler } from '@netlify/functions'
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 
