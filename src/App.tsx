@@ -16,6 +16,8 @@ import PflegeplanungWorkflow from './pages/PflegeplanungWorkflow'
 import MedikamentenTraining from './pages/MedikamentenTraining'
 import AnamnesesSimulator from './pages/AnamnesesSimulator'
 import QuizLernkarten from './pages/QuizLernkarten'
+import HomePage from './pages/HomePage'
+import MainLayout from './components/Layout/MainLayout'
 import PflegeinfoWorkflow from './pages/PflegeinfoWorkflow'
 import Profile from './pages/Profile'
 import Subscription from './pages/Subscription'
@@ -149,13 +151,60 @@ function App() {
               </ProtectedRoute>
             } 
           />
+          {/* Quiz System Routes with new Layout */}
+          <Route 
+            path="/quiz-home" 
+            element={
+              <ProtectedRoute>
+                <MainLayout>
+                  <HomePage />
+                </MainLayout>
+              </ProtectedRoute>
+            } 
+          />
           <Route 
             path="/quiz-lernkarten" 
             element={
               <ProtectedRoute>
-                <Layout>
+                <MainLayout>
                   <QuizLernkarten />
-                </Layout>
+                </MainLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/flashcards" 
+            element={
+              <ProtectedRoute>
+                <MainLayout>
+                  <QuizLernkarten />
+                </MainLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/progress" 
+            element={
+              <ProtectedRoute>
+                <MainLayout>
+                  <div className="p-6">
+                    <h1 className="text-2xl font-bold">Fortschritt (Coming Soon)</h1>
+                    <p>Detaillierte Statistiken und Lernfortschritt werden hier angezeigt.</p>
+                  </div>
+                </MainLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/export" 
+            element={
+              <ProtectedRoute>
+                <MainLayout>
+                  <div className="p-6">
+                    <h1 className="text-2xl font-bold">Export (Coming Soon)</h1>
+                    <p>Hier können Sie Ihre Lerndaten exportieren.</p>
+                  </div>
+                </MainLayout>
               </ProtectedRoute>
             } 
           />
