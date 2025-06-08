@@ -548,273 +548,271 @@ const MedikamentenTraining = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-6xl mx-auto px-6 py-8">
+      <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-light text-gray-900">Medikamenten-Training</h1>
-            <div className="flex items-center space-x-3">
-              <p className="text-gray-600">
-                Szenario {completedScenarios + 1} • 
-                {isGeneratingScenario ? (
-                  <span className="text-slate-600 font-medium">Neues Szenario wird erstellt...</span>
-                ) : (
-                  <span className="text-slate-800 font-medium">{currentScenario?.title.replace(/\b(Hypertensive|Symptomatische|Supraventrikuläre|Hyperglykämische|Bakterielle|Anaphylaktischer|Postoperative)\b/g, '').trim()}</span>
-                )}
-              </p>
-              {currentScenario?.id.startsWith('ai-') && !isGeneratingScenario && (
-                <span className="text-xs bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 px-2 py-1 rounded-full border border-purple-200">
-                  🤖 KI-generiert
-                </span>
-              )}
-              {isGeneratingScenario && (
-                <motion.div
-                  className="w-8 h-8 border border-slate-300 rounded flex items-center justify-center bg-white shadow-sm"
-                  animate={{ 
-                    rotate: [0, 360],
-                    scale: [1, 1.1, 1]
-                  }}
-                  transition={{ 
-                    rotate: {
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "linear"
-                    },
-                    scale: {
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }
-                  }}
-                >
-                  <Plus className="h-4 w-4 text-slate-600" strokeWidth={1.5} />
-                </motion.div>
-              )}
-            </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
+        >
+          <h1 className="text-4xl font-light text-gray-900 mb-4">
+            Medikamenten-Training
+          </h1>
+          <div className="flex items-center justify-center space-x-4 text-gray-600 font-light">
+            <span>Szenario {completedScenarios + 1}</span>
+            <span>•</span>
+            <span>Level {Math.floor(completedScenarios / 3) + 1}</span>
+            <span>•</span>
+            <span>{score} Punkte</span>
+            {currentScenario?.id.startsWith('ai-') && !isGeneratingScenario && (
+              <span className="text-xs bg-gray-50 text-gray-600 px-2 py-1 rounded-full border border-gray-100">
+                🤖 KI-generiert
+              </span>
+            )}
           </div>
-          <div className="text-right">
-            <div className="text-2xl font-bold text-slate-700">🏆 {score}</div>
-            <div className="text-sm text-gray-600">Punkte • Level {Math.floor(completedScenarios / 3) + 1}</div>
-          </div>
-        </div>
+          {!isGeneratingScenario && currentScenario && (
+            <p className="text-xl text-gray-700 font-light mt-4">
+              {currentScenario.title.replace(/\b(Hypertensive|Symptomatische|Supraventrikuläre|Hyperglykämische|Bakterielle|Anaphylaktischer|Postoperative)\b/g, '').trim()}
+            </p>
+          )}
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Monitor */}
-          <div className="lg:col-span-2">
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Activity className="h-5 w-5 mr-2" />
-                  {currentScenario.title}
+        {/* Main Content */}
+        <div className="space-y-8">
+          {/* Patient Monitor */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <Card className="border border-gray-200 hover:border-gray-300 transition-colors">
+              <CardHeader className="border-b border-gray-100">
+                <CardTitle className="flex items-center text-gray-900 font-medium">
+                  <Activity className="h-5 w-5 mr-3 text-gray-600" />
+                  Patientenmonitor
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-8">
                 {/* Vitaldaten */}
-                <div className="bg-black text-green-400 p-6 rounded-lg font-mono mb-6">
-                  <div className="grid grid-cols-3 gap-4 text-center mb-4">
-                    <div>
-                      <Heart className="h-5 w-5 mx-auto mb-2" />
-                      <div className="text-xs opacity-75">HERZFREQ.</div>
-                      <div className={`text-lg font-bold ${getVitalColor('heartRate', currentScenario.vitals.heartRate)}`}>
+                <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl font-mono mb-8">
+                  <div className="grid grid-cols-3 gap-6 text-center mb-6">
+                    <div className="bg-white rounded-lg p-4 border border-gray-200">
+                      <Heart className="h-5 w-5 mx-auto mb-2 text-gray-600" />
+                      <div className="text-xs text-gray-500 font-normal mb-1">Herzfrequenz</div>
+                      <div className={`text-lg font-semibold ${getVitalColor('heartRate', currentScenario.vitals.heartRate)}`}>
                         {currentScenario.vitals.heartRate} bpm
                       </div>
                     </div>
-                    <div>
-                      <Activity className="h-5 w-5 mx-auto mb-2" />
-                      <div className="text-xs opacity-75">BLUTDRUCK</div>
-                      <div className={`text-lg font-bold ${getVitalColor('bloodPressure', currentScenario.vitals.bloodPressure)}`}>
+                    <div className="bg-white rounded-lg p-4 border border-gray-200">
+                      <Activity className="h-5 w-5 mx-auto mb-2 text-gray-600" />
+                      <div className="text-xs text-gray-500 font-normal mb-1">Blutdruck</div>
+                      <div className={`text-lg font-semibold ${getVitalColor('bloodPressure', currentScenario.vitals.bloodPressure)}`}>
                         {currentScenario.vitals.bloodPressure}
                       </div>
                     </div>
-                    <div>
-                      <Thermometer className="h-5 w-5 mx-auto mb-2" />
-                      <div className="text-xs opacity-75">TEMPERATUR</div>
-                      <div className={`text-lg font-bold ${getVitalColor('temperature', currentScenario.vitals.temperature)}`}>
+                    <div className="bg-white rounded-lg p-4 border border-gray-200">
+                      <Thermometer className="h-5 w-5 mx-auto mb-2 text-gray-600" />
+                      <div className="text-xs text-gray-500 font-normal mb-1">Temperatur</div>
+                      <div className={`text-lg font-semibold ${getVitalColor('temperature', currentScenario.vitals.temperature)}`}>
                         {currentScenario.vitals.temperature}°C
                       </div>
                     </div>
                   </div>
                   
                   {/* Zusätzliche Vitalwerte */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-sm border-t border-green-800 pt-4">
-                    {currentScenario.vitals.oxygenSaturation && (
-                      <div>
-                        <div className="text-xs opacity-75">SpO2</div>
-                        <div className={`font-bold ${getVitalColor('oxygenSaturation', currentScenario.vitals.oxygenSaturation)}`}>
-                          {currentScenario.vitals.oxygenSaturation}%
+                  {(currentScenario.vitals.oxygenSaturation || currentScenario.vitals.bloodSugar || currentScenario.vitals.respiratoryRate || currentScenario.vitals.painLevel || currentScenario.vitals.consciousness) && (
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-sm border-t border-gray-200 pt-4">
+                      {currentScenario.vitals.oxygenSaturation && (
+                        <div className="bg-white rounded-lg p-3">
+                          <div className="text-xs text-gray-500 font-normal mb-1">SpO2</div>
+                          <div className={`font-semibold ${getVitalColor('oxygenSaturation', currentScenario.vitals.oxygenSaturation)}`}>
+                            {currentScenario.vitals.oxygenSaturation}%
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    {currentScenario.vitals.bloodSugar && (
-                      <div>
-                        <div className="text-xs opacity-75">BZ</div>
-                        <div className={`font-bold ${getVitalColor('bloodSugar', currentScenario.vitals.bloodSugar)}`}>
-                          {currentScenario.vitals.bloodSugar} mg/dl
+                      )}
+                      {currentScenario.vitals.bloodSugar && (
+                        <div className="bg-white rounded-lg p-3">
+                          <div className="text-xs text-gray-500 font-normal mb-1">Blutzucker</div>
+                          <div className={`font-semibold ${getVitalColor('bloodSugar', currentScenario.vitals.bloodSugar)}`}>
+                            {currentScenario.vitals.bloodSugar} mg/dl
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    {currentScenario.vitals.respiratoryRate && (
-                      <div>
-                        <div className="text-xs opacity-75">AF</div>
-                        <div className={`font-bold ${getVitalColor('respiratoryRate', currentScenario.vitals.respiratoryRate)}`}>
-                          {currentScenario.vitals.respiratoryRate}/min
+                      )}
+                      {currentScenario.vitals.respiratoryRate && (
+                        <div className="bg-white rounded-lg p-3">
+                          <div className="text-xs text-gray-500 font-normal mb-1">Atemfreq.</div>
+                          <div className={`font-semibold ${getVitalColor('respiratoryRate', currentScenario.vitals.respiratoryRate)}`}>
+                            {currentScenario.vitals.respiratoryRate}/min
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    {currentScenario.vitals.painLevel !== undefined && (
-                      <div>
-                        <div className="text-xs opacity-75">SCHMERZ</div>
-                        <div className={`font-bold ${getVitalColor('painLevel', currentScenario.vitals.painLevel)}`}>
-                          {currentScenario.vitals.painLevel}/10
+                      )}
+                      {currentScenario.vitals.painLevel !== undefined && (
+                        <div className="bg-white rounded-lg p-3">
+                          <div className="text-xs text-gray-500 font-normal mb-1">Schmerz</div>
+                          <div className={`font-semibold ${getVitalColor('painLevel', currentScenario.vitals.painLevel)}`}>
+                            {currentScenario.vitals.painLevel}/10
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    {currentScenario.vitals.consciousness && (
-                      <div className="col-span-2">
-                        <div className="text-xs opacity-75">BEWUSSTSEIN</div>
-                        <div className="font-bold text-green-400">
-                          {currentScenario.vitals.consciousness}
+                      )}
+                      {currentScenario.vitals.consciousness && (
+                        <div className="bg-white rounded-lg p-3 col-span-2">
+                          <div className="text-xs text-gray-500 font-normal mb-1">Bewusstsein</div>
+                          <div className="font-semibold text-gray-700">
+                            {currentScenario.vitals.consciousness}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Symptome */}
-                <div className="mb-6">
-                  <h4 className="font-medium text-gray-900 mb-3">💬 Patient berichtet:</h4>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    {currentScenario.symptoms.map((symptom, idx) => (
-                      <div key={idx} className="flex items-center mb-2 last:mb-0">
-                        <span className="w-2 h-2 bg-slate-600 rounded-full mr-3"></span>
-                        <span className="text-gray-700">"{symptom}"</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Drop Zone */}
-                <div className="mb-6">
-                  <h4 className="font-medium text-gray-900 mb-3">🎯 Medikament verabreichen:</h4>
-                  <div
-                    ref={dropZoneRef}
-                    className={`border-2 border-dashed p-8 rounded-lg text-center transition-all ${
-                      selectedMedication
-                        ? 'border-slate-600 bg-slate-50'
-                        : 'border-gray-300 bg-gray-50 hover:border-slate-400'
-                    }`}
-                    onDragOver={handleDragOver}
-                    onDrop={handleDrop}
-                  >
-                    {selectedMedication ? (
-                      <div className="flex items-center justify-center">
-                        <div className={`px-4 py-2 rounded-lg border ${
-                          availableMedications.find(m => m.id === selectedMedication)?.color
-                        }`}>
-                          {availableMedications.find(m => m.id === selectedMedication)?.name} {availableMedications.find(m => m.id === selectedMedication)?.dosage}
+                <div className="mb-8">
+                  <h4 className="font-medium text-gray-900 mb-4 flex items-center">
+                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                    Patient berichtet
+                  </h4>
+                  <div className="bg-white border border-gray-200 p-6 rounded-xl">
+                    <div className="space-y-3">
+                      {currentScenario.symptoms.map((symptom, idx) => (
+                        <div key={idx} className="flex items-start">
+                          <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                          <span className="text-gray-700 font-light italic">"{symptom}"</span>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="text-gray-500">
-                        Medikament hier hinziehen
-                      </div>
-                    )}
+                      ))}
+                    </div>
                   </div>
                 </div>
-
-                {/* Arzt-Entscheidung */}
-                <div className="mb-6">
-                  <h4 className="font-medium text-gray-900 mb-3">📞 Arzt informieren?</h4>
-                  <div className="flex space-x-4">
-                    <Button
-                      variant={doctorCalled === true ? "default" : "outline"}
-                      onClick={() => setDoctorCalled(true)}
-                      className={doctorCalled === true ? "bg-slate-800 text-white" : ""}
-                    >
-                      Ja, Arzt rufen
-                    </Button>
-                    <Button
-                      variant={doctorCalled === false ? "default" : "outline"}
-                      onClick={() => setDoctorCalled(false)}
-                      className={doctorCalled === false ? "bg-slate-800 text-white" : ""}
-                    >
-                      Nein, nicht nötig
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Submit Button */}
-                <Button
-                  onClick={handleSubmit}
-                  disabled={!selectedMedication || doctorCalled === null}
-                  className="w-full bg-slate-800 hover:bg-slate-900 text-white"
-                >
-                  Entscheidung bestätigen
-                </Button>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
 
-          {/* Medikamente Sidebar */}
-          <div>
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center text-slate-800">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-                    <span className="text-white text-sm font-bold">💊</span>
-                  </div>
-                  <span className="text-base font-semibold">Verfügbare Medikamente</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isGeneratingScenario ? (
-                  <div className="flex flex-col items-center justify-center py-8 space-y-4">
-                    <motion.div
-                      className="w-16 h-16 border border-slate-300 rounded-lg flex items-center justify-center bg-white shadow-sm"
-                      animate={{ 
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 5, -5, 0]
-                      }}
-                      transition={{ 
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      <Plus className="h-8 w-8 text-slate-600" strokeWidth={1.5} />
-                    </motion.div>
-                    <div className="text-center">
-                      <p className="text-sm font-medium text-slate-700">Erstelle neues Szenario</p>
-                      <p className="text-xs text-slate-500">KI wählt Medikamente aus...</p>
+          {/* Medication Selection */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+          >
+            {/* Drop Zone */}
+            <div>
+              <h3 className="text-xl font-light text-gray-900 mb-6">
+                Medikament auswählen
+              </h3>
+              <div
+                ref={dropZoneRef}
+                className={`border-2 border-dashed p-8 rounded-xl text-center transition-all min-h-[120px] flex items-center justify-center ${
+                  selectedMedication
+                    ? 'border-gray-400 bg-gray-50'
+                    : 'border-gray-300 bg-gray-50/50 hover:border-gray-400 hover:bg-gray-50'
+                }`}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+              >
+                {selectedMedication ? (
+                  <div className="text-center">
+                    <div className="bg-white border border-gray-200 px-4 py-3 rounded-lg shadow-sm">
+                      <div className="font-medium text-gray-900">
+                        {availableMedications.find(m => m.id === selectedMedication)?.name}
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        {availableMedications.find(m => m.id === selectedMedication)?.dosage}
+                      </div>
                     </div>
                   </div>
                 ) : (
-                  <div className="space-y-3">
-                    {availableMedications.map((med) => (
-                      <motion.div
-                        key={med.id}
-                        className={`p-3 rounded-xl border cursor-move transition-all hover:shadow-md hover:-translate-y-0.5 ${med.color}`}
-                        draggable
-                        onDragStart={() => handleDragStart(med.id)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: Math.random() * 0.3 }}
-                      >
-                        <div className="font-semibold text-sm">{med.name}</div>
-                        <div className="text-xs opacity-75 font-medium">{med.dosage}</div>
-                        <div className="text-xs opacity-60 mt-1">
-                          <span className="font-medium">{med.activeIngredient}</span> • {med.drugClass}
-                        </div>
-                        <div className="text-xs opacity-50 mt-0.5">{med.indication}</div>
-                      </motion.div>
-                    ))}
+                  <div className="text-gray-500 font-light">
+                    Medikament hier hinziehen
                   </div>
                 )}
+              </div>
+            </div>
+
+            {/* Available Medications */}
+            <div>
+              <h3 className="text-xl font-light text-gray-900 mb-6">
+                Verfügbare Medikamente
+              </h3>
+              <div className="space-y-3 max-h-80 overflow-y-auto">
+                {availableMedications.map((med) => (
+                  <motion.div
+                    key={med.id}
+                    className="p-4 rounded-xl border border-gray-200 cursor-move transition-all hover:shadow-md hover:-translate-y-0.5 bg-white"
+                    draggable
+                    onDragStart={() => handleDragStart(med.id)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: Math.random() * 0.3 }}
+                  >
+                    <div className="font-medium text-gray-900 text-sm">{med.name}</div>
+                    <div className="text-xs text-gray-600 font-light">{med.dosage}</div>
+                    <div className="text-xs text-gray-500 mt-2 space-y-1">
+                      <div><span className="font-medium">Wirkstoff:</span> {med.activeIngredient}</div>
+                      <div><span className="font-medium">Gruppe:</span> {med.drugClass}</div>
+                      <div><span className="font-medium">Indikation:</span> {med.indication}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Doctor Decision */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <Card className="border border-gray-200">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-light text-gray-900 mb-6">
+                  Arzt informieren?
+                </h3>
+                <div className="flex space-x-4">
+                  <Button
+                    variant={doctorCalled === true ? "default" : "outline"}
+                    onClick={() => setDoctorCalled(true)}
+                    className={`flex-1 transition-all ${
+                      doctorCalled === true 
+                        ? "bg-gray-900 hover:bg-gray-800 text-white"
+                        : "border-gray-300 hover:border-gray-400 text-gray-700"
+                    }`}
+                  >
+                    Ja, Arzt rufen
+                  </Button>
+                  <Button
+                    variant={doctorCalled === false ? "default" : "outline"}
+                    onClick={() => setDoctorCalled(false)}
+                    className={`flex-1 transition-all ${
+                      doctorCalled === false 
+                        ? "bg-gray-900 hover:bg-gray-800 text-white"
+                        : "border-gray-300 hover:border-gray-400 text-gray-700"
+                    }`}
+                  >
+                    Nein, nicht nötig
+                  </Button>
+                </div>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
+
+          {/* Submit Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-center"
+          >
+            <Button
+              onClick={handleSubmit}
+              disabled={!selectedMedication || doctorCalled === null}
+              className="px-8 py-3 bg-gray-900 hover:bg-gray-800 text-white font-light disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              Entscheidung bestätigen
+            </Button>
+          </motion.div>
         </div>
 
         {/* Result Modal */}
