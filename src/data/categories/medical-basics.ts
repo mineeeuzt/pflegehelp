@@ -561,6 +561,204 @@ export const medicalBasicsCategories: Category[] = [
                 parentId: 'respiratory-physiology'
               }
             ]
+          },
+          {
+            id: 'lung-function',
+            name: 'Lungenfunktion',
+            description: 'Atemvolumina, Kapazitäten und Funktionsparameter',
+            icon: '📏',
+            difficulty: 'hard',
+            parentId: 'respiratory-system',
+            children: [
+              {
+                id: 'lung-volumes',
+                name: 'Atemvolumina (AZV, IRV, ERV, RV)',
+                description: 'Atemzugvolumen, Inspiratorisches/Exspiratorisches Reservevolumen, Residualvolumen',
+                icon: '📊',
+                difficulty: 'medium',
+                parentId: 'lung-function'
+              },
+              {
+                id: 'lung-capacities',
+                name: 'Lungenkapazitäten (TLC, FRC, VC, IC)',
+                description: 'Totale Lungenkapazität, Funktionelle Residualkapazität, Vitalkapazität, Inspiratorische Kapazität',
+                icon: '📈',
+                difficulty: 'medium',
+                parentId: 'lung-function'
+              },
+              {
+                id: 'compliance-resistance',
+                name: 'Compliance & Resistance',
+                description: 'Lungendehnbarkeit und Atemwegswiderstand',
+                icon: '⚖️',
+                difficulty: 'hard',
+                parentId: 'lung-function'
+              },
+              {
+                id: 'fev1-fvc',
+                name: 'FEV1/FVC (Tiffeneau-Index)',
+                description: 'Forciertes exspiratorisches Volumen in 1 Sekunde zu forcierter Vitalkapazität',
+                icon: '⏱️',
+                difficulty: 'medium',
+                parentId: 'lung-function'
+              },
+              {
+                id: 'peak-flow',
+                name: 'Peak Flow',
+                description: 'Maximaler exspiratorischer Fluss',
+                icon: '🌪️',
+                difficulty: 'easy',
+                parentId: 'lung-function'
+              },
+              {
+                id: 'dlco',
+                name: 'Diffusionskapazität (DLCO)',
+                description: 'Kohlenmonoxid-Diffusionskapazität',
+                icon: '🔄',
+                difficulty: 'hard',
+                parentId: 'lung-function'
+              },
+              {
+                id: 'mef-flows',
+                name: 'MEF25/50/75 (Maximale exspiratorische Flüsse)',
+                description: 'Maximale exspiratorische Flüsse bei 25%, 50% und 75% der FVC',
+                icon: '💨',
+                difficulty: 'hard',
+                parentId: 'lung-function'
+              }
+            ]
+          },
+          {
+            id: 'gas-exchange-transport',
+            name: 'Gasaustausch & Transport',
+            description: 'Sauerstoff- und Kohlendioxidtransport im Blut',
+            icon: '🔄',
+            difficulty: 'hard',
+            parentId: 'respiratory-system',
+            children: [
+              {
+                id: 'o2-hemoglobin-binding',
+                name: 'O2-Bindung an Hämoglobin',
+                description: 'Sauerstoffbindung und -transport durch Hämoglobin',
+                icon: '🔴',
+                difficulty: 'medium',
+                parentId: 'gas-exchange-transport'
+              },
+              {
+                id: 'o2-saturation-curve',
+                name: 'O2-Sättigungskurve (Rechts-/Linksverschiebung)',
+                description: 'Sauerstoff-Dissoziationskurve und ihre Verschiebungen',
+                icon: '📈',
+                difficulty: 'hard',
+                parentId: 'gas-exchange-transport'
+              },
+              {
+                id: 'co2-transport',
+                name: 'CO2-Transport (HCO3-, Carbamino)',
+                description: 'Kohlendioxidtransport als Bikarbonat und Carbaminoverbindungen',
+                icon: '🫧',
+                difficulty: 'hard',
+                parentId: 'gas-exchange-transport'
+              },
+              {
+                id: 'haldane-bohr-effect',
+                name: 'Haldane-/Bohr-Effekt',
+                description: 'Physiologische Effekte bei Gasaustausch',
+                icon: '⚗️',
+                difficulty: 'hard',
+                parentId: 'gas-exchange-transport'
+              },
+              {
+                id: 'hyperoxia-hypoxia',
+                name: 'Hyperoxie/Hypoxie',
+                description: 'Sauerstoffüberschuss und -mangel',
+                icon: '📊',
+                difficulty: 'medium',
+                parentId: 'gas-exchange-transport'
+              },
+              {
+                id: 'hypercapnia-hypocapnia',
+                name: 'Hyperkapnie/Hypokapnie',
+                description: 'Kohlendioxidüberschuss und -mangel',
+                icon: '💨',
+                difficulty: 'medium',
+                parentId: 'gas-exchange-transport'
+              },
+              {
+                id: 'methemoglobin-carboxyhemoglobin',
+                name: 'Methämoglobin/Carboxyhämoglobin',
+                description: 'Pathologische Hämoglobinformen',
+                icon: '⚠️',
+                difficulty: 'hard',
+                parentId: 'gas-exchange-transport'
+              }
+            ]
+          },
+          {
+            id: 'respiratory-control',
+            name: 'Atemregulation',
+            description: 'Zentrale und periphere Atemkontrolle',
+            icon: '🧠',
+            difficulty: 'hard',
+            parentId: 'respiratory-system',
+            children: [
+              {
+                id: 'respiratory-centers',
+                name: 'Atemzentrum (Medulla oblongata, Pons)',
+                description: 'Zentrale Atemregulation im Hirnstamm',
+                icon: '🧠',
+                difficulty: 'hard',
+                parentId: 'respiratory-control'
+              },
+              {
+                id: 'chemoreceptors',
+                name: 'Chemoreceptoren (zentral/peripher)',
+                description: 'Zentrale und periphere Chemorezeptoren',
+                icon: '🔬',
+                difficulty: 'hard',
+                parentId: 'respiratory-control'
+              },
+              {
+                id: 'co2-o2-control',
+                name: 'CO2-/O2-gesteuerte Atmung',
+                description: 'Atemregulation durch CO2 und O2',
+                icon: '⚖️',
+                difficulty: 'medium',
+                parentId: 'respiratory-control'
+              },
+              {
+                id: 'ph-regulation',
+                name: 'pH-Regulation',
+                description: 'Säure-Basen-Regulation durch Atmung',
+                icon: '🧪',
+                difficulty: 'hard',
+                parentId: 'respiratory-control'
+              },
+              {
+                id: 'voluntary-control',
+                name: 'Willkürliche Atemkontrolle',
+                description: 'Bewusste Atemsteuerung',
+                icon: '🧘',
+                difficulty: 'easy',
+                parentId: 'respiratory-control'
+              },
+              {
+                id: 'breathing-disorders',
+                name: 'Atemrhythmus-Störungen',
+                description: 'Pathologische Atemmuster',
+                icon: '💔',
+                difficulty: 'medium',
+                parentId: 'respiratory-control'
+              },
+              {
+                id: 'hering-breuer-reflex',
+                name: 'Hering-Breuer-Reflex',
+                description: 'Selbstregulatorischer Atemreflex',
+                icon: '🔄',
+                difficulty: 'medium',
+                parentId: 'respiratory-control'
+              }
+            ]
           }
         ]
       },
