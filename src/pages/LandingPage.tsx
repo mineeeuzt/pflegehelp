@@ -9,30 +9,30 @@ const LandingPage = () => {
     {
       icon: <Brain className="h-8 w-8" />,
       title: 'Fallbeispiel Generator',
-      description: 'Erstelle realistische Fallbeispiele für verschiedene Pflegebereiche mit KI-Unterstützung.'
+      description: 'Erstelle prüfungsrelevante Fallbeispiele nach Pflegepädagogik-Standards für alle Ausbildungsjahre.'
     },
     {
       icon: <BookOpen className="h-8 w-8" />,
       title: 'Pflegeplanung Workflow',
-      description: 'Systematische Erstellung von Pflegeplänen nach NANDA-I Klassifikation.'
+      description: 'Systematische Erstellung von NANDA-I konformen Pflegeplänen mit SMART-Zielen und Evaluationskriterien.'
     },
     {
       icon: <Target className="h-8 w-8" />,
-      title: 'SMART-Ziel Assistent',
-      description: 'Formuliere präzise Pflegeziele nach SMART-Kriterien.'
+      title: 'Medikamenten-Training',
+      description: 'Interaktives Drag & Drop Spiel mit KI-generierten Szenarien für über 24 verschiedene Medikamente.'
     },
     {
       icon: <FileText className="h-8 w-8" />,
-      title: 'PESR Generator',
-      description: 'Erstelle strukturierte PESR-Pflegediagnosen professionell.'
+      title: 'PESR-Diagnosen & SMART-Ziele',
+      description: 'Professionelle Pflegediagnosen und präzise Pflegeziele für die generalistische Pflegeausbildung.'
     }
   ]
 
   const benefits = [
-    'KI-gestützte Lernhilfen',
-    'Fachlich korrekte Inhalte',
-    'Interaktive Workflows',
-    'Sofortiges Feedback',
+    'KI-generierte Fallbeispiele',
+    'NANDA-I konforme Pflegepläne',
+    'Interaktives Medikamenten-Training',
+    'PESR-Diagnosen & SMART-Ziele',
     'Mobile Nutzung',
     'Regelmäßige Updates'
   ]
@@ -49,9 +49,9 @@ const LandingPage = () => {
               transition={{ duration: 0.6 }}
               className="text-4xl md:text-6xl text-gray-900 mb-6"
             >
-              <span className="font-light">KI-gestützte</span>{' '}
+              <span className="font-light">Dein intelligenter</span>{' '}
               <span className="text-gray-900">
-                Pflegeausbildung
+                Lernassistent für die Pflege
               </span>
             </motion.h1>
             
@@ -61,8 +61,7 @@ const LandingPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl text-gray-600 font-light mb-8 max-w-3xl mx-auto"
             >
-              Verbessern Sie Ihre Pflegefähigkeiten mit modernster KI-Technologie. 
-              Erstellen Sie Fallbeispiele, entwickeln Sie Pflegepläne und perfektionieren Sie Ihre Dokumentation.
+              Trainiere mit KI-generierten Fallbeispielen, erstelle NANDA-I konforme Pflegepläne und übe Medikamenten-Szenarien mit unserem interaktiven Drag & Drop Spiel.
             </motion.p>
             
             <motion.div
@@ -95,7 +94,7 @@ const LandingPage = () => {
               Professionelle Lerntools für die Pflege
             </h2>
             <p className="text-xl text-gray-600 font-light max-w-2xl mx-auto">
-              Nutzen Sie KI-gestützte Tools, um Ihre Pflegekompetenzen zu erweitern und praxisnahe Fälle zu bearbeiten.
+              Nutze interaktive KI-Tools für praxisnahe Fallbeispiele, professionelle Pflegeplanung und spielerisches Medikamenten-Training.
             </p>
           </div>
           
