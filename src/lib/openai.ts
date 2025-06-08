@@ -573,8 +573,13 @@ export async function generateAIResponse(
   prompt: string,
   userInput: string
 ): Promise<string> {
-  // Einfache Model-Optimierung: GPT-3.5 für kurze Aufgaben
-  const useGPT35 = userInput.length < 100 && prompt.includes('pesr')
+  // Erweiterte Model-Optimierung: GPT-3.5 für einfache Aufgaben
+  const useGPT35 = (
+    (userInput.length < 100 && prompt.includes('pesr')) ||
+    prompt.includes('smartZiel') ||
+    (userInput.length < 50 && !prompt.includes('fallbeispielProfi')) ||
+    prompt.includes('medikamentenszenario')
+  )
   const model = useGPT35 ? 'gpt-3.5-turbo' : 'gpt-4'
   
   console.log(`Using ${model} for AI request`)
@@ -592,7 +597,7 @@ export async function generateAIResponse(
           content: userInput,
         },
       ],
-      max_tokens: 2000,
+      max_tokens: useGPT35 ? 1000 : 2000, // Weniger Token für einfache Aufgaben
       temperature: 0.7,
     })
 
