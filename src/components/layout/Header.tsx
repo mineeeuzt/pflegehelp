@@ -20,6 +20,7 @@ const Header = () => {
         { name: 'Dashboard', href: '/dashboard' },
         { name: 'Fallbeispiel Generator', href: '/fallbeispiel-generator' },
         { name: 'Medikamenten-Training', href: '/medikamenten-training' },
+        { name: 'Anamnese-Simulator', href: '/anamnese-simulator' },
       ]
     : []
 
@@ -92,7 +93,7 @@ const Header = () => {
                   </Button>
                 </Link>
                 <Link to="/register">
-                  <Button size="sm" className="bg-slate-800 hover:bg-slate-900 text-white">
+                  <Button size="sm" className="bg-primary-600 hover:bg-primary-700 text-white">
                     Registrieren
                   </Button>
                 </Link>

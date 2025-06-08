@@ -23,8 +23,8 @@ const LandingPage = () => {
     },
     {
       icon: <FileText className="h-8 w-8" />,
-      title: 'PESR-Diagnosen & SMART-Ziele',
-      description: 'Professionelle Pflegediagnosen und präzise Pflegeziele für die generalistische Pflegeausbildung.'
+      title: 'Anamnese-Simulator',
+      description: 'Interaktive Patientengespräche üben mit realistischen Szenarien und direktem Feedback.'
     }
   ]
 
@@ -32,7 +32,7 @@ const LandingPage = () => {
     'KI-generierte Fallbeispiele',
     'NANDA-I konforme Pflegepläne',
     'Interaktives Medikamenten-Training',
-    'PESR-Diagnosen & SMART-Ziele',
+    'Anamnese-Simulator',
     'Mobile Nutzung',
     'Regelmäßige Updates'
   ]

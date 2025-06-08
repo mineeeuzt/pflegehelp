@@ -639,12 +639,12 @@ export async function generateAIResponse(
     
     return response
   } catch (error) {
-    console.error('OpenAI API Error:', error)
+    console.error('AI Generation Error:', error)
     throw new Error('Fehler bei der KI-Generierung. Bitte versuchen Sie es erneut.')
   }
 }
 
-// Spezielle Funktion nur für Medikamenten-Szenarien mit eigenem API-Key
+// Spezielle Funktion nur für Medikamenten-Szenarien
 export async function generateMedicationScenario(
   prompt: string,
   userInput: string
@@ -680,7 +680,7 @@ export async function generateMedicationScenario(
 
     return completion.choices[0]?.message?.content || 'Keine Antwort erhalten.'
   } catch (error) {
-    console.error('OpenAI API Error:', error)
+    console.error('AI Generation Error:', error)
     throw new Error('Fehler bei der KI-Generierung. Bitte versuchen Sie es erneut.')
   }
 }
