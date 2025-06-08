@@ -629,6 +629,394 @@ export const pathologyCategories: Category[] = [
             ]
           }
         ]
+      },
+      {
+        id: 'endocrine-diseases',
+        name: 'ENDOKRINE ERKRANKUNGEN',
+        description: 'Hormonelle Störungen und Stoffwechselerkrankungen',
+        icon: '🧪',
+        difficulty: 'hard',
+        parentId: 'pathology',
+        children: [
+          {
+            id: 'diabetes-mellitus',
+            name: 'Diabetes mellitus',
+            description: 'Störungen des Glukosestoffwechsels',
+            icon: '🍯',
+            difficulty: 'hard',
+            parentId: 'endocrine-diseases',
+            children: [
+              {
+                id: 'type-1-diabetes',
+                name: 'Typ-1-Diabetes (Autoimmun)',
+                description: 'Insulinmangel durch β-Zell-Zerstörung',
+                icon: '🥇',
+                difficulty: 'hard',
+                parentId: 'diabetes-mellitus'
+              },
+              {
+                id: 'type-2-diabetes',
+                name: 'Typ-2-Diabetes (Insulinresistenz)',
+                description: 'Relative Insulinwirkungsstörung',
+                icon: '🥈',
+                difficulty: 'medium',
+                parentId: 'diabetes-mellitus'
+              },
+              {
+                id: 'gestational-diabetes',
+                name: 'Gestationsdiabetes',
+                description: 'Schwangerschaftsdiabetes',
+                icon: '🤰',
+                difficulty: 'medium',
+                parentId: 'diabetes-mellitus'
+              },
+              {
+                id: 'diabetes-complications',
+                name: 'Diabetische Komplikationen',
+                description: 'Makro- und mikrovaskuläre Folgeschäden',
+                icon: '⚠️',
+                difficulty: 'hard',
+                parentId: 'diabetes-mellitus'
+              }
+            ]
+          },
+          {
+            id: 'thyroid-diseases',
+            name: 'Schilddrüsenerkrankungen',
+            description: 'Hyper- und Hypothyreose',
+            icon: '🦋',
+            difficulty: 'medium',
+            parentId: 'endocrine-diseases',
+            children: [
+              {
+                id: 'hyperthyroidism',
+                name: 'Hyperthyreose (Überfunktion)',
+                description: 'Erhöhte Schilddrüsenhormonproduktion',
+                icon: '⚡',
+                difficulty: 'medium',
+                parentId: 'thyroid-diseases'
+              },
+              {
+                id: 'hypothyroidism',
+                name: 'Hypothyreose (Unterfunktion)',
+                description: 'Verminderte Schilddrüsenhormonproduktion',
+                icon: '🐌',
+                difficulty: 'medium',
+                parentId: 'thyroid-diseases'
+              },
+              {
+                id: 'thyroid-nodules',
+                name: 'Schilddrüsenknoten & -karzinom',
+                description: 'Benigne und maligne Schilddrüsenveränderungen',
+                icon: '🔴',
+                difficulty: 'hard',
+                parentId: 'thyroid-diseases'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'gastrointestinal-diseases',
+        name: 'MAGEN-DARM-ERKRANKUNGEN',
+        description: 'Erkrankungen des Verdauungssystems',
+        icon: '🫄',
+        difficulty: 'medium',
+        parentId: 'pathology',
+        children: [
+          {
+            id: 'upper-gi-diseases',
+            name: 'Oberer Gastrointestinaltrakt',
+            description: 'Erkrankungen von Ösophagus bis Duodenum',
+            icon: '🫃',
+            difficulty: 'medium',
+            parentId: 'gastrointestinal-diseases',
+            children: [
+              {
+                id: 'peptic-ulcer',
+                name: 'Peptisches Ulkus (Magen-/Duodenalulkus)',
+                description: 'H. pylori und NSAR-induzierte Ulzera',
+                icon: '🕳️',
+                difficulty: 'medium',
+                parentId: 'upper-gi-diseases'
+              },
+              {
+                id: 'gerd',
+                name: 'Gastroösophageale Refluxkrankheit (GERD)',
+                description: 'Sodbrennen und Refluxösophagitis',
+                icon: '🔥',
+                difficulty: 'medium',
+                parentId: 'upper-gi-diseases'
+              },
+              {
+                id: 'gastritis',
+                name: 'Gastritis (akut/chronisch)',
+                description: 'Magenschleimhautentzündung',
+                icon: '🔴',
+                difficulty: 'medium',
+                parentId: 'upper-gi-diseases'
+              }
+            ]
+          },
+          {
+            id: 'lower-gi-diseases',
+            name: 'Unterer Gastrointestinaltrakt',
+            description: 'Dünndarm- und Dickdarmerkrankungen',
+            icon: '🌀',
+            difficulty: 'medium',
+            parentId: 'gastrointestinal-diseases',
+            children: [
+              {
+                id: 'inflammatory-bowel-disease',
+                name: 'Chronisch-entzündliche Darmerkrankungen',
+                description: 'Morbus Crohn und Colitis ulcerosa',
+                icon: '🔥',
+                difficulty: 'hard',
+                parentId: 'lower-gi-diseases'
+              },
+              {
+                id: 'irritable-bowel-syndrome',
+                name: 'Reizdarmsyndrom (IBS)',
+                description: 'Funktionelle Darmstörung',
+                icon: '⚡',
+                difficulty: 'medium',
+                parentId: 'lower-gi-diseases'
+              },
+              {
+                id: 'colorectal-cancer',
+                name: 'Kolorektales Karzinom',
+                description: 'Darmkrebs und Polypen',
+                icon: '🎯',
+                difficulty: 'hard',
+                parentId: 'lower-gi-diseases'
+              }
+            ]
+          },
+          {
+            id: 'liver-diseases',
+            name: 'Lebererkrankungen',
+            description: 'Hepatitiden und Leberzirrhose',
+            icon: '🍯',
+            difficulty: 'hard',
+            parentId: 'gastrointestinal-diseases',
+            children: [
+              {
+                id: 'viral-hepatitis',
+                name: 'Virale Hepatitis (A, B, C, D, E)',
+                description: 'Virusbedingte Leberentzündung',
+                icon: '🦠',
+                difficulty: 'hard',
+                parentId: 'liver-diseases'
+              },
+              {
+                id: 'liver-cirrhosis',
+                name: 'Leberzirrhose',
+                description: 'Fibrotische Leberumbau',
+                icon: '🕸️',
+                difficulty: 'hard',
+                parentId: 'liver-diseases'
+              },
+              {
+                id: 'fatty-liver',
+                name: 'Fettlebererkrankung (NAFLD/NASH)',
+                description: 'Nicht-alkoholische Fettleber',
+                icon: '🧈',
+                difficulty: 'medium',
+                parentId: 'liver-diseases'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'musculoskeletal-diseases',
+        name: 'MUSKULOSKELETTALE ERKRANKUNGEN',
+        description: 'Erkrankungen von Knochen, Muskeln und Gelenken',
+        icon: '🦴',
+        difficulty: 'medium',
+        parentId: 'pathology',
+        children: [
+          {
+            id: 'bone-diseases',
+            name: 'Knochenerkrankungen',
+            description: 'Osteoporose und Knochenmetabolismus',
+            icon: '🦴',
+            difficulty: 'medium',
+            parentId: 'musculoskeletal-diseases',
+            children: [
+              {
+                id: 'osteoporosis',
+                name: 'Osteoporose',
+                description: 'Systemische Skeletterkrankung',
+                icon: '🕳️',
+                difficulty: 'medium',
+                parentId: 'bone-diseases'
+              },
+              {
+                id: 'fractures',
+                name: 'Frakturen & Frakturheilung',
+                description: 'Knochenbrüche und Heilungsstörungen',
+                icon: '💥',
+                difficulty: 'medium',
+                parentId: 'bone-diseases'
+              },
+              {
+                id: 'osteomyelitis',
+                name: 'Osteomyelitis',
+                description: 'Knochenmarksentzündung',
+                icon: '🔥',
+                difficulty: 'hard',
+                parentId: 'bone-diseases'
+              }
+            ]
+          },
+          {
+            id: 'joint-diseases',
+            name: 'Gelenkerkrankungen',
+            description: 'Arthrose, Arthritis und Gelenkpathologie',
+            icon: '🔗',
+            difficulty: 'medium',
+            parentId: 'musculoskeletal-diseases',
+            children: [
+              {
+                id: 'osteoarthritis',
+                name: 'Arthrose (degenerativ)',
+                description: 'Gelenkverschleiß und Knorpelschäden',
+                icon: '⚙️',
+                difficulty: 'medium',
+                parentId: 'joint-diseases'
+              },
+              {
+                id: 'rheumatoid-arthritis',
+                name: 'Rheumatoide Arthritis',
+                description: 'Autoimmune Gelenkentzündung',
+                icon: '🔥',
+                difficulty: 'hard',
+                parentId: 'joint-diseases'
+              },
+              {
+                id: 'gout',
+                name: 'Gicht (Hyperurikämie)',
+                description: 'Harnsäure-Ablagerungen in Gelenken',
+                icon: '💎',
+                difficulty: 'medium',
+                parentId: 'joint-diseases'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'infectious-diseases',
+        name: 'INFEKTIONSKRANKHEITEN',
+        description: 'Bakterielle, virale und andere Infektionen',
+        icon: '🦠',
+        difficulty: 'hard',
+        parentId: 'pathology',
+        children: [
+          {
+            id: 'bacterial-infections',
+            name: 'Bakterielle Infektionen',
+            description: 'Systemische und lokale bakterielle Erkrankungen',
+            icon: '🦠',
+            difficulty: 'medium',
+            parentId: 'infectious-diseases',
+            children: [
+              {
+                id: 'sepsis',
+                name: 'Sepsis & septischer Schock',
+                description: 'Systemische Entzündungsreaktion',
+                icon: '🚨',
+                difficulty: 'hard',
+                parentId: 'bacterial-infections'
+              },
+              {
+                id: 'pneumonia-bacterial',
+                name: 'Bakterielle Pneumonie',
+                description: 'Lungenentzündung durch Bakterien',
+                icon: '🫁',
+                difficulty: 'medium',
+                parentId: 'bacterial-infections'
+              },
+              {
+                id: 'uti',
+                name: 'Harnwegsinfektionen',
+                description: 'Zystitis und Pyelonephritis',
+                icon: '🫘',
+                difficulty: 'medium',
+                parentId: 'bacterial-infections'
+              }
+            ]
+          },
+          {
+            id: 'viral-infections',
+            name: 'Virale Infektionen',
+            description: 'Systemische und organbezogene Viruserkrankungen',
+            icon: '🧬',
+            difficulty: 'medium',
+            parentId: 'infectious-diseases',
+            children: [
+              {
+                id: 'influenza',
+                name: 'Influenza & respiratorische Viren',
+                description: 'Grippe und Erkältungsviren',
+                icon: '🤧',
+                difficulty: 'medium',
+                parentId: 'viral-infections'
+              },
+              {
+                id: 'covid-19',
+                name: 'COVID-19 (SARS-CoV-2)',
+                description: 'Coronavirus-Erkrankung',
+                icon: '😷',
+                difficulty: 'medium',
+                parentId: 'viral-infections'
+              },
+              {
+                id: 'herpes-viruses',
+                name: 'Herpesviren (HSV, VZV, EBV, CMV)',
+                description: 'Herpesviridae-Familie',
+                icon: '🔄',
+                difficulty: 'hard',
+                parentId: 'viral-infections'
+              }
+            ]
+          },
+          {
+            id: 'healthcare-associated-infections',
+            name: 'Nosokomiale Infektionen',
+            description: 'Krankenhaus-erworbene Infektionen',
+            icon: '🏥',
+            difficulty: 'hard',
+            parentId: 'infectious-diseases',
+            children: [
+              {
+                id: 'mrsa',
+                name: 'MRSA & resistente Erreger',
+                description: 'Multiresistente Bakterien',
+                icon: '🛡️',
+                difficulty: 'hard',
+                parentId: 'healthcare-associated-infections'
+              },
+              {
+                id: 'cdi',
+                name: 'Clostridioides difficile',
+                description: 'Antibiotika-assoziierte Kolitis',
+                icon: '⚠️',
+                difficulty: 'hard',
+                parentId: 'healthcare-associated-infections'
+              },
+              {
+                id: 'catheter-infections',
+                name: 'Katheter-assoziierte Infektionen',
+                description: 'Gefäß- und Harnkatheter-Infektionen',
+                icon: '🔌',
+                difficulty: 'medium',
+                parentId: 'healthcare-associated-infections'
+              }
+            ]
+          }
+        ]
       }
     ]
   }

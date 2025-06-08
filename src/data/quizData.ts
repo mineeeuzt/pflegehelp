@@ -1,13 +1,128 @@
 import { QuizCategory, QuizQuestion, Flashcard } from '../types/quiz'
 
 export const quizCategories: QuizCategory[] = [
+  // ANATOMIE & PHYSIOLOGIE
   {
-    id: 'anatomie',
-    name: 'Anatomie & Physiologie',
-    description: 'Grundlagen des menschlichen Körpers',
+    id: 'cardiovascular-system',
+    name: 'Herz-Kreislauf-System',
+    description: 'Herz, Blutkreislauf und kardiovaskuläre Physiologie',
     color: 'bg-blue-500',
     icon: '🫀'
   },
+  {
+    id: 'respiratory-system',
+    name: 'Atmungssystem',
+    description: 'Anatomie und Physiologie der Atmung',
+    color: 'bg-blue-400',
+    icon: '🫁'
+  },
+  {
+    id: 'nervous-system',
+    name: 'Nervensystem',
+    description: 'Zentrales und peripheres Nervensystem',
+    color: 'bg-blue-600',
+    icon: '🧠'
+  },
+  {
+    id: 'musculoskeletal-system',
+    name: 'Bewegungsapparat',
+    description: 'Knochen, Gelenke, Muskeln und Bewegung',
+    color: 'bg-blue-300',
+    icon: '🦴'
+  },
+  {
+    id: 'renal-system',
+    name: 'Nieren & Harnwege',
+    description: 'Nierenfunktion und Harnwege',
+    color: 'bg-blue-700',
+    icon: '🫘'
+  },
+  {
+    id: 'blood-immune-system',
+    name: 'Blut & Immunsystem',
+    description: 'Blutsystem und Immunabwehr',
+    color: 'bg-blue-800',
+    icon: '🩸'
+  },
+  {
+    id: 'metabolism-hormones',
+    name: 'Stoffwechsel & Hormone',
+    description: 'Stoffwechselprozesse und Hormonregulation',
+    color: 'bg-blue-900',
+    icon: '🔄'
+  },
+  {
+    id: 'digestive-system',
+    name: 'Verdauungssystem',
+    description: 'Gastrointestinaltrakt und Verdauungsorgane',
+    color: 'bg-blue-200',
+    icon: '🍯'
+  },
+  {
+    id: 'integumentary-system',
+    name: 'Haut & Sinnesorgane',
+    description: 'Haut, Sinnesorgane und Wahrnehmung',
+    color: 'bg-blue-100',
+    icon: '👁️'
+  },
+  // KRANKHEITSLEHRE
+  {
+    id: 'cardiovascular-diseases',
+    name: 'Herz-Kreislauf-Erkrankungen',
+    description: 'Kardiovaskuläre Pathologie',
+    color: 'bg-red-500',
+    icon: '💔'
+  },
+  {
+    id: 'respiratory-diseases',
+    name: 'Atemwegserkrankungen',
+    description: 'Erkrankungen der Atemwege und Lunge',
+    color: 'bg-red-400',
+    icon: '🫁'
+  },
+  {
+    id: 'neurological-diseases',
+    name: 'Neurologische Erkrankungen',
+    description: 'Erkrankungen des Nervensystems',
+    color: 'bg-red-600',
+    icon: '🧠'
+  },
+  {
+    id: 'renal-diseases',
+    name: 'Nierenerkrankungen',
+    description: 'Erkrankungen der Nieren und Harnwege',
+    color: 'bg-red-700',
+    icon: '🫘'
+  },
+  {
+    id: 'endocrine-diseases',
+    name: 'Endokrine Erkrankungen',
+    description: 'Hormonelle Störungen und Stoffwechselerkrankungen',
+    color: 'bg-red-800',
+    icon: '🧪'
+  },
+  {
+    id: 'gastrointestinal-diseases',
+    name: 'Magen-Darm-Erkrankungen',
+    description: 'Erkrankungen des Verdauungssystems',
+    color: 'bg-red-300',
+    icon: '🫄'
+  },
+  {
+    id: 'musculoskeletal-diseases',
+    name: 'Muskuloskelettale Erkrankungen',
+    description: 'Erkrankungen von Knochen, Muskeln und Gelenken',
+    color: 'bg-red-200',
+    icon: '🦴'
+  },
+  {
+    id: 'infectious-diseases',
+    name: 'Infektionskrankheiten',
+    description: 'Bakterielle, virale und andere Infektionen',
+    color: 'bg-red-900',
+    icon: '🦠'
+  },
+  // PFLEGEPRAXIS
   {
     id: 'medikamente',
     name: 'Medikamentenlehre',
@@ -26,9 +141,24 @@ export const quizCategories: QuizCategory[] = [
     id: 'notfall',
     name: 'Notfallmedizin',
     description: 'Erste Hilfe und Notfallsituationen',
-    color: 'bg-red-500',
+    color: 'bg-orange-500',
     icon: '🚨'
   },
+  {
+    id: 'wound-care',
+    name: 'Wundversorgung',
+    description: 'Wundheilung und Wundmanagement',
+    color: 'bg-pink-500',
+    icon: '🩹'
+  },
+  {
+    id: 'nursing-techniques',
+    name: 'Pflegetechniken',
+    description: 'Grundlegende pflegerische Tätigkeiten',
+    color: 'bg-cyan-500',
+    icon: '🏥'
+  },
+  // SPEZIELLE PFLEGEBEREICHE
   {
     id: 'gerontologie',
     name: 'Gerontologie',
@@ -40,9 +170,24 @@ export const quizCategories: QuizCategory[] = [
     id: 'paediatrie',
     name: 'Pädiatrie',
     description: 'Kinderpflege und Entwicklung',
-    color: 'bg-pink-500',
+    color: 'bg-pink-400',
     icon: '👶'
   },
+  {
+    id: 'intensive-care',
+    name: 'Intensivpflege',
+    description: 'Intensivmedizin und kritische Pflege',
+    color: 'bg-gray-600',
+    icon: '🏥'
+  },
+  {
+    id: 'psychiatric-care',
+    name: 'Psychiatrische Pflege',
+    description: 'Psychiatrie und psychische Gesundheit',
+    color: 'bg-indigo-400',
+    icon: '🧘'
+  },
+  // RECHTLICHE & ETHISCHE GRUNDLAGEN
   {
     id: 'recht',
     name: 'Pflegrecht & Ethik',
@@ -56,6 +201,13 @@ export const quizCategories: QuizCategory[] = [
     description: 'Gesprächsführung und Teamarbeit',
     color: 'bg-teal-500',
     icon: '💬'
+  },
+  {
+    id: 'quality-management',
+    name: 'Qualitätsmanagement',
+    description: 'Pflegequalität und Prozessoptimierung',
+    color: 'bg-emerald-500',
+    icon: '📊'
   }
 ]
 

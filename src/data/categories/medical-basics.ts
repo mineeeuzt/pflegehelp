@@ -1955,6 +1955,228 @@ export const medicalBasicsCategories: Category[] = [
             ]
           }
         ]
+      },
+      {
+        id: 'digestive-system',
+        name: 'VERDAUUNGSSYSTEM',
+        description: 'Gastrointestinaltrakt und Verdauungsorgane',
+        icon: '🍯',
+        difficulty: 'medium',
+        parentId: 'anatomy-physiology',
+        children: [
+          {
+            id: 'gi-anatomy',
+            name: 'Anatomie des Verdauungstrakts',
+            description: 'Aufbau von Mund bis Anus',
+            icon: '🫄',
+            difficulty: 'medium',
+            parentId: 'digestive-system',
+            children: [
+              {
+                id: 'oral-cavity',
+                name: 'Mundhöhle & Zähne',
+                description: 'Mechanische Zerkleinerung und Speichelsekretion',
+                icon: '👄',
+                difficulty: 'easy',
+                parentId: 'gi-anatomy'
+              },
+              {
+                id: 'esophagus',
+                name: 'Ösophagus (Speiseröhre)',
+                description: 'Schluckakt und Peristaltik',
+                icon: '🌊',
+                difficulty: 'medium',
+                parentId: 'gi-anatomy'
+              },
+              {
+                id: 'stomach',
+                name: 'Magen',
+                description: 'Magensäureproduktion und Proteinvorverdauung',
+                icon: '🫃',
+                difficulty: 'medium',
+                parentId: 'gi-anatomy'
+              },
+              {
+                id: 'small-intestine',
+                name: 'Dünndarm (Duodenum, Jejunum, Ileum)',
+                description: 'Haupt-Verdauungs- und Absorptionsort',
+                icon: '🌀',
+                difficulty: 'hard',
+                parentId: 'gi-anatomy'
+              },
+              {
+                id: 'large-intestine',
+                name: 'Dickdarm (Kolon, Rektum)',
+                description: 'Wasserresorption und Stuhlformung',
+                icon: '🔄',
+                difficulty: 'medium',
+                parentId: 'gi-anatomy'
+              }
+            ]
+          },
+          {
+            id: 'digestive-organs',
+            name: 'Verdauungsorgane',
+            description: 'Leber, Gallenblase und Pankreas',
+            icon: '🥞',
+            difficulty: 'hard',
+            parentId: 'digestive-system',
+            children: [
+              {
+                id: 'liver',
+                name: 'Leber (Hepar)',
+                description: 'Stoffwechselorgan und Entgiftung',
+                icon: '🍯',
+                difficulty: 'hard',
+                parentId: 'digestive-organs'
+              },
+              {
+                id: 'gallbladder',
+                name: 'Gallenblase & Gallenwege',
+                description: 'Gallenspeicherung und -sekretion',
+                icon: '🫒',
+                difficulty: 'medium',
+                parentId: 'digestive-organs'
+              },
+              {
+                id: 'pancreas',
+                name: 'Pankreas (Bauchspeicheldrüse)',
+                description: 'Exokrine und endokrine Funktionen',
+                icon: '🥞',
+                difficulty: 'hard',
+                parentId: 'digestive-organs'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'integumentary-system',
+        name: 'HAUT & SINNESORGANE',
+        description: 'Haut, Anhangsgebilde und Sinneswahrnehmung',
+        icon: '👁️',
+        difficulty: 'medium',
+        parentId: 'anatomy-physiology',
+        children: [
+          {
+            id: 'skin-anatomy',
+            name: 'Hautaufbau',
+            description: 'Epidermis, Dermis und Subkutis',
+            icon: '🧄',
+            difficulty: 'medium',
+            parentId: 'integumentary-system',
+            children: [
+              {
+                id: 'epidermis',
+                name: 'Epidermis (Oberhaut)',
+                description: 'Schutzbarriere und Keratinisierung',
+                icon: '🛡️',
+                difficulty: 'medium',
+                parentId: 'skin-anatomy'
+              },
+              {
+                id: 'dermis',
+                name: 'Dermis (Lederhaut)',
+                description: 'Kollagen, Elastin und Hautanhangsgebilde',
+                icon: '🕸️',
+                difficulty: 'medium',
+                parentId: 'skin-anatomy'
+              },
+              {
+                id: 'subcutis',
+                name: 'Subkutis (Unterhaut)',
+                description: 'Fettgewebe und Isolation',
+                icon: '🧈',
+                difficulty: 'easy',
+                parentId: 'skin-anatomy'
+              }
+            ]
+          },
+          {
+            id: 'skin-appendages',
+            name: 'Hautanhangsgebilde',
+            description: 'Haare, Nägel und Drüsen',
+            icon: '💅',
+            difficulty: 'medium',
+            parentId: 'integumentary-system',
+            children: [
+              {
+                id: 'hair-follicles',
+                name: 'Haare & Haarfollikel',
+                description: 'Haarwachstum und -zyklus',
+                icon: '🦱',
+                difficulty: 'medium',
+                parentId: 'skin-appendages'
+              },
+              {
+                id: 'nails',
+                name: 'Nägel',
+                description: 'Nagelplatte und -matrix',
+                icon: '💅',
+                difficulty: 'easy',
+                parentId: 'skin-appendages'
+              },
+              {
+                id: 'sweat-glands',
+                name: 'Schweißdrüsen (ekkrin/apokrin)',
+                description: 'Thermoregulation und Sekretion',
+                icon: '💧',
+                difficulty: 'medium',
+                parentId: 'skin-appendages'
+              },
+              {
+                id: 'sebaceous-glands',
+                name: 'Talgdrüsen',
+                description: 'Sebumproduktion und Hautschutz',
+                icon: '🛢️',
+                difficulty: 'medium',
+                parentId: 'skin-appendages'
+              }
+            ]
+          },
+          {
+            id: 'skin-functions',
+            name: 'Hautfunktionen',
+            description: 'Schutz, Thermoregulation und Sensorik',
+            icon: '🌡️',
+            difficulty: 'medium',
+            parentId: 'integumentary-system',
+            children: [
+              {
+                id: 'barrier-function',
+                name: 'Barrierefunktion',
+                description: 'Schutz vor Umwelteinflüssen',
+                icon: '🛡️',
+                difficulty: 'medium',
+                parentId: 'skin-functions'
+              },
+              {
+                id: 'thermoregulation',
+                name: 'Thermoregulation',
+                description: 'Wärmehaushalt und Schweißproduktion',
+                icon: '🌡️',
+                difficulty: 'medium',
+                parentId: 'skin-functions'
+              },
+              {
+                id: 'sensory-function',
+                name: 'Sensorfunktion',
+                description: 'Tastrezeptoren und Schmerzwahrnehmung',
+                icon: '👋',
+                difficulty: 'medium',
+                parentId: 'skin-functions'
+              },
+              {
+                id: 'vitamin-d-synthesis',
+                name: 'Vitamin-D-Synthese',
+                description: 'UV-induzierte Vitamin-D-Bildung',
+                icon: '☀️',
+                difficulty: 'medium',
+                parentId: 'skin-functions'
+              }
+            ]
+          }
+        ]
       }
     ]
   }
