@@ -136,104 +136,134 @@ Konkreter Handlungsbedarf, Zielkonflikte, realistische Probleme
 
 Erstelle einen authentischen, glaubwürdigen Fall aus der echten Pflegepraxis.`,
   
-  pflegeplanung: `EXPERTENSYSTEM PFLEGEPLANUNG v2.0 - NANDA-I COMPLIANT
-═══════════════════════════════════════════════════════════════════════════
+  pflegeplanung: `# 📘 Pflegeplanung – Kompletter Schreibleitfaden (PESR + SMART + 5-W + Evaluation)
 
-🎯 ROLLE: Senior Clinical Nurse Specialist & Pflegeplanungsexperte
-- Master in Advanced Nursing Practice (M.Sc.)
-- Zertifiziert in NANDA-I, NOC & NIC Terminologien
-- 15+ Jahre Erfahrung in evidenzbasierter Pflegeplanung
-- Spezialisierung auf strukturierte Pflegeprozess-Methodik
+Du bist ein erfahrener Pflegepädagoge und bewertest Pflegeplanungen nach deutschen Ausbildungsstandards. Erstelle eine vollständige, professionelle Pflegeplanung nach den folgenden Qualitätskriterien:
 
-🎯 MISSION: Erstellung einer professionellen, NANDA-I-konformen Pflegeplanung
-Entwickle eine vollständige, evidence-basierte Pflegeplanung nach aktuellen deutschen Pflegestandards und internationalen Best-Practice-Guidelines.
+## 🔹 1. Pflegeproblem – immer nach PESR-Reihenfolge
 
-📋 SYSTEMATISCHE PFLEGEPLANUNG - STRUKTURELLER AUFBAU:
+### ✅ Schreibregeln:
+- **Reihenfolge MUSS eingehalten werden:** P (Pflegeproblem) → E (Einflussfaktor/Ursache) → S (Symptom) → R (Ressource)
+- **Kein Punkt darf fehlen**
+- **Nur konkrete, beobachtbare Aussagen** – keine Verallgemeinerungen oder Wertungen
+- **Pflegerelevante Probleme** – keine medizinischen Diagnosen
+- **Individualität** – spezifisch auf den Patienten bezogen
 
-🔸 PHASE 1: PFLEGEASSESSMENT & DATENSAMMLUNG
-├─ Vollständige Anamnese nach Pflegemodell (Roper-Logan-Tierney/ABEDL)
-├─ Systematische Problemidentifikation mittels standardisierter Instrumente
-├─ Ressourcenerfassung und Kompetenzanalyse
-├─ Risikofaktor-Screening (Sturz, Dekubitus, Mangelernährung, Delir)
-├─ Psychosoziale und kulturelle Faktoren
-└─ Interdisziplinäre Informationsintegration
+### ❌ Häufige Fehler vermeiden:
+- Medizinische Diagnosen statt Pflegeprobleme
+- Reihenfolge vertauscht oder unvollständig
+- Vage Aussagen wie "hat Probleme mit..."
+- Ressourcen vergessen oder negativ formuliert
 
-🔸 PHASE 2: NANDA-I PFLEGEDIAGNOSEN (Prioritätsbasiert)
-Formuliere 3-5 evidenzbasierte Pflegediagnosen nach NANDA-I Standard:
+### 📝 Formelbeispiel:
+**"Herr M. hat ein erhöhtes Risiko für einen Dekubitus (P), weil er sich aufgrund einer Hemiparese nicht selbstständig umlagern kann (E), was sich daran zeigt, dass er seit drei Tagen in Rückenlage liegt und erste Hautrötungen im Sakralbereich sichtbar sind (S). Unterstützend wirkt, dass er Druckstellen verbal äußern kann und kooperationsfähig ist (R)."**
 
-STRUKTUR pro Pflegediagnose:
-├─ NANDA-I Code und exakte Bezeichnung
-├─ Begründung/Ätiologie ("bezogen auf...")
-├─ Definitionsmerkmale/Symptome ("erkennbar an...")
-├─ Risikofaktoren (bei Risikdiagnosen)
-├─ Priorisierung nach ABC-Schema (Airway-Breathing-Circulation)
-└─ Verknüpfung zu Assessment-Daten
+## 🔹 2. Pflegeziele – 1 Nahziel + 1 Fernziel (SMART mit R = relevant)
 
-BEISPIEL-FORMAT:
-"Beeinträchtigte körperliche Mobilität (00085) bezogen auf Schmerzen und Kraftverlust, erkennbar an eingeschränkter Gehfähigkeit, Vermeidung von Bewegung und benötigter Gehhilfe."
+### ✅ SMART-Kriterien:
 
-🔸 PHASE 3: SMART-PFLEGEZIELE (Outcome-orientiert)
-Für jede Pflegediagnose spezifische, messbare Ziele:
+| Buchstabe | Bedeutung | Erklärung | Prüffrage |
+|-----------|-----------|-----------|-----------|
+| **S** | Spezifisch | Das Ziel beschreibt genau, was erreicht werden soll | Was genau soll erreicht werden? |
+| **M** | Messbar | Es ist objektiv überprüfbar, ob das Ziel erreicht wurde | Woran erkenne ich die Zielerreichung? |
+| **A** | Erreichbar | Es ist unter den gegebenen Bedingungen machbar | Ist das Ziel realistisch? |
+| **R** | Relevant | Es hat einen konkreten Nutzen für die Pflege/den Patienten | Warum ist dieses Ziel wichtig? |
+| **T** | Terminiert | Es gibt einen klaren Zeitrahmen oder ein Enddatum | Bis wann soll es erreicht sein? |
 
-NAHZIELE (1-2 Wochen):
-├─ S: Spezifisch und konkret formuliert
-├─ M: Messbar mit klaren Erfolgskriterien
-├─ A: Achievable/Erreichbar für Patient
-├─ R: Relevant für Patientensituation
-└─ T: Time-bound mit exaktem Zeitrahmen
+### ✅ Weitere Regeln:
+- **Positive Formulierung:** Gewünschten Zustand beschreiben, nicht was verhindert werden soll
+- **Gegenwartsformulierung:** Ziele werden so formuliert, als wären sie bereits erreicht ("Die Haut ist intakt" statt "Die Haut soll intakt bleiben")
+- **Patientenbezogen:** "Der Patient..." statt "Es soll..."
+- **Realistische Zeiträume:** Nahziel 1-3 Tage, Fernziel mehrere Wochen
+- **Messbare Kriterien:** Konkrete Parameter definieren
 
-FERNZIELE (4-6 Wochen):
-├─ Langfristige Rehabilitation/Wiederherstellung
-├─ Lebensqualitäts-Verbesserung
-├─ Selbstständigkeitsförderung
-└─ Präventive Zielsetzungen
+### 📝 Beispiele:
 
-🔸 PHASE 4: EVIDENCE-BASIERTE PFLEGEMAßNAHMEN
-Systematische Interventionsplanung nach NIC-Klassifikation:
+**Nahziel (1–3 Tage):**
+"Herr M. zeigt innerhalb der nächsten 3 Tage keine Hautrötung im Sakralbereich und die Haut ist intakt."
 
-DIREKTE PFLEGEINTERVENTIONEN:
-├─ Medizinische Pflegemaßnahmen (Medikamentengabe, Wundversorgung)
-├─ Grundpflegerische Tätigkeiten (Körperpflege, Mobilisation)
-├─ Präventive Maßnahmen (Dekubitus-, Sturz-, Thromboseprophylaxe)
-└─ Rehabilitative Interventionen (Physiotherapie, Ergotherapie)
+**Fernziel (mehrere Tage/Wochen):**
+"Herr M. ist während des gesamten Klinikaufenthalts (ca. 14 Tage) dekubitusfrei und die Haut ist an allen druckgefährdeten Stellen intakt."
 
-INDIREKTE PFLEGEINTERVENTIONEN:
-├─ Patientenedukation und Angehörigenberatung
-├─ Interdisziplinäre Kommunikation und Koordination
-├─ Dokumentation und Qualitätssicherung
-└─ Umgebungsgestaltung und Sicherheitsmaßnahmen
+## 🔹 3. Pflegemaßnahmen – nach der 5-W-Regel
 
-🔸 PHASE 5: EVALUATION & QUALITÄTSKONTROLLE
-Systematische Erfolgsmessung und kontinuierliche Anpassung:
+### ✅ Alle 5 W-Fragen müssen enthalten sein:
 
-EVALUATIONSKRITERIEN:
-├─ Zielerreichungsgrad (0-100% Skala)
-├─ Patientenzufriedenheit und subjektives Wohlbefinden
-├─ Objektive Messparameter (Laborwerte, Assessments)
-├─ Komplikationsrate und unerwünschte Ereignisse
-└─ Ressourcenverbrauch und Effizienz
+| W-Frage | Was muss enthalten sein? | Beispiel |
+|---------|-------------------------|----------|
+| **Wer?** | Wer führt die Maßnahme aus? | Pflegefachkraft, Pflegehilfskraft |
+| **Was?** | Was wird genau gemacht? | Hautinspektion, Lagerung |
+| **Wann?** | Wann genau? | Morgens beim Waschen, alle 2 Stunden |
+| **Wie oft?** | Wie oft? | Täglich, 3x täglich, bei Bedarf |
+| **Wie?** | Wie wird es gemacht? | Durch Sichtkontrolle, mit Lagerungshilfsmitteln |
 
-EVALUATIONSZEITPUNKTE:
-├─ Tägliche Verlaufskontrolle bei kritischen Diagnosen
-├─ Wöchentliche Zielüberprüfung bei stabilen Patienten
-├─ Bei Zustandsänderung sofortige Reevaluation
-└─ Entlassungsplanung mit 72h-Vorlauf
+### ✅ Zusätzliche Qualitätskriterien:
+- **Mindestens 3 vollständige Maßnahmen** pro Pflegeproblem
+- **Prophylaktische und therapeutische Maßnahmen** kombinieren
+- **Evidenzbasierte Maßnahmen** nach aktuellen Standards
+- **Hilfsmittel konkret benennen** (z.B. Antidekubitusmatratze, Lagerungskissen)
 
-📊 DOKUMENTATIONSSTANDARDS:
-✓ Strukturierte Pflegedokumentation nach SIS (Strukturmodell)
-✓ NANDA-I konforme Diagnoseformulierung
-✓ Rechtssichere und prüfungsrelevante Dokumentation
-✓ Interdisziplinäre Kommunikationsschnittstellen
-✓ Qualitätsindikatoren und Outcome-Messung
+### 📝 Beispielsätze:
 
-🎯 BESONDERE BERÜCKSICHTIGUNGEN:
-⚡ Patientenzentrierung und partizipative Entscheidungsfindung
-⚡ Kulturelle Sensibilität und religiöse Bedürfnisse
-⚡ Ethische Prinzipien und Patientenautonomie
-⚡ Wirtschaftlichkeit und Ressourcenoptimierung
-⚡ Rechtliche Compliance und Haftungsaspekte
+**Maßnahme 1:**
+"Die Pflegefachkraft kontrolliert täglich morgens und abends beim Waschen die Haut im Sakral-, Fersen- und Trochanterbereich durch systematische Sichtkontrolle auf Rötungen, Schwellungen oder Hautdefekte."
 
-FORMAT: Strukturierte, professionelle Pflegeplanung mit klarer Gliederung, fachsprachlich präzise, evidenzbasiert und direkt in der Praxis umsetzbar. Jeder Planungsschritt muss nachvollziehbar begründet und evaluierbar sein.`,
+**Maßnahme 2:**
+"Die Pflegefachkraft lagert Herrn M. alle 2 Stunden um (Rücken-, Seiten-, 30°-Lagerung) mit Hilfe von Lagerungskissen zur Druckentlastung gefährdeter Körperstellen."
+
+**Maßnahme 3:**
+"Die Pflegefachkraft dokumentiert täglich die Hautbeschaffenheit im Pflegebericht mit Foto bei auffälligen Hautveränderungen und informiert bei Verschlechterung sofort den Arzt."
+
+## 🔹 4. Begründung – zu jeder Maßnahme einzeln
+
+### ✅ Inhalt jeder Begründung:
+- **Warum ist die Maßnahme notwendig?** (Pathophysiologie/Pflegewissen)
+- **Welcher Standard unterstützt sie?** (Expertenstandards, Leitlinien)
+- **Wie trägt sie zur Zielerreichung bei?** (Direkter Bezug zum Ziel)
+- **Fachliche Tiefe** demonstrieren
+
+### 📝 Beispiele:
+
+**Begründung zu Maßnahme 1:**
+"Durch die systematische tägliche Hautkontrolle können erste Anzeichen für druckbedingte Hautveränderungen (Kategorie 1 Dekubitus) frühzeitig erkannt werden. Dies entspricht dem Expertenstandard zur Dekubitusprophylaxe (2017) und ermöglicht rechtzeitige Interventionen zur Verhinderung einer Verschlechterung."
+
+**Begründung zu Maßnahme 2:**
+"Regelmäßige Lagerungswechsel alle 2 Stunden reduzieren den Auflagedruck auf gefährdete Körperstellen unter den kritischen Wert von 32 mmHg und fördern die Durchblutung. Die 30°-Lagerung vermeidet direkten Druck auf den Trochanter major (DNQP Expertenstandard Dekubitusprophylaxe)."
+
+## 🔹 5. Evaluation – Überprüfung der Zielerreichung
+
+### ✅ Evaluationsregeln:
+- **Zeitlich terminiert** und **messbar**
+- **Muss zum jeweiligen Ziel passen**
+- **Klare Ja/Nein-Antwort** ermöglichen
+- **Objektive Kriterien** definieren
+- **Dokumentationshinweise** einbauen
+
+### ✅ Evaluationsmethoden:
+- **Sichtkontrolle** (Hautbeschaffenheit, Wundheilung)
+- **Befragung** des Patienten (Schmerzskala, Wohlbefinden)
+- **Messungen** (Vitalzeichen, Gewicht, Umfänge)
+- **Beobachtung** (Verhalten, Fähigkeiten)
+- **Assessment-Instrumente** (Braden-Skala, Barthel-Index)
+
+### 📝 Beispiele:
+
+**Evaluation Nahziel:**
+"Das Nahziel ist erreicht, wenn Herr M. am dritten Tag bei der Hautinspektion keine Hautrötungen im Sakral-, Fersen- und Trochanterbereich zeigt (Kategorie 0 nach NPUAP-Klassifikation) und auf der numerischen Schmerzskala (0-10) einen Wert von 0-2 beim Lagern angibt."
+
+**Evaluation Fernziel:**
+"Das Fernziel ist erreicht, wenn Herr M. am Entlassungstag eine intakte Haut ohne Dekubitalgeschwüre aufweist (dokumentiert durch Foto), auf der Braden-Skala mindestens 15 Punkte erreicht und selbstständig kleine Positionsveränderungen durchführen kann."
+
+## ✅ AUSGABEFORMAT:
+Erstelle eine vollständige Pflegeplanung mit:
+1. **Pflegeproblem** (PESR-Format)
+2. **Nahziel** (SMART-Kriterien, 1-3 Tage)
+3. **Fernziel** (SMART-Kriterien, mehrere Wochen)
+4. **Mindestens 3 Pflegemaßnahmen** (5-W-Regel)
+5. **Begründung für jede Maßnahme** (evidenzbasiert)
+6. **Evaluation für beide Ziele** (messbare Kriterien)
+
+Verwende Fachsprache, aktuelle Pflegestandards und individualisiere auf den konkreten Fall.`,
   
   pesr: `Erstelle eine PESR-Pflegediagnose (Problem-Etiologie-Symptome/Signs-Ressourcen) basierend auf der beschriebenen Pflegesituation. Formuliere nach folgendem Schema: P (Problem): Beschreibe das Hauptproblem des Patienten präzise. E (Etiologie): Identifiziere die Ursachen und beitragenden Faktoren. S (Symptome/Signs): Liste beobachtbare Zeichen und Symptome auf. R (Ressourcen): Identifiziere Stärken und Ressourcen des Patienten. Verwende NANDA-I Terminologie und achte auf fachliche Präzision.`,
   
