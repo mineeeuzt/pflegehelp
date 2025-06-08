@@ -3,6 +3,54 @@ import { motion } from 'framer-motion'
 import { CheckCircle, AlertCircle, Lightbulb, Quote, ThumbsUp, Edit3 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui'
 
+// Simple SVG Circle Chart Component
+const CircleChart = ({ score, size = 120 }: { score: number; size?: number }) => {
+  const radius = (size - 20) / 2
+  const circumference = 2 * Math.PI * radius
+  const strokeDashoffset = circumference - (score / 100) * circumference
+  
+  const getColor = (score: number) => {
+    if (score >= 80) return '#16a34a' // green
+    if (score >= 60) return '#ca8a04' // yellow
+    return '#dc2626' // red
+  }
+  
+  return (
+    <div className="relative inline-flex items-center justify-center">
+      <svg width={size} height={size} className="transform -rotate-90">
+        {/* Background circle */}
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          stroke="#f3f4f6"
+          strokeWidth="8"
+          fill="transparent"
+        />
+        {/* Progress circle */}
+        <motion.circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          stroke={getColor(score)}
+          strokeWidth="8"
+          fill="transparent"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          strokeLinecap="round"
+          initial={{ strokeDashoffset: circumference }}
+          animate={{ strokeDashoffset }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        />
+      </svg>
+      {/* Score text */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-2xl font-bold text-gray-800">{score}%</span>
+      </div>
+    </div>
+  )
+}
+
 interface ReviewSection {
   title: string
   userText: string
@@ -35,14 +83,17 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
 
   return (
     <div className="space-y-6">
-      {/* Overall Score */}
+      {/* Overall Score with Circle Chart */}
       <Card className="border-2 border-gray-200">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span>Gesamtbewertung</span>
-            <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg border ${getScoreColor(overallScore)}`}>
-              {getScoreIcon(overallScore)}
-              <span className="font-bold">{overallScore}%</span>
+            <div className="flex items-center space-x-4">
+              <CircleChart score={overallScore} size={100} />
+              <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg border ${getScoreColor(overallScore)}`}>
+                {getScoreIcon(overallScore)}
+                <span className="font-bold">{overallScore}%</span>
+              </div>
             </div>
           </CardTitle>
         </CardHeader>
@@ -50,6 +101,25 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
           <p className="text-gray-700 leading-relaxed">{generalFeedback}</p>
         </CardContent>
       </Card>
+      
+      {/* Section Scores Overview */}
+      {reviewData.length > 1 && (
+        <Card className="border border-gray-200">
+          <CardHeader>
+            <CardTitle className="text-lg">Bewertungsübersicht</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {reviewData.map((section, index) => (
+                <div key={index} className="text-center">
+                  <CircleChart score={section.score} size={80} />
+                  <p className="text-sm text-gray-600 mt-2 font-medium">{section.title}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Section Reviews */}
       {reviewData.map((section, index) => (

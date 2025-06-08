@@ -80,12 +80,11 @@ const Dashboard = () => {
             times: [0, 0.7, 1],
             ease: "easeOut"
           }}
-          className="flex flex-col items-center"
+          className="flex items-center justify-center"
         >
-          <div className="w-16 h-16 border border-gray-300 rounded-lg flex items-center justify-center bg-white mb-4">
+          <div className="w-16 h-16 border border-gray-300 rounded-lg flex items-center justify-center bg-white">
             <Plus className="h-8 w-8 text-gray-600" strokeWidth={1.5} />
           </div>
-          <p className="text-gray-600 font-light">Lädt...</p>
         </motion.div>
       </div>
     )

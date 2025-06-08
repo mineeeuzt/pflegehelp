@@ -64,30 +64,23 @@ const AILoadingAnimation = ({
         />
       </div>
 
-      {/* Clean text */}
-      <div className="text-center">
-        <p className="text-gray-600 font-light mb-3">
-          {message}
-        </p>
-        
-        {/* Minimal typing dots */}
-        <div className="flex justify-center space-x-1">
-          {[0, 1, 2].map((index) => (
-            <motion.div
-              key={index}
-              className="w-1.5 h-1.5 bg-gray-400 rounded-full"
-              animate={{ 
-                opacity: [0.3, 1, 0.3]
-              }}
-              transition={{ 
-                duration: 1.2, 
-                repeat: Infinity,
-                delay: index * 0.2,
-                ease: "easeInOut"
-              }}
-            />
-          ))}
-        </div>
+      {/* Optional typing dots only */}
+      <div className="flex justify-center space-x-1">
+        {[0, 1, 2].map((index) => (
+          <motion.div
+            key={index}
+            className="w-1.5 h-1.5 bg-gray-400 rounded-full"
+            animate={{ 
+              opacity: [0.3, 1, 0.3]
+            }}
+            transition={{ 
+              duration: 1.2, 
+              repeat: Infinity,
+              delay: index * 0.2,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
       </div>
     </div>
   )
