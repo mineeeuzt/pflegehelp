@@ -283,7 +283,7 @@ const QuizLernkarten = () => {
             <div className="text-left flex-1">
               <div className="text-xl font-semibold text-blue-700 mb-1">Anatomie & Physiologie</div>
               <div className="text-blue-600 text-sm">Körperaufbau und Funktionen</div>
-              <div className="text-xs text-blue-500 mt-2">9 Organsysteme • 400+ Kategorien</div>
+              <div className="text-xs text-blue-500 mt-2">9 Organsysteme • 287 Lernkategorien</div>
             </div>
             <ChevronRight className="w-6 h-6 text-blue-500 group-hover:translate-x-1 transition-transform" />
           </button>
@@ -297,7 +297,7 @@ const QuizLernkarten = () => {
             <div className="text-left flex-1">
               <div className="text-xl font-semibold text-red-700 mb-1">Krankheitslehre</div>
               <div className="text-red-600 text-sm">Pathologie und Erkrankungen</div>
-              <div className="text-xs text-red-500 mt-2">8 Fachbereiche • Alle Krankheitsbilder</div>
+              <div className="text-xs text-red-500 mt-2">8 Fachbereiche • 84 Krankheitsbilder</div>
             </div>
             <ChevronRight className="w-6 h-6 text-red-500 group-hover:translate-x-1 transition-transform" />
           </button>
