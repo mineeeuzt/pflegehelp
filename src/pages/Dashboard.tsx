@@ -47,7 +47,6 @@ const Dashboard = () => {
       href: '/fallbeispiel-generator',
       color: 'from-blue-500 to-blue-600',
       featured: true,
-      badge: 'Hauptfunktion'
     },
     {
       title: 'Pflegeplanung',
@@ -157,13 +156,10 @@ const Dashboard = () => {
                         <Brain className="h-12 w-12 text-white" />
                       </div>
                       <div>
-                        <div className="flex items-center space-x-3 mb-2">
+                        <div className="mb-2">
                           <h2 className="text-2xl font-bold text-gray-900">
                             Fallbeispiel Generator
                           </h2>
-                          <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                            Hauptfunktion
-                          </span>
                         </div>
                         <p className="text-lg text-gray-600 mb-2">
                           Erstellen Sie maßgeschneiderte Fallbeispiele für Ihre Pflegeausbildung

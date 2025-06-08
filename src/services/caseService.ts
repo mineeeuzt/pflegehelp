@@ -30,6 +30,11 @@ export interface PflegeinfoInput {
   beobachtungen?: string
 }
 
+export interface WorkflowInput {
+  fallbeispiel: string
+  selectedABEDLs?: string[]
+}
+
 export const caseService = {
   async generateFallbeispiel(
     params: CaseGenerationParams,
@@ -186,6 +191,93 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
     } catch (error) {
       console.error('Error evaluating Pflegeinfo:', error)
       throw new Error('Fehler beim Bewerten der Pflegeinformationen')
+    }
+  },
+
+  async generateWorkflowPflegeplanung(
+    input: WorkflowInput,
+    userId: string
+  ): Promise<string> {
+    try {
+      await authService.incrementUsageCount(userId, 'care_plan')
+
+      const userInput = `Basierend auf folgendem Fallbeispiel:\n\n${input.fallbeispiel}\n\nErstelle eine vollständige Pflegeplanung.`
+
+      const response = await generateAIResponse(AI_PROMPTS.pflegeplanung, userInput)
+
+      const caseData = {
+        title: 'Workflow - Pflegeplanung',
+        content: userInput,
+        case_type: 'pflegeplanung' as const,
+        ai_response: response
+      }
+
+      await useCaseStore.getState().createCase(caseData)
+      
+      return response
+    } catch (error) {
+      console.error('Error generating workflow Pflegeplanung:', error)
+      throw new Error('Fehler beim Erstellen der Pflegeplanung')
+    }
+  },
+
+  async generateWorkflowABEDL(
+    input: WorkflowInput,
+    userId: string
+  ): Promise<string> {
+    try {
+      await authService.incrementUsageCount(userId, 'care_info')
+
+      const selectedABEDLsText = input.selectedABEDLs?.length 
+        ? `\n\nFokussiere besonders auf folgende ABEDL-Bereiche:\n${input.selectedABEDLs.map(id => `- ${id}`).join('\n')}`
+        : ''
+
+      const userInput = `Basierend auf folgendem Fallbeispiel:\n\n${input.fallbeispiel}${selectedABEDLsText}\n\nExtrahiere pflegerelevante Informationen und ordne sie den ABEDL-Bereichen zu.`
+
+      const response = await generateAIResponse(AI_PROMPTS.abedlinfo, userInput)
+
+      const caseData = {
+        title: 'Workflow - ABEDL-Zuordnung',
+        content: userInput,
+        case_type: 'pflegeinfo' as const,
+        ai_response: response
+      }
+
+      await useCaseStore.getState().createCase(caseData)
+      
+      return response
+    } catch (error) {
+      console.error('Error generating workflow ABEDL:', error)
+      throw new Error('Fehler beim Zuordnen der ABEDL-Bereiche')
+    }
+  },
+
+  async reviewWorkflow(
+    workflowType: 'pflegeplanung' | 'abedl',
+    workflowContent: string,
+    userId: string
+  ): Promise<string> {
+    try {
+      await authService.incrementUsageCount(userId, 'care_plan')
+
+      const prompt = workflowType === 'pflegeplanung' ? AI_PROMPTS.pflegereview : AI_PROMPTS.pflegeinfo
+      const userInput = `Bitte überprüfe folgende ${workflowType === 'pflegeplanung' ? 'Pflegeplanung' : 'ABEDL-Zuordnung'}:\n\n${workflowContent}`
+
+      const response = await generateAIResponse(prompt, userInput)
+
+      const caseData = {
+        title: `Review - ${workflowType === 'pflegeplanung' ? 'Pflegeplanung' : 'ABEDL-Zuordnung'}`,
+        content: userInput,
+        case_type: 'pflegeinfo' as const,
+        ai_response: response
+      }
+
+      await useCaseStore.getState().createCase(caseData)
+      
+      return response
+    } catch (error) {
+      console.error('Error reviewing workflow:', error)
+      throw new Error('Fehler beim Überprüfen der Arbeit')
     }
   }
 }
