@@ -580,44 +580,6 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       </div>
                     </div>
 
-                    {/* Prompt Version Selection */}
-                    <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                      <h4 className="font-medium text-gray-900 mb-3">KI-Generierung:</h4>
-                      <div className="space-y-3">
-                        <label className="flex items-start space-x-3 cursor-pointer">
-                          <input
-                            type="radio"
-                            name="promptVersion"
-                            value="fallbeispielProfi"
-                            checked={promptVersion === 'fallbeispielProfi'}
-                            onChange={(e) => setPromptVersion(e.target.value as 'fallbeispiel' | 'fallbeispielProfi')}
-                            className="mt-1"
-                          />
-                          <div>
-                            <div className="font-medium text-gray-900">📋 Professioneller Modus (Empfohlen)</div>
-                            <div className="text-sm text-gray-600">
-                              Strukturierte Fallbeispiele nach Pflegepädagogik-Standards mit 5-Absatz-Format, optimiert für Prüfungen und Lehrpläne
-                            </div>
-                          </div>
-                        </label>
-                        <label className="flex items-start space-x-3 cursor-pointer">
-                          <input
-                            type="radio"
-                            name="promptVersion"
-                            value="fallbeispiel"
-                            checked={promptVersion === 'fallbeispiel'}
-                            onChange={(e) => setPromptVersion(e.target.value as 'fallbeispiel' | 'fallbeispielProfi')}
-                            className="mt-1"
-                          />
-                          <div>
-                            <div className="font-medium text-gray-900">⚡ Schneller Modus</div>
-                            <div className="text-sm text-gray-600">
-                              Einfache Fallbeispiel-Generierung für schnelle Übungen und Grundlagen
-                            </div>
-                          </div>
-                        </label>
-                      </div>
-                    </div>
                     
                     {error && (
                       <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mt-4">
