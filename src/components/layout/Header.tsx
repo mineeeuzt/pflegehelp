@@ -30,8 +30,8 @@ const Header = () => {
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <Link to="/dashboard" className="flex items-center space-x-3 group">
-              <div className="w-7 h-7 border border-gray-300 rounded-lg flex items-center justify-center group-hover:border-gray-400 transition-colors">
-                <Plus className="h-4 w-4 text-gray-600 group-hover:text-gray-700 transition-colors" strokeWidth={1.5} />
+              <div className="w-7 h-7 border border-slate-300 rounded-lg flex items-center justify-center group-hover:border-slate-400 transition-colors">
+                <Plus className="h-4 w-4 text-slate-600 group-hover:text-slate-700 transition-colors" strokeWidth={1.5} />
               </div>
               <span className="text-2xl font-light text-gray-900 group-hover:text-gray-700 transition-colors">
                 PflegeHelp
@@ -93,7 +93,7 @@ const Header = () => {
                   </Button>
                 </Link>
                 <Link to="/register">
-                  <Button size="sm" className="bg-gray-900 hover:bg-gray-800 text-white">
+                  <Button size="sm" className="bg-slate-800 hover:bg-slate-900 text-white">
                     Registrieren
                   </Button>
                 </Link>

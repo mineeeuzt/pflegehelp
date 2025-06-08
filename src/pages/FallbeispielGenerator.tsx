@@ -462,8 +462,8 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   <Card 
                     className={`cursor-pointer transition-all border group relative h-32 ${
                       params.setting === setting.value 
-                        ? 'border-gray-800 bg-gray-50' 
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-slate-700 bg-slate-50' 
+                        : 'border-gray-200 hover:border-slate-300'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, setting: setting.value }))}
                   >
@@ -475,7 +475,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       
                       {/* Selection indicator */}
                       {params.setting === setting.value && (
-                        <div className="absolute top-3 right-3 w-3 h-3 bg-gray-800 rounded-full" />
+                        <div className="absolute top-3 right-3 w-3 h-3 bg-slate-700 rounded-full" />
                       )}
                     </CardContent>
                   </Card>
@@ -498,8 +498,8 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   <Card 
                     className={`cursor-pointer transition-all h-full border group relative ${
                       params.schwierigkeitsgrad === grad.value 
-                        ? 'border-gray-800 bg-gray-50' 
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-slate-700 bg-slate-50' 
+                        : 'border-gray-200 hover:border-slate-300'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, schwierigkeitsgrad: grad.value }))}
                   >
@@ -519,7 +519,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       
                       {/* Subtle selection indicator */}
                       {params.schwierigkeitsgrad === grad.value && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800" />
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-slate-700" />
                       )}
                     </CardContent>
                   </Card>
@@ -597,7 +597,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       onClick={handleGenerate}
                       disabled={isLoading}
                       loading={isLoading}
-                      className="w-full mt-6 bg-gray-900 hover:bg-gray-800 text-white"
+                      className="w-full mt-6 bg-slate-800 hover:bg-slate-900 text-white"
                       size="lg"
                     >
                       <Wand2 className="mr-2 h-5 w-5" />
@@ -624,7 +624,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       variant="outline"
                       size="sm"
                       onClick={handleCopy}
-                      className="border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700"
+                      className="border-gray-300 text-gray-600 hover:border-slate-400 hover:text-slate-700"
                     >
                       <Copy className="h-4 w-4 mr-2" />
                       Kopieren
@@ -645,7 +645,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                         setShowWorkflowOptions(false)
                         resetWorkflow()
                       }}
-                      className="bg-gray-800 hover:bg-gray-900 text-white"
+                      className="bg-slate-800 hover:bg-slate-900 text-white"
                     >
                       Neues Fallbeispiel
                     </Button>
@@ -860,7 +860,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                             onClick={handlePflegeplanungReview}
                             disabled={reviewLoading}
                             loading={reviewLoading}
-                            className="bg-gray-800 hover:bg-gray-900 text-white border-0"
+                            className="bg-slate-800 hover:bg-slate-900 text-white border-0"
                           >
                             <Brain className="h-4 w-4 mr-2" />
                             KI-Bewertung
@@ -993,7 +993,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                           onClick={handlePflegeInfoReview}
                           disabled={pflegeInfos.length === 0 || reviewLoading}
                           loading={reviewLoading}
-                          className="bg-gray-800 hover:bg-gray-900 text-white border-0"
+                          className="bg-slate-800 hover:bg-slate-900 text-white border-0"
                         >
                           <Brain className="h-4 w-4 mr-2" />
                           KI-Bewertung
@@ -1165,7 +1165,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
             <Button
               onClick={nextStep}
               disabled={!canProceed()}
-              className="px-8 bg-gray-900 hover:bg-gray-800 text-white"
+              className="px-8 bg-slate-800 hover:bg-slate-900 text-white"
             >
               {currentStep === 5 ? 'Generieren' : 'Weiter'}
               <ArrowRight className="h-4 w-4 ml-2" />

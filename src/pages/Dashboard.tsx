@@ -82,8 +82,8 @@ const Dashboard = () => {
           }}
           className="flex items-center justify-center"
         >
-          <div className="w-16 h-16 border border-gray-300 rounded-lg flex items-center justify-center bg-white">
-            <Plus className="h-8 w-8 text-gray-600" strokeWidth={1.5} />
+          <div className="w-16 h-16 border border-slate-300 rounded-lg flex items-center justify-center bg-white">
+            <Plus className="h-8 w-8 text-slate-600" strokeWidth={1.5} />
           </div>
         </motion.div>
       </div>

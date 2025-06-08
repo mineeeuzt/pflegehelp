@@ -10,9 +10,9 @@ const CircleChart = ({ score, size = 120 }: { score: number; size?: number }) =>
   const strokeDashoffset = circumference - (score / 100) * circumference
   
   const getColor = (score: number) => {
-    if (score >= 80) return '#16a34a' // green
-    if (score >= 60) return '#ca8a04' // yellow
-    return '#dc2626' // red
+    if (score >= 80) return '#475569' // slate-600 (dezent)
+    if (score >= 60) return '#64748b' // slate-500 (dezent)
+    return '#94a3b8' // slate-400 (dezent)
   }
   
   return (

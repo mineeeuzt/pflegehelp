@@ -28,7 +28,7 @@ const AILoadingAnimation = ({
       <div className="relative mb-8">
         {/* Rotating Plus Logo */}
         <motion.div
-          className={`${logoSize[size]} border border-gray-300 rounded-lg flex items-center justify-center bg-white`}
+          className={`${logoSize[size]} border border-slate-300 rounded-lg flex items-center justify-center bg-white`}
           animate={{ 
             rotate: [0, 90, 180, 270, 360],
             scale: [1, 1.05, 1]
@@ -46,12 +46,12 @@ const AILoadingAnimation = ({
             }
           }}
         >
-          <Plus className={`${iconSize[size]} text-gray-600`} strokeWidth={1.5} />
+          <Plus className={`${iconSize[size]} text-slate-600`} strokeWidth={1.5} />
         </motion.div>
 
         {/* Subtle pulsing ring */}
         <motion.div
-          className={`absolute inset-0 ${logoSize[size]} border border-gray-200 rounded-lg`}
+          className={`absolute inset-0 ${logoSize[size]} border border-slate-200 rounded-lg`}
           animate={{ 
             scale: [1, 1.2, 1],
             opacity: [0.5, 0, 0.5]
