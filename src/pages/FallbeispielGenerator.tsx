@@ -509,17 +509,9 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       </div>
                       <h3 className="font-medium text-gray-900 mb-2">{grad.jahr}</h3>
                       <p className="text-sm text-gray-600">{grad.description}</p>
-                      {params.schwierigkeitsgrad === grad.value ? (
-                        <div className="w-4 h-4 bg-gray-800 rounded-full flex items-center justify-center mx-auto mt-4">
-                          <div className="w-2 h-2 bg-white rounded-full" />
-                        </div>
-                      ) : (
-                        <div className="w-4 h-4 border-2 border-gray-300 rounded-full mx-auto mt-4 group-hover:border-gray-400 transition-colors" />
-                      )}
-                      
-                      {/* Subtle selection indicator */}
+                      {/* Selection indicator */}
                       {params.schwierigkeitsgrad === grad.value && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-slate-700" />
+                        <div className="absolute top-3 right-3 w-3 h-3 bg-slate-700 rounded-full" />
                       )}
                     </CardContent>
                   </Card>

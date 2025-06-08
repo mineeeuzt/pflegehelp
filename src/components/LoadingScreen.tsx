@@ -46,14 +46,6 @@ const LoadingScreen = () => {
           ))}
         </motion.div>
         
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="mt-4 text-gray-600"
-        >
-          Lädt...
-        </motion.p>
       </div>
     </div>
   )
