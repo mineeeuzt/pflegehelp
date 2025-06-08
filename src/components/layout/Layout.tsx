@@ -11,8 +11,8 @@ const Layout = ({ children }: LayoutProps) => {
       <header className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">P</span>
+            <div className="w-8 h-8 border border-gray-300 rounded-lg flex items-center justify-center bg-white">
+              <span className="text-xl text-gray-600">+</span>
             </div>
             <h1 className="text-xl font-semibold text-gray-900">PflegeHelp</h1>
           </div>
