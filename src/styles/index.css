@@ -5,25 +5,29 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 184 25% 15%; /* Elegantes Blaugrün statt Schwarz */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 184 25% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --popover-foreground: 184 25% 15%;
+    --primary: 181 84% 42%; /* Edles Türkis-Blau */
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --secondary: 184 20% 96%; /* Sanftes Blaugrün */
+    --secondary-foreground: 184 25% 15%;
+    --muted: 184 15% 95%; /* Sehr subtiles Blaugrün */
+    --muted-foreground: 184 12% 46%;
+    --accent: 184 20% 96%;
+    --accent-foreground: 184 25% 15%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --border: 184 20% 90%; /* Blaugrüne Border */
+    --input: 184 20% 90%;
+    --ring: 181 84% 42%;
     --radius: 0.5rem;
+    
+    /* Neue Blaugrün-Varianten für Overlays */
+    --overlay-dark: 184 35% 8%; /* Dunkles Blaugrün für Overlays */
+    --overlay-medium: 184 25% 12%;
   }
 }
 
@@ -65,4 +69,27 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
   @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+}
+
+/* Elegante Blaugrün-Utilities */
+.text-elegant-teal {
+  color: hsl(var(--foreground));
+}
+
+.bg-elegant-overlay {
+  background-color: hsla(var(--overlay-dark), 0.6);
+}
+
+.bg-elegant-surface {
+  background-color: hsl(var(--muted));
+}
+
+.border-elegant-teal {
+  border-color: hsl(var(--border));
+}
+
+/* Hover-Effekte mit Blaugrün */
+.hover-elegant:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
 }

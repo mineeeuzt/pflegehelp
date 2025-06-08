@@ -822,7 +822,7 @@ const MedikamentenTraining = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+              className="fixed inset-0 bg-elegant-overlay flex items-center justify-center z-50"
             >
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}

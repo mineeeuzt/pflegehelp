@@ -46,7 +46,7 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md', className }: Mod
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50"
+            className="fixed inset-0 bg-elegant-overlay"
             onClick={onClose}
           />
           <motion.div
