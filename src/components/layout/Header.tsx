@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Menu, X, User, LogOut, Settings } from 'lucide-react'
+import { Menu, X, User, LogOut, Settings, Plus } from 'lucide-react'
 import { Button } from '../ui'
 import { useAuthStore } from '../../store/authStore'
 
@@ -31,8 +31,16 @@ const Header = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <Link to="/dashboard" className="text-2xl font-light text-gray-900">
-              PflegeHelp
+            <Link to="/dashboard" className="flex items-center space-x-2 group">
+              <div className="relative">
+                <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
+                  <Plus className="h-5 w-5 text-white" />
+                </div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-gray-700 rounded-full"></div>
+              </div>
+              <span className="text-2xl font-light text-gray-900 group-hover:text-gray-700 transition-colors">
+                PflegeHelp
+              </span>
             </Link>
           </div>
 
@@ -100,7 +108,7 @@ const Header = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-gray-700 hover:text-primary-600"
+              className="md:hidden text-gray-700 hover:text-gray-900"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -115,7 +123,7 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors"
+                  className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}

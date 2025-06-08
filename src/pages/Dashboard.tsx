@@ -119,32 +119,50 @@ const Dashboard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <Link to={tool.href}>
-                  <Card className={`group transition-all duration-300 hover:shadow-xl border-2 ${
+                  <Card className={`group transition-all duration-300 hover:shadow-2xl border-2 relative overflow-hidden ${
                     tool.primary 
                       ? 'border-gray-900 bg-gray-900 text-white hover:bg-gray-800' 
-                      : 'border-gray-200 hover:border-gray-300'
+                      : 'border-gray-200 hover:border-gray-400 bg-white hover:bg-gray-50'
                   }`}>
-                    <CardContent className="p-8">
+                    {/* Subtle gradient overlay */}
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity ${
+                      tool.primary ? 'bg-white' : 'bg-gray-900'
+                    }`} />
+                    
+                    <CardContent className="p-8 relative">
                       <div className="flex items-start justify-between mb-6">
-                        <Icon className={`h-8 w-8 ${
-                          tool.primary ? 'text-white' : 'text-gray-700'
-                        }`} />
-                        <ArrowRight className={`h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity ${
-                          tool.primary ? 'text-white' : 'text-gray-400'
+                        <div className={`p-2 rounded-lg transition-colors ${
+                          tool.primary 
+                            ? 'bg-white/10 group-hover:bg-white/20' 
+                            : 'bg-gray-100 group-hover:bg-gray-200'
+                        }`}>
+                          <Icon className={`h-6 w-6 ${
+                            tool.primary ? 'text-white' : 'text-gray-700'
+                          }`} />
+                        </div>
+                        <ArrowRight className={`h-5 w-5 transform translate-x-0 group-hover:translate-x-1 opacity-60 group-hover:opacity-100 transition-all ${
+                          tool.primary ? 'text-white' : 'text-gray-500'
                         }`} />
                       </div>
-                      <h3 className={`text-xl font-semibold mb-2 ${
+                      <h3 className={`text-xl font-medium mb-3 ${
                         tool.primary ? 'text-white' : 'text-gray-900'
                       }`}>
                         {tool.title}
                       </h3>
-                      <p className={`text-sm font-light ${
+                      <p className={`text-sm leading-relaxed ${
                         tool.primary ? 'text-gray-300' : 'text-gray-600'
                       }`}>
                         {tool.description}
                       </p>
+                      
+                      {/* Bottom accent line */}
+                      <div className={`absolute bottom-0 left-0 right-0 h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left ${
+                        tool.primary ? 'bg-white/30' : 'bg-gray-900'
+                      }`} />
                     </CardContent>
                   </Card>
                 </Link>

@@ -5,6 +5,7 @@ import { Button, Input, Card, CardHeader, CardTitle, CardContent } from '../comp
 import { useAuthStore } from '../store/authStore'
 import { caseService, type CaseGenerationParams, type WorkflowInput } from '../services/caseService'
 import ReviewDisplay from '../components/ReviewDisplay'
+import AILoadingAnimation from '../components/AILoadingAnimation'
 
 interface GeneratorParams extends CaseGenerationParams {
   alter: string
@@ -388,23 +389,35 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   whileTap={{ scale: 0.99 }}
                 >
                   <Card 
-                    className={`cursor-pointer transition-all border-2 ${
+                    className={`cursor-pointer transition-all border-2 group relative overflow-hidden ${
                       params.alter === alter.value 
-                        ? 'border-gray-900 bg-gray-50' 
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-gray-900 bg-gray-50 shadow-md' 
+                        : 'border-gray-200 hover:border-gray-400 hover:shadow-lg'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, alter: alter.value }))}
                   >
-                    <CardContent className="p-6">
+                    {/* Subtle hover overlay */}
+                    <div className="absolute inset-0 bg-gray-900 opacity-0 group-hover:opacity-2 transition-opacity" />
+                    
+                    <CardContent className="p-6 relative">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium text-gray-900 mb-1">{alter.label}</p>
                           <p className="text-sm text-gray-500">{alter.sublabel}</p>
                         </div>
-                        {params.alter === alter.value && (
-                          <div className="w-3 h-3 bg-gray-900 rounded-full" />
+                        {params.alter === alter.value ? (
+                          <div className="w-4 h-4 bg-gray-900 rounded-full flex items-center justify-center">
+                            <div className="w-2 h-2 bg-white rounded-full" />
+                          </div>
+                        ) : (
+                          <div className="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors" />
                         )}
                       </div>
+                      
+                      {/* Selection indicator line */}
+                      {params.alter === alter.value && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-900" />
+                      )}
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -600,11 +613,10 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
             )}
 
             {isLoading && (
-              <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-500 mx-auto mb-4"></div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Fallbeispiel wird generiert...</h3>
-                <p className="text-gray-600">Dies kann einen Moment dauern</p>
-              </div>
+              <AILoadingAnimation 
+                message="Fallbeispiel wird generiert..."
+                size="lg"
+              />
             )}
 
             {result && !selectedWorkflow && !showReview && (
@@ -1052,35 +1064,67 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
         {/* Progress Steps */}
         {currentStep < 7 && (
           <div className="mb-16">
-            <div className="flex items-center justify-center space-x-2 mb-8">
-              {steps.map((step, index) => {
-                const isActive = currentStep === step.number
-                const isCompleted = currentStep > step.number
-                
-                return (
-                  <div key={step.number} className="flex items-center">
-                    <div className={`
-                      w-2 h-2 rounded-full transition-all
-                      ${isActive 
-                        ? 'bg-gray-900 w-8' 
-                        : isCompleted 
-                          ? 'bg-gray-400'
-                          : 'bg-gray-200'
-                      }
-                    `} />
-                    {index < steps.length - 1 && (
-                      <div className="w-8 h-px bg-gray-200 mx-2" />
-                    )}
-                  </div>
-                )
-              })}
+            <div className="relative mb-8">
+              {/* Progress Line Background */}
+              <div className="absolute top-1/2 left-0 right-0 h-px bg-gray-200 transform -translate-y-1/2" />
+              
+              {/* Active Progress Line */}
+              <div 
+                className="absolute top-1/2 left-0 h-px bg-gray-900 transform -translate-y-1/2 transition-all duration-500"
+                style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+              />
+              
+              {/* Step Dots */}
+              <div className="flex justify-between relative">
+                {steps.map((step, index) => {
+                  const isActive = currentStep === step.number
+                  const isCompleted = currentStep > step.number
+                  
+                  return (
+                    <motion.div 
+                      key={step.number} 
+                      className="flex flex-col items-center"
+                      initial={{ scale: 0.8 }}
+                      animate={{ scale: isActive ? 1.1 : 1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className={`
+                        w-4 h-4 rounded-full border-2 bg-white transition-all duration-300 relative
+                        ${isActive 
+                          ? 'border-gray-900 shadow-lg' 
+                          : isCompleted 
+                            ? 'border-gray-900 bg-gray-900'
+                            : 'border-gray-300'
+                        }
+                      `}>
+                        {isCompleted && (
+                          <div className="absolute inset-1 bg-white rounded-full" />
+                        )}
+                        {isActive && (
+                          <div className="absolute inset-1.5 bg-gray-900 rounded-full" />
+                        )}
+                      </div>
+                      
+                      {/* Step Label */}
+                      <div className="mt-3 text-center">
+                        <p className={`text-xs font-medium transition-colors ${
+                          isActive || isCompleted ? 'text-gray-900' : 'text-gray-400'
+                        }`}>
+                          {step.title}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
             </div>
+            
             <div className="text-center">
               <p className="text-sm text-gray-500 mb-1">
                 Schritt {currentStep} von {steps.length}
               </p>
               <h2 className="text-2xl font-light text-gray-900">
-                {steps.find(s => s.number === currentStep)?.title}
+                {steps.find(s => s.number === currentStep)?.description}
               </h2>
             </div>
           </div>
