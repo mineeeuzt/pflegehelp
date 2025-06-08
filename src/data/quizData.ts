@@ -344,12 +344,127 @@ export const quizCategories: QuizCategory[] = [
     color: 'bg-orange-200',
     icon: '📱'
   },
+  // ATMUNGSSYSTEM (Detailliert)
   {
     id: 'respiratory-system',
-    name: 'Atmungssystem',
+    name: 'ATMUNGSSYSTEM',
     description: 'Anatomie und Physiologie der Atmung',
     color: 'bg-blue-400',
     icon: '🫁'
+  },
+  // Anatomie der Atemwege
+  {
+    id: 'airway-anatomy',
+    name: 'Anatomie der Atemwege',
+    description: 'Aufbau der oberen und unteren Atemwege',
+    color: 'bg-sky-500',
+    icon: '🌬️'
+  },
+  {
+    id: 'upper-airways',
+    name: 'Obere Atemwege (Nase, Rachen, Kehlkopf)',
+    description: 'Anatomie der oberen Atemwege',
+    color: 'bg-sky-400',
+    icon: '👃'
+  },
+  {
+    id: 'lower-airways',
+    name: 'Untere Atemwege (Trachea, Bronchien, Bronchiolen)',
+    description: 'Anatomie der unteren Atemwege',
+    color: 'bg-sky-300',
+    icon: '🌳'
+  },
+  {
+    id: 'alveoli',
+    name: 'Alveolen & Kapillarnetz',
+    description: 'Lungenbläschen und Gasaustausch',
+    color: 'bg-sky-600',
+    icon: '🫧'
+  },
+  {
+    id: 'pleura',
+    name: 'Pleura (Ripp-/Lungenfell)',
+    description: 'Brustfell und Pleurahöhle',
+    color: 'bg-sky-700',
+    icon: '🛡️'
+  },
+  {
+    id: 'respiratory-muscles',
+    name: 'Atemmuskulatur (Zwerchfell, Intercostalmuskeln)',
+    description: 'Hauptatemmuskeln',
+    color: 'bg-sky-800',
+    icon: '💪'
+  },
+  {
+    id: 'accessory-muscles',
+    name: 'Atemhilfsmuskeln (Mm. scaleni, M. sternocleidomastoideus)',
+    description: 'Zusätzliche Atemmuskeln',
+    color: 'bg-sky-900',
+    icon: '🆘'
+  },
+  {
+    id: 'surfactant',
+    name: 'Surfactant-System',
+    description: 'Oberflächenaktive Substanz in den Alveolen',
+    color: 'bg-sky-200',
+    icon: '🧪'
+  },
+  // Atmungsphysiologie
+  {
+    id: 'respiratory-physiology',
+    name: 'Atmungsphysiologie',
+    description: 'Physiologische Prozesse der Atmung',
+    color: 'bg-teal-500',
+    icon: '⚡'
+  },
+  {
+    id: 'ventilation',
+    name: 'Ventilation (Belüftung)',
+    description: 'Belüftung der Lunge',
+    color: 'bg-teal-400',
+    icon: '💨'
+  },
+  {
+    id: 'diffusion',
+    name: 'Diffusion (Gasaustausch)',
+    description: 'Gasaustausch in den Alveolen',
+    color: 'bg-teal-300',
+    icon: '↔️'
+  },
+  {
+    id: 'perfusion',
+    name: 'Perfusion (Durchblutung)',
+    description: 'Durchblutung der Lunge',
+    color: 'bg-teal-600',
+    icon: '🩸'
+  },
+  {
+    id: 'vq-ratio',
+    name: 'Ventilations-Perfusions-Verhältnis (V/Q)',
+    description: 'Verhältnis von Belüftung zu Durchblutung',
+    color: 'bg-teal-700',
+    icon: '⚖️'
+  },
+  {
+    id: 'dead-space',
+    name: 'Totraum (anatomisch/funktionell)',
+    description: 'Nicht am Gasaustausch beteiligte Bereiche',
+    color: 'bg-teal-800',
+    icon: '🚫'
+  },
+  {
+    id: 'shunt',
+    name: 'Shunt-Effekte',
+    description: 'Rechts-Links-Shunt in der Lunge',
+    color: 'bg-teal-900',
+    icon: '🔄'
+  },
+  {
+    id: 'hpv',
+    name: 'Hypoxisch pulmonale Vasokonstriktion (Euler-Liljestrand)',
+    description: 'Regulation der Lungendurchblutung',
+    color: 'bg-teal-200',
+    icon: '🎯'
   },
   {
     id: 'nervous-system',
@@ -674,9 +789,71 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Blutreinigung', 'Atmung', 'Verdauung', 'Immunabwehr'],
     correctAnswer: 1,
     explanation: 'Das Zwerchfell ist der wichtigste Atemmuskel und ermöglicht durch seine Kontraktion die Einatmung.',
-    category: quizCategories[33], // respiratory-system (Index verschoben durch neue Kategorien)
+    category: quizCategories[56], // respiratory-muscles (jetzt verschoben durch neue Kategorien)
     difficulty: 'mittel',
     tags: ['atmung', 'muskel', 'physiologie']
+  },
+
+  // Atmungssystem - Neue Fragen
+  {
+    id: 'resp_001',
+    question: 'Welche Strukturen gehören zu den oberen Atemwegen?',
+    options: ['Trachea und Bronchien', 'Nase, Rachen und Kehlkopf', 'Alveolen und Kapillaren', 'Bronchiolen und Lungenbläschen'],
+    correctAnswer: 1,
+    explanation: 'Die oberen Atemwege umfassen Nase, Rachen (Pharynx) und Kehlkopf (Larynx). Sie dienen der Lufterwärmung, -befeuchtung und -filterung.',
+    category: quizCategories[50], // upper-airways
+    difficulty: 'leicht',
+    tags: ['obere-atemwege', 'anatomie', 'nase', 'rachen', 'kehlkopf']
+  },
+  {
+    id: 'resp_002',
+    question: 'Was ist Surfactant und welche Funktion hat es?',
+    options: ['Ein Atemmuskel', 'Ein oberflächenaktiver Stoff in den Alveolen', 'Ein Blutgefäß in der Lunge', 'Ein Nervensystem'],
+    correctAnswer: 1,
+    explanation: 'Surfactant ist eine oberflächenaktive Substanz, die die Oberflächenspannung in den Alveolen reduziert und damit das Kollabieren der Lungenbläschen verhindert.',
+    category: quizCategories[54], // surfactant
+    difficulty: 'schwer',
+    tags: ['surfactant', 'alveolen', 'oberflächenspannung']
+  },
+  {
+    id: 'resp_003',
+    question: 'Wo findet der eigentliche Gasaustausch in der Lunge statt?',
+    options: ['In den Bronchien', 'In der Trachea', 'In den Alveolen', 'Im Kehlkopf'],
+    correctAnswer: 2,
+    explanation: 'Der Gasaustausch zwischen Luft und Blut findet in den Alveolen (Lungenbläschen) statt, wo Sauerstoff ins Blut aufgenommen und Kohlendioxid abgegeben wird.',
+    category: quizCategories[52], // alveoli
+    difficulty: 'leicht',
+    tags: ['gasaustausch', 'alveolen', 'sauerstoff', 'kohlendioxid']
+  },
+  {
+    id: 'resp_004',
+    question: 'Was beschreibt das Ventilations-Perfusions-Verhältnis (V/Q)?',
+    options: ['Verhältnis von Ein- zu Ausatmung', 'Verhältnis von Belüftung zu Durchblutung', 'Verhältnis von Sauerstoff zu Kohlendioxid', 'Verhältnis von Totraum zu Alveolarraum'],
+    correctAnswer: 1,
+    explanation: 'Das V/Q-Verhältnis beschreibt das Verhältnis von Ventilation (Belüftung) zu Perfusion (Durchblutung) in der Lunge. Ein optimales V/Q-Verhältnis ist für einen effizienten Gasaustausch wichtig.',
+    category: quizCategories[59], // vq-ratio
+    difficulty: 'schwer',
+    tags: ['v/q-verhältnis', 'ventilation', 'perfusion', 'gasaustausch']
+  },
+  {
+    id: 'resp_005',
+    question: 'Welche Muskeln werden bei der normalen, ruhigen Einatmung verwendet?',
+    options: ['Nur das Zwerchfell', 'Zwerchfell und Zwischenrippenmuskeln', 'Atemhilfsmuskeln', 'Bauchmuskeln'],
+    correctAnswer: 1,
+    explanation: 'Bei der normalen Inspiration werden das Zwerchfell (Hauptatemmuskel) und die äußeren Zwischenrippenmuskeln (Mm. intercostales externi) verwendet.',
+    category: quizCategories[56], // respiratory-muscles
+    difficulty: 'mittel',
+    tags: ['atemmuskulatur', 'inspiration', 'zwerchfell', 'intercostalmuskeln']
+  },
+  {
+    id: 'resp_006',
+    question: 'Was ist ein Totraum in der Lunge?',
+    options: ['Bereich ohne Alveolen', 'Bereich der nicht am Gasaustausch beteiligt ist', 'Kollabierte Lungenbereiche', 'Entzündete Lungenbereiche'],
+    correctAnswer: 1,
+    explanation: 'Der Totraum umfasst alle Bereiche der Atemwege, die nicht am Gasaustausch beteiligt sind, wie Trachea, Bronchien und Bronchiolen (anatomischer Totraum).',
+    category: quizCategories[60], // dead-space
+    difficulty: 'mittel',
+    tags: ['totraum', 'gasaustausch', 'anatomisch', 'funktionell']
   },
 
   // Medikamentenlehre
@@ -686,7 +863,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['per os (oral)', 'per injectionem', 'per rectum', 'per inhalation'],
     correctAnswer: 0,
     explanation: '"p.o." steht für "per os" und bedeutet orale Medikamentengabe über den Mund.',
-    category: quizCategories[47], // medikamente
+    category: quizCategories[63], // medikamente
     difficulty: 'leicht',
     tags: ['medikamente', 'verabreichung', 'abkürzung']
   },
@@ -696,7 +873,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Gewichtszunahme', 'Trockener Husten', 'Haarausfall', 'Sehstörungen'],
     correctAnswer: 1,
     explanation: 'ACE-Hemmer können als typische Nebenwirkung einen trockenen Reizhusten verursachen.',
-    category: quizCategories[47], // medikamente
+    category: quizCategories[63], // medikamente
     difficulty: 'mittel',
     tags: ['ace-hemmer', 'nebenwirkungen', 'herz-kreislauf']
   },
@@ -708,7 +885,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['10 Sekunden', '15 Sekunden', '30 Sekunden', '60 Sekunden'],
     correctAnswer: 2,
     explanation: 'Eine hygienische Händedesinfektion sollte mindestens 30 Sekunden dauern, um wirksam zu sein.',
-    category: quizCategories[48], // hygiene
+    category: quizCategories[64], // hygiene
     difficulty: 'leicht',
     tags: ['händehygiene', 'desinfektion', 'infektionsschutz']
   },
@@ -720,7 +897,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['80-90/min', '100-120/min', '130-140/min', '150-160/min'],
     correctAnswer: 1,
     explanation: 'Die empfohlene Frequenz für die Herzdruckmassage liegt bei 100-120 Kompressionen pro Minute.',
-    category: quizCategories[49], // notfall
+    category: quizCategories[65], // notfall
     difficulty: 'mittel',
     tags: ['reanimation', 'herzdruckmassage', 'erste-hilfe']
   },
@@ -732,7 +909,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Mehrere Ärzte', 'Mehrere Krankheiten', 'Mehrere Medikamente', 'Mehrere Therapien'],
     correctAnswer: 2,
     explanation: 'Polypharmazie bezeichnet die gleichzeitige Einnahme von 5 oder mehr Medikamenten, häufig bei älteren Menschen.',
-    category: quizCategories[54], // gerontologie
+    category: quizCategories[70], // gerontologie
     difficulty: 'mittel',
     tags: ['polypharmazie', 'alter', 'medikamente']
   },
@@ -744,7 +921,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Laut sprechen', 'Kurze, einfache Sätze', 'Viele Informationen geben', 'Schnell sprechen'],
     correctAnswer: 1,
     explanation: 'Bei dementen Patienten sind kurze, einfache Sätze und ruhige Kommunikation besonders wichtig.',
-    category: quizCategories[60], // kommunikation
+    category: quizCategories[76], // kommunikation
     difficulty: 'leicht',
     tags: ['demenz', 'kommunikation', 'patientengespräch']
   }
@@ -824,11 +1001,63 @@ export const sampleFlashcards: Flashcard[] = [
     easeFactor: 2.5
   },
   
+  // Neue Atmungssystem-Lernkarten
+  {
+    id: 'fc_resp_001',
+    front: 'Obere vs. Untere Atemwege',
+    back: '**Obere Atemwege:**\n• Nase (Nasus)\n• Rachen (Pharynx)\n• Kehlkopf (Larynx)\n\n**Untere Atemwege:**\n• Luftröhre (Trachea)\n• Bronchien & Bronchiolen\n• Alveolen (Lungenbläschen)\n\n**Funktionen:**\n• Obere: Erwärmung, Befeuchtung, Filterung\n• Untere: Gasaustausch',
+    category: quizCategories[49], // airway-anatomy
+    difficulty: 'leicht',
+    tags: ['atemwege', 'anatomie', 'obere', 'untere'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_resp_002',
+    front: 'Surfactant-System',
+    back: '**Definition:**\nOberflächenaktive Substanz in den Alveolen\n\n**Zusammensetzung:**\n• 90% Phospholipide (v.a. Dipalmitoyl-Phosphatidylcholin)\n• 10% Proteine (SP-A, SP-B, SP-C, SP-D)\n\n**Funktionen:**\n• ↓ Oberflächenspannung in Alveolen\n• Verhindert Kollaps der Lungenbläschen\n• Stabilisiert unterschiedlich große Alveolen\n\n**Klinik:**\n• Mangel → Atemnotsyndrom (ARDS)',
+    category: quizCategories[54], // surfactant
+    difficulty: 'schwer',
+    tags: ['surfactant', 'alveolen', 'oberflächenspannung', 'phospholipide'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_resp_003',
+    front: 'Atemmuskulatur - Inspiration & Expiration',
+    back: '**Inspiration (Einatmung):**\n• **Hauptmuskeln:** Zwerchfell, äußere Intercostalmuskeln\n• **Hilfsmuskeln:** Mm. scaleni, M. sternocleidomastoideus\n\n**Expiration (Ausatmung):**\n• **Ruhig:** Passiv durch elastische Rückstellkraft\n• **Forciert:** Innere Intercostalmuskeln, Bauchmuskeln\n\n**Zwerchfell:**\n• Wichtigster Atemmuskel\n• Kontraktion → Thoraxerweiterung\n• Innervation: N. phrenicus (C3-C5)',
+    category: quizCategories[56], // respiratory-muscles
+    difficulty: 'mittel',
+    tags: ['atemmuskulatur', 'zwerchfell', 'inspiration', 'expiration'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_resp_004',
+    front: 'Ventilations-Perfusions-Verhältnis (V/Q)',
+    back: '**Definition:**\nVerhältnis von Ventilation zu Perfusion\n\n**Normalwerte:**\n• Gesamt-V/Q: ≈ 0,8\n• Lungenspitze: V/Q > 1 (mehr Ventilation)\n• Lungenbasis: V/Q < 1 (mehr Perfusion)\n\n**Störungen:**\n• **V/Q = 0:** Shunt (keine Ventilation)\n• **V/Q = ∞:** Totraum (keine Perfusion)\n\n**Regulation:**\n• Hypoxische pulmonale Vasokonstriktion\n• Bronchiale CO₂-Regulation',
+    category: quizCategories[59], // vq-ratio
+    difficulty: 'schwer',
+    tags: ['v/q-verhältnis', 'ventilation', 'perfusion', 'shunt', 'totraum'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_resp_005',
+    front: 'Totraum (anatomisch vs. funktionell)',
+    back: '**Anatomischer Totraum:**\n• Leitende Atemwege ohne Gasaustausch\n• Trachea, Bronchien, Bronchiolen\n• ≈ 150 ml beim Erwachsenen\n\n**Funktioneller Totraum:**\n• Anatomischer + Alveolar-Totraum\n• Bereiche mit V/Q-Mismatch\n• Erhöht bei Lungenerkrankungen\n\n**Klinische Bedeutung:**\n• ↑ Totraum → ineffiziente Ventilation\n• Kompensation durch ↑ Atemfrequenz',
+    category: quizCategories[60], // dead-space
+    difficulty: 'mittel',
+    tags: ['totraum', 'anatomisch', 'funktionell', 'ventilation'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+
   {
     id: 'fc_003',
     front: 'Die 5-R-Regel bei der Medikamentengabe',
     back: '1. Richtiger Patient\n2. Richtiges Medikament\n3. Richtige Dosis\n4. Richtige Zeit\n5. Richtige Applikationsart\n\n+ Zusätzlich:\n• Richtige Dokumentation\n• Richtige Aufklärung',
-    category: quizCategories[47], // medikamente
+    category: quizCategories[63], // medikamente
     difficulty: 'leicht',
     tags: ['medikamentengabe', 'sicherheit'],
     reviewCount: 0,
@@ -838,7 +1067,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_004',
     front: 'Händehygiene - Die 5 Momente der WHO',
     back: '1. VOR Patientenkontakt\n2. VOR aseptischen Tätigkeiten\n3. NACH Kontakt mit potenziell infektiösen Materialien\n4. NACH Patientenkontakt\n5. NACH Kontakt mit der Patientenumgebung',
-    category: quizCategories[48], // hygiene
+    category: quizCategories[64], // hygiene
     difficulty: 'mittel',
     tags: ['händehygiene', 'who', 'infektionsschutz'],
     reviewCount: 0,
@@ -848,7 +1077,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_005',
     front: 'Glasgow Coma Scale (GCS) - Bewertungskriterien',
     back: 'Augen öffnen (E):\n• Spontan: 4\n• Auf Ansprache: 3\n• Auf Schmerzreiz: 2\n• Kein: 1\n\nVerbale Reaktion (V):\n• Orientiert: 5\n• Verwirrt: 4\n• Unpassende Worte: 3\n• Unverständliche Laute: 2\n• Keine: 1\n\nMotorische Reaktion (M):\n• Befolgt Aufforderungen: 6\n• Lokalisation: 5\n• Beugeabwehr: 4\n• Beugesynergismen: 3\n• Strecksynergismen: 2\n• Keine: 1\n\nGesamt: 3-15 Punkte',
-    category: quizCategories[49], // notfall
+    category: quizCategories[65], // notfall
     difficulty: 'schwer',
     tags: ['gcs', 'bewusstsein', 'neurologie'],
     reviewCount: 0,
