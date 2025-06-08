@@ -10,7 +10,8 @@ import {
   RotateCcw,
   Trophy,
   Target,
-  Play
+  Play,
+  Plus
 } from 'lucide-react'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
