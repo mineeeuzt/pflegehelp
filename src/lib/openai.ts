@@ -392,3 +392,37 @@ export async function generateAIResponse(
     throw new Error('Fehler bei der KI-Generierung. Bitte versuchen Sie es erneut.')
   }
 }
+
+// Spezielle Funktion nur für Medikamenten-Szenarien
+export async function generateMedicationScenario(
+  prompt: string,
+  userInput: string
+): Promise<string> {
+  // Nur für Medikamenten-Spiel verwenden
+  if (!prompt.includes('medikamentenszenario') && !userInput.includes('Medikamenten')) {
+    throw new Error('Diese Funktion ist nur für das Medikamenten-Training verfügbar.')
+  }
+  
+  try {
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4',
+      messages: [
+        {
+          role: 'system',
+          content: prompt,
+        },
+        {
+          role: 'user',
+          content: userInput,
+        },
+      ],
+      max_tokens: 2000,
+      temperature: 0.8,
+    })
+
+    return completion.choices[0]?.message?.content || 'Keine Antwort erhalten.'
+  } catch (error) {
+    console.error('OpenAI API Error:', error)
+    throw new Error('Fehler bei der KI-Generierung. Bitte versuchen Sie es erneut.')
+  }
+}

@@ -14,7 +14,7 @@ import {
 } from 'lucide-react'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
-import { generateAIResponse, AI_PROMPTS } from '../lib/openai'
+import { generateMedicationScenario, AI_PROMPTS } from '../lib/openai'
 
 interface Medication {
   id: string
@@ -110,85 +110,172 @@ const MedikamentenTraining = () => {
   ]
 
   const scenarios: Scenario[] = [
+    // Kardiologie
     {
       id: '1',
-      title: 'Bluthochdruck-Krise',
-      vitals: { bloodPressure: '190/120', heartRate: 95, temperature: 36.8 },
+      title: 'Hypertensive Krise',
+      vitals: { bloodPressure: '190/120', heartRate: 95, temperature: 36.8, oxygenSaturation: 97 },
       symptoms: ['Kopfschmerzen', 'Schwindel', 'Übelkeit'],
       correctMedication: 'ramipril',
       needsDoctor: true,
-      explanation: 'Bei Blutdruckwerten über 180/110 mmHg mit Symptomen liegt ein hypertensiver Notfall vor. ACE-Hemmer wie Ramipril sind Mittel der ersten Wahl. Der Arzt muss sofort informiert werden.',
-      level: 1
-    },
-    {
-      id: '2',
-      title: 'Bradykardie',
-      vitals: { bloodPressure: '100/60', heartRate: 45, temperature: 36.2 },
-      symptoms: ['Schwäche', 'Schwindel', 'Wird schwarz vor Augen'],
-      correctMedication: 'atropin',
-      needsDoctor: true,
-      explanation: 'Bei symptomatischer Bradykardie unter 50 bpm ist Atropin das Mittel der Wahl. Dies ist ein Notfall - sofortige Arztbenachrichtigung erforderlich.',
+      explanation: 'Bei Blutdruckwerten über 180/110 mmHg mit Symptomen liegt ein hypertensiver Notfall vor. ACE-Hemmer wie Ramipril sind Mittel der ersten Wahl.',
       level: 2
     },
     {
+      id: '2',
+      title: 'Symptomatische Bradykardie',
+      vitals: { bloodPressure: '100/60', heartRate: 45, temperature: 36.2, oxygenSaturation: 94 },
+      symptoms: ['Schwäche', 'Schwindel', 'Wird schwarz vor Augen'],
+      correctMedication: 'atropin',
+      needsDoctor: true,
+      explanation: 'Bei symptomatischer Bradykardie unter 50 bpm ist Atropin das Mittel der Wahl. Sofortige Arztbenachrichtigung erforderlich.',
+      level: 3
+    },
+    {
       id: '3',
+      title: 'Supraventrikuläre Tachykardie',
+      vitals: { bloodPressure: '140/90', heartRate: 180, temperature: 36.9, oxygenSaturation: 96 },
+      symptoms: ['Unregelmäßiger Herzschlag', 'Schwindel', 'Schwächegefühl'],
+      correctMedication: 'verapamil',
+      needsDoctor: true,
+      explanation: 'Bei supraventrikulärer Tachykardie ist Verapamil das Mittel der Wahl zur Frequenzkontrolle.',
+      level: 3
+    },
+    
+    // Diabetes/Endokrinologie
+    {
+      id: '4',
+      title: 'Hyperglykämische Entgleisung',
+      vitals: { bloodPressure: '140/85', heartRate: 110, temperature: 37.8, bloodSugar: 380 },
+      symptoms: ['Starker Durst', 'Häufiges Wasserlassen', 'Müdigkeit'],
+      correctMedication: 'insulin-rapid',
+      needsDoctor: true,
+      explanation: 'Bei Blutzucker über 300 mg/dl mit Symptomen ist schnell wirkendes Insulin erforderlich. Arztbenachrichtigung bei diabetischer Entgleisung.',
+      level: 2
+    },
+    {
+      id: '5',
+      title: 'Hypoglykämie',
+      vitals: { bloodPressure: '120/80', heartRate: 95, temperature: 36.4, bloodSugar: 45 },
+      symptoms: ['Zittern', 'Schwitzen', 'Verwirrtheit'],
+      correctMedication: 'insulin-rapid',
+      needsDoctor: false,
+      explanation: 'Bei Hypoglykämie unter 70 mg/dl zunächst orale Glucose, bei Bewusstlosigkeit Glucagon oder IV-Glucose.',
+      level: 1
+    },
+    
+    // Infektiologie
+    {
+      id: '6',
+      title: 'Harnwegsinfekt',
+      vitals: { bloodPressure: '130/80', heartRate: 88, temperature: 38.5, painLevel: 6 },
+      symptoms: ['Brennen beim Wasserlassen', 'Häufiger Harndrang', 'Unterleibsschmerzen'],
+      correctMedication: 'ciprofloxacin',
+      needsDoctor: false,
+      explanation: 'Bei unkompliziertem Harnwegsinfekt ist Ciprofloxacin ein geeignetes Antibiotikum der ersten Wahl.',
+      level: 1
+    },
+    {
+      id: '7',
+      title: 'Bakterielle Pneumonie',
+      vitals: { bloodPressure: '120/75', heartRate: 105, temperature: 39.8, oxygenSaturation: 89, respiratoryRate: 28 },
+      symptoms: ['Husten mit gelbem Auswurf', 'Atemnot', 'Brustschmerzen'],
+      correctMedication: 'amoxicillin',
+      needsDoctor: true,
+      explanation: 'Bei bakterieller Pneumonie mit Sauerstoffmangel ist Amoxicillin indiziert. Arztbenachrichtigung bei SpO2 unter 95%.',
+      level: 2
+    },
+    
+    // Pneumologie
+    {
+      id: '8',
+      title: 'Asthmaanfall',
+      vitals: { bloodPressure: '135/85', heartRate: 125, temperature: 36.7, oxygenSaturation: 91, respiratoryRate: 32 },
+      symptoms: ['Pfeifende Atmung', 'Atemnot', 'Engegefühl in der Brust'],
+      correctMedication: 'salbutamol',
+      needsDoctor: true,
+      explanation: 'Bei akutem Asthmaanfall ist Salbutamol als Bronchodilatator das Mittel der Wahl. Bei SpO2 unter 95% Arzt rufen.',
+      level: 2
+    },
+    {
+      id: '9',
+      title: 'COPD-Exazerbation',
+      vitals: { bloodPressure: '145/90', heartRate: 115, temperature: 37.2, oxygenSaturation: 88, respiratoryRate: 30 },
+      symptoms: ['Verschlechterte Atemnot', 'Vermehrter Husten', 'Gelb-grüner Auswurf'],
+      correctMedication: 'prednisolon',
+      needsDoctor: true,
+      explanation: 'Bei COPD-Exazerbation sind Kortikosteroide wie Prednisolon indiziert. Kritische Hypoxämie erfordert Arztbenachrichtigung.',
+      level: 3
+    },
+    
+    // Schmerzmanagement
+    {
+      id: '10',
+      title: 'Akute Rückenschmerzen',
+      vitals: { bloodPressure: '130/85', heartRate: 72, temperature: 36.7, painLevel: 8 },
+      symptoms: ['Starke Rückenschmerzen', 'Bewegungseinschränkung', 'Verspannungen'],
+      correctMedication: 'ibuprofen',
+      needsDoctor: false,
+      explanation: 'Bei akuten Rückenschmerzen ist Ibuprofen aufgrund der entzündungshemmenden Wirkung geeignet.',
+      level: 1
+    },
+    {
+      id: '11',
+      title: 'Postoperative Schmerzen',
+      vitals: { bloodPressure: '140/85', heartRate: 95, temperature: 37.1, painLevel: 9 },
+      symptoms: ['Starke Wundschmerzen', 'Kann nicht schlafen', 'Unruhe'],
+      correctMedication: 'metamizol',
+      needsDoctor: false,
+      explanation: 'Bei starken postoperativen Schmerzen ist Metamizol ein starkes Analgetikum ohne Suchtpotential.',
+      level: 2
+    },
+    
+    // Gastroenterologie
+    {
+      id: '12',
+      title: 'Schwere Übelkeit',
+      vitals: { bloodPressure: '115/70', heartRate: 85, temperature: 36.9 },
+      symptoms: ['Starke Übelkeit', 'Wiederholtes Erbrechen', 'Kann nichts bei sich behalten'],
+      correctMedication: 'ondansetron',
+      needsDoctor: false,
+      explanation: 'Bei schwerer Übelkeit und Erbrechen ist Ondansetron ein hochwirksames Antiemetikum.',
+      level: 1
+    },
+    
+    // Notfallmedizin
+    {
+      id: '13',
+      title: 'Anaphylaktischer Schock',
+      vitals: { bloodPressure: '70/40', heartRate: 140, temperature: 36.2, oxygenSaturation: 85 },
+      symptoms: ['Atemnot', 'Hautausschlag', 'Kreislaufkollaps'],
+      correctMedication: 'adrenalin',
+      needsDoctor: true,
+      explanation: 'Bei anaphylaktischem Schock ist Adrenalin lebensrettend. Sofortiger Notfall!',
+      level: 3
+    },
+    
+    // Geriatrie
+    {
+      id: '14',
+      title: 'Herzinsuffizienz mit Ödemen',
+      vitals: { bloodPressure: '150/90', heartRate: 78, temperature: 36.5, oxygenSaturation: 93 },
+      symptoms: ['Geschwollene Beine', 'Kurzatmigkeit', 'Gewichtszunahme'],
+      correctMedication: 'furosemid',
+      needsDoctor: false,
+      explanation: 'Bei Herzinsuffizienz mit Ödemen sind Diuretika wie Furosemid indiziert.',
+      level: 1
+    },
+    
+    // Verschiedene Temperaturen/Fieber
+    {
+      id: '15',
       title: 'Fieber mit Kopfschmerzen',
       vitals: { bloodPressure: '120/80', heartRate: 88, temperature: 39.2 },
       symptoms: ['Starke Kopfschmerzen', 'Müdigkeit', 'Gliederschmerzen'],
       correctMedication: 'paracetamol',
       needsDoctor: false,
-      explanation: 'Bei Fieber und Kopfschmerzen ist Paracetamol das Mittel der ersten Wahl. Bei normalen Vitalwerten und typischen Erkältungssymptomen ist kein Arzt nötig.',
+      explanation: 'Bei Fieber und Kopfschmerzen ist Paracetamol das Mittel der ersten Wahl.',
       level: 1
-    },
-    {
-      id: '4',
-      title: 'Herzrasen nach Belastung',
-      vitals: { bloodPressure: '160/95', heartRate: 145, temperature: 37.1 },
-      symptoms: ['Herzrasen', 'Atemnot', 'Brustdruck'],
-      correctMedication: 'metoprolol',
-      needsDoctor: true,
-      explanation: 'Bei Tachykardie mit erhöhtem Blutdruck sind Betablocker wie Metoprolol indiziert. Bei diesen Symptomen sollte der Arzt informiert werden.',
-      level: 2
-    },
-    {
-      id: '5',
-      title: 'Wassereinlagerungen',
-      vitals: { bloodPressure: '150/90', heartRate: 78, temperature: 36.5 },
-      symptoms: ['Geschwollene Beine', 'Kurzatmigkeit', 'Gewichtszunahme'],
-      correctMedication: 'furosemid',
-      needsDoctor: false,
-      explanation: 'Bei Ödemen und Anzeichen von Herzinsuffizienz sind Diuretika wie Furosemid indiziert. Routinefall ohne sofortige Arztbenachrichtigung.',
-      level: 1
-    },
-    {
-      id: '6',
-      title: 'Akute Rückenschmerzen',
-      vitals: { bloodPressure: '130/85', heartRate: 72, temperature: 36.7 },
-      symptoms: ['Starke Rückenschmerzen', 'Bewegungseinschränkung', 'Verspannungen'],
-      correctMedication: 'ibuprofen',
-      needsDoctor: false,
-      explanation: 'Bei akuten Rückenschmerzen ohne Warnsignale ist Ibuprofen aufgrund der entzündungshemmenden Wirkung geeignet. Kein Notfall.',
-      level: 1
-    },
-    {
-      id: '7',
-      title: 'Hypertensive Entgleisung',
-      vitals: { bloodPressure: '220/130', heartRate: 110, temperature: 37.2 },
-      symptoms: ['Sehstörungen', 'Verwirrtheit', 'Starke Kopfschmerzen'],
-      correctMedication: 'ramipril',
-      needsDoctor: true,
-      explanation: 'Bei maligner Hypertonie mit neurologischen Symptomen ist eine sofortige Blutdrucksenkung nötig. ACE-Hemmer und sofortige Arztbenachrichtigung erforderlich.',
-      level: 3
-    },
-    {
-      id: '8',
-      title: 'Vorhofflimmern',
-      vitals: { bloodPressure: '140/90', heartRate: 180, temperature: 36.9 },
-      symptoms: ['Unregelmäßiger Herzschlag', 'Schwindel', 'Schwächegefühl'],
-      correctMedication: 'metoprolol',
-      needsDoctor: true,
-      explanation: 'Bei Vorhofflimmern mit schneller Überleitung sind Betablocker zur Frequenzkontrolle indiziert. Arztbenachrichtigung wegen Rhythmusstörung.',
-      level: 3
     }
   ]
 
@@ -202,6 +289,15 @@ const MedikamentenTraining = () => {
   const generateAIScenario = async (): Promise<Scenario | null> => {
     try {
       setIsGeneratingScenario(true)
+      console.log('🤖 Starte KI-Szenario-Generierung...')
+      
+      // Prüfe ob OpenAI API-Key verfügbar ist
+      const apiKey = import.meta.env.VITE_OPENAI_API_KEY
+      if (!apiKey) {
+        console.warn('⚠️  Kein OpenAI API-Key gefunden. Fallback auf vordefinierte Szenarien.')
+        return null
+      }
+      
       const levelBased = Math.min(3, Math.floor(completedScenarios / 3) + 1)
       
       // Abwechslungsreiche Prompts für verschiedene medizinische Bereiche
@@ -221,7 +317,11 @@ const MedikamentenTraining = () => {
       const randomArea = medicalAreas[Math.floor(Math.random() * medicalAreas.length)]
       const prompt = `Erstelle ${randomArea} der Schwierigkeit Level ${levelBased}. Nutze abwechslungsreiche Medikamentengruppen und Vitalparameter. Achte auf realistische, lehrreiche Fälle mit verschiedenen Altersgruppen.`
       
-      const response = await generateAIResponse(AI_PROMPTS.medikamentenszenario, prompt)
+      console.log(`🎯 Generiere: ${randomArea} (Level ${levelBased})`)
+      
+      const response = await generateMedicationScenario(AI_PROMPTS.medikamentenszenario, prompt)
+      console.log('✅ KI-Response erhalten:', response.substring(0, 100) + '...')
+      
       const scenarioData = JSON.parse(response)
       
       const newScenario: Scenario = {
@@ -244,10 +344,11 @@ const MedikamentenTraining = () => {
         level: scenarioData.level
       }
       
+      console.log('🎉 KI-Szenario erfolgreich erstellt:', newScenario.title)
       setAiGeneratedScenarios(prev => [...prev, newScenario])
       return newScenario
     } catch (error) {
-      console.error('Fehler beim Generieren des KI-Szenarios:', error)
+      console.error('❌ Fehler beim Generieren des KI-Szenarios:', error)
       return null
     } finally {
       setIsGeneratingScenario(false)
