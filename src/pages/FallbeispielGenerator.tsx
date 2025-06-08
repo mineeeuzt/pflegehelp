@@ -380,8 +380,8 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
     switch (currentStep) {
       case 1:
         return (
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2">
               {altersgruppen.map((alter) => (
                 <motion.div
                   key={alter.value}
@@ -396,9 +396,9 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, alter: alter.value }))}
                   >
-                    <CardContent className="p-4 relative h-full flex flex-col justify-center">
+                    <CardContent className="p-3 relative h-full flex flex-col justify-center">
                       <div className="text-center">
-                        <p className="font-medium text-gray-900 text-sm mb-1">{alter.label}</p>
+                        <p className="font-medium text-gray-900 text-xs mb-1">{alter.label}</p>
                         <p className="text-xs text-gray-500">{alter.sublabel}</p>
                       </div>
                       
@@ -416,8 +416,8 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
       case 2:
         return (
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-2">
               {krankheitsbereiche.map((bereich) => (
                 <motion.div
                   key={bereich.value}
@@ -432,9 +432,9 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, bereich: bereich.value }))}
                   >
-                    <CardContent className="p-3 relative h-full flex flex-col justify-center">
+                    <CardContent className="p-2 relative h-full flex flex-col justify-center">
                       <div className="text-center">
-                        <p className="font-medium text-gray-900 text-sm mb-1 leading-tight">{bereich.label}</p>
+                        <p className="font-medium text-gray-900 text-xs mb-1 leading-tight">{bereich.label}</p>
                       </div>
                       
                       {/* Selection indicator */}

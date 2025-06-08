@@ -7,7 +7,8 @@ import {
   Target, 
   FileText, 
   Clock,
-  ArrowRight
+  ArrowRight,
+  Plus
 } from 'lucide-react'
 import { Button, Card, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
@@ -15,6 +16,7 @@ import { authService } from '../services/authService'
 
 const Dashboard = () => {
   const { user } = useAuthStore()
+  const [isLoading, setIsLoading] = useState(true)
   const [trialInfo, setTrialInfo] = useState({
     isTrialActive: false,
     daysLeft: 0,
@@ -25,6 +27,8 @@ const Dashboard = () => {
     if (user) {
       checkTrialStatus()
     }
+    // Simulate loading time to show animation
+    setTimeout(() => setIsLoading(false), 1500)
   }, [user])
 
   const checkTrialStatus = async () => {
@@ -61,6 +65,31 @@ const Dashboard = () => {
       href: '/smart-ziel'
     }
   ]
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <motion.div
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ 
+            scale: [0.5, 1.2, 1],
+            opacity: [0, 1, 1]
+          }}
+          transition={{ 
+            duration: 1.5,
+            times: [0, 0.7, 1],
+            ease: "easeOut"
+          }}
+          className="flex flex-col items-center"
+        >
+          <div className="w-16 h-16 border border-gray-300 rounded-lg flex items-center justify-center bg-white mb-4">
+            <Plus className="h-8 w-8 text-gray-600" strokeWidth={1.5} />
+          </div>
+          <p className="text-gray-600 font-light">Lädt...</p>
+        </motion.div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-white">
