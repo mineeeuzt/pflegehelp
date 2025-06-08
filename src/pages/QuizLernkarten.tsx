@@ -303,23 +303,6 @@ const QuizLernkarten = () => {
           </button>
         </div>
 
-        {/* Pflegepraxis - direkt auswählbar */}
-        <div>
-          <h3 className="text-lg font-medium mb-3 text-green-700">💊 Pflegepraxis</h3>
-          <CategoryGrid 
-            categories={[
-              { id: 'medikamente', name: 'Medikamentenlehre', description: 'Pharmakologie', icon: '💊' },
-              { id: 'hygiene', name: 'Hygiene & Infektionsschutz', description: 'Sauberkeitslehre', icon: '🧼' },
-              { id: 'notfall', name: 'Notfallmedizin', description: 'Akute Situationen', icon: '🚨' },
-              { id: 'wound-care', name: 'Wundversorgung', description: 'Wundheilung', icon: '🩹' },
-              { id: 'nursing-techniques', name: 'Pflegetechniken', description: 'Praktische Pflege', icon: '🏥' },
-              { id: 'gerontologie', name: 'Gerontologie', description: 'Altenpflege', icon: '👴' },
-              { id: 'paediatrie', name: 'Pädiatrie', description: 'Kinderpflege', icon: '👶' },
-              { id: 'recht', name: 'Pflegrecht & Ethik', description: 'Rechtliche Grundlagen', icon: '⚖️' }
-            ]}
-            color="green"
-          />
-        </div>
       </CardContent>
     </Card>
   )
