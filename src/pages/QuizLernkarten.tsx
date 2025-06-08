@@ -49,11 +49,10 @@ const QuizLernkarten = () => {
 
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   const [showExplanation, setShowExplanation] = useState(false)
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['anatomy-physiology', 'pathology']))
-  const [searchTerm, setSearchTerm] = useState('')
-  const [currentView, setCurrentView] = useState<'main' | 'category'>('main')
-  const [selectedMainCategory, setSelectedMainCategory] = useState<any>(null)
-  const [breadcrumb, setBreadcrumb] = useState<any[]>([])
+  const [currentView, setCurrentView] = useState<'main' | 'subcategory' | 'detail'>('main')
+  const [selectedMainCategory, setSelectedMainCategory] = useState<string | null>(null)
+  const [selectedSubcategory, setSelectedSubcategory] = useState<any>(null)
+  const [navigationPath, setNavigationPath] = useState<string[]>([])
 
   const studyModes: StudyMode[] = [
     {
@@ -148,54 +147,36 @@ const QuizLernkarten = () => {
     </div>
   )
 
-  // Flatten all categories for selection
-  const getAllCategories = (categories: any[]): any[] => {
-    let allCategories: any[] = []
-    categories.forEach(category => {
-      allCategories.push(category)
-      if (category.children) {
-        allCategories = allCategories.concat(getAllCategories(category.children))
-      }
-    })
-    return allCategories
-  }
-
-  const allMedicalCategories = getAllCategories([...medicalBasicsCategories, ...pathologyCategories])
-  const allCategories = [...quizCategories, ...allMedicalCategories]
-
   // Navigation functions
-  const toggleCategory = (categoryId: string) => {
-    const newExpanded = new Set(expandedCategories)
-    if (newExpanded.has(categoryId)) {
-      newExpanded.delete(categoryId)
-    } else {
-      newExpanded.add(categoryId)
-    }
-    setExpandedCategories(newExpanded)
+  const navigateToMain = (categoryType: string) => {
+    setSelectedMainCategory(categoryType)
+    setCurrentView('subcategory')
+    setNavigationPath([categoryType])
   }
 
-  const navigateToCategory = (category: any, parentBreadcrumb: any[] = []) => {
-    setSelectedMainCategory(category)
-    setBreadcrumb([...parentBreadcrumb, category])
-    setCurrentView('category')
+  const navigateToDetail = (subcategory: any) => {
+    setSelectedSubcategory(subcategory)
+    setCurrentView('detail')
+    setNavigationPath([...navigationPath, subcategory.name])
   }
 
   const navigateBack = () => {
-    if (breadcrumb.length > 1) {
-      const newBreadcrumb = breadcrumb.slice(0, -1)
-      setBreadcrumb(newBreadcrumb)
-      setSelectedMainCategory(newBreadcrumb[newBreadcrumb.length - 1])
-    } else {
+    if (currentView === 'detail') {
+      setCurrentView('subcategory')
+      setSelectedSubcategory(null)
+      setNavigationPath(navigationPath.slice(0, -1))
+    } else if (currentView === 'subcategory') {
       setCurrentView('main')
-      setBreadcrumb([])
       setSelectedMainCategory(null)
+      setNavigationPath([])
     }
   }
 
   const navigateHome = () => {
     setCurrentView('main')
-    setBreadcrumb([])
     setSelectedMainCategory(null)
+    setSelectedSubcategory(null)
+    setNavigationPath([])
   }
 
   const selectCategory = (categoryId: string) => {
@@ -205,18 +186,17 @@ const QuizLernkarten = () => {
     useQuizStore.setState({ selectedCategories: newSelection })
   }
 
-  // Search function
-  const filterCategories = (categories: any[], term: string): any[] => {
-    if (!term) return categories
-    return categories.filter(category => {
-      const matchesName = category.name.toLowerCase().includes(term.toLowerCase())
-      const matchesDescription = category.description.toLowerCase().includes(term.toLowerCase())
-      const hasMatchingChildren = category.children ? filterCategories(category.children, term).length > 0 : false
-      return matchesName || matchesDescription || hasMatchingChildren
-    }).map(category => ({
-      ...category,
-      children: category.children ? filterCategories(category.children, term) : undefined
-    }))
+  // Get all leaf categories (categories without children)
+  const getAllLeafCategories = (categories: any[]): any[] => {
+    let leafCategories: any[] = []
+    categories.forEach(category => {
+      if (!category.children || category.children.length === 0) {
+        leafCategories.push(category)
+      } else {
+        leafCategories = leafCategories.concat(getAllLeafCategories(category.children))
+      }
+    })
+    return leafCategories
   }
 
   // Breadcrumb Navigation
@@ -229,116 +209,55 @@ const QuizLernkarten = () => {
         <Home className="w-4 h-4" />
         Start
       </button>
-      {breadcrumb.map((item, index) => (
-        <div key={item.id} className="flex items-center gap-2">
+      {navigationPath.map((pathItem, index) => (
+        <div key={index} className="flex items-center gap-2">
           <ChevronRight className="w-4 h-4 text-gray-400" />
-          <button
-            onClick={() => {
-              const newBreadcrumb = breadcrumb.slice(0, index + 1)
-              setBreadcrumb(newBreadcrumb)
-              setSelectedMainCategory(item)
-            }}
-            className={`${index === breadcrumb.length - 1 ? 'text-gray-900 font-medium' : 'text-blue-600 hover:text-blue-800'}`}
-          >
-            {item.icon} {item.name}
-          </button>
+          <span className={`${index === navigationPath.length - 1 ? 'text-gray-900 font-medium' : 'text-blue-600'}`}>
+            {pathItem}
+          </span>
         </div>
       ))}
     </div>
   )
 
-  // Hierarchical Category Tree Component
-  const CategoryTree = ({ categories, level = 0, parentColor = 'blue' }: { categories: any[], level?: number, parentColor?: string }) => {
-    const filteredCategories = filterCategories(categories, searchTerm)
-    const indent = level * 20
-
+  // Category Grid Component - shows categories in a clean grid
+  const CategoryGrid = ({ categories, color = 'blue' }: { categories: any[], color?: string }) => {
     return (
-      <div style={{ marginLeft: `${indent}px` }}>
-        {filteredCategories.map((category) => {
-          const isExpanded = expandedCategories.has(category.id)
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {categories.map((category) => {
           const isSelected = selectedCategories.includes(category.id)
           const hasChildren = category.children && category.children.length > 0
-
+          
           return (
-            <div key={category.id} className="mb-2">
-              <div className="flex items-center gap-2">
-                {/* Expand/Collapse Button */}
+            <div key={category.id} className="relative">
+              <button
+                onClick={() => selectCategory(category.id)}
+                className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
+                  isSelected
+                    ? color === 'blue' 
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-red-500 bg-red-50'
+                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                <div className="text-2xl mb-2">{category.icon}</div>
+                <div className="text-sm font-medium mb-1">{category.name}</div>
+                <div className="text-xs text-gray-600">{category.description}</div>
                 {hasChildren && (
-                  <button
-                    onClick={() => toggleCategory(category.id)}
-                    className="p-1 hover:bg-gray-100 rounded"
-                  >
-                    {isExpanded ? (
-                      <ChevronDown className="w-4 h-4 text-gray-500" />
-                    ) : (
-                      <ChevronRight className="w-4 h-4 text-gray-500" />
-                    )}
-                  </button>
+                  <div className="text-xs text-gray-500 mt-1">
+                    {category.children.length} Unterkategorien
+                  </div>
                 )}
-                {!hasChildren && <div className="w-6" />}
-
-                {/* Category Selection Button */}
+              </button>
+              {hasChildren && (
                 <button
-                  onClick={() => selectCategory(category.id)}
-                  className={`flex-1 flex items-center gap-3 p-3 rounded-lg border-2 transition-all text-left ${
-                    isSelected
-                      ? parentColor === 'blue' 
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-red-500 bg-red-50'
-                      : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-                  }`}
+                  onClick={() => navigateToDetail(category)}
+                  className="absolute top-2 right-2 p-1 rounded-full bg-white shadow hover:bg-gray-100"
+                  title="Details anzeigen"
                 >
-                  <span className="text-xl">{category.icon}</span>
-                  <div className="flex-1">
-                    <div className="font-medium">{category.name}</div>
-                    <div className="text-sm text-gray-600">{category.description}</div>
-                    {hasChildren && (
-                      <div className="text-xs text-gray-500 mt-1">
-                        {category.children.length} Unterkategorien
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className={`px-2 py-1 rounded text-xs ${
-                      category.difficulty === 'easy' ? 'bg-green-100 text-green-700' :
-                      category.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-red-100 text-red-700'
-                    }`}>
-                      {category.difficulty === 'easy' ? 'Leicht' : 
-                       category.difficulty === 'medium' ? 'Mittel' : 'Schwer'}
-                    </span>
-                    {hasChildren && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          navigateToCategory(category, breadcrumb)
-                        }}
-                        className="p-1 rounded hover:bg-gray-200"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
+                  <ChevronRight className="w-4 h-4 text-gray-600" />
                 </button>
-              </div>
-
-              {/* Subcategories */}
-              <AnimatePresence>
-                {isExpanded && hasChildren && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="mt-2"
-                  >
-                    <CategoryTree 
-                      categories={category.children} 
-                      level={level + 1} 
-                      parentColor={parentColor}
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              )}
             </div>
           )
         })}
@@ -346,366 +265,143 @@ const QuizLernkarten = () => {
     )
   }
 
-  // Main Category Selection View
+  // Main Category Selection View - Clean Two-Button Interface
   const MainCategorySelection = () => (
     <Card className="mb-6">
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          Kategorien auswählen
-          <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Kategorien durchsuchen..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 border rounded-lg w-64"
-            />
-          </div>
-        </CardTitle>
+        <CardTitle>Kategorien auswählen</CardTitle>
+        <p className="text-gray-600">Wähle eine Hauptkategorie aus, um die Unterbereiche zu sehen.</p>
       </CardHeader>
       <CardContent>
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Anatomie & Physiologie */}
+          <button
+            onClick={() => navigateToMain('anatomy')}
+            className="flex items-center gap-4 p-6 bg-blue-50 rounded-xl border-2 border-blue-200 hover:border-blue-300 transition-all"
+          >
+            <span className="text-4xl">🏥</span>
+            <div className="text-left">
+              <div className="text-xl font-semibold text-blue-700">Anatomie & Physiologie</div>
+              <div className="text-blue-600">9 Hauptsysteme mit allen Unterbereichen</div>
+              <div className="text-sm text-blue-500 mt-1">400+ detaillierte Kategorien</div>
+            </div>
+            <ChevronRight className="w-6 h-6 text-blue-500 ml-auto" />
+          </button>
           
-          {/* DEBUG MESSAGE */}
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-            ✅ NEUE VERSION GELADEN! Wenn du das siehst, sind die neuen Kategorien da!
-          </div>
-          
-          {/* Anatomie & Physiologie - Alle Hauptkategorien */}
-          <div>
-            <h3 className="text-lg font-medium mb-3 text-blue-700">🏥 Anatomie & Physiologie - Alle Bereiche (38 KATEGORIEN!)</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {/* Direkte Anatomie-Kategorien */}
-              <button onClick={() => selectCategory('cardiovascular-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('cardiovascular-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🫀</div>
-                <div className="text-sm font-medium">Herz-Kreislauf-System</div>
-              </button>
-              <button onClick={() => selectCategory('respiratory-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('respiratory-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🫁</div>
-                <div className="text-sm font-medium">Atmungssystem</div>
-              </button>
-              <button onClick={() => selectCategory('nervous-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('nervous-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🧠</div>
-                <div className="text-sm font-medium">Nervensystem</div>
-              </button>
-              <button onClick={() => selectCategory('musculoskeletal-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('musculoskeletal-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🦴</div>
-                <div className="text-sm font-medium">Bewegungsapparat</div>
-              </button>
-              <button onClick={() => selectCategory('renal-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('renal-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🫘</div>
-                <div className="text-sm font-medium">Nieren & Harnwege</div>
-              </button>
-              <button onClick={() => selectCategory('blood-immune-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('blood-immune-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🩸</div>
-                <div className="text-sm font-medium">Blut & Immunsystem</div>
-              </button>
-              <button onClick={() => selectCategory('metabolism-hormones')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('metabolism-hormones') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🔄</div>
-                <div className="text-sm font-medium">Stoffwechsel & Hormone</div>
-              </button>
-              <button onClick={() => selectCategory('digestive-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('digestive-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🍯</div>
-                <div className="text-sm font-medium">Verdauungssystem</div>
-              </button>
-              <button onClick={() => selectCategory('integumentary-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('integumentary-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">👁️</div>
-                <div className="text-sm font-medium">Haut & Sinnesorgane</div>
-              </button>
-              
-              {/* Detaillierte Anatomie-Kategorien */}
-              <button onClick={() => selectCategory('heart-anatomy')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('heart-anatomy') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">❤️</div>
-                <div className="text-sm font-medium">Herzanatomie</div>
-              </button>
-              <button onClick={() => selectCategory('blood-circulation')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('blood-circulation') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🔄</div>
-                <div className="text-sm font-medium">Blutkreislauf</div>
-              </button>
-              <button onClick={() => selectCategory('blood-pressure-regulation')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('blood-pressure-regulation') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">📊</div>
-                <div className="text-sm font-medium">Blutdruck & Regulation</div>
-              </button>
-              <button onClick={() => selectCategory('heart-physiology')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('heart-physiology') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">⚡</div>
-                <div className="text-sm font-medium">Herzphysiologie</div>
-              </button>
-              <button onClick={() => selectCategory('vascular-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('vascular-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🌊</div>
-                <div className="text-sm font-medium">Gefäßsystem</div>
-              </button>
-              <button onClick={() => selectCategory('ecg-rhythm')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('ecg-rhythm') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">📈</div>
-                <div className="text-sm font-medium">EKG & Herzrhythmus</div>
-              </button>
+          {/* Krankheitslehre */}
+          <button
+            onClick={() => navigateToMain('pathology')}
+            className="flex items-center gap-4 p-6 bg-red-50 rounded-xl border-2 border-red-200 hover:border-red-300 transition-all"
+          >
+            <span className="text-4xl">🦠</span>
+            <div className="text-left">
+              <div className="text-xl font-semibold text-red-700">Krankheitslehre</div>
+              <div className="text-red-600">8 Hauptbereiche mit allen Unterbereichen</div>
+              <div className="text-sm text-red-500 mt-1">Alle wichtigen Krankheitsbilder</div>
             </div>
-          </div>
+            <ChevronRight className="w-6 h-6 text-red-500 ml-auto" />
+          </button>
+        </div>
 
-          {/* Krankheitslehre - Direkte Hauptkategorien */}
-          <div>
-            <h3 className="text-lg font-medium mb-3 text-red-700">🦠 Krankheitslehre - Hauptbereiche</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {/* Alle 8 Pathologie-Hauptkategorien */}
-              {pathologyCategories.find(cat => cat.id === 'pathology')?.children?.map((category) => (
-                <div key={category.id} className="relative">
-                  <button
-                    onClick={() => selectCategory(category.id)}
-                    className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
-                      selectedCategories.includes(category.id)
-                        ? 'border-red-500 bg-red-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="text-2xl mb-1">{category.icon}</div>
-                    <div className="text-sm font-medium">{category.name}</div>
-                    <div className="text-xs text-gray-500 mt-1">
-                      {category.children?.length || 0} Unterkategorien
-                    </div>
-                  </button>
-                  <button
-                    onClick={() => navigateToCategory(category, [])}
-                    className="absolute top-1 right-1 p-1 rounded hover:bg-gray-200 text-gray-500"
-                    title="Unterkategorien anzeigen"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              )) || []}
-              
-              {/* Original Quiz-Kategorien für Pathologie */}
-              {quizCategories.filter(cat => 
-                ['cardiovascular-diseases', 'respiratory-diseases', 'neurological-diseases', 'renal-diseases', 
-                 'endocrine-diseases', 'gastrointestinal-diseases', 'musculoskeletal-diseases', 'infectious-diseases'].includes(cat.id)
-              ).map((category) => (
-                <div key={category.id} className="relative">
-                  <button
-                    onClick={() => selectCategory(category.id)}
-                    className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
-                      selectedCategories.includes(category.id)
-                        ? 'border-red-500 bg-red-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="text-2xl mb-1">{category.icon}</div>
-                    <div className="text-sm font-medium">{category.name}</div>
-                  </button>
-                  <button
-                    onClick={() => {
-                      // Find corresponding detailed category
-                      const detailedCategory = pathologyCategories.find(cat => 
-                        cat.children?.some(child => child.id === category.id)
-                      )?.children?.find(child => child.id === category.id)
-                      
-                      if (detailedCategory) {
-                        navigateToCategory(detailedCategory, [])
-                      }
-                    }}
-                    className="absolute top-1 right-1 p-1 rounded hover:bg-gray-200 text-gray-500"
-                    title="Detailansicht"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Hierarchical Medical Categories */}
-          <div>
-            <h3 className="text-lg font-medium mb-3 text-teal-700">🏥 Detaillierte Medizinische Kategorien</h3>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <div className="space-y-4">
-                {/* Quick Access Buttons */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <button
-                    onClick={() => navigateToCategory(medicalBasicsCategories[0], [])}
-                    className="flex items-center gap-3 p-4 bg-blue-100 rounded-lg border-2 border-blue-200 hover:border-blue-300 transition-all"
-                  >
-                    <span className="text-2xl">🏥</span>
-                    <div className="text-left">
-                      <div className="font-medium text-blue-700">Anatomie & Physiologie</div>
-                      <div className="text-sm text-blue-600">9 Hauptkategorien mit Unterbereichen</div>
-                    </div>
-                    <ChevronRight className="w-5 h-5 text-blue-500 ml-auto" />
-                  </button>
-                  
-                  <button
-                    onClick={() => navigateToCategory(pathologyCategories[0], [])}
-                    className="flex items-center gap-3 p-4 bg-red-100 rounded-lg border-2 border-red-200 hover:border-red-300 transition-all"
-                  >
-                    <span className="text-2xl">🦠</span>
-                    <div className="text-left">
-                      <div className="font-medium text-red-700">Krankheitslehre</div>
-                      <div className="text-sm text-red-600">8 Hauptkategorien mit Unterbereichen</div>
-                    </div>
-                    <ChevronRight className="w-5 h-5 text-red-500 ml-auto" />
-                  </button>
-                </div>
-
-                {/* Collapsed Tree Views */}
-                <div>
-                  <h4 className="font-medium text-blue-700 mb-2 flex items-center gap-2">
-                    <span>Anatomie & Physiologie</span>
-                    <span className="text-xs text-gray-500">(Klicken für Details)</span>
-                  </h4>
-                  <CategoryTree 
-                    categories={medicalBasicsCategories} 
-                    parentColor="blue"
-                  />
-                </div>
-
-                {/* Krankheitslehre */}
-                <div className="mt-6">
-                  <h4 className="font-medium text-red-700 mb-2 flex items-center gap-2">
-                    <span>Krankheitslehre</span>
-                    <span className="text-xs text-gray-500">(Klicken für Details)</span>
-                  </h4>
-                  <CategoryTree 
-                    categories={pathologyCategories} 
-                    parentColor="red"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Krankheitslehre - Alle Hauptkategorien */}
-          <div>
-            <h3 className="text-lg font-medium mb-3 text-red-700">🦠 Krankheitslehre - Alle Bereiche</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {/* Direkte Pathologie-Kategorien */}
-              <button onClick={() => selectCategory('cardiovascular-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('cardiovascular-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">💔</div>
-                <div className="text-sm font-medium">Herz-Kreislauf-Erkrankungen</div>
-              </button>
-              <button onClick={() => selectCategory('respiratory-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('respiratory-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🫁</div>
-                <div className="text-sm font-medium">Atemwegserkrankungen</div>
-              </button>
-              <button onClick={() => selectCategory('neurological-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('neurological-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🧠</div>
-                <div className="text-sm font-medium">Neurologische Erkrankungen</div>
-              </button>
-              <button onClick={() => selectCategory('renal-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('renal-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🫘</div>
-                <div className="text-sm font-medium">Nierenerkrankungen</div>
-              </button>
-              <button onClick={() => selectCategory('endocrine-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('endocrine-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🧪</div>
-                <div className="text-sm font-medium">Endokrine Erkrankungen</div>
-              </button>
-              <button onClick={() => selectCategory('gastrointestinal-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('gastrointestinal-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🫄</div>
-                <div className="text-sm font-medium">Magen-Darm-Erkrankungen</div>
-              </button>
-              <button onClick={() => selectCategory('musculoskeletal-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('musculoskeletal-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🦴</div>
-                <div className="text-sm font-medium">Muskuloskelettale Erkrankungen</div>
-              </button>
-              <button onClick={() => selectCategory('infectious-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('infectious-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🦠</div>
-                <div className="text-sm font-medium">Infektionskrankheiten</div>
-              </button>
-              
-              {/* Detaillierte Pathologie-Kategorien */}
-              <button onClick={() => selectCategory('coronary-heart-disease')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('coronary-heart-disease') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🫀</div>
-                <div className="text-sm font-medium">Koronare Herzkrankheit</div>
-              </button>
-              <button onClick={() => selectCategory('heart-failure')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('heart-failure') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">💔</div>
-                <div className="text-sm font-medium">Herzinsuffizienz</div>
-              </button>
-              <button onClick={() => selectCategory('copd')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('copd') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🚭</div>
-                <div className="text-sm font-medium">COPD</div>
-              </button>
-              <button onClick={() => selectCategory('asthma')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('asthma') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">💨</div>
-                <div className="text-sm font-medium">Asthma bronchiale</div>
-              </button>
-              <button onClick={() => selectCategory('stroke')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('stroke') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">⚡</div>
-                <div className="text-sm font-medium">Schlaganfall</div>
-              </button>
-              <button onClick={() => selectCategory('diabetes-mellitus')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('diabetes-mellitus') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🍯</div>
-                <div className="text-sm font-medium">Diabetes mellitus</div>
-              </button>
-              <button onClick={() => selectCategory('acute-kidney-injury')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('acute-kidney-injury') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">⚡</div>
-                <div className="text-sm font-medium">Akute Nierenschädigung</div>
-              </button>
-            </div>
-          </div>
-
-          {/* Pflegepraxis */}
-          <div>
-            <h3 className="text-lg font-medium mb-3 text-green-700">💊 Pflegepraxis</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              <button onClick={() => selectCategory('medikamente')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('medikamente') ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">💊</div>
-                <div className="text-sm font-medium">Medikamentenlehre</div>
-              </button>
-              <button onClick={() => selectCategory('hygiene')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('hygiene') ? 'border-yellow-500 bg-yellow-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🧼</div>
-                <div className="text-sm font-medium">Hygiene & Infektionsschutz</div>
-              </button>
-              <button onClick={() => selectCategory('notfall')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('notfall') ? 'border-orange-500 bg-orange-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🚨</div>
-                <div className="text-sm font-medium">Notfallmedizin</div>
-              </button>
-              <button onClick={() => selectCategory('wound-care')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('wound-care') ? 'border-pink-500 bg-pink-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🩹</div>
-                <div className="text-sm font-medium">Wundversorgung</div>
-              </button>
-              <button onClick={() => selectCategory('nursing-techniques')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('nursing-techniques') ? 'border-cyan-500 bg-cyan-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">🏥</div>
-                <div className="text-sm font-medium">Pflegetechniken</div>
-              </button>
-              <button onClick={() => selectCategory('gerontologie')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('gerontologie') ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">👴</div>
-                <div className="text-sm font-medium">Gerontologie</div>
-              </button>
-              <button onClick={() => selectCategory('paediatrie')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('paediatrie') ? 'border-pink-500 bg-pink-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">👶</div>
-                <div className="text-sm font-medium">Pädiatrie</div>
-              </button>
-              <button onClick={() => selectCategory('recht')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('recht') ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                <div className="text-2xl mb-1">⚖️</div>
-                <div className="text-sm font-medium">Pflegrecht & Ethik</div>
-              </button>
-            </div>
-          </div>
+        {/* Pflegepraxis - direkt auswählbar */}
+        <div>
+          <h3 className="text-lg font-medium mb-3 text-green-700">💊 Pflegepraxis</h3>
+          <CategoryGrid 
+            categories={[
+              { id: 'medikamente', name: 'Medikamentenlehre', description: 'Pharmakologie', icon: '💊' },
+              { id: 'hygiene', name: 'Hygiene & Infektionsschutz', description: 'Sauberkeitslehre', icon: '🧼' },
+              { id: 'notfall', name: 'Notfallmedizin', description: 'Akute Situationen', icon: '🚨' },
+              { id: 'wound-care', name: 'Wundversorgung', description: 'Wundheilung', icon: '🩹' },
+              { id: 'nursing-techniques', name: 'Pflegetechniken', description: 'Praktische Pflege', icon: '🏥' },
+              { id: 'gerontologie', name: 'Gerontologie', description: 'Altenpflege', icon: '👴' },
+              { id: 'paediatrie', name: 'Pädiatrie', description: 'Kinderpflege', icon: '👶' },
+              { id: 'recht', name: 'Pflegrecht & Ethik', description: 'Rechtliche Grundlagen', icon: '⚖️' }
+            ]}
+            color="green"
+          />
         </div>
       </CardContent>
     </Card>
   )
 
-  // Category Detail View
-  const CategoryDetailView = () => (
+  // Subcategory View - Shows main systems
+  const SubcategoryView = () => {
+    if (selectedMainCategory === 'anatomy') {
+      return (
+        <Card className="mb-6">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle>
+                <BreadcrumbNav />
+                🏥 Anatomie & Physiologie
+              </CardTitle>
+              <Button variant="outline" onClick={navigateBack}>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Zurück
+              </Button>
+            </div>
+            <p className="text-gray-600">Wähle ein Organsystem aus, um die Details zu sehen:</p>
+          </CardHeader>
+          <CardContent>
+            <CategoryGrid 
+              categories={medicalBasicsCategories[0]?.children || []}
+              color="blue"
+            />
+          </CardContent>
+        </Card>
+      )
+    }
+    
+    if (selectedMainCategory === 'pathology') {
+      return (
+        <Card className="mb-6">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle>
+                <BreadcrumbNav />
+                🦠 Krankheitslehre
+              </CardTitle>
+              <Button variant="outline" onClick={navigateBack}>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Zurück
+              </Button>
+            </div>
+            <p className="text-gray-600">Wähle einen Krankheitsbereich aus, um die Details zu sehen:</p>
+          </CardHeader>
+          <CardContent>
+            <CategoryGrid 
+              categories={pathologyCategories[0]?.children || []}
+              color="red"
+            />
+          </CardContent>
+        </Card>
+      )
+    }
+    
+    return null
+  }
+
+  // Detail View - Shows deepest level categories
+  const DetailView = () => (
     <Card className="mb-6">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>
             <BreadcrumbNav />
-            {selectedMainCategory?.icon} {selectedMainCategory?.name}
+            {selectedSubcategory?.icon} {selectedSubcategory?.name}
           </CardTitle>
           <Button variant="outline" onClick={navigateBack}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             Zurück
           </Button>
         </div>
-        <p className="text-gray-600">{selectedMainCategory?.description}</p>
+        <p className="text-gray-600">{selectedSubcategory?.description}</p>
       </CardHeader>
       <CardContent>
-        {selectedMainCategory?.children && (
-          <CategoryTree 
-            categories={selectedMainCategory.children} 
-            parentColor={selectedMainCategory.id === 'pathology' || 
-                        selectedMainCategory.parentId === 'pathology' ||
-                        breadcrumb.some(item => item.id === 'pathology') ? 'red' : 'blue'}
+        {selectedSubcategory?.children && (
+          <CategoryGrid 
+            categories={selectedSubcategory.children}
+            color={selectedMainCategory === 'pathology' ? 'red' : 'blue'}
           />
         )}
       </CardContent>
@@ -714,8 +410,11 @@ const QuizLernkarten = () => {
 
   // Category Selection Logic
   const CategorySelection = () => {
-    if (currentView === 'category' && selectedMainCategory) {
-      return <CategoryDetailView />
+    if (currentView === 'detail' && selectedSubcategory) {
+      return <DetailView />
+    }
+    if (currentView === 'subcategory' && selectedMainCategory) {
+      return <SubcategoryView />
     }
     return <MainCategorySelection />
   }
