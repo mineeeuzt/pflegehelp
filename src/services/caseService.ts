@@ -55,7 +55,8 @@ Spezielle Anforderungen: ${params.anforderungen || 'Keine besonderen Anforderung
         title: `Fallbeispiel - ${params.bereich || 'Allgemeine Pflege'}`,
         content: userInput,
         case_type: 'fallbeispiel' as const,
-        ai_response: response
+        ai_response: response,
+        user_id: userId
       }
 
       await useCaseStore.getState().createCase(caseData)
@@ -86,7 +87,8 @@ ${input.aktuelleProbleme ? `Aktuelle Probleme: ${input.aktuelleProbleme}` : ''}
         title: 'Pflegeplanung',
         content: userInput,
         case_type: 'pflegeplanung' as const,
-        ai_response: response
+        ai_response: response,
+        user_id: userId
       }
 
       await useCaseStore.getState().createCase(caseData)
@@ -116,7 +118,8 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
         title: 'PESR-Diagnose',
         content: userInput,
         case_type: 'pesr' as const,
-        ai_response: response
+        ai_response: response,
+        user_id: userId
       }
 
       await useCaseStore.getState().createCase(caseData)
@@ -146,7 +149,8 @@ Gewünschte Verbesserung: ${input.gewuenschteVerbesserung}
         title: 'SMART-Ziel',
         content: userInput,
         case_type: 'smart_ziel' as const,
-        ai_response: response
+        ai_response: response,
+        user_id: userId
       }
 
       await useCaseStore.getState().createCase(caseData)
@@ -182,7 +186,8 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
           dokumentation: input.dokumentation,
           pflegemassnahmen: input.pflegemassnahmen,
           beobachtungen: input.beobachtungen
-        }
+        },
+        user_id: userId
       }
 
       await useCaseStore.getState().createCase(caseData)
@@ -209,7 +214,8 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
         title: 'Workflow - Pflegeplanung',
         content: userInput,
         case_type: 'pflegeplanung' as const,
-        ai_response: response
+        ai_response: response,
+        user_id: userId
       }
 
       await useCaseStore.getState().createCase(caseData)
@@ -240,7 +246,8 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
         title: 'Workflow - ABEDL-Zuordnung',
         content: userInput,
         case_type: 'pflegeinfo' as const,
-        ai_response: response
+        ai_response: response,
+        user_id: userId
       }
 
       await useCaseStore.getState().createCase(caseData)
@@ -269,7 +276,8 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
         title: `Review - ${workflowType === 'pflegeplanung' ? 'Pflegeplanung' : 'ABEDL-Zuordnung'}`,
         content: userInput,
         case_type: 'pflegeinfo' as const,
-        ai_response: response
+        ai_response: response,
+        user_id: userId
       }
 
       await useCaseStore.getState().createCase(caseData)

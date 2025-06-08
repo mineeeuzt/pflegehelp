@@ -45,4 +45,5 @@ export interface CreateCaseData {
   ai_response?: string
   ai_feedback?: Record<string, unknown>
   care_infos?: Record<string, unknown>
+  user_id: string
 }
