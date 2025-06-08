@@ -20,9 +20,6 @@ const Header = () => {
         { name: 'Dashboard', href: '/dashboard' },
         { name: 'Fallbeispiel Generator', href: '/fallbeispiel-generator' },
         { name: 'Medikamenten-Training', href: '/medikamenten-training' },
-        { name: 'Pflegeplanung', href: '/pflegeplanung' },
-        { name: 'PESR-Diagnosen', href: '/pesr-generator' },
-        { name: 'SMART-Ziele', href: '/smart-ziel' },
       ]
     : []
 
@@ -42,12 +39,12 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-1">
+          <nav className="hidden md:flex space-x-6">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-gray-600 hover:text-gray-900 px-4 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50"
+                className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-light transition-colors"
               >
                 {item.name}
               </Link>
