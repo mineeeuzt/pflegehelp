@@ -45,6 +45,7 @@ const FallbeispielGenerator = () => {
   const [error, setError] = useState('')
   const [showWorkflowOptions, setShowWorkflowOptions] = useState(false)
   const [selectedWorkflow, setSelectedWorkflow] = useState<'pflegeplanung' | 'pflegeinfo' | null>(null)
+  const [promptVersion, setPromptVersion] = useState<'fallbeispiel' | 'fallbeispielProfi'>('fallbeispielProfi')
   
   // Pflegeplanung workflow states
   const [pflegeplanungStep, setPflegeplanungStep] = useState(1)
@@ -187,7 +188,7 @@ const FallbeispielGenerator = () => {
       
       console.log('Generating case with params:', generationParams)
       
-      const response = await caseService.generateFallbeispiel(generationParams, user.id)
+      const response = await caseService.generateFallbeispiel(generationParams, user.id, promptVersion)
       setResult(response)
       setShowWorkflowOptions(true)
     } catch (error) {
@@ -576,6 +577,45 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                             <span className="font-medium">Zusatzinfo:</span> {params.zusatzinfo}
                           </div>
                         )}
+                      </div>
+                    </div>
+
+                    {/* Prompt Version Selection */}
+                    <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                      <h4 className="font-medium text-gray-900 mb-3">KI-Generierung:</h4>
+                      <div className="space-y-3">
+                        <label className="flex items-start space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="promptVersion"
+                            value="fallbeispielProfi"
+                            checked={promptVersion === 'fallbeispielProfi'}
+                            onChange={(e) => setPromptVersion(e.target.value as 'fallbeispiel' | 'fallbeispielProfi')}
+                            className="mt-1"
+                          />
+                          <div>
+                            <div className="font-medium text-gray-900">📋 Professioneller Modus (Empfohlen)</div>
+                            <div className="text-sm text-gray-600">
+                              Strukturierte Fallbeispiele nach Pflegepädagogik-Standards mit 5-Absatz-Format, optimiert für Prüfungen und Lehrpläne
+                            </div>
+                          </div>
+                        </label>
+                        <label className="flex items-start space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="promptVersion"
+                            value="fallbeispiel"
+                            checked={promptVersion === 'fallbeispiel'}
+                            onChange={(e) => setPromptVersion(e.target.value as 'fallbeispiel' | 'fallbeispielProfi')}
+                            className="mt-1"
+                          />
+                          <div>
+                            <div className="font-medium text-gray-900">⚡ Schneller Modus</div>
+                            <div className="text-sm text-gray-600">
+                              Einfache Fallbeispiel-Generierung für schnelle Übungen und Grundlagen
+                            </div>
+                          </div>
+                        </label>
                       </div>
                     </div>
                     

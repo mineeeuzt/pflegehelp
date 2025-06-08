@@ -38,7 +38,8 @@ export interface WorkflowInput {
 export const caseService = {
   async generateFallbeispiel(
     params: CaseGenerationParams,
-    userId: string
+    userId: string,
+    promptVersion: 'fallbeispiel' | 'fallbeispielProfi' = 'fallbeispielProfi'
   ): Promise<string> {
     try {
       await authService.incrementUsageCount(userId, 'case_generation')
@@ -49,7 +50,7 @@ Schwierigkeitsgrad: ${params.schwierigkeitsgrad || 'Mittel'}
 Spezielle Anforderungen: ${params.anforderungen || 'Keine besonderen Anforderungen'}
       `.trim()
 
-      const response = await generateAIResponse(AI_PROMPTS.fallbeispiel, userInput)
+      const response = await generateAIResponse(AI_PROMPTS[promptVersion], userInput)
 
       const caseData = {
         title: `Fallbeispiel - ${params.bereich || 'Allgemeine Pflege'}`,
