@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
   Brain, 
-  BookOpen, 
   Target, 
   FileText, 
-  Clock,
   ArrowRight,
   Plus,
   Heart

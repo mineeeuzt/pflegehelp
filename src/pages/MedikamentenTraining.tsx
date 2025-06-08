@@ -4,13 +4,9 @@ import {
   Activity, 
   Heart, 
   Thermometer, 
-  Phone, 
   CheckCircle, 
   XCircle, 
   RotateCcw,
-  Trophy,
-  Target,
-  Play,
   Plus
 } from 'lucide-react'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '../components/ui'
@@ -49,7 +45,6 @@ interface Scenario {
 }
 
 const MedikamentenTraining = () => {
-  const { user } = useAuthStore()
   const [gameStarted, setGameStarted] = useState(false)
   const [currentScenario, setCurrentScenario] = useState<Scenario | null>(null)
   const [selectedMedication, setSelectedMedication] = useState<string | null>(null)
@@ -59,7 +54,6 @@ const MedikamentenTraining = () => {
   const [completedScenarios, setCompletedScenarios] = useState(0)
   const [draggedItem, setDraggedItem] = useState<string | null>(null)
   const [isGeneratingScenario, setIsGeneratingScenario] = useState(false)
-  const [aiGeneratedScenarios, setAiGeneratedScenarios] = useState<Scenario[]>([])
   const [availableMedications, setAvailableMedications] = useState<Medication[]>([])
   const [isInitialLoading, setIsInitialLoading] = useState(true)
   const dropZoneRef = useRef<HTMLDivElement>(null)
@@ -376,7 +370,6 @@ const MedikamentenTraining = () => {
       }
       
       console.log('🎉 KI-Szenario erfolgreich erstellt:', newScenario.title)
-      setAiGeneratedScenarios(prev => [...prev, newScenario])
       return newScenario
     } catch (error) {
       console.error('❌ Fehler beim Generieren des KI-Szenarios:', error)
@@ -493,7 +486,7 @@ const MedikamentenTraining = () => {
   // Auto-start the game immediately when component mounts
   useEffect(() => {
     startGame()
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Show loading animation during initial load or when generating any scenario
   if (isInitialLoading || isGeneratingScenario) {
