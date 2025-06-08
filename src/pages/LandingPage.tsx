@@ -184,11 +184,11 @@ const LandingPage = () => {
                   <ul className="space-y-3 mb-8">
                     <li className="flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-gray-700 mr-2" />
-                      Alle KI-Features
+                      Fallbeispiel Generator
                     </li>
                     <li className="flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-gray-700 mr-2" />
-                      Unbegrenzte Nutzung
+                      Medikamenten-Training
                     </li>
                     <li className="flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-gray-700 mr-2" />
@@ -227,11 +227,11 @@ const LandingPage = () => {
                   <ul className="space-y-3 mb-8">
                     <li className="flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-gray-700 mr-2" />
-                      Alle KI-Features
+                      Fallbeispiel Generator
                     </li>
                     <li className="flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-gray-700 mr-2" />
-                      Unbegrenzte Nutzung
+                      Medikamenten-Training
                     </li>
                     <li className="flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-gray-700 mr-2" />

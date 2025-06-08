@@ -18,6 +18,8 @@ const Header = () => {
   const navigation = user
     ? [
         { name: 'Dashboard', href: '/dashboard' },
+        { name: 'Fallbeispiel Generator', href: '/fallbeispiel-generator' },
+        { name: 'Medikamenten-Training', href: '/medikamenten-training' },
         { name: 'Pflegeplanung', href: '/pflegeplanung' },
         { name: 'PESR-Diagnosen', href: '/pesr-generator' },
         { name: 'SMART-Ziele', href: '/smart-ziel' },
