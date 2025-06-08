@@ -13,6 +13,7 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import FallbeispielGenerator from './pages/FallbeispielGenerator'
 import PflegeplanungWorkflow from './pages/PflegeplanungWorkflow'
+import MedikamentenTraining from './pages/MedikamentenTraining'
 import PESRGenerator from './pages/PESRGenerator'
 import SMARTZielAssistent from './pages/SMARTZielAssistent'
 import PflegeinfoWorkflow from './pages/PflegeinfoWorkflow'
@@ -124,6 +125,16 @@ function App() {
               <ProtectedRoute>
                 <Layout>
                   <PflegeplanungWorkflow />
+                </Layout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/medikamenten-training" 
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <MedikamentenTraining />
                 </Layout>
               </ProtectedRoute>
             } 

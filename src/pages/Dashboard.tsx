@@ -8,7 +8,8 @@ import {
   FileText, 
   Clock,
   ArrowRight,
-  Plus
+  Plus,
+  Heart
 } from 'lucide-react'
 import { Button, Card, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
@@ -47,10 +48,10 @@ const Dashboard = () => {
       primary: false
     },
     {
-      title: 'Pflegeplanung',
-      description: 'Systematische Pflegeplanungen',
-      icon: BookOpen,
-      href: '/pflegeplanung'
+      title: 'Medikamenten-Training',
+      description: 'Interaktives Drag & Drop Medikamenten-Spiel',
+      icon: Heart,
+      href: '/medikamenten-training'
     },
     {
       title: 'PESR-Diagnosen',
