@@ -36,8 +36,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/pesr-generator" className="text-gray-600 hover:text-gray-900 transition-colors">
-                  PESR-Diagnosen
+                <Link to="/anamnese-simulator" className="text-gray-600 hover:text-gray-900 transition-colors">
+                  Anamnese-Simulator
                 </Link>
               </li>
               <li>

@@ -52,10 +52,10 @@ const Dashboard = () => {
       href: '/medikamenten-training'
     },
     {
-      title: 'PESR-Diagnosen',
-      description: 'Strukturierte Pflegediagnosen',
+      title: 'Anamnese-Simulator',
+      description: 'Interaktive Patientengespräche üben',
       icon: FileText,
-      href: '/pesr-generator'
+      href: '/anamnese-simulator'
     },
     {
       title: 'SMART-Ziele',
