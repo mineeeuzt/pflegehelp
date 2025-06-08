@@ -48,11 +48,9 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="text-4xl md:text-6xl text-gray-900 mb-6"
+              style={{ fontFamily: "'Dancing Script', cursive", fontWeight: 300 }}
             >
-              <span className="font-light">Dein intelligenter</span>{' '}
-              <span className="text-gray-900">
-                Lernassistent für die Pflege
-              </span>
+              Dein intelligenter Lernassistent für die Pflege
             </motion.h1>
             
             <motion.p
