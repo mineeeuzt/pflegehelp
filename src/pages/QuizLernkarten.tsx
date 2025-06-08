@@ -564,29 +564,112 @@ const QuizLernkarten = () => {
             </div>
           </div>
 
-          {/* Other Categories */}
+          {/* Krankheitslehre - Alle Hauptkategorien */}
           <div>
-            <h3 className="text-lg font-medium mb-3 text-gray-700">Weitere Bereiche</h3>
+            <h3 className="text-lg font-medium mb-3 text-red-700">🦠 Krankheitslehre - Alle Bereiche</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {quizCategories.filter(cat => 
-                !['cardiovascular-system', 'respiratory-system', 'nervous-system', 'musculoskeletal-system', 
-                  'renal-system', 'blood-immune-system', 'metabolism-hormones', 'digestive-system', 'integumentary-system',
-                  'cardiovascular-diseases', 'respiratory-diseases', 'neurological-diseases', 'renal-diseases', 
-                  'endocrine-diseases', 'gastrointestinal-diseases', 'musculoskeletal-diseases', 'infectious-diseases'].includes(cat.id)
-              ).map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => selectCategory(category.id)}
-                  className={`p-3 rounded-lg border-2 transition-all text-left ${
-                    selectedCategories.includes(category.id)
-                      ? 'border-gray-500 bg-gray-50'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="text-2xl mb-1">{category.icon}</div>
-                  <div className="text-sm font-medium">{category.name}</div>
-                </button>
-              ))}
+              {/* Direkte Pathologie-Kategorien */}
+              <button onClick={() => selectCategory('cardiovascular-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('cardiovascular-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">💔</div>
+                <div className="text-sm font-medium">Herz-Kreislauf-Erkrankungen</div>
+              </button>
+              <button onClick={() => selectCategory('respiratory-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('respiratory-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🫁</div>
+                <div className="text-sm font-medium">Atemwegserkrankungen</div>
+              </button>
+              <button onClick={() => selectCategory('neurological-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('neurological-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🧠</div>
+                <div className="text-sm font-medium">Neurologische Erkrankungen</div>
+              </button>
+              <button onClick={() => selectCategory('renal-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('renal-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🫘</div>
+                <div className="text-sm font-medium">Nierenerkrankungen</div>
+              </button>
+              <button onClick={() => selectCategory('endocrine-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('endocrine-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🧪</div>
+                <div className="text-sm font-medium">Endokrine Erkrankungen</div>
+              </button>
+              <button onClick={() => selectCategory('gastrointestinal-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('gastrointestinal-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🫄</div>
+                <div className="text-sm font-medium">Magen-Darm-Erkrankungen</div>
+              </button>
+              <button onClick={() => selectCategory('musculoskeletal-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('musculoskeletal-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🦴</div>
+                <div className="text-sm font-medium">Muskuloskelettale Erkrankungen</div>
+              </button>
+              <button onClick={() => selectCategory('infectious-diseases')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('infectious-diseases') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🦠</div>
+                <div className="text-sm font-medium">Infektionskrankheiten</div>
+              </button>
+              
+              {/* Detaillierte Pathologie-Kategorien */}
+              <button onClick={() => selectCategory('coronary-heart-disease')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('coronary-heart-disease') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🫀</div>
+                <div className="text-sm font-medium">Koronare Herzkrankheit</div>
+              </button>
+              <button onClick={() => selectCategory('heart-failure')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('heart-failure') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">💔</div>
+                <div className="text-sm font-medium">Herzinsuffizienz</div>
+              </button>
+              <button onClick={() => selectCategory('copd')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('copd') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🚭</div>
+                <div className="text-sm font-medium">COPD</div>
+              </button>
+              <button onClick={() => selectCategory('asthma')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('asthma') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">💨</div>
+                <div className="text-sm font-medium">Asthma bronchiale</div>
+              </button>
+              <button onClick={() => selectCategory('stroke')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('stroke') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">⚡</div>
+                <div className="text-sm font-medium">Schlaganfall</div>
+              </button>
+              <button onClick={() => selectCategory('diabetes-mellitus')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('diabetes-mellitus') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🍯</div>
+                <div className="text-sm font-medium">Diabetes mellitus</div>
+              </button>
+              <button onClick={() => selectCategory('acute-kidney-injury')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('acute-kidney-injury') ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">⚡</div>
+                <div className="text-sm font-medium">Akute Nierenschädigung</div>
+              </button>
+            </div>
+          </div>
+
+          {/* Pflegepraxis */}
+          <div>
+            <h3 className="text-lg font-medium mb-3 text-green-700">💊 Pflegepraxis</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              <button onClick={() => selectCategory('medikamente')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('medikamente') ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">💊</div>
+                <div className="text-sm font-medium">Medikamentenlehre</div>
+              </button>
+              <button onClick={() => selectCategory('hygiene')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('hygiene') ? 'border-yellow-500 bg-yellow-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🧼</div>
+                <div className="text-sm font-medium">Hygiene & Infektionsschutz</div>
+              </button>
+              <button onClick={() => selectCategory('notfall')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('notfall') ? 'border-orange-500 bg-orange-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🚨</div>
+                <div className="text-sm font-medium">Notfallmedizin</div>
+              </button>
+              <button onClick={() => selectCategory('wound-care')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('wound-care') ? 'border-pink-500 bg-pink-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🩹</div>
+                <div className="text-sm font-medium">Wundversorgung</div>
+              </button>
+              <button onClick={() => selectCategory('nursing-techniques')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('nursing-techniques') ? 'border-cyan-500 bg-cyan-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🏥</div>
+                <div className="text-sm font-medium">Pflegetechniken</div>
+              </button>
+              <button onClick={() => selectCategory('gerontologie')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('gerontologie') ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">👴</div>
+                <div className="text-sm font-medium">Gerontologie</div>
+              </button>
+              <button onClick={() => selectCategory('paediatrie')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('paediatrie') ? 'border-pink-500 bg-pink-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">👶</div>
+                <div className="text-sm font-medium">Pädiatrie</div>
+              </button>
+              <button onClick={() => selectCategory('recht')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('recht') ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">⚖️</div>
+                <div className="text-sm font-medium">Pflegrecht & Ethik</div>
+              </button>
             </div>
           </div>
         </div>
