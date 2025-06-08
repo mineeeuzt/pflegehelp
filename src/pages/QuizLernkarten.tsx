@@ -13,7 +13,11 @@ import {
   Eye,
   EyeOff,
   Play,
-  BarChart3
+  BarChart3,
+  ChevronDown,
+  ChevronRight,
+  Search,
+  Home
 } from 'lucide-react'
 import { Button, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useQuizStore } from '../store/quizStore'
@@ -45,6 +49,11 @@ const QuizLernkarten = () => {
 
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   const [showExplanation, setShowExplanation] = useState(false)
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
+  const [searchTerm, setSearchTerm] = useState('')
+  const [currentView, setCurrentView] = useState<'main' | 'category'>('main')
+  const [selectedMainCategory, setSelectedMainCategory] = useState<any>(null)
+  const [breadcrumb, setBreadcrumb] = useState<any[]>([])
 
   const studyModes: StudyMode[] = [
     {
@@ -154,15 +163,210 @@ const QuizLernkarten = () => {
   const allMedicalCategories = getAllCategories([...medicalBasicsCategories, ...pathologyCategories])
   const allCategories = [...quizCategories, ...allMedicalCategories]
 
-  // Category Selection with hierarchical display
-  const CategorySelection = () => (
+  // Navigation functions
+  const toggleCategory = (categoryId: string) => {
+    const newExpanded = new Set(expandedCategories)
+    if (newExpanded.has(categoryId)) {
+      newExpanded.delete(categoryId)
+    } else {
+      newExpanded.add(categoryId)
+    }
+    setExpandedCategories(newExpanded)
+  }
+
+  const navigateToCategory = (category: any, parentBreadcrumb: any[] = []) => {
+    setSelectedMainCategory(category)
+    setBreadcrumb([...parentBreadcrumb, category])
+    setCurrentView('category')
+  }
+
+  const navigateBack = () => {
+    if (breadcrumb.length > 1) {
+      const newBreadcrumb = breadcrumb.slice(0, -1)
+      setBreadcrumb(newBreadcrumb)
+      setSelectedMainCategory(newBreadcrumb[newBreadcrumb.length - 1])
+    } else {
+      setCurrentView('main')
+      setBreadcrumb([])
+      setSelectedMainCategory(null)
+    }
+  }
+
+  const navigateHome = () => {
+    setCurrentView('main')
+    setBreadcrumb([])
+    setSelectedMainCategory(null)
+  }
+
+  const selectCategory = (categoryId: string) => {
+    const newSelection = selectedCategories.includes(categoryId)
+      ? selectedCategories.filter(id => id !== categoryId)
+      : [...selectedCategories, categoryId]
+    useQuizStore.setState({ selectedCategories: newSelection })
+  }
+
+  // Search function
+  const filterCategories = (categories: any[], term: string): any[] => {
+    if (!term) return categories
+    return categories.filter(category => {
+      const matchesName = category.name.toLowerCase().includes(term.toLowerCase())
+      const matchesDescription = category.description.toLowerCase().includes(term.toLowerCase())
+      const hasMatchingChildren = category.children ? filterCategories(category.children, term).length > 0 : false
+      return matchesName || matchesDescription || hasMatchingChildren
+    }).map(category => ({
+      ...category,
+      children: category.children ? filterCategories(category.children, term) : undefined
+    }))
+  }
+
+  // Breadcrumb Navigation
+  const BreadcrumbNav = () => (
+    <div className="flex items-center gap-2 mb-4 text-sm">
+      <button
+        onClick={navigateHome}
+        className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+      >
+        <Home className="w-4 h-4" />
+        Start
+      </button>
+      {breadcrumb.map((item, index) => (
+        <div key={item.id} className="flex items-center gap-2">
+          <ChevronRight className="w-4 h-4 text-gray-400" />
+          <button
+            onClick={() => {
+              const newBreadcrumb = breadcrumb.slice(0, index + 1)
+              setBreadcrumb(newBreadcrumb)
+              setSelectedMainCategory(item)
+            }}
+            className={`${index === breadcrumb.length - 1 ? 'text-gray-900 font-medium' : 'text-blue-600 hover:text-blue-800'}`}
+          >
+            {item.icon} {item.name}
+          </button>
+        </div>
+      ))}
+    </div>
+  )
+
+  // Hierarchical Category Tree Component
+  const CategoryTree = ({ categories, level = 0, parentColor = 'blue' }: { categories: any[], level?: number, parentColor?: string }) => {
+    const filteredCategories = filterCategories(categories, searchTerm)
+    const indent = level * 20
+
+    return (
+      <div style={{ marginLeft: `${indent}px` }}>
+        {filteredCategories.map((category) => {
+          const isExpanded = expandedCategories.has(category.id)
+          const isSelected = selectedCategories.includes(category.id)
+          const hasChildren = category.children && category.children.length > 0
+
+          return (
+            <div key={category.id} className="mb-2">
+              <div className="flex items-center gap-2">
+                {/* Expand/Collapse Button */}
+                {hasChildren && (
+                  <button
+                    onClick={() => toggleCategory(category.id)}
+                    className="p-1 hover:bg-gray-100 rounded"
+                  >
+                    {isExpanded ? (
+                      <ChevronDown className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-gray-500" />
+                    )}
+                  </button>
+                )}
+                {!hasChildren && <div className="w-6" />}
+
+                {/* Category Selection Button */}
+                <button
+                  onClick={() => selectCategory(category.id)}
+                  className={`flex-1 flex items-center gap-3 p-3 rounded-lg border-2 transition-all text-left ${
+                    isSelected
+                      ? parentColor === 'blue' 
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-red-500 bg-red-50'
+                      : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                  }`}
+                >
+                  <span className="text-xl">{category.icon}</span>
+                  <div className="flex-1">
+                    <div className="font-medium">{category.name}</div>
+                    <div className="text-sm text-gray-600">{category.description}</div>
+                    {hasChildren && (
+                      <div className="text-xs text-gray-500 mt-1">
+                        {category.children.length} Unterkategorien
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      category.difficulty === 'easy' ? 'bg-green-100 text-green-700' :
+                      category.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-700' :
+                      'bg-red-100 text-red-700'
+                    }`}>
+                      {category.difficulty === 'easy' ? 'Leicht' : 
+                       category.difficulty === 'medium' ? 'Mittel' : 'Schwer'}
+                    </span>
+                    {hasChildren && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          navigateToCategory(category, breadcrumb)
+                        }}
+                        className="p-1 rounded hover:bg-gray-200"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </button>
+              </div>
+
+              {/* Subcategories */}
+              <AnimatePresence>
+                {isExpanded && hasChildren && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-2"
+                  >
+                    <CategoryTree 
+                      categories={category.children} 
+                      level={level + 1} 
+                      parentColor={parentColor}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
+  // Main Category Selection View
+  const MainCategorySelection = () => (
     <Card className="mb-6">
       <CardHeader>
-        <CardTitle>Kategorien auswählen</CardTitle>
+        <CardTitle className="flex items-center justify-between">
+          Kategorien auswählen
+          <div className="relative">
+            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Kategorien durchsuchen..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 pr-4 py-2 border rounded-lg w-64"
+            />
+          </div>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
-          {/* Anatomie & Physiologie */}
+          {/* Quick Categories */}
           <div>
             <h3 className="text-lg font-medium mb-3 text-blue-700">🏥 Anatomie & Physiologie</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -170,23 +374,35 @@ const QuizLernkarten = () => {
                 ['cardiovascular-system', 'respiratory-system', 'nervous-system', 'musculoskeletal-system', 
                  'renal-system', 'blood-immune-system', 'metabolism-hormones', 'digestive-system', 'integumentary-system'].includes(cat.id)
               ).map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => {
-                    const newSelection = selectedCategories.includes(category.id)
-                      ? selectedCategories.filter(id => id !== category.id)
-                      : [...selectedCategories, category.id]
-                    useQuizStore.setState({ selectedCategories: newSelection })
-                  }}
-                  className={`p-3 rounded-lg border-2 transition-all text-left ${
-                    selectedCategories.includes(category.id)
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="text-2xl mb-1">{category.icon}</div>
-                  <div className="text-sm font-medium">{category.name}</div>
-                </button>
+                <div key={category.id} className="relative">
+                  <button
+                    onClick={() => selectCategory(category.id)}
+                    className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
+                      selectedCategories.includes(category.id)
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="text-2xl mb-1">{category.icon}</div>
+                    <div className="text-sm font-medium">{category.name}</div>
+                  </button>
+                  <button
+                    onClick={() => {
+                      // Find corresponding detailed category
+                      const detailedCategory = medicalBasicsCategories.find(cat => 
+                        cat.children?.some(child => child.id === category.id)
+                      )?.children?.find(child => child.id === category.id)
+                      
+                      if (detailedCategory) {
+                        navigateToCategory(detailedCategory, [])
+                      }
+                    }}
+                    className="absolute top-1 right-1 p-1 rounded hover:bg-gray-200 text-gray-500"
+                    title="Detailansicht"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
               ))}
             </div>
           </div>
@@ -199,45 +415,114 @@ const QuizLernkarten = () => {
                 ['cardiovascular-diseases', 'respiratory-diseases', 'neurological-diseases', 'renal-diseases', 
                  'endocrine-diseases', 'gastrointestinal-diseases', 'musculoskeletal-diseases', 'infectious-diseases'].includes(cat.id)
               ).map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => {
-                    const newSelection = selectedCategories.includes(category.id)
-                      ? selectedCategories.filter(id => id !== category.id)
-                      : [...selectedCategories, category.id]
-                    useQuizStore.setState({ selectedCategories: newSelection })
-                  }}
-                  className={`p-3 rounded-lg border-2 transition-all text-left ${
-                    selectedCategories.includes(category.id)
-                      ? 'border-red-500 bg-red-50'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="text-2xl mb-1">{category.icon}</div>
-                  <div className="text-sm font-medium">{category.name}</div>
-                </button>
+                <div key={category.id} className="relative">
+                  <button
+                    onClick={() => selectCategory(category.id)}
+                    className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
+                      selectedCategories.includes(category.id)
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="text-2xl mb-1">{category.icon}</div>
+                    <div className="text-sm font-medium">{category.name}</div>
+                  </button>
+                  <button
+                    onClick={() => {
+                      // Find corresponding detailed category
+                      const detailedCategory = pathologyCategories.find(cat => 
+                        cat.children?.some(child => child.id === category.id)
+                      )?.children?.find(child => child.id === category.id)
+                      
+                      if (detailedCategory) {
+                        navigateToCategory(detailedCategory, [])
+                      }
+                    }}
+                    className="absolute top-1 right-1 p-1 rounded hover:bg-gray-200 text-gray-500"
+                    title="Detailansicht"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
               ))}
             </div>
           </div>
 
-          {/* Pflegepraxis */}
+          {/* Hierarchical Medical Categories */}
           <div>
-            <h3 className="text-lg font-medium mb-3 text-green-700">💊 Pflegepraxis</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            <h3 className="text-lg font-medium mb-3 text-teal-700">🏥 Detaillierte Medizinische Kategorien</h3>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="space-y-4">
+                {/* Quick Access Buttons */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <button
+                    onClick={() => navigateToCategory(medicalBasicsCategories[0], [])}
+                    className="flex items-center gap-3 p-4 bg-blue-100 rounded-lg border-2 border-blue-200 hover:border-blue-300 transition-all"
+                  >
+                    <span className="text-2xl">🏥</span>
+                    <div className="text-left">
+                      <div className="font-medium text-blue-700">Anatomie & Physiologie</div>
+                      <div className="text-sm text-blue-600">9 Hauptkategorien mit Unterbereichen</div>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-blue-500 ml-auto" />
+                  </button>
+                  
+                  <button
+                    onClick={() => navigateToCategory(pathologyCategories[0], [])}
+                    className="flex items-center gap-3 p-4 bg-red-100 rounded-lg border-2 border-red-200 hover:border-red-300 transition-all"
+                  >
+                    <span className="text-2xl">🦠</span>
+                    <div className="text-left">
+                      <div className="font-medium text-red-700">Krankheitslehre</div>
+                      <div className="text-sm text-red-600">8 Hauptkategorien mit Unterbereichen</div>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-red-500 ml-auto" />
+                  </button>
+                </div>
+
+                {/* Collapsed Tree Views */}
+                <div>
+                  <h4 className="font-medium text-blue-700 mb-2 flex items-center gap-2">
+                    <span>Anatomie & Physiologie</span>
+                    <span className="text-xs text-gray-500">(Klicken für Details)</span>
+                  </h4>
+                  <CategoryTree 
+                    categories={medicalBasicsCategories} 
+                    parentColor="blue"
+                  />
+                </div>
+
+                {/* Krankheitslehre */}
+                <div className="mt-6">
+                  <h4 className="font-medium text-red-700 mb-2 flex items-center gap-2">
+                    <span>Krankheitslehre</span>
+                    <span className="text-xs text-gray-500">(Klicken für Details)</span>
+                  </h4>
+                  <CategoryTree 
+                    categories={pathologyCategories} 
+                    parentColor="red"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Other Categories */}
+          <div>
+            <h3 className="text-lg font-medium mb-3 text-gray-700">Weitere Bereiche</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {quizCategories.filter(cat => 
-                ['medikamente', 'hygiene', 'notfall', 'wound-care', 'nursing-techniques'].includes(cat.id)
+                !['cardiovascular-system', 'respiratory-system', 'nervous-system', 'musculoskeletal-system', 
+                  'renal-system', 'blood-immune-system', 'metabolism-hormones', 'digestive-system', 'integumentary-system',
+                  'cardiovascular-diseases', 'respiratory-diseases', 'neurological-diseases', 'renal-diseases', 
+                  'endocrine-diseases', 'gastrointestinal-diseases', 'musculoskeletal-diseases', 'infectious-diseases'].includes(cat.id)
               ).map((category) => (
                 <button
                   key={category.id}
-                  onClick={() => {
-                    const newSelection = selectedCategories.includes(category.id)
-                      ? selectedCategories.filter(id => id !== category.id)
-                      : [...selectedCategories, category.id]
-                    useQuizStore.setState({ selectedCategories: newSelection })
-                  }}
+                  onClick={() => selectCategory(category.id)}
                   className={`p-3 rounded-lg border-2 transition-all text-left ${
                     selectedCategories.includes(category.id)
-                      ? 'border-green-500 bg-green-50'
+                      ? 'border-gray-500 bg-gray-50'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
@@ -246,76 +531,48 @@ const QuizLernkarten = () => {
                 </button>
               ))}
             </div>
-          </div>
-
-          {/* Spezielle Pflegebereiche */}
-          <div>
-            <h3 className="text-lg font-medium mb-3 text-purple-700">👴 Spezielle Pflegebereiche</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {quizCategories.filter(cat => 
-                ['gerontologie', 'paediatrie', 'intensive-care', 'psychiatric-care'].includes(cat.id)
-              ).map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => {
-                    const newSelection = selectedCategories.includes(category.id)
-                      ? selectedCategories.filter(id => id !== category.id)
-                      : [...selectedCategories, category.id]
-                    useQuizStore.setState({ selectedCategories: newSelection })
-                  }}
-                  className={`p-3 rounded-lg border-2 transition-all text-left ${
-                    selectedCategories.includes(category.id)
-                      ? 'border-purple-500 bg-purple-50'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="text-2xl mb-1">{category.icon}</div>
-                  <div className="text-sm font-medium">{category.name}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Rechtliche & Ethische Grundlagen */}
-          <div>
-            <h3 className="text-lg font-medium mb-3 text-indigo-700">⚖️ Rechtliche & Ethische Grundlagen</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {quizCategories.filter(cat => 
-                ['recht', 'kommunikation', 'quality-management'].includes(cat.id)
-              ).map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => {
-                    const newSelection = selectedCategories.includes(category.id)
-                      ? selectedCategories.filter(id => id !== category.id)
-                      : [...selectedCategories, category.id]
-                    useQuizStore.setState({ selectedCategories: newSelection })
-                  }}
-                  className={`p-3 rounded-lg border-2 transition-all text-left ${
-                    selectedCategories.includes(category.id)
-                      ? 'border-indigo-500 bg-indigo-50'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="text-2xl mb-1">{category.icon}</div>
-                  <div className="text-sm font-medium">{category.name}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Hinweis für erweiterte Kategorien */}
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <h4 className="font-medium text-blue-800 mb-2">📚 Erweiterte Medizinische Kategorien</h4>
-            <p className="text-sm text-blue-700">
-              Für detaillierte anatomische und pathologische Unterkategorien verwenden Sie die hierarchischen medizinischen Kategorien oben. 
-              Diese bieten über 400 spezifische Themenbereiche für vertieftes Lernen.
-            </p>
           </div>
         </div>
       </CardContent>
     </Card>
   )
+
+  // Category Detail View
+  const CategoryDetailView = () => (
+    <Card className="mb-6">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle>
+            <BreadcrumbNav />
+            {selectedMainCategory?.icon} {selectedMainCategory?.name}
+          </CardTitle>
+          <Button variant="outline" onClick={navigateBack}>
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Zurück
+          </Button>
+        </div>
+        <p className="text-gray-600">{selectedMainCategory?.description}</p>
+      </CardHeader>
+      <CardContent>
+        {selectedMainCategory?.children && (
+          <CategoryTree 
+            categories={selectedMainCategory.children} 
+            parentColor={selectedMainCategory.id === 'pathology' || 
+                        selectedMainCategory.parentId === 'pathology' ||
+                        breadcrumb.some(item => item.id === 'pathology') ? 'red' : 'blue'}
+          />
+        )}
+      </CardContent>
+    </Card>
+  )
+
+  // Category Selection Logic
+  const CategorySelection = () => {
+    if (currentView === 'category' && selectedMainCategory) {
+      return <CategoryDetailView />
+    }
+    return <MainCategorySelection />
+  }
 
   // Study Mode Selection
   const StudyModeSelection = () => (
