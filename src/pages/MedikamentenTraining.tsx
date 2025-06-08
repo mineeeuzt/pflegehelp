@@ -492,9 +492,7 @@ const MedikamentenTraining = () => {
 
   // Auto-start the game immediately when component mounts
   useEffect(() => {
-    if (!gameStarted) {
-      startGame()
-    }
+    startGame()
   }, [])
 
   // Show loading animation during initial load or when generating any scenario
