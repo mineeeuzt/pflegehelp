@@ -14,12 +14,13 @@ import {
 } from 'lucide-react'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
+import { generateAIResponse, AI_PROMPTS } from '../lib/openai'
 
 interface Medication {
   id: string
   name: string
   dosage: string
-  category: 'ace' | 'beta' | 'diuretic' | 'painkiller' | 'emergency'
+  category: 'ace' | 'beta' | 'diuretic' | 'painkiller' | 'emergency' | 'antibiotic' | 'insulin' | 'anticoagulant' | 'bronchodilator' | 'steroid' | 'antiarrhythmic' | 'antiemetic'
   color: string
 }
 
@@ -30,6 +31,11 @@ interface Scenario {
     bloodPressure: string
     heartRate: number
     temperature: number
+    oxygenSaturation?: number
+    bloodSugar?: number
+    respiratoryRate?: number
+    painLevel?: number
+    consciousness?: string
   }
   symptoms: string[]
   correctMedication: string
@@ -48,15 +54,59 @@ const MedikamentenTraining = () => {
   const [score, setScore] = useState(0)
   const [completedScenarios, setCompletedScenarios] = useState(0)
   const [draggedItem, setDraggedItem] = useState<string | null>(null)
+  const [isGeneratingScenario, setIsGeneratingScenario] = useState(false)
+  const [aiGeneratedScenarios, setAiGeneratedScenarios] = useState<Scenario[]>([])
   const dropZoneRef = useRef<HTMLDivElement>(null)
 
   const medications: Medication[] = [
+    // ACE-Hemmer
     { id: 'ramipril', name: 'Ramipril', dosage: '5mg', category: 'ace', color: 'bg-red-100 border-red-300 text-red-800' },
+    { id: 'enalapril', name: 'Enalapril', dosage: '10mg', category: 'ace', color: 'bg-red-100 border-red-300 text-red-800' },
+    
+    // Betablocker
     { id: 'metoprolol', name: 'Metoprolol', dosage: '50mg', category: 'beta', color: 'bg-blue-100 border-blue-300 text-blue-800' },
+    { id: 'bisoprolol', name: 'Bisoprolol', dosage: '5mg', category: 'beta', color: 'bg-blue-100 border-blue-300 text-blue-800' },
+    
+    // Diuretika
     { id: 'furosemid', name: 'Furosemid', dosage: '40mg', category: 'diuretic', color: 'bg-yellow-100 border-yellow-300 text-yellow-800' },
+    { id: 'torasemid', name: 'Torasemid', dosage: '10mg', category: 'diuretic', color: 'bg-yellow-100 border-yellow-300 text-yellow-800' },
+    
+    // Schmerzmittel
     { id: 'ibuprofen', name: 'Ibuprofen', dosage: '400mg', category: 'painkiller', color: 'bg-green-100 border-green-300 text-green-800' },
     { id: 'paracetamol', name: 'Paracetamol', dosage: '500mg', category: 'painkiller', color: 'bg-green-100 border-green-300 text-green-800' },
-    { id: 'atropin', name: 'Atropin', dosage: '0.5mg', category: 'emergency', color: 'bg-purple-100 border-purple-300 text-purple-800' }
+    { id: 'metamizol', name: 'Metamizol', dosage: '500mg', category: 'painkiller', color: 'bg-green-100 border-green-300 text-green-800' },
+    
+    // Notfallmedikamente
+    { id: 'atropin', name: 'Atropin', dosage: '0.5mg', category: 'emergency', color: 'bg-purple-100 border-purple-300 text-purple-800' },
+    { id: 'adrenalin', name: 'Adrenalin', dosage: '1mg', category: 'emergency', color: 'bg-purple-100 border-purple-300 text-purple-800' },
+    
+    // Antibiotika
+    { id: 'amoxicillin', name: 'Amoxicillin', dosage: '1000mg', category: 'antibiotic', color: 'bg-orange-100 border-orange-300 text-orange-800' },
+    { id: 'ciprofloxacin', name: 'Ciprofloxacin', dosage: '500mg', category: 'antibiotic', color: 'bg-orange-100 border-orange-300 text-orange-800' },
+    
+    // Insulin
+    { id: 'insulin-rapid', name: 'Insulin rapid', dosage: '4 IE', category: 'insulin', color: 'bg-pink-100 border-pink-300 text-pink-800' },
+    { id: 'insulin-long', name: 'Insulin long', dosage: '12 IE', category: 'insulin', color: 'bg-pink-100 border-pink-300 text-pink-800' },
+    
+    // Antikoagulantien
+    { id: 'heparin', name: 'Heparin', dosage: '5000 IE', category: 'anticoagulant', color: 'bg-indigo-100 border-indigo-300 text-indigo-800' },
+    { id: 'marcumar', name: 'Marcumar', dosage: '3mg', category: 'anticoagulant', color: 'bg-indigo-100 border-indigo-300 text-indigo-800' },
+    
+    // Bronchodilatatoren
+    { id: 'salbutamol', name: 'Salbutamol', dosage: '2 Hübe', category: 'bronchodilator', color: 'bg-cyan-100 border-cyan-300 text-cyan-800' },
+    { id: 'ipratropium', name: 'Ipratropium', dosage: '2 Hübe', category: 'bronchodilator', color: 'bg-cyan-100 border-cyan-300 text-cyan-800' },
+    
+    // Steroide
+    { id: 'prednisolon', name: 'Prednisolon', dosage: '20mg', category: 'steroid', color: 'bg-teal-100 border-teal-300 text-teal-800' },
+    { id: 'dexamethason', name: 'Dexamethason', dosage: '4mg', category: 'steroid', color: 'bg-teal-100 border-teal-300 text-teal-800' },
+    
+    // Antiarrhythmika
+    { id: 'amiodaron', name: 'Amiodaron', dosage: '200mg', category: 'antiarrhythmic', color: 'bg-violet-100 border-violet-300 text-violet-800' },
+    { id: 'verapamil', name: 'Verapamil', dosage: '5mg', category: 'antiarrhythmic', color: 'bg-violet-100 border-violet-300 text-violet-800' },
+    
+    // Antiemetika
+    { id: 'ondansetron', name: 'Ondansetron', dosage: '4mg', category: 'antiemetic', color: 'bg-rose-100 border-rose-300 text-rose-800' },
+    { id: 'metoclopramid', name: 'Metoclopramid', dosage: '10mg', category: 'antiemetic', color: 'bg-rose-100 border-rose-300 text-rose-800' }
   ]
 
   const scenarios: Scenario[] = [
@@ -99,6 +149,46 @@ const MedikamentenTraining = () => {
       needsDoctor: true,
       explanation: 'Bei Tachykardie mit erhöhtem Blutdruck sind Betablocker wie Metoprolol indiziert. Bei diesen Symptomen sollte der Arzt informiert werden.',
       level: 2
+    },
+    {
+      id: '5',
+      title: 'Wassereinlagerungen',
+      vitals: { bloodPressure: '150/90', heartRate: 78, temperature: 36.5 },
+      symptoms: ['Geschwollene Beine', 'Kurzatmigkeit', 'Gewichtszunahme'],
+      correctMedication: 'furosemid',
+      needsDoctor: false,
+      explanation: 'Bei Ödemen und Anzeichen von Herzinsuffizienz sind Diuretika wie Furosemid indiziert. Routinefall ohne sofortige Arztbenachrichtigung.',
+      level: 1
+    },
+    {
+      id: '6',
+      title: 'Akute Rückenschmerzen',
+      vitals: { bloodPressure: '130/85', heartRate: 72, temperature: 36.7 },
+      symptoms: ['Starke Rückenschmerzen', 'Bewegungseinschränkung', 'Verspannungen'],
+      correctMedication: 'ibuprofen',
+      needsDoctor: false,
+      explanation: 'Bei akuten Rückenschmerzen ohne Warnsignale ist Ibuprofen aufgrund der entzündungshemmenden Wirkung geeignet. Kein Notfall.',
+      level: 1
+    },
+    {
+      id: '7',
+      title: 'Hypertensive Entgleisung',
+      vitals: { bloodPressure: '220/130', heartRate: 110, temperature: 37.2 },
+      symptoms: ['Sehstörungen', 'Verwirrtheit', 'Starke Kopfschmerzen'],
+      correctMedication: 'ramipril',
+      needsDoctor: true,
+      explanation: 'Bei maligner Hypertonie mit neurologischen Symptomen ist eine sofortige Blutdrucksenkung nötig. ACE-Hemmer und sofortige Arztbenachrichtigung erforderlich.',
+      level: 3
+    },
+    {
+      id: '8',
+      title: 'Vorhofflimmern',
+      vitals: { bloodPressure: '140/90', heartRate: 180, temperature: 36.9 },
+      symptoms: ['Unregelmäßiger Herzschlag', 'Schwindel', 'Schwächegefühl'],
+      correctMedication: 'metoprolol',
+      needsDoctor: true,
+      explanation: 'Bei Vorhofflimmern mit schneller Überleitung sind Betablocker zur Frequenzkontrolle indiziert. Arztbenachrichtigung wegen Rhythmusstörung.',
+      level: 3
     }
   ]
 
@@ -109,9 +199,82 @@ const MedikamentenTraining = () => {
     nextScenario()
   }
 
-  const nextScenario = () => {
-    const availableScenarios = scenarios.filter(s => s.level <= Math.min(3, Math.floor(completedScenarios / 2) + 1))
-    const randomScenario = availableScenarios[Math.floor(Math.random() * availableScenarios.length)]
+  const generateAIScenario = async (): Promise<Scenario | null> => {
+    try {
+      setIsGeneratingScenario(true)
+      const levelBased = Math.min(3, Math.floor(completedScenarios / 3) + 1)
+      
+      // Abwechslungsreiche Prompts für verschiedene medizinische Bereiche
+      const medicalAreas = [
+        'ein Herz-Kreislauf-Szenario',
+        'ein Diabetes/Endokrinologie-Szenario', 
+        'ein Atemwegs-Szenario (Asthma, COPD)',
+        'ein Infektions-Szenario',
+        'ein Schmerz-Management-Szenario',
+        'ein Notfall-Szenario',
+        'ein Geriatrie-Szenario',
+        'ein nephrologisches Szenario',
+        'ein gastroenterologisches Szenario',
+        'ein neurologisches Szenario'
+      ]
+      
+      const randomArea = medicalAreas[Math.floor(Math.random() * medicalAreas.length)]
+      const prompt = `Erstelle ${randomArea} der Schwierigkeit Level ${levelBased}. Nutze abwechslungsreiche Medikamentengruppen und Vitalparameter. Achte auf realistische, lehrreiche Fälle mit verschiedenen Altersgruppen.`
+      
+      const response = await generateAIResponse(AI_PROMPTS.medikamentenszenario, prompt)
+      const scenarioData = JSON.parse(response)
+      
+      const newScenario: Scenario = {
+        id: `ai-${Date.now()}`,
+        title: scenarioData.title,
+        vitals: {
+          bloodPressure: scenarioData.vitals.bloodPressure,
+          heartRate: scenarioData.vitals.heartRate,
+          temperature: scenarioData.vitals.temperature,
+          oxygenSaturation: scenarioData.vitals.oxygenSaturation,
+          bloodSugar: scenarioData.vitals.bloodSugar,
+          respiratoryRate: scenarioData.vitals.respiratoryRate,
+          painLevel: scenarioData.vitals.painLevel,
+          consciousness: scenarioData.vitals.consciousness
+        },
+        symptoms: scenarioData.symptoms,
+        correctMedication: scenarioData.correctMedication,
+        needsDoctor: scenarioData.needsDoctor,
+        explanation: scenarioData.explanation,
+        level: scenarioData.level
+      }
+      
+      setAiGeneratedScenarios(prev => [...prev, newScenario])
+      return newScenario
+    } catch (error) {
+      console.error('Fehler beim Generieren des KI-Szenarios:', error)
+      return null
+    } finally {
+      setIsGeneratingScenario(false)
+    }
+  }
+
+  const nextScenario = async () => {
+    // Immer KI-generierte Szenarien verwenden
+    const aiScenario = await generateAIScenario()
+    if (aiScenario) {
+      setCurrentScenario(aiScenario)
+      setSelectedMedication(null)
+      setDoctorCalled(null)
+      setShowResult(false)
+      return
+    }
+    
+    // Nur als Notfall-Fallback auf vordefinierte Szenarien bei KI-Fehler
+    console.warn('KI-Szenario-Generierung fehlgeschlagen, verwende vordefinierte Szenarien')
+    const availableScenarios = scenarios.filter(s => 
+      s.level <= Math.min(3, Math.floor(completedScenarios / 2) + 1) && 
+      s.id !== currentScenario?.id
+    )
+    
+    const scenarioPool = availableScenarios.length > 0 ? availableScenarios : scenarios
+    const randomScenario = scenarioPool[Math.floor(Math.random() * scenarioPool.length)]
+    
     setCurrentScenario(randomScenario)
     setSelectedMedication(null)
     setDoctorCalled(null)
@@ -167,6 +330,29 @@ const MedikamentenTraining = () => {
       if (systolic > 160 || systolic < 90) return 'text-red-600'
       return 'text-green-600'
     }
+    if (vital === 'oxygenSaturation') {
+      const o2 = value as number
+      if (o2 < 95) return 'text-red-600'
+      if (o2 < 98) return 'text-yellow-600'
+      return 'text-green-600'
+    }
+    if (vital === 'bloodSugar') {
+      const bg = value as number
+      if (bg < 70 || bg > 180) return 'text-red-600'
+      if (bg < 80 || bg > 140) return 'text-yellow-600'
+      return 'text-green-600'
+    }
+    if (vital === 'respiratoryRate') {
+      const rr = value as number
+      if (rr < 12 || rr > 20) return 'text-red-600'
+      return 'text-green-600'
+    }
+    if (vital === 'painLevel') {
+      const pain = value as number
+      if (pain >= 7) return 'text-red-600'
+      if (pain >= 4) return 'text-yellow-600'
+      return 'text-green-600'
+    }
     return 'text-gray-700'
   }
 
@@ -183,7 +369,7 @@ const MedikamentenTraining = () => {
               💊 Medikamenten-Training
             </h1>
             <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto">
-              Trainiere deine Medikamentengabe mit realistischen Szenarien. Ziehe die richtigen Medikamente per Drag & Drop und entscheide, wann ein Arzt gerufen werden muss.
+              Trainiere mit KI-generierten, abwechslungsreichen Medikamenten-Szenarien. Über 20 verschiedene Wirkstoffe aus allen Bereichen der Medizin warten auf dich!
             </p>
           </motion.div>
 
@@ -236,11 +422,15 @@ const MedikamentenTraining = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-light text-gray-900">Medikamenten-Training</h1>
-            <p className="text-gray-600">Szenario {completedScenarios + 1}</p>
+            <p className="text-gray-600">
+              Szenario {completedScenarios + 1} • {currentScenario?.title}
+              {currentScenario?.id.startsWith('ai-') && <span className="ml-2 text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">🤖 KI-generiert</span>}
+              {isGeneratingScenario && <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">⚡ Generiere neues Szenario...</span>}
+            </p>
           </div>
           <div className="text-right">
             <div className="text-2xl font-bold text-slate-700">🏆 {score}</div>
-            <div className="text-sm text-gray-600">Punkte</div>
+            <div className="text-sm text-gray-600">Punkte • Level {Math.floor(completedScenarios / 3) + 1}</div>
           </div>
         </div>
 
@@ -257,28 +447,72 @@ const MedikamentenTraining = () => {
               <CardContent>
                 {/* Vitaldaten */}
                 <div className="bg-black text-green-400 p-6 rounded-lg font-mono mb-6">
-                  <div className="grid grid-cols-3 gap-6 text-center">
+                  <div className="grid grid-cols-3 gap-4 text-center mb-4">
                     <div>
-                      <Heart className="h-6 w-6 mx-auto mb-2" />
-                      <div className="text-sm opacity-75">HERZFREQ.</div>
-                      <div className={`text-2xl font-bold ${getVitalColor('heartRate', currentScenario.vitals.heartRate)}`}>
+                      <Heart className="h-5 w-5 mx-auto mb-2" />
+                      <div className="text-xs opacity-75">HERZFREQ.</div>
+                      <div className={`text-lg font-bold ${getVitalColor('heartRate', currentScenario.vitals.heartRate)}`}>
                         {currentScenario.vitals.heartRate} bpm
                       </div>
                     </div>
                     <div>
-                      <Activity className="h-6 w-6 mx-auto mb-2" />
-                      <div className="text-sm opacity-75">BLUTDRUCK</div>
-                      <div className={`text-2xl font-bold ${getVitalColor('bloodPressure', currentScenario.vitals.bloodPressure)}`}>
+                      <Activity className="h-5 w-5 mx-auto mb-2" />
+                      <div className="text-xs opacity-75">BLUTDRUCK</div>
+                      <div className={`text-lg font-bold ${getVitalColor('bloodPressure', currentScenario.vitals.bloodPressure)}`}>
                         {currentScenario.vitals.bloodPressure}
                       </div>
                     </div>
                     <div>
-                      <Thermometer className="h-6 w-6 mx-auto mb-2" />
-                      <div className="text-sm opacity-75">TEMPERATUR</div>
-                      <div className={`text-2xl font-bold ${getVitalColor('temperature', currentScenario.vitals.temperature)}`}>
+                      <Thermometer className="h-5 w-5 mx-auto mb-2" />
+                      <div className="text-xs opacity-75">TEMPERATUR</div>
+                      <div className={`text-lg font-bold ${getVitalColor('temperature', currentScenario.vitals.temperature)}`}>
                         {currentScenario.vitals.temperature}°C
                       </div>
                     </div>
+                  </div>
+                  
+                  {/* Zusätzliche Vitalwerte */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-sm border-t border-green-800 pt-4">
+                    {currentScenario.vitals.oxygenSaturation && (
+                      <div>
+                        <div className="text-xs opacity-75">SpO2</div>
+                        <div className={`font-bold ${getVitalColor('oxygenSaturation', currentScenario.vitals.oxygenSaturation)}`}>
+                          {currentScenario.vitals.oxygenSaturation}%
+                        </div>
+                      </div>
+                    )}
+                    {currentScenario.vitals.bloodSugar && (
+                      <div>
+                        <div className="text-xs opacity-75">BZ</div>
+                        <div className={`font-bold ${getVitalColor('bloodSugar', currentScenario.vitals.bloodSugar)}`}>
+                          {currentScenario.vitals.bloodSugar} mg/dl
+                        </div>
+                      </div>
+                    )}
+                    {currentScenario.vitals.respiratoryRate && (
+                      <div>
+                        <div className="text-xs opacity-75">AF</div>
+                        <div className={`font-bold ${getVitalColor('respiratoryRate', currentScenario.vitals.respiratoryRate)}`}>
+                          {currentScenario.vitals.respiratoryRate}/min
+                        </div>
+                      </div>
+                    )}
+                    {currentScenario.vitals.painLevel !== undefined && (
+                      <div>
+                        <div className="text-xs opacity-75">SCHMERZ</div>
+                        <div className={`font-bold ${getVitalColor('painLevel', currentScenario.vitals.painLevel)}`}>
+                          {currentScenario.vitals.painLevel}/10
+                        </div>
+                      </div>
+                    )}
+                    {currentScenario.vitals.consciousness && (
+                      <div className="col-span-2">
+                        <div className="text-xs opacity-75">BEWUSSTSEIN</div>
+                        <div className="font-bold text-green-400">
+                          {currentScenario.vitals.consciousness}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -447,10 +681,14 @@ const MedikamentenTraining = () => {
 
                 <div className="flex space-x-3">
                   <Button
-                    onClick={nextScenario}
-                    className="flex-1 bg-slate-800 hover:bg-slate-900 text-white"
+                    onClick={() => {
+                      console.log('Button clicked - Next scenario')
+                      nextScenario()
+                    }}
+                    disabled={isGeneratingScenario}
+                    className="flex-1 bg-slate-800 hover:bg-slate-900 text-white disabled:opacity-50"
                   >
-                    Nächstes Szenario
+                    {isGeneratingScenario ? 'Generiere...' : `Nächstes Szenario (${completedScenarios + 1})`}
                   </Button>
                   <Button
                     variant="outline"

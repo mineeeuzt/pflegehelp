@@ -270,7 +270,99 @@ Bewertungskriterien:
 - Fachliche Präzision der Beschreibungen
 - Relevanz für die Pflegeplanung
 
-Bewerte KONSTRUKTIV und gib konkrete Verbesserungsvorschläge für jede Information.`
+Bewerte KONSTRUKTIV und gib konkrete Verbesserungsvorschläge für jede Information.`,
+
+  medikamentenszenario: `Du bist ein erfahrener Notfallmediziner und Pflegepädagoge. Erstelle abwechslungsreiche, realistische Medikamenten-Trainingsszenarien für Pflegekräfte.
+
+WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
+
+{
+  "title": "Kurzer, prägnanter Titel des Szenarios",
+  "vitals": {
+    "bloodPressure": "systolisch/diastolisch (z.B. 160/90)",
+    "heartRate": Herzfrequenz als Zahl,
+    "temperature": Körpertemperatur als Zahl mit einer Nachkommastelle,
+    "oxygenSaturation": optional, Sauerstoffsättigung 85-100%,
+    "bloodSugar": optional, Blutzucker 40-400 mg/dl,
+    "respiratoryRate": optional, Atemfrequenz 8-40/min,
+    "painLevel": optional, Schmerzskala 0-10,
+    "consciousness": optional, z.B. "wach", "somnolent", "verwirrt"
+  },
+  "symptoms": [
+    "Symptom 1 aus Patientensicht",
+    "Symptom 2 aus Patientensicht", 
+    "Symptom 3 aus Patientensicht"
+  ],
+  "correctMedication": "exakte ID aus der Medikamentenliste",
+  "needsDoctor": true oder false,
+  "explanation": "Detaillierte, fachliche Erklärung der korrekten Behandlung und Begründung der Arzt-Entscheidung",
+  "level": 1, 2 oder 3
+}
+
+VERFÜGBARE MEDIKAMENTE (verwende exakt diese IDs):
+
+ACE-HEMMER:
+- "ramipril" (5mg) - Bluthochdruck, Herzinsuffizienz
+- "enalapril" (10mg) - Bluthochdruck, Herzinsuffizienz
+
+BETABLOCKER:
+- "metoprolol" (50mg) - Herzrasen, Bluthochdruck, Herzinsuffizienz
+- "bisoprolol" (5mg) - Herzinsuffizienz, Bluthochdruck
+
+DIURETIKA:
+- "furosemid" (40mg) - Wassereinlagerungen, Herzinsuffizienz
+- "torasemid" (10mg) - Herzinsuffizienz, Hypertonie
+
+SCHMERZMITTEL:
+- "ibuprofen" (400mg) - Entzündungen, Fieber, Schmerzen
+- "paracetamol" (500mg) - Fieber, Kopfschmerzen
+- "metamizol" (500mg) - starke Schmerzen, Fieber
+
+NOTFALLMEDIKAMENTE:
+- "atropin" (0.5mg) - Bradykardie, Vergiftungen
+- "adrenalin" (1mg) - Anaphylaxie, Reanimation
+
+ANTIBIOTIKA:
+- "amoxicillin" (1000mg) - bakterielle Infekte
+- "ciprofloxacin" (500mg) - Harnwegsinfekte, schwere Infekte
+
+INSULIN:
+- "insulin-rapid" (4 IE) - akute Hyperglykämie
+- "insulin-long" (12 IE) - Diabetes-Einstellung
+
+ANTIKOAGULANTIEN:
+- "heparin" (5000 IE) - Thromboseprophylaxe
+- "marcumar" (3mg) - orale Antikoagulation
+
+BRONCHODILATATOREN:
+- "salbutamol" (2 Hübe) - Asthma, COPD-Exazerbation
+- "ipratropium" (2 Hübe) - COPD, Bronchospasmus
+
+STEROIDE:
+- "prednisolon" (20mg) - Entzündungen, Asthma
+- "dexamethason" (4mg) - schwere Entzündungen, Hirnödem
+
+ANTIARRHYTHMIKA:
+- "amiodaron" (200mg) - Vorhofflimmern, ventrikuläre Arrhythmien
+- "verapamil" (5mg) - supraventrikuläre Tachykardie
+
+ANTIEMETIKA:
+- "ondansetron" (4mg) - Übelkeit, Erbrechen
+- "metoclopramid" (10mg) - Übelkeit, Gastroparese
+
+ABWECHSLUNG SCHAFFEN:
+- Verwende verschiedene Medikamentengruppen
+- Variiere Krankheitsbilder: Herz-Kreislauf, Diabetes, Atemwege, Infekte, Schmerzen, etc.
+- Nutze optionale Vitalparameter für Realismus
+- Erstelle sowohl häufige als auch seltene Situationen
+- Berücksichtige verschiedene Altersgruppen und Grunderkrankungen
+
+LEVEL-DEFINITIONEN:
+- Level 1: Routine (Diabetes-Entgleisung, leichte Infekte, Standardschmerzen)
+- Level 2: Mittelschwer (Herzrhythmusstörungen, Asthma-Anfall, Antibiotika-Entscheidung)  
+- Level 3: Kritisch (Anaphylaxie, Reanimation, Multi-Organ-Versagen)
+
+Erstelle medizinisch korrekte, lehrreiche Szenarien mit maximaler Abwechslung!`
 }
 
 export async function generateAIResponse(

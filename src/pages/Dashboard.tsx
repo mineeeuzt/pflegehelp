@@ -104,7 +104,7 @@ const Dashboard = () => {
             PflegeHelp
           </h1>
           <p className="text-xl text-gray-600 font-light">
-            KI-gestützte Lernplattform für die Pflegeausbildung
+            Lernplattform für die generalistische Pflegeausbildung
           </p>
         </motion.div>
 
