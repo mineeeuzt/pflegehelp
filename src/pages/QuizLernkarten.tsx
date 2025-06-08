@@ -366,9 +366,15 @@ const QuizLernkarten = () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
+          
+          {/* DEBUG MESSAGE */}
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            ✅ NEUE VERSION GELADEN! Wenn du das siehst, sind die neuen Kategorien da!
+          </div>
+          
           {/* Anatomie & Physiologie - Alle Hauptkategorien */}
           <div>
-            <h3 className="text-lg font-medium mb-3 text-blue-700">🏥 Anatomie & Physiologie - Alle Bereiche</h3>
+            <h3 className="text-lg font-medium mb-3 text-blue-700">🏥 Anatomie & Physiologie - Alle Bereiche (38 KATEGORIEN!)</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {/* Direkte Anatomie-Kategorien */}
               <button onClick={() => selectCategory('cardiovascular-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('cardiovascular-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
