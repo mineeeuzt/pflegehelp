@@ -570,7 +570,737 @@ export const medicalBasicsCategories: Category[] = [
         description: 'Zentrales und peripheres Nervensystem',
         icon: '🧠',
         difficulty: 'hard',
-        parentId: 'anatomy-physiology'
+        parentId: 'anatomy-physiology',
+        children: [
+          {
+            id: 'central-nervous-system',
+            name: 'Zentralnervensystem (ZNS)',
+            description: 'Gehirn und Rückenmark',
+            icon: '🧠',
+            difficulty: 'hard',
+            parentId: 'nervous-system',
+            children: [
+              {
+                id: 'cerebrum',
+                name: 'Großhirn',
+                description: 'Kortex und subkortikale Strukturen',
+                icon: '🧠',
+                difficulty: 'hard',
+                parentId: 'central-nervous-system',
+                children: [
+                  {
+                    id: 'frontal-lobe',
+                    name: 'Frontallappen (Motorik, Persönlichkeit, Broca-Areal)',
+                    description: 'Stirnlappen mit motorischen und exekutiven Funktionen',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'cerebrum'
+                  },
+                  {
+                    id: 'parietal-lobe',
+                    name: 'Parietallappen (Sensorik, Raumwahrnehmung)',
+                    description: 'Scheitellappen für sensorische Verarbeitung',
+                    icon: '👋',
+                    difficulty: 'medium',
+                    parentId: 'cerebrum'
+                  },
+                  {
+                    id: 'temporal-lobe',
+                    name: 'Temporallappen (Hören, Gedächtnis, Wernicke-Areal)',
+                    description: 'Schläfenlappen für Hören und Sprachverständnis',
+                    icon: '👂',
+                    difficulty: 'medium',
+                    parentId: 'cerebrum'
+                  },
+                  {
+                    id: 'occipital-lobe',
+                    name: 'Okzipitallappen (Sehen, visueller Kortex)',
+                    description: 'Hinterhauptslappen für visuelle Verarbeitung',
+                    icon: '👁️',
+                    difficulty: 'medium',
+                    parentId: 'cerebrum'
+                  },
+                  {
+                    id: 'insula',
+                    name: 'Insula (Geschmack, viszerale Sensibilität)',
+                    description: 'Inselrinde für Geschmack und Körperwahrnehmung',
+                    icon: '👅',
+                    difficulty: 'hard',
+                    parentId: 'cerebrum'
+                  },
+                  {
+                    id: 'basal-ganglia',
+                    name: 'Basalganglien (Bewegungskontrolle)',
+                    description: 'Subkortikale Kerne für Motorik',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'cerebrum'
+                  },
+                  {
+                    id: 'limbic-system',
+                    name: 'Limbisches System (Emotionen, Gedächtnis)',
+                    description: 'Emotionales Gehirn und Gedächtnisbildung',
+                    icon: '❤️',
+                    difficulty: 'hard',
+                    parentId: 'cerebrum'
+                  },
+                  {
+                    id: 'corpus-callosum',
+                    name: 'Kommissurenbahnen (Corpus callosum)',
+                    description: 'Verbindung zwischen den Hemisphären',
+                    icon: '🌉',
+                    difficulty: 'hard',
+                    parentId: 'cerebrum'
+                  }
+                ]
+              },
+              {
+                id: 'cerebellum',
+                name: 'Kleinhirn',
+                description: 'Koordination und Bewegungslernen',
+                icon: '⚖️',
+                difficulty: 'medium',
+                parentId: 'central-nervous-system',
+                children: [
+                  {
+                    id: 'balance-coordination',
+                    name: 'Gleichgewicht & Koordination',
+                    description: 'Motorische Koordination',
+                    icon: '🤸',
+                    difficulty: 'medium',
+                    parentId: 'cerebellum'
+                  },
+                  {
+                    id: 'movement-planning',
+                    name: 'Bewegungsplanung',
+                    description: 'Planung komplexer Bewegungen',
+                    icon: '🎯',
+                    difficulty: 'medium',
+                    parentId: 'cerebellum'
+                  },
+                  {
+                    id: 'motor-learning',
+                    name: 'Lernen von Bewegungsabläufen',
+                    description: 'Erlernen neuer motorischer Fähigkeiten',
+                    icon: '📚',
+                    difficulty: 'medium',
+                    parentId: 'cerebellum'
+                  },
+                  {
+                    id: 'cerebellum-subdivisions',
+                    name: 'Vestibulozerebellum, Spinozerebellum, Pontozerebellum',
+                    description: 'Funktionelle Unterteilungen des Kleinhirns',
+                    icon: '🧩',
+                    difficulty: 'hard',
+                    parentId: 'cerebellum'
+                  }
+                ]
+              },
+              {
+                id: 'brainstem',
+                name: 'Hirnstamm',
+                description: 'Medulla, Pons und Mesenzephalon',
+                icon: '🌳',
+                difficulty: 'hard',
+                parentId: 'central-nervous-system',
+                children: [
+                  {
+                    id: 'medulla-oblongata',
+                    name: 'Medulla oblongata (Atemzentrum, Kreislauf)',
+                    description: 'Verlängertes Mark mit Vitalfunktionen',
+                    icon: '💨',
+                    difficulty: 'hard',
+                    parentId: 'brainstem'
+                  },
+                  {
+                    id: 'pons',
+                    name: 'Pons (Schlaf-Wach-Rhythmus)',
+                    description: 'Brücke mit Schlafregulation',
+                    icon: '😴',
+                    difficulty: 'medium',
+                    parentId: 'brainstem'
+                  },
+                  {
+                    id: 'mesencephalon',
+                    name: 'Mesenzephalon (Augenbewegung, Reflexe)',
+                    description: 'Mittelhirn mit okulomotorischen Funktionen',
+                    icon: '👁️',
+                    difficulty: 'hard',
+                    parentId: 'brainstem'
+                  },
+                  {
+                    id: 'reticular-formation',
+                    name: 'Formatio reticularis (ARAS)',
+                    description: 'Aufsteigendes retikuläres Aktivierungssystem',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'brainstem'
+                  }
+                ]
+              },
+              {
+                id: 'diencephalon',
+                name: 'Dienzephalon',
+                description: 'Zwischenhirn mit Thalamus und Hypothalamus',
+                icon: '🏛️',
+                difficulty: 'hard',
+                parentId: 'central-nervous-system',
+                children: [
+                  {
+                    id: 'thalamus',
+                    name: 'Thalamus (Verschaltung sensorischer Bahnen)',
+                    description: 'Tor zum Bewusstsein',
+                    icon: '🚪',
+                    difficulty: 'hard',
+                    parentId: 'diencephalon'
+                  },
+                  {
+                    id: 'hypothalamus',
+                    name: 'Hypothalamus (Hormonregulation, Temperatur)',
+                    description: 'Hormonales Kontrollzentrum',
+                    icon: '🌡️',
+                    difficulty: 'hard',
+                    parentId: 'diencephalon'
+                  },
+                  {
+                    id: 'pituitary',
+                    name: 'Hypophyse (Adeno-/Neurohypophyse)',
+                    description: 'Hirnanhangsdrüse',
+                    icon: '🫖',
+                    difficulty: 'hard',
+                    parentId: 'diencephalon'
+                  },
+                  {
+                    id: 'pineal',
+                    name: 'Epiphyse (Melatonin, Circadianrhythmus)',
+                    description: 'Zirbeldrüse und Schlaf-Wach-Rhythmus',
+                    icon: '🌙',
+                    difficulty: 'medium',
+                    parentId: 'diencephalon'
+                  },
+                  {
+                    id: 'subthalamus',
+                    name: 'Subthalamus',
+                    description: 'Teil des Bewegungssystems',
+                    icon: '⚙️',
+                    difficulty: 'hard',
+                    parentId: 'diencephalon'
+                  }
+                ]
+              },
+              {
+                id: 'spinal-cord',
+                name: 'Rückenmark',
+                description: 'Spinales Nervensystem',
+                icon: '🦴',
+                difficulty: 'medium',
+                parentId: 'central-nervous-system',
+                children: [
+                  {
+                    id: 'spinal-structure',
+                    name: 'Aufbau (graue/weiße Substanz)',
+                    description: 'Histologischer Aufbau des Rückenmarks',
+                    icon: '🔬',
+                    difficulty: 'medium',
+                    parentId: 'spinal-cord'
+                  },
+                  {
+                    id: 'spinal-segments',
+                    name: 'Segmentale Gliederung',
+                    description: 'Zervikale, thorakale, lumbale, sakrale Segmente',
+                    icon: '📏',
+                    difficulty: 'medium',
+                    parentId: 'spinal-cord'
+                  },
+                  {
+                    id: 'ascending-tracts',
+                    name: 'Aufsteigende Bahnen (Hinterstrang-, Vorderseitenstrang)',
+                    description: 'Sensorische Leitungsbahnen',
+                    icon: '⬆️',
+                    difficulty: 'hard',
+                    parentId: 'spinal-cord'
+                  },
+                  {
+                    id: 'descending-tracts',
+                    name: 'Absteigende Bahnen (Pyramiden-, Extrapyramidalbahn)',
+                    description: 'Motorische Leitungsbahnen',
+                    icon: '⬇️',
+                    difficulty: 'hard',
+                    parentId: 'spinal-cord'
+                  },
+                  {
+                    id: 'reflexes',
+                    name: 'Reflexbögen (mono-/polysynaptisch)',
+                    description: 'Spinale Reflexmechanismen',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'spinal-cord'
+                  },
+                  {
+                    id: 'rexed-laminae',
+                    name: 'Rexed-Laminae',
+                    description: 'Histologische Schichtung der grauen Substanz',
+                    icon: '🧱',
+                    difficulty: 'hard',
+                    parentId: 'spinal-cord'
+                  }
+                ]
+              },
+              {
+                id: 'csf-system',
+                name: 'Liquorsystem',
+                description: 'Hirnwasser und Liquorzirkulation',
+                icon: '💧',
+                difficulty: 'medium',
+                parentId: 'central-nervous-system',
+                children: [
+                  {
+                    id: 'csf-production',
+                    name: 'Liquorproduktion (Plexus choroideus)',
+                    description: 'Bildung des Liquor cerebrospinalis',
+                    icon: '🏭',
+                    difficulty: 'medium',
+                    parentId: 'csf-system'
+                  },
+                  {
+                    id: 'csf-circulation',
+                    name: 'Liquorzirkulation',
+                    description: 'Fluss des Liquors durch das ZNS',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'csf-system'
+                  },
+                  {
+                    id: 'csf-resorption',
+                    name: 'Liquorresorption (Pacchioni-Granulationen)',
+                    description: 'Rückresorption des Liquors',
+                    icon: '♻️',
+                    difficulty: 'medium',
+                    parentId: 'csf-system'
+                  },
+                  {
+                    id: 'blood-brain-barrier',
+                    name: 'Blut-Hirn-Schranke',
+                    description: 'Selektive Barriere zwischen Blut und Gehirn',
+                    icon: '🛡️',
+                    difficulty: 'hard',
+                    parentId: 'csf-system'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'peripheral-nervous-system',
+            name: 'Peripheres Nervensystem (PNS)',
+            description: 'Hirnnerven und Spinalnerven',
+            icon: '🕸️',
+            difficulty: 'medium',
+            parentId: 'nervous-system',
+            children: [
+              {
+                id: 'cranial-nerves',
+                name: 'Hirnnerven (12 Paare)',
+                description: 'Die zwölf Hirnnervenpaare',
+                icon: '🧠',
+                difficulty: 'hard',
+                parentId: 'peripheral-nervous-system',
+                children: [
+                  {
+                    id: 'cn-i',
+                    name: 'N. olfactorius (I) - Riechen',
+                    description: 'Riechnerv',
+                    icon: '👃',
+                    difficulty: 'easy',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-ii',
+                    name: 'N. opticus (II) - Sehen',
+                    description: 'Sehnerv',
+                    icon: '👁️',
+                    difficulty: 'easy',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-iii',
+                    name: 'N. oculomotorius (III) - Augenbewegung',
+                    description: 'Augenbewegungsnerv',
+                    icon: '👀',
+                    difficulty: 'medium',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-iv',
+                    name: 'N. trochlearis (IV) - Augenbewegung',
+                    description: 'Rollmuskelnerv',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-v',
+                    name: 'N. trigeminus (V) - Gesichtssensibilität',
+                    description: 'Drillingsnerv',
+                    icon: '😐',
+                    difficulty: 'medium',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-vi',
+                    name: 'N. abducens (VI) - Augenbewegung',
+                    description: 'Augenabziehnerv',
+                    icon: '↔️',
+                    difficulty: 'medium',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-vii',
+                    name: 'N. facialis (VII) - Gesichtsmimik',
+                    description: 'Gesichtsnerv',
+                    icon: '😊',
+                    difficulty: 'medium',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-viii',
+                    name: 'N. vestibulocochlearis (VIII) - Hören/Gleichgewicht',
+                    description: 'Hör-Gleichgewichtsnerv',
+                    icon: '👂',
+                    difficulty: 'medium',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-ix',
+                    name: 'N. glossopharyngeus (IX) - Geschmack/Schlucken',
+                    description: 'Zungen-Rachen-Nerv',
+                    icon: '👅',
+                    difficulty: 'medium',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-x',
+                    name: 'N. vagus (X) - Parasympathikus',
+                    description: 'Vagusnerv',
+                    icon: '🌿',
+                    difficulty: 'hard',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-xi',
+                    name: 'N. accessorius (XI) - Nackenmuskulatur',
+                    description: 'Zusatznerv',
+                    icon: '💪',
+                    difficulty: 'medium',
+                    parentId: 'cranial-nerves'
+                  },
+                  {
+                    id: 'cn-xii',
+                    name: 'N. hypoglossus (XII) - Zungenbewegung',
+                    description: 'Unterzungennerv',
+                    icon: '👅',
+                    difficulty: 'medium',
+                    parentId: 'cranial-nerves'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'autonomic-nervous-system',
+            name: 'Vegetatives Nervensystem',
+            description: 'Sympathikus, Parasympathikus und enterisches NS',
+            icon: '⚖️',
+            difficulty: 'hard',
+            parentId: 'nervous-system',
+            children: [
+              {
+                id: 'sympathetic',
+                name: 'Sympathikus',
+                description: 'Fight-or-Flight System',
+                icon: '⚡',
+                difficulty: 'medium',
+                parentId: 'autonomic-nervous-system',
+                children: [
+                  {
+                    id: 'sympathetic-origin',
+                    name: 'Thorakolumbaler Ausgang (Th1-L3)',
+                    description: 'Ursprung des Sympathikus',
+                    icon: '🦴',
+                    difficulty: 'medium',
+                    parentId: 'sympathetic'
+                  },
+                  {
+                    id: 'sympathetic-chain',
+                    name: 'Grenzstrang (Truncus sympathicus)',
+                    description: 'Sympathische Ganglienkette',
+                    icon: '⛓️',
+                    difficulty: 'medium',
+                    parentId: 'sympathetic'
+                  },
+                  {
+                    id: 'catecholamines',
+                    name: 'Noradrenalin/Adrenalin',
+                    description: 'Sympathische Neurotransmitter',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'sympathetic'
+                  },
+                  {
+                    id: 'fight-flight',
+                    name: 'Fight-or-Flight-Response',
+                    description: 'Stressreaktion des Sympathikus',
+                    icon: '🏃',
+                    difficulty: 'easy',
+                    parentId: 'sympathetic'
+                  },
+                  {
+                    id: 'adrenergic-receptors',
+                    name: 'α-/β-Rezeptoren',
+                    description: 'Adrenergische Rezeptortypen',
+                    icon: '🔌',
+                    difficulty: 'hard',
+                    parentId: 'sympathetic'
+                  },
+                  {
+                    id: 'sympathetic-blockade',
+                    name: 'Sympathikusblockade',
+                    description: 'Medikamentöse Sympathikushemmung',
+                    icon: '🚫',
+                    difficulty: 'medium',
+                    parentId: 'sympathetic'
+                  }
+                ]
+              },
+              {
+                id: 'parasympathetic',
+                name: 'Parasympathikus',
+                description: 'Rest-and-Digest System',
+                icon: '🌿',
+                difficulty: 'medium',
+                parentId: 'autonomic-nervous-system',
+                children: [
+                  {
+                    id: 'parasympathetic-origin',
+                    name: 'Kraniosakraler Ausgang',
+                    description: 'Ursprung des Parasympathikus',
+                    icon: '🏛️',
+                    difficulty: 'medium',
+                    parentId: 'parasympathetic'
+                  },
+                  {
+                    id: 'acetylcholine',
+                    name: 'Acetylcholin',
+                    description: 'Parasympathischer Neurotransmitter',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'parasympathetic'
+                  },
+                  {
+                    id: 'rest-digest',
+                    name: 'Rest-and-Digest-Response',
+                    description: 'Erholungsreaktion des Parasympathikus',
+                    icon: '😌',
+                    difficulty: 'easy',
+                    parentId: 'parasympathetic'
+                  },
+                  {
+                    id: 'cholinergic-receptors',
+                    name: 'Muskarinerge/Nikotinerge Rezeptoren',
+                    description: 'Cholinerge Rezeptortypen',
+                    icon: '🔌',
+                    difficulty: 'hard',
+                    parentId: 'parasympathetic'
+                  },
+                  {
+                    id: 'parasympathetic-blockade',
+                    name: 'Parasympathikusblockade',
+                    description: 'Medikamentöse Parasympathikushemmung',
+                    icon: '🚫',
+                    difficulty: 'medium',
+                    parentId: 'parasympathetic'
+                  }
+                ]
+              },
+              {
+                id: 'enteric-nervous-system',
+                name: 'Enterisches Nervensystem',
+                description: 'Darmnervensystem',
+                icon: '🌀',
+                difficulty: 'medium',
+                parentId: 'autonomic-nervous-system',
+                children: [
+                  {
+                    id: 'enteric-plexuses',
+                    name: 'Darmnervensystem (Meissner-, Auerbach-Plexus)',
+                    description: 'Nervengeflechte in der Darmwand',
+                    icon: '🕸️',
+                    difficulty: 'medium',
+                    parentId: 'enteric-nervous-system'
+                  },
+                  {
+                    id: 'peristalsis-regulation',
+                    name: 'Peristaltik-Regulation',
+                    description: 'Steuerung der Darmbewegung',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'enteric-nervous-system'
+                  },
+                  {
+                    id: 'gut-neurotransmitters',
+                    name: 'Neurotransmitter im Darm',
+                    description: 'Enterische Signalstoffe',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'enteric-nervous-system'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'sensory-organs',
+            name: 'Sinnesorgane',
+            description: 'Sehen, Hören, Riechen, Schmecken, Tasten',
+            icon: '👁️',
+            difficulty: 'medium',
+            parentId: 'nervous-system',
+            children: [
+              {
+                id: 'eye-vision',
+                name: 'Auge & Sehen',
+                description: 'Visuelles System',
+                icon: '👁️',
+                difficulty: 'medium',
+                parentId: 'sensory-organs',
+                children: [
+                  {
+                    id: 'eye-anatomy',
+                    name: 'Augapfel (Cornea, Iris, Linse, Glaskörper)',
+                    description: 'Anatomie des Auges',
+                    icon: '👁️',
+                    difficulty: 'medium',
+                    parentId: 'eye-vision'
+                  },
+                  {
+                    id: 'retina',
+                    name: 'Retina (Stäbchen, Zapfen, Ganglienzellen)',
+                    description: 'Netzhaut und Photorezeptoren',
+                    icon: '📸',
+                    difficulty: 'medium',
+                    parentId: 'eye-vision'
+                  },
+                  {
+                    id: 'visual-pathway',
+                    name: 'Sehbahn (Chiasma opticum → Corpus geniculatum laterale → V1)',
+                    description: 'Visuelle Leitungsbahn',
+                    icon: '🛤️',
+                    difficulty: 'hard',
+                    parentId: 'eye-vision'
+                  },
+                  {
+                    id: 'accommodation',
+                    name: 'Akkommodation & Refraktion',
+                    description: 'Scharfstellung und Lichtbrechung',
+                    icon: '🔍',
+                    difficulty: 'medium',
+                    parentId: 'eye-vision'
+                  },
+                  {
+                    id: 'pupillary-reflex',
+                    name: 'Pupillenreflex (direkt/indirekt)',
+                    description: 'Lichtreaktion der Pupille',
+                    icon: '💡',
+                    difficulty: 'medium',
+                    parentId: 'eye-vision'
+                  },
+                  {
+                    id: 'visual-field-defects',
+                    name: 'Gesichtsfeldausfälle',
+                    description: 'Pathologische Sehfelddefekte',
+                    icon: '🕳️',
+                    difficulty: 'hard',
+                    parentId: 'eye-vision'
+                  },
+                  {
+                    id: 'color-vision',
+                    name: 'Farbsehen (Trichromasie)',
+                    description: 'Farbwahrnehmung durch drei Zapfentypen',
+                    icon: '🌈',
+                    difficulty: 'medium',
+                    parentId: 'eye-vision'
+                  }
+                ]
+              },
+              {
+                id: 'ear-hearing',
+                name: 'Ohr & Hören',
+                description: 'Auditives und vestibuläres System',
+                icon: '👂',
+                difficulty: 'medium',
+                parentId: 'sensory-organs',
+                children: [
+                  {
+                    id: 'outer-ear',
+                    name: 'Äußeres Ohr (Ohrmuschel, Gehörgang)',
+                    description: 'Schallaufnahme und -weiterleitung',
+                    icon: '👂',
+                    difficulty: 'easy',
+                    parentId: 'ear-hearing'
+                  },
+                  {
+                    id: 'middle-ear',
+                    name: 'Mittelohr (Trommelfell, Gehörknöchelchen)',
+                    description: 'Schallverstärkung und -übertragung',
+                    icon: '🥁',
+                    difficulty: 'medium',
+                    parentId: 'ear-hearing'
+                  },
+                  {
+                    id: 'inner-ear',
+                    name: 'Innenohr (Cochlea, Vestibularorgan)',
+                    description: 'Schallumwandlung und Gleichgewicht',
+                    icon: '🐚',
+                    difficulty: 'hard',
+                    parentId: 'ear-hearing'
+                  },
+                  {
+                    id: 'cochlea-tonotopy',
+                    name: 'Hörschnecke & Tonotopie',
+                    description: 'Frequenzaufteilung in der Cochlea',
+                    icon: '🎵',
+                    difficulty: 'hard',
+                    parentId: 'ear-hearing'
+                  },
+                  {
+                    id: 'vestibular-system',
+                    name: 'Gleichgewichtsorgan (Bogengänge, Maculaorgane)',
+                    description: 'Vestibuläre Wahrnehmung',
+                    icon: '⚖️',
+                    difficulty: 'medium',
+                    parentId: 'ear-hearing'
+                  },
+                  {
+                    id: 'hearing-loss',
+                    name: 'Schwerhörigkeit (Schallleitungs-/Schallempfindungs-)',
+                    description: 'Arten der Hörschädigung',
+                    icon: '🔇',
+                    difficulty: 'medium',
+                    parentId: 'ear-hearing'
+                  },
+                  {
+                    id: 'auditory-pathway',
+                    name: 'Zentrale Hörbahn',
+                    description: 'Auditive Leitungsbahn zum Kortex',
+                    icon: '🛤️',
+                    difficulty: 'hard',
+                    parentId: 'ear-hearing'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         id: 'musculoskeletal-system',
@@ -578,7 +1308,271 @@ export const medicalBasicsCategories: Category[] = [
         description: 'Knochen, Gelenke, Muskeln und Bewegung',
         icon: '🦴',
         difficulty: 'medium',
-        parentId: 'anatomy-physiology'
+        parentId: 'anatomy-physiology',
+        children: [
+          {
+            id: 'bone-system',
+            name: 'Knochensystem',
+            description: 'Anatomie und Physiologie der Knochen',
+            icon: '🦴',
+            difficulty: 'medium',
+            parentId: 'musculoskeletal-system',
+            children: [
+              {
+                id: 'bone-structure',
+                name: 'Knochenaufbau & -struktur',
+                description: 'Histologie und Anatomie der Knochen',
+                icon: '🔬',
+                difficulty: 'medium',
+                parentId: 'bone-system',
+                children: [
+                  {
+                    id: 'compact-spongy',
+                    name: 'Kompakta & Spongiosa',
+                    description: 'Kompakte und schwammartige Knochensubstanz',
+                    icon: '🧱',
+                    difficulty: 'medium',
+                    parentId: 'bone-structure'
+                  },
+                  {
+                    id: 'periost-endost',
+                    name: 'Periost & Endost',
+                    description: 'Knochenhaut und Endosteum',
+                    icon: '🛡️',
+                    difficulty: 'medium',
+                    parentId: 'bone-structure'
+                  },
+                  {
+                    id: 'bone-cells',
+                    name: 'Osteozyten, Osteoblasten, Osteoklasten',
+                    description: 'Knochenzellen und ihre Funktionen',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'bone-structure'
+                  },
+                  {
+                    id: 'bone-marrow',
+                    name: 'Knochenmark (rot/gelb)',
+                    description: 'Hämatopoetisches und Fettmark',
+                    icon: '🩸',
+                    difficulty: 'medium',
+                    parentId: 'bone-structure'
+                  },
+                  {
+                    id: 'bone-blood-supply',
+                    name: 'Blutversorgung des Knochens',
+                    description: 'Gefäßversorgung der Knochen',
+                    icon: '🩸',
+                    difficulty: 'medium',
+                    parentId: 'bone-structure'
+                  },
+                  {
+                    id: 'haversian-system',
+                    name: 'Havers-System (Osteone)',
+                    description: 'Strukturelle Einheiten der Kompakta',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'bone-structure'
+                  }
+                ]
+              },
+              {
+                id: 'bone-development',
+                name: 'Knochenentwicklung & -wachstum',
+                description: 'Ossifikation und Wachstumsprozesse',
+                icon: '📈',
+                difficulty: 'medium',
+                parentId: 'bone-system',
+                children: [
+                  {
+                    id: 'ossification',
+                    name: 'Desmale/chondrale Ossifikation',
+                    description: 'Direkte und indirekte Knochenbildung',
+                    icon: '🏗️',
+                    difficulty: 'hard',
+                    parentId: 'bone-development'
+                  },
+                  {
+                    id: 'growth-plates',
+                    name: 'Epiphysenfugen',
+                    description: 'Wachstumszonen der Röhrenknochen',
+                    icon: '📏',
+                    difficulty: 'medium',
+                    parentId: 'bone-development'
+                  },
+                  {
+                    id: 'growth-hormones',
+                    name: 'Wachstumshormone (GH, IGF-1)',
+                    description: 'Hormonelle Regulation des Knochenwachstums',
+                    icon: '🧪',
+                    difficulty: 'hard',
+                    parentId: 'bone-development'
+                  },
+                  {
+                    id: 'bone-remodeling',
+                    name: 'Knochenumbau (Remodeling)',
+                    description: 'Kontinuierlicher Knochenumbau',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'bone-development'
+                  },
+                  {
+                    id: 'wolffs-law',
+                    name: 'Wolff\'sches Gesetz',
+                    description: 'Anpassung der Knochen an Belastung',
+                    icon: '💪',
+                    difficulty: 'medium',
+                    parentId: 'bone-development'
+                  },
+                  {
+                    id: 'peak-bone-mass',
+                    name: 'Peak Bone Mass',
+                    description: 'Maximale Knochenmasse im jungen Erwachsenenalter',
+                    icon: '🏔️',
+                    difficulty: 'medium',
+                    parentId: 'bone-development'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'joint-system',
+            name: 'Gelenksystem',
+            description: 'Anatomie und Biomechanik der Gelenke',
+            icon: '🔗',
+            difficulty: 'medium',
+            parentId: 'musculoskeletal-system',
+            children: [
+              {
+                id: 'joint-types',
+                name: 'Gelenktypen',
+                description: 'Klassifikation der Gelenke',
+                icon: '🔗',
+                difficulty: 'medium',
+                parentId: 'joint-system',
+                children: [
+                  {
+                    id: 'synarthroses',
+                    name: 'Synarthrosen (unbeweglich)',
+                    description: 'Unbewegliche Verbindungen',
+                    icon: '🧱',
+                    difficulty: 'easy',
+                    parentId: 'joint-types'
+                  },
+                  {
+                    id: 'amphiarthroses',
+                    name: 'Amphiarthrosen (wenig beweglich)',
+                    description: 'Straffe Gelenke',
+                    icon: '⚖️',
+                    difficulty: 'easy',
+                    parentId: 'joint-types'
+                  },
+                  {
+                    id: 'diarthroses',
+                    name: 'Diarthrosen (frei beweglich)',
+                    description: 'Echte Gelenke',
+                    icon: '🔄',
+                    difficulty: 'easy',
+                    parentId: 'joint-types'
+                  },
+                  {
+                    id: 'ball-socket',
+                    name: 'Kugelgelenk (Schulter, Hüfte)',
+                    description: 'Dreiachsige Gelenke',
+                    icon: '⚽',
+                    difficulty: 'medium',
+                    parentId: 'joint-types'
+                  },
+                  {
+                    id: 'hinge-joint',
+                    name: 'Scharniergelenk (Ellenbogen, Knie)',
+                    description: 'Einachsige Gelenke',
+                    icon: '🚪',
+                    difficulty: 'medium',
+                    parentId: 'joint-types'
+                  },
+                  {
+                    id: 'saddle-joint',
+                    name: 'Sattelgelenk (Daumen)',
+                    description: 'Zweiachsiges Gelenk des Daumens',
+                    icon: '🏇',
+                    difficulty: 'medium',
+                    parentId: 'joint-types'
+                  },
+                  {
+                    id: 'pivot-joint',
+                    name: 'Drehgelenk (Atlantoaxial)',
+                    description: 'Rotationsgelenk der Halswirbelsäule',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'joint-types'
+                  },
+                  {
+                    id: 'ellipsoid-joint',
+                    name: 'Eigelenk (Handgelenk)',
+                    description: 'Zweiachsiges ellipsoides Gelenk',
+                    icon: '🥚',
+                    difficulty: 'medium',
+                    parentId: 'joint-types'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'muscle-system',
+            name: 'Muskelsystem',
+            description: 'Anatomie und Physiologie der Muskulatur',
+            icon: '💪',
+            difficulty: 'medium',
+            parentId: 'musculoskeletal-system',
+            children: [
+              {
+                id: 'muscle-types',
+                name: 'Muskeltypen',
+                description: 'Klassifikation der Muskulatur',
+                icon: '🔬',
+                difficulty: 'medium',
+                parentId: 'muscle-system',
+                children: [
+                  {
+                    id: 'skeletal-muscle',
+                    name: 'Skelettmuskel (quergestreift, willkürlich)',
+                    description: 'Willkürliche Muskulatur',
+                    icon: '💪',
+                    difficulty: 'easy',
+                    parentId: 'muscle-types'
+                  },
+                  {
+                    id: 'cardiac-muscle',
+                    name: 'Herzmuskel (quergestreift, unwillkürlich)',
+                    description: 'Myokard',
+                    icon: '❤️',
+                    difficulty: 'medium',
+                    parentId: 'muscle-types'
+                  },
+                  {
+                    id: 'smooth-muscle',
+                    name: 'Glatte Muskulatur (unwillkürlich)',
+                    description: 'Eingeweidemuskulatur',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'muscle-types'
+                  },
+                  {
+                    id: 'muscle-transitions',
+                    name: 'Mischformen & Übergänge',
+                    description: 'Intermediäre Muskeltypen',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'muscle-types'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         id: 'renal-system',
@@ -586,7 +1580,143 @@ export const medicalBasicsCategories: Category[] = [
         description: 'Nierenfunktion und Harnwege',
         icon: '🫘',
         difficulty: 'medium',
-        parentId: 'anatomy-physiology'
+        parentId: 'anatomy-physiology',
+        children: [
+          {
+            id: 'kidney-structure',
+            name: 'Nierenaufbau',
+            description: 'Anatomie und Histologie der Nieren',
+            icon: '🫘',
+            difficulty: 'medium',
+            parentId: 'renal-system',
+            children: [
+              {
+                id: 'kidney-gross-anatomy',
+                name: 'Makroskopischer Aufbau',
+                description: 'Grobstruktur der Niere',
+                icon: '🔍',
+                difficulty: 'medium',
+                parentId: 'kidney-structure',
+                children: [
+                  {
+                    id: 'renal-cortex',
+                    name: 'Nierenrinde (Cortex)',
+                    description: 'Äußere Nierenschicht',
+                    icon: '🌰',
+                    difficulty: 'easy',
+                    parentId: 'kidney-gross-anatomy'
+                  },
+                  {
+                    id: 'renal-medulla',
+                    name: 'Nierenmark (Medulla)',
+                    description: 'Innere Nierenschicht',
+                    icon: '🍯',
+                    difficulty: 'easy',
+                    parentId: 'kidney-gross-anatomy'
+                  },
+                  {
+                    id: 'renal-pelvis',
+                    name: 'Nierenbecken (Pelvis)',
+                    description: 'Harnsammelsystem',
+                    icon: '🏺',
+                    difficulty: 'easy',
+                    parentId: 'kidney-gross-anatomy'
+                  },
+                  {
+                    id: 'renal-hilum',
+                    name: 'Nierenhilus (Gefäß-/Nervenein-/austritt)',
+                    description: 'Ein- und Austrittsstelle am Nierenrand',
+                    icon: '🚪',
+                    difficulty: 'medium',
+                    parentId: 'kidney-gross-anatomy'
+                  },
+                  {
+                    id: 'renal-capsule',
+                    name: 'Nierenkapsel',
+                    description: 'Bindegewebige Umhüllung',
+                    icon: '🛡️',
+                    difficulty: 'easy',
+                    parentId: 'kidney-gross-anatomy'
+                  },
+                  {
+                    id: 'renal-lobes',
+                    name: 'Nierenlappen & -pyramiden',
+                    description: 'Segmentale Gliederung',
+                    icon: '🍕',
+                    difficulty: 'medium',
+                    parentId: 'kidney-gross-anatomy'
+                  }
+                ]
+              },
+              {
+                id: 'kidney-microscopic-anatomy',
+                name: 'Mikroskopischer Aufbau',
+                description: 'Histologie der Niere',
+                icon: '🔬',
+                difficulty: 'hard',
+                parentId: 'kidney-structure',
+                children: [
+                  {
+                    id: 'nephron',
+                    name: 'Nephron (funktionelle Einheit)',
+                    description: 'Funktionelle Grundeinheit der Niere',
+                    icon: '🧬',
+                    difficulty: 'medium',
+                    parentId: 'kidney-microscopic-anatomy'
+                  },
+                  {
+                    id: 'glomerulus',
+                    name: 'Glomerulus (Gefäßknäuel)',
+                    description: 'Kapillarknäuel für Filtration',
+                    icon: '🕸️',
+                    difficulty: 'medium',
+                    parentId: 'kidney-microscopic-anatomy'
+                  },
+                  {
+                    id: 'bowman-capsule',
+                    name: 'Bowman-Kapsel',
+                    description: 'Umhüllung des Glomerulus',
+                    icon: '🫖',
+                    difficulty: 'medium',
+                    parentId: 'kidney-microscopic-anatomy'
+                  },
+                  {
+                    id: 'tubular-system',
+                    name: 'Tubulusystem (proximal/distal)',
+                    description: 'Harnkanälchen',
+                    icon: '🚰',
+                    difficulty: 'medium',
+                    parentId: 'kidney-microscopic-anatomy'
+                  },
+                  {
+                    id: 'loop-of-henle',
+                    name: 'Henle-Schleife (absteigend/aufsteigend)',
+                    description: 'U-förmiger Tubulusteil',
+                    icon: '↩️',
+                    difficulty: 'medium',
+                    parentId: 'kidney-microscopic-anatomy'
+                  },
+                  {
+                    id: 'collecting-duct',
+                    name: 'Sammelrohr',
+                    description: 'Endstrecke der Harnkonzentration',
+                    icon: '📡',
+                    difficulty: 'medium',
+                    parentId: 'kidney-microscopic-anatomy'
+                  },
+                  {
+                    id: 'juxtaglomerular-apparatus',
+                    name: 'Juxtaglomerulärer Apparat',
+                    description: 'Kontrollzentrum für Filtration und Blutdruck',
+                    icon: '🎛️',
+                    difficulty: 'hard',
+                    parentId: 'kidney-microscopic-anatomy'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         id: 'blood-immune-system',
@@ -594,7 +1724,119 @@ export const medicalBasicsCategories: Category[] = [
         description: 'Blutsystem und Immunabwehr',
         icon: '🩸',
         difficulty: 'medium',
-        parentId: 'anatomy-physiology'
+        parentId: 'anatomy-physiology',
+        children: [
+          {
+            id: 'blood-components',
+            name: 'Blutbestandteile',
+            description: 'Zelluläre und plasmatische Bestandteile',
+            icon: '🩸',
+            difficulty: 'medium',
+            parentId: 'blood-immune-system',
+            children: [
+              {
+                id: 'erythrocytes',
+                name: 'Erythrozyten (Rote Blutkörperchen)',
+                description: 'Sauerstofftransport durch rote Blutzellen',
+                icon: '🔴',
+                difficulty: 'easy',
+                parentId: 'blood-components',
+                children: [
+                  {
+                    id: 'hemoglobin',
+                    name: 'Hämoglobin (Hb)',
+                    description: 'Sauerstoffbindendes Protein',
+                    icon: '🧬',
+                    difficulty: 'medium',
+                    parentId: 'erythrocytes'
+                  },
+                  {
+                    id: 'erythropoiesis',
+                    name: 'Erythropoese',
+                    description: 'Bildung roter Blutkörperchen',
+                    icon: '🏭',
+                    difficulty: 'medium',
+                    parentId: 'erythrocytes'
+                  },
+                  {
+                    id: 'rbc-lifespan',
+                    name: 'Lebensdauer (120 Tage)',
+                    description: 'Lebensspanne der Erythrozyten',
+                    icon: '⏰',
+                    difficulty: 'easy',
+                    parentId: 'erythrocytes'
+                  },
+                  {
+                    id: 'hematocrit',
+                    name: 'Hämatokrit',
+                    description: 'Anteil der roten Blutkörperchen',
+                    icon: '📊',
+                    difficulty: 'easy',
+                    parentId: 'erythrocytes'
+                  },
+                  {
+                    id: 'anemia-types',
+                    name: 'Anämieformen',
+                    description: 'Verschiedene Arten der Blutarmut',
+                    icon: '📉',
+                    difficulty: 'medium',
+                    parentId: 'erythrocytes'
+                  }
+                ]
+              },
+              {
+                id: 'leukocytes',
+                name: 'Leukozyten (Weiße Blutkörperchen)',
+                description: 'Immunabwehr durch weiße Blutzellen',
+                icon: '⚪',
+                difficulty: 'medium',
+                parentId: 'blood-components',
+                children: [
+                  {
+                    id: 'granulocytes',
+                    name: 'Granulozyten (Neutrophile, Eosinophile, Basophile)',
+                    description: 'Granulierte weiße Blutzellen',
+                    icon: '🔘',
+                    difficulty: 'medium',
+                    parentId: 'leukocytes'
+                  },
+                  {
+                    id: 'lymphocytes',
+                    name: 'Lymphozyten (B-, T-Zellen, NK-Zellen)',
+                    description: 'Adaptive Immunzellen',
+                    icon: '🛡️',
+                    difficulty: 'medium',
+                    parentId: 'leukocytes'
+                  },
+                  {
+                    id: 'monocytes',
+                    name: 'Monozyten/Makrophagen',
+                    description: 'Phagozytäre Immunzellen',
+                    icon: '🦠',
+                    difficulty: 'medium',
+                    parentId: 'leukocytes'
+                  },
+                  {
+                    id: 'differential-count',
+                    name: 'Differentialblutbild',
+                    description: 'Aufschlüsselung der Leukozytentypen',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'leukocytes'
+                  },
+                  {
+                    id: 'left-shift',
+                    name: 'Linksverschiebung',
+                    description: 'Vermehrung unreifer Granulozyten',
+                    icon: '⬅️',
+                    difficulty: 'medium',
+                    parentId: 'leukocytes'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         id: 'metabolism-hormones',
@@ -602,7 +1844,117 @@ export const medicalBasicsCategories: Category[] = [
         description: 'Stoffwechselprozesse und Hormonregulation',
         icon: '🔄',
         difficulty: 'hard',
-        parentId: 'anatomy-physiology'
+        parentId: 'anatomy-physiology',
+        children: [
+          {
+            id: 'carbohydrate-metabolism',
+            name: 'Kohlenhydratstoffwechsel',
+            description: 'Glukosestoffwechsel und Energiegewinnung',
+            icon: '🍞',
+            difficulty: 'hard',
+            parentId: 'metabolism-hormones',
+            children: [
+              {
+                id: 'glycolysis',
+                name: 'Glykolyse',
+                description: 'Glukoseabbau zu Pyruvat',
+                icon: '⚡',
+                difficulty: 'hard',
+                parentId: 'carbohydrate-metabolism'
+              },
+              {
+                id: 'gluconeogenesis',
+                name: 'Gluconeogenese',
+                description: 'Glukosebildung aus Nicht-Kohlenhydraten',
+                icon: '🏗️',
+                difficulty: 'hard',
+                parentId: 'carbohydrate-metabolism'
+              },
+              {
+                id: 'glycogen-metabolism',
+                name: 'Glykogenstoffwechsel',
+                description: 'Glykogenaufbau und -abbau',
+                icon: '🏪',
+                difficulty: 'medium',
+                parentId: 'carbohydrate-metabolism'
+              },
+              {
+                id: 'pentose-phosphate-pathway',
+                name: 'Pentosephosphatweg',
+                description: 'Alternative Glukoseoxidation',
+                icon: '🔄',
+                difficulty: 'hard',
+                parentId: 'carbohydrate-metabolism'
+              },
+              {
+                id: 'blood-glucose-regulation',
+                name: 'Blutzuckerregulation',
+                description: 'Hormonelle Glukosehomöostase',
+                icon: '📊',
+                difficulty: 'medium',
+                parentId: 'carbohydrate-metabolism'
+              }
+            ]
+          },
+          {
+            id: 'hormone-system',
+            name: 'Hormonsystem',
+            description: 'Endokrine Regulation und Signaltransduktion',
+            icon: '🧪',
+            difficulty: 'hard',
+            parentId: 'metabolism-hormones',
+            children: [
+              {
+                id: 'hypothalamic-pituitary-axis',
+                name: 'Hypothalamus-Hypophysen-Achse',
+                description: 'Zentrale endokrine Steuerung',
+                icon: '🧠',
+                difficulty: 'hard',
+                parentId: 'hormone-system'
+              },
+              {
+                id: 'thyroid-hormones',
+                name: 'Schilddrüsenhormone',
+                description: 'T3, T4 und Stoffwechselregulation',
+                icon: '🦋',
+                difficulty: 'medium',
+                parentId: 'hormone-system'
+              },
+              {
+                id: 'adrenal-hormones',
+                name: 'Nebennierenhormone',
+                description: 'Kortisol, Aldosteron und Katecholamine',
+                icon: '⚡',
+                difficulty: 'medium',
+                parentId: 'hormone-system'
+              },
+              {
+                id: 'pancreatic-hormones',
+                name: 'Pankreashormone',
+                description: 'Insulin, Glukagon und Blutzuckerregulation',
+                icon: '🥞',
+                difficulty: 'medium',
+                parentId: 'hormone-system'
+              },
+              {
+                id: 'sex-hormones',
+                name: 'Geschlechtshormone',
+                description: 'Östrogen, Testosteron und Reproduktion',
+                icon: '♀️♂️',
+                difficulty: 'medium',
+                parentId: 'hormone-system'
+              },
+              {
+                id: 'other-hormones',
+                name: 'Weitere Hormone',
+                description: 'PTH, Calcitonin, Melatonin und andere',
+                icon: '🧪',
+                difficulty: 'medium',
+                parentId: 'hormone-system'
+              }
+            ]
+          }
+        ]
       }
     ]
   }

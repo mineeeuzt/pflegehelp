@@ -19,6 +19,7 @@ import { Button, Card, CardHeader, CardTitle, CardContent } from '../components/
 import { useQuizStore } from '../store/quizStore'
 import { quizCategories } from '../data/quizData'
 import { medicalBasicsCategories } from '../data/categories/medical-basics'
+import { pathologyCategories } from '../data/categories/pathology'
 import { StudyMode } from '../types/quiz'
 
 const QuizLernkarten = () => {
@@ -150,7 +151,7 @@ const QuizLernkarten = () => {
     return allCategories
   }
 
-  const allMedicalCategories = getAllCategories(medicalBasicsCategories)
+  const allMedicalCategories = getAllCategories([...medicalBasicsCategories, ...pathologyCategories])
   const allCategories = [...quizCategories, ...allMedicalCategories]
 
   // Category Selection with hierarchical display
@@ -229,6 +230,63 @@ const QuizLernkarten = () => {
                         className={`p-2 rounded border transition-all text-left text-sm ${
                           selectedCategories.includes(subCategory.id)
                             ? 'border-blue-400 bg-blue-25'
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">{subCategory.icon}</span>
+                          <span className="font-medium">{subCategory.name}</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Pathology Categories */}
+          <div>
+            <h3 className="text-lg font-medium mb-3">Krankheitslehre</h3>
+            {pathologyCategories.map((mainCategory) => (
+              <div key={mainCategory.id} className="mb-4">
+                <button
+                  onClick={() => {
+                    const newSelection = selectedCategories.includes(mainCategory.id)
+                      ? selectedCategories.filter(id => id !== mainCategory.id)
+                      : [...selectedCategories, mainCategory.id]
+                    useQuizStore.setState({ selectedCategories: newSelection })
+                  }}
+                  className={`w-full p-3 rounded-lg border-2 transition-all text-left mb-2 ${
+                    selectedCategories.includes(mainCategory.id)
+                      ? 'border-red-500 bg-red-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{mainCategory.icon}</span>
+                    <div>
+                      <div className="font-medium">{mainCategory.name}</div>
+                      <div className="text-sm text-gray-600">{mainCategory.description}</div>
+                    </div>
+                  </div>
+                </button>
+                
+                {/* Subcategories */}
+                {mainCategory.children && (
+                  <div className="ml-8 grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {mainCategory.children.map((subCategory) => (
+                      <button
+                        key={subCategory.id}
+                        onClick={() => {
+                          const newSelection = selectedCategories.includes(subCategory.id)
+                            ? selectedCategories.filter(id => id !== subCategory.id)
+                            : [...selectedCategories, subCategory.id]
+                          useQuizStore.setState({ selectedCategories: newSelection })
+                        }}
+                        className={`p-2 rounded border transition-all text-left text-sm ${
+                          selectedCategories.includes(subCategory.id)
+                            ? 'border-red-400 bg-red-25'
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
