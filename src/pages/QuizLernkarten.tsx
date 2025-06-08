@@ -49,7 +49,7 @@ const QuizLernkarten = () => {
 
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   const [showExplanation, setShowExplanation] = useState(false)
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['anatomy-physiology', 'pathology']))
   const [searchTerm, setSearchTerm] = useState('')
   const [currentView, setCurrentView] = useState<'main' | 'category'>('main')
   const [selectedMainCategory, setSelectedMainCategory] = useState<any>(null)
@@ -366,10 +366,38 @@ const QuizLernkarten = () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
-          {/* Quick Categories */}
+          {/* Anatomie & Physiologie - Direkte Hauptkategorien */}
           <div>
-            <h3 className="text-lg font-medium mb-3 text-blue-700">🏥 Anatomie & Physiologie</h3>
+            <h3 className="text-lg font-medium mb-3 text-blue-700">🏥 Anatomie & Physiologie - Hauptbereiche</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {/* Alle 9 Anatomie-Hauptkategorien */}
+              {medicalBasicsCategories.find(cat => cat.id === 'anatomy-physiology')?.children?.map((category) => (
+                <div key={category.id} className="relative">
+                  <button
+                    onClick={() => selectCategory(category.id)}
+                    className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
+                      selectedCategories.includes(category.id)
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="text-2xl mb-1">{category.icon}</div>
+                    <div className="text-sm font-medium">{category.name}</div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {category.children?.length || 0} Unterkategorien
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => navigateToCategory(category, [])}
+                    className="absolute top-1 right-1 p-1 rounded hover:bg-gray-200 text-gray-500"
+                    title="Unterkategorien anzeigen"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              )) || []}
+              
+              {/* Original Quiz-Kategorien für Anatomie */}
               {quizCategories.filter(cat => 
                 ['cardiovascular-system', 'respiratory-system', 'nervous-system', 'musculoskeletal-system', 
                  'renal-system', 'blood-immune-system', 'metabolism-hormones', 'digestive-system', 'integumentary-system'].includes(cat.id)
@@ -407,10 +435,38 @@ const QuizLernkarten = () => {
             </div>
           </div>
 
-          {/* Krankheitslehre */}
+          {/* Krankheitslehre - Direkte Hauptkategorien */}
           <div>
-            <h3 className="text-lg font-medium mb-3 text-red-700">🦠 Krankheitslehre</h3>
+            <h3 className="text-lg font-medium mb-3 text-red-700">🦠 Krankheitslehre - Hauptbereiche</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {/* Alle 8 Pathologie-Hauptkategorien */}
+              {pathologyCategories.find(cat => cat.id === 'pathology')?.children?.map((category) => (
+                <div key={category.id} className="relative">
+                  <button
+                    onClick={() => selectCategory(category.id)}
+                    className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
+                      selectedCategories.includes(category.id)
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="text-2xl mb-1">{category.icon}</div>
+                    <div className="text-sm font-medium">{category.name}</div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {category.children?.length || 0} Unterkategorien
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => navigateToCategory(category, [])}
+                    className="absolute top-1 right-1 p-1 rounded hover:bg-gray-200 text-gray-500"
+                    title="Unterkategorien anzeigen"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              )) || []}
+              
+              {/* Original Quiz-Kategorien für Pathologie */}
               {quizCategories.filter(cat => 
                 ['cardiovascular-diseases', 'respiratory-diseases', 'neurological-diseases', 'renal-diseases', 
                  'endocrine-diseases', 'gastrointestinal-diseases', 'musculoskeletal-diseases', 'infectious-diseases'].includes(cat.id)
