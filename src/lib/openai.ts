@@ -308,7 +308,7 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
   "level": 1, 2 oder 3
 }
 
-VERFÜGBARE MEDIKAMENTE (verwende exakt diese IDs):
+VERFÜGBARE MEDIKAMENTE (verwende exakt diese IDs und variiere die Auswahl):
 
 ACE-HEMMER:
 - "ramipril" (5mg) - Bluthochdruck, Herzinsuffizienz
@@ -358,6 +358,15 @@ ANTIARRHYTHMIKA:
 ANTIEMETIKA:
 - "ondansetron" (4mg) - Übelkeit, Erbrechen
 - "metoclopramid" (10mg) - Übelkeit, Gastroparese
+
+ZUSÄTZLICHE MEDIKAMENTE (kannst du auch verwenden):
+- Andere Analgetika: "diclofenac", "aspirin", "morphin", "tramadol"
+- Andere Antihypertensiva: "losartan", "candesartan", "amlodipin", "hydrochlorothiazid"
+- Andere Antibiotika: "cefuroxim", "clarithromycin", "doxycyclin", "meropenem"
+- Psychopharmaka: "lorazepam", "diazepam", "haloperidol", "risperidon"
+- Antihistaminika: "cetirizin", "clemastin", "dimetinden"
+- Protonenpumpenhemmer: "pantoprazol", "omeprazol"
+- Andere: "digitoxin", "theophyllin", "levothyroxin", "methylprednisolon"
 
 ABWECHSLUNG SCHAFFEN:
 - Verwende verschiedene Medikamentengruppen

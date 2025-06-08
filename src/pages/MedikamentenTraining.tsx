@@ -746,10 +746,7 @@ const MedikamentenTraining = () => {
                   <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
                     <span className="text-white text-sm font-bold">💊</span>
                   </div>
-                  <div>
-                    <div className="text-base font-semibold">Verfügbare Medikamente</div>
-                    <div className="text-xs text-slate-500 font-normal">{availableMedications.length} von {allMedications.length} Medikamenten</div>
-                  </div>
+                  <span className="text-base font-semibold">Verfügbare Medikamente</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -834,28 +831,71 @@ const MedikamentenTraining = () => {
                 </div>
 
                 <div className="space-y-4 mb-6">
-                  <div className="flex items-center">
-                    <span className="w-20 text-sm text-gray-600">Medikament:</span>
-                    {selectedMedication === currentScenario.correctMedication ? (
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                    ) : (
-                      <XCircle className="h-4 w-4 text-red-600 mr-2" />
-                    )}
-                    <span className="text-sm">
-                      {selectedMedication === currentScenario.correctMedication ? 'Richtig' : 'Falsch'}
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <span className="w-20 text-sm text-gray-600">Arzt-Ruf:</span>
-                    {doctorCalled === currentScenario.needsDoctor ? (
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                    ) : (
-                      <XCircle className="h-4 w-4 text-red-600 mr-2" />
-                    )}
-                    <span className="text-sm">
-                      {doctorCalled === currentScenario.needsDoctor ? 'Richtig' : 'Falsch'}
-                    </span>
+                  <div className="space-y-4">
+                    {/* Medikamenten-Bewertung mit Details */}
+                    <div>
+                      <div className="flex items-center mb-2">
+                        <span className="text-sm font-semibold text-gray-700">Medikament:</span>
+                        {selectedMedication === currentScenario.correctMedication ? (
+                          <CheckCircle className="h-4 w-4 text-green-600 ml-2" />
+                        ) : (
+                          <XCircle className="h-4 w-4 text-red-600 ml-2" />
+                        )}
+                      </div>
+                      
+                      {/* Deine Wahl */}
+                      {(() => {
+                        const selectedMed = allMedications.find(m => m.id === selectedMedication)
+                        return selectedMed ? (
+                          <div className="bg-gray-50 rounded-lg p-3 mb-2">
+                            <div className="text-sm font-medium text-gray-800">
+                              👉 Deine Wahl: {selectedMed.name} {selectedMed.dosage}
+                            </div>
+                            <div className="text-xs text-gray-600 mt-1">
+                              <span className="font-medium">Wirkstoff:</span> {selectedMed.activeIngredient} • 
+                              <span className="font-medium"> Gruppe:</span> {selectedMed.drugClass}
+                            </div>
+                            <div className="text-xs text-gray-600">
+                              <span className="font-medium">Indikation:</span> {selectedMed.indication}
+                            </div>
+                          </div>
+                        ) : null
+                      })()}
+                      
+                      {/* Richtige Antwort wenn falsch */}
+                      {selectedMedication !== currentScenario.correctMedication && (() => {
+                        const correctMed = allMedications.find(m => m.id === currentScenario.correctMedication)
+                        return correctMed ? (
+                          <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                            <div className="text-sm font-medium text-green-800">
+                              ✅ Richtig wäre: {correctMed.name} {correctMed.dosage}
+                            </div>
+                            <div className="text-xs text-green-700 mt-1">
+                              <span className="font-medium">Wirkstoff:</span> {correctMed.activeIngredient} • 
+                              <span className="font-medium"> Gruppe:</span> {correctMed.drugClass}
+                            </div>
+                            <div className="text-xs text-green-700">
+                              <span className="font-medium">Indikation:</span> {correctMed.indication}
+                            </div>
+                          </div>
+                        ) : null
+                      })()}
+                    </div>
+                    
+                    {/* Arzt-Entscheidung */}
+                    <div>
+                      <div className="flex items-center">
+                        <span className="text-sm font-semibold text-gray-700">Arzt-Ruf:</span>
+                        {doctorCalled === currentScenario.needsDoctor ? (
+                          <CheckCircle className="h-4 w-4 text-green-600 ml-2" />
+                        ) : (
+                          <XCircle className="h-4 w-4 text-red-600 ml-2" />
+                        )}
+                        <span className="text-sm ml-2">
+                          {doctorCalled === currentScenario.needsDoctor ? 'Richtig' : 'Falsch'}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
