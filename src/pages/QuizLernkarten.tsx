@@ -366,72 +366,73 @@ const QuizLernkarten = () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
-          {/* Anatomie & Physiologie - Direkte Hauptkategorien */}
+          {/* Anatomie & Physiologie - Alle Hauptkategorien */}
           <div>
-            <h3 className="text-lg font-medium mb-3 text-blue-700">🏥 Anatomie & Physiologie - Hauptbereiche</h3>
+            <h3 className="text-lg font-medium mb-3 text-blue-700">🏥 Anatomie & Physiologie - Alle Bereiche</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {/* Alle 9 Anatomie-Hauptkategorien */}
-              {medicalBasicsCategories.find(cat => cat.id === 'anatomy-physiology')?.children?.map((category) => (
-                <div key={category.id} className="relative">
-                  <button
-                    onClick={() => selectCategory(category.id)}
-                    className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
-                      selectedCategories.includes(category.id)
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="text-2xl mb-1">{category.icon}</div>
-                    <div className="text-sm font-medium">{category.name}</div>
-                    <div className="text-xs text-gray-500 mt-1">
-                      {category.children?.length || 0} Unterkategorien
-                    </div>
-                  </button>
-                  <button
-                    onClick={() => navigateToCategory(category, [])}
-                    className="absolute top-1 right-1 p-1 rounded hover:bg-gray-200 text-gray-500"
-                    title="Unterkategorien anzeigen"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              )) || []}
+              {/* Direkte Anatomie-Kategorien */}
+              <button onClick={() => selectCategory('cardiovascular-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('cardiovascular-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🫀</div>
+                <div className="text-sm font-medium">Herz-Kreislauf-System</div>
+              </button>
+              <button onClick={() => selectCategory('respiratory-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('respiratory-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🫁</div>
+                <div className="text-sm font-medium">Atmungssystem</div>
+              </button>
+              <button onClick={() => selectCategory('nervous-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('nervous-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🧠</div>
+                <div className="text-sm font-medium">Nervensystem</div>
+              </button>
+              <button onClick={() => selectCategory('musculoskeletal-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('musculoskeletal-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🦴</div>
+                <div className="text-sm font-medium">Bewegungsapparat</div>
+              </button>
+              <button onClick={() => selectCategory('renal-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('renal-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🫘</div>
+                <div className="text-sm font-medium">Nieren & Harnwege</div>
+              </button>
+              <button onClick={() => selectCategory('blood-immune-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('blood-immune-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🩸</div>
+                <div className="text-sm font-medium">Blut & Immunsystem</div>
+              </button>
+              <button onClick={() => selectCategory('metabolism-hormones')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('metabolism-hormones') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🔄</div>
+                <div className="text-sm font-medium">Stoffwechsel & Hormone</div>
+              </button>
+              <button onClick={() => selectCategory('digestive-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('digestive-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🍯</div>
+                <div className="text-sm font-medium">Verdauungssystem</div>
+              </button>
+              <button onClick={() => selectCategory('integumentary-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('integumentary-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">👁️</div>
+                <div className="text-sm font-medium">Haut & Sinnesorgane</div>
+              </button>
               
-              {/* Original Quiz-Kategorien für Anatomie */}
-              {quizCategories.filter(cat => 
-                ['cardiovascular-system', 'respiratory-system', 'nervous-system', 'musculoskeletal-system', 
-                 'renal-system', 'blood-immune-system', 'metabolism-hormones', 'digestive-system', 'integumentary-system'].includes(cat.id)
-              ).map((category) => (
-                <div key={category.id} className="relative">
-                  <button
-                    onClick={() => selectCategory(category.id)}
-                    className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
-                      selectedCategories.includes(category.id)
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="text-2xl mb-1">{category.icon}</div>
-                    <div className="text-sm font-medium">{category.name}</div>
-                  </button>
-                  <button
-                    onClick={() => {
-                      // Find corresponding detailed category
-                      const detailedCategory = medicalBasicsCategories.find(cat => 
-                        cat.children?.some(child => child.id === category.id)
-                      )?.children?.find(child => child.id === category.id)
-                      
-                      if (detailedCategory) {
-                        navigateToCategory(detailedCategory, [])
-                      }
-                    }}
-                    className="absolute top-1 right-1 p-1 rounded hover:bg-gray-200 text-gray-500"
-                    title="Detailansicht"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
+              {/* Detaillierte Anatomie-Kategorien */}
+              <button onClick={() => selectCategory('heart-anatomy')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('heart-anatomy') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">❤️</div>
+                <div className="text-sm font-medium">Herzanatomie</div>
+              </button>
+              <button onClick={() => selectCategory('blood-circulation')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('blood-circulation') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🔄</div>
+                <div className="text-sm font-medium">Blutkreislauf</div>
+              </button>
+              <button onClick={() => selectCategory('blood-pressure-regulation')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('blood-pressure-regulation') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">📊</div>
+                <div className="text-sm font-medium">Blutdruck & Regulation</div>
+              </button>
+              <button onClick={() => selectCategory('heart-physiology')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('heart-physiology') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">⚡</div>
+                <div className="text-sm font-medium">Herzphysiologie</div>
+              </button>
+              <button onClick={() => selectCategory('vascular-system')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('vascular-system') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">🌊</div>
+                <div className="text-sm font-medium">Gefäßsystem</div>
+              </button>
+              <button onClick={() => selectCategory('ecg-rhythm')} className={`p-3 rounded-lg border-2 transition-all text-left ${selectedCategories.includes('ecg-rhythm') ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                <div className="text-2xl mb-1">📈</div>
+                <div className="text-sm font-medium">EKG & Herzrhythmus</div>
+              </button>
             </div>
           </div>
 
