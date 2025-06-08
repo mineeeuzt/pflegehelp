@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Brain, Wand2, Copy, ArrowRight, ArrowLeft, CheckCircle, Users, Building2, Stethoscope, FileText, Target, Heart, ClipboardList, Search, Play } from 'lucide-react'
+import { Brain, Wand2, Copy, ArrowRight, ArrowLeft, CheckCircle, Users, Building2, Stethoscope, FileText, Target, Heart, ClipboardList, Search, Play, Plus, Trash2 } from 'lucide-react'
 import { Button, Input, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
 import { caseService, type CaseGenerationParams, type WorkflowInput } from '../services/caseService'
@@ -9,6 +9,22 @@ interface GeneratorParams extends CaseGenerationParams {
   alter: string
   setting: string
   zusatzinfo?: string
+}
+
+interface PflegeplanungData {
+  pflegeprobleme: string
+  nahziele: string
+  fernziele: string
+  massnahmen: string
+  begruendung: string
+  evaluation: string
+}
+
+interface PflegeInfo {
+  id: string
+  beschreibung: string
+  abedl: string
+  begruendung: string
 }
 
 const FallbeispielGenerator = () => {
@@ -26,11 +42,29 @@ const FallbeispielGenerator = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [showWorkflowOptions, setShowWorkflowOptions] = useState(false)
-  const [selectedWorkflow, setSelectedWorkflow] = useState<'pflegeplanung' | 'abedl' | null>(null)
-  const [workflowResult, setWorkflowResult] = useState('')
-  const [workflowLoading, setWorkflowLoading] = useState(false)
-  const [workflowError, setWorkflowError] = useState('')
-  const [selectedABEDLs, setSelectedABEDLs] = useState<string[]>([])
+  const [selectedWorkflow, setSelectedWorkflow] = useState<'pflegeplanung' | 'pflegeinfo' | null>(null)
+  
+  // Pflegeplanung workflow states
+  const [pflegeplanungStep, setPflegeplanungStep] = useState(1)
+  const [pflegeplanungData, setPflegeplanungData] = useState<PflegeplanungData>({
+    pflegeprobleme: '',
+    nahziele: '',
+    fernziele: '',
+    massnahmen: '',
+    begruendung: '',
+    evaluation: ''
+  })
+  
+  // Pflegeinfo workflow states
+  const [pflegeInfos, setPflegeInfos] = useState<PflegeInfo[]>([])
+  const [currentPflegeInfo, setCurrentPflegeInfo] = useState<PflegeInfo>({
+    id: Date.now().toString(),
+    beschreibung: '',
+    abedl: '',
+    begruendung: ''
+  })
+  
+  // Review states
   const [showReview, setShowReview] = useState(false)
   const [reviewResult, setReviewResult] = useState('')
   const [reviewLoading, setReviewLoading] = useState(false)
@@ -109,19 +143,19 @@ const FallbeispielGenerator = () => {
   ]
 
   const abedlBereiche = [
-    { id: 1, title: 'Kommunizieren können', icon: '💬' },
-    { id: 2, title: 'Sich bewegen können', icon: '🚶' },
-    { id: 3, title: 'Vitale Funktionen aufrechterhalten können', icon: '❤️' },
-    { id: 4, title: 'Sich pflegen können', icon: '🧴' },
-    { id: 5, title: 'Essen und trinken können', icon: '🍽️' },
-    { id: 6, title: 'Ausscheiden können', icon: '🚿' },
-    { id: 7, title: 'Sich kleiden können', icon: '👕' },
-    { id: 8, title: 'Ruhen und schlafen können', icon: '😴' },
-    { id: 9, title: 'Sich beschäftigen können', icon: '🎨' },
-    { id: 10, title: 'Sich als Mann oder Frau fühlen und verhalten können', icon: '👫' },
-    { id: 11, title: 'Für eine sichere und fördernde Umgebung sorgen können', icon: '🏠' },
-    { id: 12, title: 'Soziale Bereiche des Lebens sichern können', icon: '👥' },
-    { id: 13, title: 'Mit existenziellen Erfahrungen des Lebens umgehen können', icon: '🙏' }
+    { value: 'kommunizieren', title: 'Kommunizieren können', icon: '💬' },
+    { value: 'bewegen', title: 'Sich bewegen können', icon: '🚶' },
+    { value: 'vitale_funktionen', title: 'Vitale Funktionen aufrechterhalten können', icon: '❤️' },
+    { value: 'pflegen', title: 'Sich pflegen können', icon: '🧴' },
+    { value: 'essen_trinken', title: 'Essen und trinken können', icon: '🍽️' },
+    { value: 'ausscheiden', title: 'Ausscheiden können', icon: '🚿' },
+    { value: 'kleiden', title: 'Sich kleiden können', icon: '👕' },
+    { value: 'ruhen_schlafen', title: 'Ruhen und schlafen können', icon: '😴' },
+    { value: 'beschaeftigen', title: 'Sich beschäftigen können', icon: '🎨' },
+    { value: 'geschlecht', title: 'Sich als Mann oder Frau fühlen und verhalten können', icon: '👫' },
+    { value: 'umgebung', title: 'Für eine sichere und fördernde Umgebung sorgen können', icon: '🏠' },
+    { value: 'sozial', title: 'Soziale Bereiche des Lebens sichern können', icon: '👥' },
+    { value: 'existenziell', title: 'Mit existenziellen Erfahrungen des Lebens umgehen können', icon: '🙏' }
   ]
 
   const steps = [
@@ -187,42 +221,71 @@ const FallbeispielGenerator = () => {
     }
   }
 
-  const handleWorkflowSelection = async (workflowType: 'pflegeplanung' | 'abedl') => {
-    if (!user || !result) return
-
+  const handleWorkflowSelection = (workflowType: 'pflegeplanung' | 'pflegeinfo') => {
     setSelectedWorkflow(workflowType)
-    setWorkflowLoading(true)
-    setWorkflowError('')
-
-    try {
-      const workflowInput: WorkflowInput = {
-        fallbeispiel: result,
-        selectedABEDLs: workflowType === 'abedl' ? selectedABEDLs : undefined
-      }
-
-      let response: string
-      if (workflowType === 'pflegeplanung') {
-        response = await caseService.generateWorkflowPflegeplanung(workflowInput, user.id)
-      } else {
-        response = await caseService.generateWorkflowABEDL(workflowInput, user.id)
-      }
-
-      setWorkflowResult(response)
-      setShowWorkflowOptions(false)
-    } catch (error) {
-      console.error('Workflow generation error:', error)
-      setWorkflowError(error instanceof Error ? error.message : 'Fehler beim Erstellen des Workflows')
-    } finally {
-      setWorkflowLoading(false)
+    setShowWorkflowOptions(false)
+    if (workflowType === 'pflegeplanung') {
+      setPflegeplanungStep(1)
     }
   }
 
-  const handleReview = async () => {
-    if (!user || !workflowResult || !selectedWorkflow) return
+  const handlePflegeplanungNext = () => {
+    if (pflegeplanungStep < 6) {
+      setPflegeplanungStep(pflegeplanungStep + 1)
+    }
+  }
+
+  const handlePflegeplanungBack = () => {
+    if (pflegeplanungStep > 1) {
+      setPflegeplanungStep(pflegeplanungStep - 1)
+    }
+  }
+
+  const handleAddPflegeInfo = () => {
+    if (currentPflegeInfo.beschreibung && currentPflegeInfo.abedl && currentPflegeInfo.begruendung) {
+      setPflegeInfos([...pflegeInfos, currentPflegeInfo])
+      setCurrentPflegeInfo({
+        id: Date.now().toString(),
+        beschreibung: '',
+        abedl: '',
+        begruendung: ''
+      })
+    }
+  }
+
+  const handleDeletePflegeInfo = (id: string) => {
+    setPflegeInfos(pflegeInfos.filter(info => info.id !== id))
+  }
+
+  const handlePflegeplanungReview = async () => {
+    if (!user) return
 
     setReviewLoading(true)
     try {
-      const response = await caseService.reviewWorkflow(selectedWorkflow, workflowResult, user.id)
+      const pflegeplanungText = `
+Fallbeispiel:
+${result}
+
+Pflegeprobleme:
+${pflegeplanungData.pflegeprobleme}
+
+Nahziele:
+${pflegeplanungData.nahziele}
+
+Fernziele:
+${pflegeplanungData.fernziele}
+
+Maßnahmen:
+${pflegeplanungData.massnahmen}
+
+Begründung:
+${pflegeplanungData.begruendung}
+
+Evaluation:
+${pflegeplanungData.evaluation}
+      `.trim()
+
+      const response = await caseService.reviewWorkflow('pflegeplanung', pflegeplanungText, user.id)
       setReviewResult(response)
       setShowReview(true)
     } catch (error) {
@@ -232,22 +295,54 @@ const FallbeispielGenerator = () => {
     }
   }
 
-  const toggleABEDL = (abedlTitle: string) => {
-    setSelectedABEDLs(prev => 
-      prev.includes(abedlTitle) 
-        ? prev.filter(id => id !== abedlTitle)
-        : [...prev, abedlTitle]
-    )
+  const handlePflegeInfoReview = async () => {
+    if (!user || pflegeInfos.length === 0) return
+
+    setReviewLoading(true)
+    try {
+      const pflegeInfoText = `
+Fallbeispiel:
+${result}
+
+Pflegerelevante Informationen:
+${pflegeInfos.map((info, index) => `
+${index + 1}. Beschreibung: ${info.beschreibung}
+   ABEDL: ${abedlBereiche.find(a => a.value === info.abedl)?.title || info.abedl}
+   Begründung: ${info.begruendung}
+`).join('\n')}
+      `.trim()
+
+      const response = await caseService.reviewWorkflow('abedl', pflegeInfoText, user.id)
+      setReviewResult(response)
+      setShowReview(true)
+    } catch (error) {
+      console.error('Review error:', error)
+    } finally {
+      setReviewLoading(false)
+    }
   }
 
   const resetWorkflow = () => {
     setSelectedWorkflow(null)
-    setWorkflowResult('')
-    setWorkflowError('')
     setShowWorkflowOptions(true)
     setShowReview(false)
     setReviewResult('')
-    setSelectedABEDLs([])
+    setPflegeplanungStep(1)
+    setPflegeplanungData({
+      pflegeprobleme: '',
+      nahziele: '',
+      fernziele: '',
+      massnahmen: '',
+      begruendung: '',
+      evaluation: ''
+    })
+    setPflegeInfos([])
+    setCurrentPflegeInfo({
+      id: Date.now().toString(),
+      beschreibung: '',
+      abedl: '',
+      begruendung: ''
+    })
   }
 
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 6))
@@ -499,7 +594,7 @@ const FallbeispielGenerator = () => {
               </div>
             )}
 
-            {result && !workflowResult && !showReview && (
+            {result && !selectedWorkflow && !showReview && (
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold text-gray-900">Ihr Fallbeispiel</h2>
@@ -577,18 +672,18 @@ const FallbeispielGenerator = () => {
                           </Card>
                         </motion.div>
 
-                        {/* ABEDL Option */}
+                        {/* Pflegeinfo Option */}
                         <motion.div
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
                           <Card 
                             className="cursor-pointer transition-all hover:shadow-md border-2 hover:border-green-300"
-                            onClick={() => setSelectedWorkflow('abedl')}
+                            onClick={() => handleWorkflowSelection('pflegeinfo')}
                           >
                             <CardContent className="p-6 text-center">
                               <ClipboardList className="h-12 w-12 text-green-500 mx-auto mb-4" />
-                              <h3 className="font-semibold text-lg mb-2">ABEDL-Zuordnung</h3>
+                              <h3 className="font-semibold text-lg mb-2">Pflegerelevante Infos</h3>
                               <p className="text-sm text-gray-600">
                                 Extrahieren Sie pflegerelevante Informationen und ordnen Sie sie den ABEDL-Bereichen zu
                               </p>
@@ -597,139 +692,287 @@ const FallbeispielGenerator = () => {
                         </motion.div>
                       </div>
 
-                      {workflowError && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mt-4">
-                          {workflowError}
-                        </div>
-                      )}
                     </CardContent>
                   </Card>
                 )}
+              </div>
+            )}
 
-                {/* ABEDL Selection */}
-                {selectedWorkflow === 'abedl' && !workflowResult && (
-                  <Card className="mt-6">
+            {/* Pflegeplanung Workflow */}
+            {result && selectedWorkflow === 'pflegeplanung' && !showReview && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Fallbeispiel Sidebar */}
+                <div className="lg:order-2">
+                  <Card className="sticky top-4">
                     <CardHeader>
-                      <CardTitle>ABEDL-Bereiche auswählen (Optional)</CardTitle>
+                      <CardTitle className="text-lg">Fallbeispiel</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="max-h-96 overflow-y-auto">
+                        <p className="text-sm text-gray-700 whitespace-pre-wrap">{result}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Pflegeplanung Steps */}
+                <div className="lg:order-1">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>
+                        Pflegeplanung - Schritt {pflegeplanungStep} von 6
+                      </CardTitle>
                     </CardHeader>
                     <CardContent className="p-6">
-                      <p className="text-gray-600 mb-4">
-                        Wählen Sie die ABEDL-Bereiche aus, auf die Sie sich fokussieren möchten (optional):
-                      </p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-                        {abedlBereiche.map((abedl) => (
-                          <motion.div
-                            key={abedl.id}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <Card 
-                              className={`cursor-pointer transition-all text-sm ${
-                                selectedABEDLs.includes(abedl.title)
-                                  ? 'ring-2 ring-primary-500 bg-primary-50'
-                                  : 'hover:shadow-md'
-                              }`}
-                              onClick={() => toggleABEDL(abedl.title)}
-                            >
-                              <CardContent className="p-3">
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-lg">{abedl.icon}</span>
-                                  <span className="font-medium text-xs leading-tight">{abedl.title}</span>
-                                  {selectedABEDLs.includes(abedl.title) && (
-                                    <CheckCircle className="h-4 w-4 text-primary-500 ml-auto" />
-                                  )}
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </motion.div>
-                        ))}
-                      </div>
+                      {pflegeplanungStep === 1 && (
+                        <div>
+                          <h3 className="font-semibold mb-3">Pflegeprobleme formulieren</h3>
+                          <p className="text-sm text-gray-600 mb-4">
+                            Identifizieren und formulieren Sie die Pflegeprobleme basierend auf dem Fallbeispiel.
+                          </p>
+                          <textarea
+                            className="w-full p-3 border rounded-md min-h-[200px]"
+                            placeholder="Beschreiben Sie die identifizierten Pflegeprobleme..."
+                            value={pflegeplanungData.pflegeprobleme}
+                            onChange={(e) => setPflegeplanungData({ ...pflegeplanungData, pflegeprobleme: e.target.value })}
+                          />
+                        </div>
+                      )}
 
-                      <div className="flex space-x-3">
-                        <Button
-                          onClick={() => handleWorkflowSelection('abedl')}
-                          disabled={workflowLoading}
-                          loading={workflowLoading}
-                          className="flex-1"
-                        >
-                          ABEDL-Zuordnung erstellen
-                        </Button>
+                      {pflegeplanungStep === 2 && (
+                        <div>
+                          <h3 className="font-semibold mb-3">Nahziele formulieren</h3>
+                          <p className="text-sm text-gray-600 mb-4">
+                            Formulieren Sie kurzfristige, erreichbare Ziele (1-2 Wochen).
+                          </p>
+                          <textarea
+                            className="w-full p-3 border rounded-md min-h-[200px]"
+                            placeholder="Formulieren Sie die Nahziele..."
+                            value={pflegeplanungData.nahziele}
+                            onChange={(e) => setPflegeplanungData({ ...pflegeplanungData, nahziele: e.target.value })}
+                          />
+                        </div>
+                      )}
+
+                      {pflegeplanungStep === 3 && (
+                        <div>
+                          <h3 className="font-semibold mb-3">Fernziele formulieren</h3>
+                          <p className="text-sm text-gray-600 mb-4">
+                            Formulieren Sie langfristige Ziele (mehrere Wochen/Monate).
+                          </p>
+                          <textarea
+                            className="w-full p-3 border rounded-md min-h-[200px]"
+                            placeholder="Formulieren Sie die Fernziele..."
+                            value={pflegeplanungData.fernziele}
+                            onChange={(e) => setPflegeplanungData({ ...pflegeplanungData, fernziele: e.target.value })}
+                          />
+                        </div>
+                      )}
+
+                      {pflegeplanungStep === 4 && (
+                        <div>
+                          <h3 className="font-semibold mb-3">Konkrete Maßnahmen</h3>
+                          <p className="text-sm text-gray-600 mb-4">
+                            Beschreiben Sie konkrete Pflegemaßnahmen zur Zielerreichung.
+                          </p>
+                          <textarea
+                            className="w-full p-3 border rounded-md min-h-[200px]"
+                            placeholder="Beschreiben Sie die konkreten Pflegemaßnahmen..."
+                            value={pflegeplanungData.massnahmen}
+                            onChange={(e) => setPflegeplanungData({ ...pflegeplanungData, massnahmen: e.target.value })}
+                          />
+                        </div>
+                      )}
+
+                      {pflegeplanungStep === 5 && (
+                        <div>
+                          <h3 className="font-semibold mb-3">Begründung der Maßnahmen</h3>
+                          <p className="text-sm text-gray-600 mb-4">
+                            Begründen Sie fachlich, warum Sie diese Maßnahmen gewählt haben.
+                          </p>
+                          <textarea
+                            className="w-full p-3 border rounded-md min-h-[200px]"
+                            placeholder="Begründen Sie Ihre Maßnahmenauswahl..."
+                            value={pflegeplanungData.begruendung}
+                            onChange={(e) => setPflegeplanungData({ ...pflegeplanungData, begruendung: e.target.value })}
+                          />
+                        </div>
+                      )}
+
+                      {pflegeplanungStep === 6 && (
+                        <div>
+                          <h3 className="font-semibold mb-3">Evaluationsmöglichkeiten</h3>
+                          <p className="text-sm text-gray-600 mb-4">
+                            Wie werden Sie den Erfolg Ihrer Pflegeplanung überprüfen?
+                          </p>
+                          <textarea
+                            className="w-full p-3 border rounded-md min-h-[200px]"
+                            placeholder="Beschreiben Sie die Evaluationsmöglichkeiten..."
+                            value={pflegeplanungData.evaluation}
+                            onChange={(e) => setPflegeplanungData({ ...pflegeplanungData, evaluation: e.target.value })}
+                          />
+                        </div>
+                      )}
+
+                      <div className="flex justify-between mt-6">
                         <Button
                           variant="outline"
-                          onClick={() => setSelectedWorkflow(null)}
+                          onClick={pflegeplanungStep === 1 ? resetWorkflow : handlePflegeplanungBack}
                         >
+                          <ArrowLeft className="h-4 w-4 mr-2" />
+                          {pflegeplanungStep === 1 ? 'Zurück' : 'Vorheriger Schritt'}
+                        </Button>
+                        
+                        {pflegeplanungStep < 6 ? (
+                          <Button onClick={handlePflegeplanungNext}>
+                            Nächster Schritt
+                            <ArrowRight className="h-4 w-4 ml-2" />
+                          </Button>
+                        ) : (
+                          <Button 
+                            onClick={handlePflegeplanungReview}
+                            disabled={reviewLoading}
+                            loading={reviewLoading}
+                          >
+                            <Search className="h-4 w-4 mr-2" />
+                            KI-Überprüfung starten
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            )}
+
+            {/* Pflegeinfo Workflow */}
+            {result && selectedWorkflow === 'pflegeinfo' && !showReview && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Fallbeispiel Sidebar */}
+                <div className="lg:order-2">
+                  <Card className="sticky top-4">
+                    <CardHeader>
+                      <CardTitle className="text-lg">Fallbeispiel</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="max-h-96 overflow-y-auto">
+                        <p className="text-sm text-gray-700 whitespace-pre-wrap">{result}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Pflegeinfo Form */}
+                <div className="lg:order-1">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Pflegerelevante Informationen</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Beschreibung der pflegerelevanten Information
+                          </label>
+                          <textarea
+                            className="w-full p-3 border rounded-md min-h-[100px]"
+                            placeholder="Beschreiben Sie die pflegerelevante Information..."
+                            value={currentPflegeInfo.beschreibung}
+                            onChange={(e) => setCurrentPflegeInfo({ ...currentPflegeInfo, beschreibung: e.target.value })}
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            ABEDL-Bereich auswählen
+                          </label>
+                          <select
+                            className="w-full p-3 border rounded-md"
+                            value={currentPflegeInfo.abedl}
+                            onChange={(e) => setCurrentPflegeInfo({ ...currentPflegeInfo, abedl: e.target.value })}
+                          >
+                            <option value="">Bitte wählen...</option>
+                            {abedlBereiche.map((abedl) => (
+                              <option key={abedl.value} value={abedl.value}>
+                                {abedl.icon} {abedl.title}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Begründung der Zuordnung
+                          </label>
+                          <textarea
+                            className="w-full p-3 border rounded-md min-h-[100px]"
+                            placeholder="Begründen Sie, warum diese Information diesem ABEDL-Bereich zugeordnet wird..."
+                            value={currentPflegeInfo.begruendung}
+                            onChange={(e) => setCurrentPflegeInfo({ ...currentPflegeInfo, begruendung: e.target.value })}
+                          />
+                        </div>
+
+                        <Button
+                          onClick={handleAddPflegeInfo}
+                          disabled={!currentPflegeInfo.beschreibung || !currentPflegeInfo.abedl || !currentPflegeInfo.begruendung}
+                          className="w-full"
+                        >
+                          <Plus className="h-4 w-4 mr-2" />
+                          Information hinzufügen
+                        </Button>
+                      </div>
+
+                      {/* Liste der hinzugefügten Infos */}
+                      {pflegeInfos.length > 0 && (
+                        <div className="mt-6">
+                          <h4 className="font-semibold mb-3">Hinzugefügte Informationen:</h4>
+                          <div className="space-y-3">
+                            {pflegeInfos.map((info, index) => (
+                              <Card key={info.id} className="p-4">
+                                <div className="flex justify-between items-start">
+                                  <div className="flex-1">
+                                    <p className="font-medium">
+                                      {index + 1}. {abedlBereiche.find(a => a.value === info.abedl)?.title}
+                                    </p>
+                                    <p className="text-sm text-gray-600 mt-1">
+                                      <strong>Beschreibung:</strong> {info.beschreibung}
+                                    </p>
+                                    <p className="text-sm text-gray-600 mt-1">
+                                      <strong>Begründung:</strong> {info.begruendung}
+                                    </p>
+                                  </div>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => handleDeletePflegeInfo(info.id)}
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </Card>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex justify-between mt-6">
+                        <Button variant="outline" onClick={resetWorkflow}>
+                          <ArrowLeft className="h-4 w-4 mr-2" />
                           Zurück
+                        </Button>
+                        
+                        <Button
+                          onClick={handlePflegeInfoReview}
+                          disabled={pflegeInfos.length === 0 || reviewLoading}
+                          loading={reviewLoading}
+                        >
+                          <Search className="h-4 w-4 mr-2" />
+                          KI-Überprüfung starten
                         </Button>
                       </div>
                     </CardContent>
                   </Card>
-                )}
-              </div>
-            )}
-
-            {/* Workflow Loading */}
-            {workflowLoading && (
-              <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-500 mx-auto mb-4"></div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  {selectedWorkflow === 'pflegeplanung' ? 'Pflegeplanung wird erstellt...' : 'ABEDL-Zuordnung wird erstellt...'}
-                </h3>
-                <p className="text-gray-600">Dies kann einen Moment dauern</p>
-              </div>
-            )}
-
-            {/* Workflow Result */}
-            {workflowResult && !showReview && (
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    {selectedWorkflow === 'pflegeplanung' ? 'Ihre Pflegeplanung' : 'Ihre ABEDL-Zuordnung'}
-                  </h2>
-                  <div className="flex space-x-2">
-                    <Button
-                      variant="outline"
-                      onClick={() => navigator.clipboard.writeText(workflowResult)}
-                    >
-                      <Copy className="h-4 w-4 mr-2" />
-                      Kopieren
-                    </Button>
-                    <Button
-                      onClick={handleReview}
-                      disabled={reviewLoading}
-                      loading={reviewLoading}
-                    >
-                      <Search className="h-4 w-4 mr-2" />
-                      KI-Überprüfung
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={resetWorkflow}
-                    >
-                      Zurück
-                    </Button>
-                  </div>
                 </div>
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="prose max-w-none">
-                      <div className="bg-white border rounded-lg p-6">
-                        <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
-                          {workflowResult}
-                        </pre>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-
-            {/* Review Loading */}
-            {reviewLoading && (
-              <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-500 mx-auto mb-4"></div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">KI-Überprüfung wird durchgeführt...</h3>
-                <p className="text-gray-600">Dies kann einen Moment dauern</p>
               </div>
             )}
 
@@ -750,7 +993,7 @@ const FallbeispielGenerator = () => {
                       variant="outline"
                       onClick={() => setShowReview(false)}
                     >
-                      Zurück zur Pflegeplanung
+                      Zurück
                     </Button>
                   </div>
                 </div>

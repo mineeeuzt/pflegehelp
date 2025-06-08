@@ -45,7 +45,7 @@ Aufgabe: Erstelle ein detailliertes, praxisnahes Fallbeispiel basierend auf den 
 - Erwartete Pflegediagnosen
 - Mögliche Pflegeziele und -maßnahmen
 
-Stil: Professionell, realistisch, lehrreich. Verwende Fachterminologie korrekt und erstelle ein Fallbeispiel, das zum Nachdenken anregt und verschiedene Pflegeaspekte abdeckt.`,
+Stil: Professionell, realistisch, lehrreich. Erstelle einen zusammenhängenden Fließtext (KEINE Listen oder Aufzählungen), der die Geschichte des Patienten erzählt. Der Text sollte alle relevanten Informationen enthalten, aber als natürliche Erzählung formuliert sein. Verwende Fachterminologie korrekt und erstelle ein Fallbeispiel, das zum Nachdenken anregt und verschiedene Pflegeaspekte abdeckt.`,
   
   pflegeplanung: `Rolle: Du bist ein erfahrener Pflegeexperte und zertifizierter Pflegeberater mit Expertise in evidenzbasierter Pflegeplanung. Du hilfst Pflegekräften bei der Erstellung professioneller, individueller Pflegepläne.
 
