@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Plus } from 'lucide-react'
 
 interface AILoadingAnimationProps {
   message?: string
@@ -9,19 +10,56 @@ const AILoadingAnimation = ({
   message = "KI generiert Ihre Inhalte...", 
   size = 'md' 
 }: AILoadingAnimationProps) => {
+  const logoSize = {
+    sm: 'w-8 h-8',
+    md: 'w-12 h-12',
+    lg: 'w-16 h-16'
+  }
+
+  const iconSize = {
+    sm: 'h-4 w-4',
+    md: 'h-6 w-6', 
+    lg: 'h-8 w-8'
+  }
+
   return (
     <div className="flex flex-col items-center justify-center py-16">
-      {/* Ultra-clean minimal loader */}
+      {/* Logo-based loader */}
       <div className="relative mb-8">
-        {/* Simple rotating circle */}
+        {/* Rotating Plus Logo */}
         <motion.div
-          className="w-8 h-8 border-2 border-gray-200 rounded-full"
-          style={{ borderTopColor: '#374151' }}
-          animate={{ rotate: 360 }}
+          className={`${logoSize[size]} border border-gray-300 rounded-lg flex items-center justify-center bg-white`}
+          animate={{ 
+            rotate: [0, 90, 180, 270, 360],
+            scale: [1, 1.05, 1]
+          }}
           transition={{ 
-            duration: 1, 
+            rotate: {
+              duration: 2, 
+              repeat: Infinity,
+              ease: "easeInOut"
+            },
+            scale: {
+              duration: 1,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }
+          }}
+        >
+          <Plus className={`${iconSize[size]} text-gray-600`} strokeWidth={1.5} />
+        </motion.div>
+
+        {/* Subtle pulsing ring */}
+        <motion.div
+          className={`absolute inset-0 ${logoSize[size]} border border-gray-200 rounded-lg`}
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 0, 0.5]
+          }}
+          transition={{ 
+            duration: 2, 
             repeat: Infinity,
-            ease: "linear"
+            ease: "easeOut"
           }}
         />
       </div>

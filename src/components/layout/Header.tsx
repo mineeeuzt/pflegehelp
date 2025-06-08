@@ -18,11 +18,9 @@ const Header = () => {
   const navigation = user
     ? [
         { name: 'Dashboard', href: '/dashboard' },
-        { name: 'Fallbeispiele', href: '/fallbeispiel-generator' },
         { name: 'Pflegeplanung', href: '/pflegeplanung' },
         { name: 'PESR-Diagnosen', href: '/pesr-generator' },
         { name: 'SMART-Ziele', href: '/smart-ziel' },
-        { name: 'Pflegeinfo', href: '/pflegeinfo-workflow' },
       ]
     : []
 
