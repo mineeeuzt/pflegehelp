@@ -1,5 +1,6 @@
 import OpenAI from 'openai'
 
+// Alter API-Key für Fallbeispiel-Generator  
 const apiKey = import.meta.env.VITE_OPENAI_API_KEY
 
 if (!apiKey) {
@@ -10,6 +11,14 @@ const openai = new OpenAI({
   apiKey,
   dangerouslyAllowBrowser: true,
 })
+
+// Neuer API-Key nur für Medikamenten-Training
+const medicationApiKey = import.meta.env.VITE_OPENAI_MEDICATION_API_KEY
+
+const medicationOpenai = medicationApiKey ? new OpenAI({
+  apiKey: medicationApiKey,
+  dangerouslyAllowBrowser: true,
+}) : null
 
 export const AI_PROMPTS = {
   fallbeispiel: `Du bist ein erfahrener Pflegepädagoge und erstellst realistische Fallbeispiele für Pflegeazubis.
@@ -393,7 +402,7 @@ export async function generateAIResponse(
   }
 }
 
-// Spezielle Funktion nur für Medikamenten-Szenarien
+// Spezielle Funktion nur für Medikamenten-Szenarien mit eigenem API-Key
 export async function generateMedicationScenario(
   prompt: string,
   userInput: string
@@ -403,8 +412,15 @@ export async function generateMedicationScenario(
     throw new Error('Diese Funktion ist nur für das Medikamenten-Training verfügbar.')
   }
   
+  // Verwende speziellen Medikamenten-API-Key falls verfügbar, sonst Fallback auf Haupt-Key
+  const aiClient = medicationOpenai || openai
+  
+  if (!aiClient) {
+    throw new Error('Kein API-Key für Medikamenten-Training verfügbar.')
+  }
+  
   try {
-    const completion = await openai.chat.completions.create({
+    const completion = await aiClient.chat.completions.create({
       model: 'gpt-4',
       messages: [
         {

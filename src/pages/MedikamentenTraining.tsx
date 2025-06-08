@@ -291,12 +291,19 @@ const MedikamentenTraining = () => {
       setIsGeneratingScenario(true)
       console.log('🤖 Starte KI-Szenario-Generierung...')
       
-      // Prüfe ob OpenAI API-Key verfügbar ist
-      const apiKey = import.meta.env.VITE_OPENAI_API_KEY
-      if (!apiKey) {
+      // Prüfe ob Medikamenten-API-Key verfügbar ist
+      const medicationApiKey = import.meta.env.VITE_OPENAI_MEDICATION_API_KEY
+      const fallbackApiKey = import.meta.env.VITE_OPENAI_API_KEY
+      
+      if (!medicationApiKey && !fallbackApiKey) {
         console.warn('⚠️  Kein OpenAI API-Key gefunden. Fallback auf vordefinierte Szenarien.')
         return null
       }
+      
+      console.log('🔑 API-Key Status:', {
+        medicationKey: medicationApiKey ? '✅ Verfügbar' : '❌ Nicht verfügbar',
+        fallbackKey: fallbackApiKey ? '✅ Verfügbar' : '❌ Nicht verfügbar'
+      })
       
       const levelBased = Math.min(3, Math.floor(completedScenarios / 3) + 1)
       
