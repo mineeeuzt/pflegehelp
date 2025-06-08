@@ -18,7 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
           </div>
           <nav className="hidden md:flex space-x-6">
             <a href="/dashboard" className="text-gray-600 hover:text-gray-900">Dashboard</a>
-            <a href="/quiz-home" className="text-blue-600 hover:text-blue-700 font-medium">Quiz & Lernkarten</a>
+            <a href="/quiz-lernkarten" className="text-blue-600 hover:text-blue-700 font-medium">Quiz & Lernkarten</a>
           </nav>
         </div>
       </header>

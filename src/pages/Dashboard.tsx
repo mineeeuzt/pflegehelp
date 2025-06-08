@@ -61,7 +61,7 @@ const Dashboard = () => {
       title: 'Quiz & Lernkarten',
       description: 'Interaktives Lernsystem mit Spaced Repetition',
       icon: Target,
-      href: '/quiz-home'
+      href: '/quiz-lernkarten'
     }
   ]
 
