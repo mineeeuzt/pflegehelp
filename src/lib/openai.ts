@@ -170,178 +170,107 @@ Stil: Konstruktiv, lösungsorientiert, fachlich fundiert. Gib spezifisches, umse
   pflegereview: `Du bist ein erfahrener Pflegepädagoge und bewertest Pflegeplanungen von Auszubildenden nach deutschen Ausbildungsstandards.
 
 WICHTIG: Bewerte STRENG und REALISTISCH basierend auf dem tatsächlich Geschriebenen!
-- Leere oder unvollständige Felder = 0 Punkte
-- Unsinnige/fachfremde Inhalte = 0-10 Punkte
-- Zu knappe Ausführungen = maximal 30 Punkte
-- Fachliche Fehler = deutliche Punktabzüge
 
-Analysiere die folgende Pflegeplanung EXAKT wie sie geschrieben wurde:
+Analysiere die folgende Pflegeplanung EXAKT wie sie geschrieben wurde und gib strukturiertes Feedback im JSON-Format zurück.
 
-FALLBEISPIEL:
-{caseText}
-
-PFLEGEPLANUNG DES AUSZUBILDENDEN:
-1. Pflegeprobleme: {pflegeprobleme}
-2. Nahziele: {nahziele}
-3. Fernziele: {fernziele}
-4. Pflegemaßnahmen: {massnahmen}
-5. Begründung: {begruendung}
-6. Evaluation: {evaluation}
-
-Bewertungskriterien mit Punktabzügen:
-
-PFLEGEPROBLEME (0-100 Punkte):
-✓ Was wurde gut gemacht:
-- Wurde PESR-Schema verwendet?
-- Sind die Probleme aus dem Fall abgeleitet?
-- Fachlich korrekte Formulierung?
-
-✗ Punktabzüge für:
-- Fehlende PESR-Struktur (-20 Punkte)
-- Nicht zum Fall passende Probleme (-30 Punkte)
-- Umgangssprache statt Fachsprache (-15 Punkte)
-- Zu wenige Probleme identifiziert (-20 Punkte)
-- Falsche Priorisierung (-15 Punkte)
-
-NAHZIELE (0-100 Punkte):
-✓ Was wurde gut gemacht:
-- SMART-Kriterien erfüllt?
-- Positive Formulierung?
-- Formulierung in der Gegenwart (nicht "soll")?
-- Realistisch in 14 Tagen?
-
-✗ Punktabzüge für:
-- Negative Formulierung (-20 Punkte)
-- Falsche Zeitform ("soll" statt Gegenwart) (-15 Punkte)
-- Fehlende Messbarkeit (-25 Punkte)
-- Unrealistischer Zeitrahmen (-20 Punkte)
-- Nicht patientenzentriert (-15 Punkte)
-- Zu vage formuliert (-20 Punkte)
-
-PFLEGEMASSNAHMEN (0-100 Punkte):
-✓ Was wurde gut gemacht:
-- Konkret und durchführbar?
-- Zu den Problemen passend?
-- Prophylaxen berücksichtigt?
-
-✗ Punktabzüge für:
-- Zu allgemeine Maßnahmen (-25 Punkte)
-- Fehlende Prophylaxen (-20 Punkte)
-- Nicht durchführbar (-30 Punkte)
-- Zu wenige Maßnahmen (-25 Punkte)
-
-Analysiere JEDEN eingereichten Text kritisch:
-1. Zitiere WÖRTLICH problematische Stellen
-2. Erkläre GENAU warum es falsch ist
-3. Zeige die KORREKTE Formulierung
-4. Vergib realistische Punkte basierend auf der TATSÄCHLICHEN Qualität
-
-Beispiel für Feedback:
-"Sie schrieben: 'Patient soll mehr laufen'
-❌ Problem: Nicht SMART-formuliert, nicht messbar, falsche Zeitform
-✓ Besser: 'Herr X. ist bis zum 15.03. in der Lage, täglich 50 Meter mit Rollator auf dem Stationsflur zu gehen'"
-
-Antworte im JSON-Format:
+Antworte ausschließlich im folgenden JSON-Format:
 {
-  "gesamtbewertung": 0-100,
-  "bewertungBegruendung": "Kurze Erklärung der Gesamtnote",
-  "feedback": {
-    "pflegeprobleme": {
+  "overallScore": 0-100,
+  "generalFeedback": "Kurze, konstruktive Gesamteinschätzung der Pflegeplanung mit Hervorhebung der wichtigsten Stärken und Schwächen.",
+  "sections": [
+    {
+      "title": "Pflegeprobleme",
+      "userText": "Zitiere hier EXAKT was der User geschrieben hat",
       "score": 0-100,
-      "eingereichtText": "Exaktes Zitat des Azubi-Texts",
-      "positiv": ["Was konkret gut war mit Zitat"],
-      "fehler": [
-        {
-          "zitat": "Problematische Stelle wörtlich",
-          "problem": "Was genau falsch ist",
-          "korrektur": "So wäre es richtig"
-        }
-      ],
-      "note": "Begründung der Punktzahl"
+      "feedback": "Detaillierte Analyse des Textes mit spezifischen Verbesserungen",
+      "positives": ["Liste der gut gemachten Aspekte"],
+      "improvements": [
+        "Konkreter Verbesserungsvorschlag mit Beispiel",
+        "Weitere spezifische Empfehlung"
+      ]
     },
-    "nahziele": { ... },
-    "fernziele": { ... },
-    "massnahmen": { ... },
-    "begruendung": { ... },
-    "evaluation": { ... }
-  },
-  "hauptprobleme": ["Die 3 gravierendsten Fehler"],
-  "mindestanforderungErfuellt": true/false,
-  "empfehlung": "Bestanden/Wiederholung empfohlen/Intensive Nachschulung nötig"
-}`,
+    {
+      "title": "Nahziele", 
+      "userText": "Exakter User-Text",
+      "score": 0-100,
+      "feedback": "Bewertung der SMART-Kriterien und Formulierung",
+      "positives": ["Positive Aspekte"],
+      "improvements": ["Konkrete Verbesserungen mit Beispielen"]
+    },
+    {
+      "title": "Fernziele",
+      "userText": "Exakter User-Text", 
+      "score": 0-100,
+      "feedback": "Bewertung der langfristigen Ziele",
+      "positives": ["Positive Aspekte"],
+      "improvements": ["Konkrete Verbesserungen"]
+    },
+    {
+      "title": "Pflegemaßnahmen",
+      "userText": "Exakter User-Text",
+      "score": 0-100, 
+      "feedback": "Bewertung der Durchführbarkeit und Fachlichkeit",
+      "positives": ["Positive Aspekte"],
+      "improvements": ["Konkrete Verbesserungen"]
+    },
+    {
+      "title": "Begründung",
+      "userText": "Exakter User-Text",
+      "score": 0-100,
+      "feedback": "Bewertung der fachlichen Begründung", 
+      "positives": ["Positive Aspekte"],
+      "improvements": ["Konkrete Verbesserungen"]
+    },
+    {
+      "title": "Evaluation",
+      "userText": "Exakter User-Text",
+      "score": 0-100,
+      "feedback": "Bewertung der Evaluationsmethoden",
+      "positives": ["Positive Aspekte"], 
+      "improvements": ["Konkrete Verbesserungen"]
+    }
+  ]
+}
+
+Bewertungskriterien:
+- Pflegeprobleme: PESR-Schema, Fallbezug, Fachsprache
+- Ziele: SMART-Kriterien, positive Formulierung, Patientenzentrierung
+- Maßnahmen: Konkretheit, Durchführbarkeit, Prophylaxen
+- Begründung: Evidenzbasierung, Fachlichkeit
+- Evaluation: Messbarkeit, Realismus
+
+Jeder Verbesserungsvorschlag muss KONKRET und mit BEISPIEL formuliert sein!`,
 
   abedlinfo: `Du bist ein erfahrener Pflegepädagoge und bewertest die Fähigkeit von Auszubildenden, pflegerelevante Informationen aus Fallbeispielen zu identifizieren und korrekt den ABEDL-Bereichen zuzuordnen.
 
-ABEDL-Bereiche nach Krohwinkel:
-1. Kommunizieren
-2. Sich bewegen
-3. Vitale Funktionen aufrechterhalten
-4. Sich pflegen
-5. Essen und trinken
-6. Ausscheiden
-7. Sich kleiden
-8. Ruhen und schlafen
-9. Sich beschäftigen
-10. Sich als Mann/Frau fühlen
-11. Für sichere Umgebung sorgen
-12. Soziale Bereiche sichern
-13. Mit existenziellen Erfahrungen umgehen
+Analysiere die Informationssammlung des Auszubildenden und gib strukturiertes Feedback im JSON-Format zurück.
 
-Analysiere die Informationssammlung des Auszubildenden:
-
-FALLBEISPIEL:
-{caseText}
-
-GESAMMELTE INFORMATIONEN:
-{careInfos}
-
-Bewerte KONSTRUKTIV UND HILFREICH jede einzelne Information und gib AUSFÜHRLICHES Feedback.
-
-BESONDERS WICHTIG für Begründungen:
-Zeige IMMER eine konkrete, spezifische Verbesserung der Begründung auf. Die Begründung sollte enthalten:
-1. WAS bedeutet das konkret für den Patienten?
-2. WIE ist er dadurch im Alltag eingeschränkt?
-3. WELCHE pflegerischen Maßnahmen sind nötig?
-4. WARUM ist das pflegerisch relevant?
-
-Gib IMMER eine "verbesserteBegruendung" an, die zeigt, wie die Begründung hätte formuliert werden sollen.
-
-WICHTIG: Antworte AUSSCHLIESSLICH mit einem gültigen JSON-Objekt. Keine Erklärungen, keine Markdown-Formatierung.
-
-Beispiel für korrektes Format:
+Antworte ausschließlich im folgenden JSON-Format:
 {
-  "gesamtbewertung": 75,
-  "anzahlInfos": 3,
-  "abedlAbdeckung": 5,
-  "feedback": [
+  "overallScore": 0-100,
+  "generalFeedback": "Gesamteinschätzung der Informationssammlung und ABEDL-Zuordnung",
+  "sections": [
     {
-      "information": "Information des Azubis",
-      "abedl": "Gewählter ABEDL-Bereich",
-      "begruendungAzubi": "Begründung des Azubis",
-      "bewertung": {
-        "pflegerelevanz": 85,
-        "abedlZuordnung": 90,
-        "begruendungsQualitaet": 70,
-        "durchschnitt": 82
-      },
-      "positiv": ["Was gut erkannt wurde", "Richtige Zuordnung zum ABEDL-Bereich"],
-      "verbesserung": ["Begründung könnte spezifischer sein", "Patientenauswirkung deutlicher machen"],
-      "verbesserteBegruendung": "So wäre eine vollständige Begründung: Diese Information bedeutet für den Patienten, dass [konkrete Auswirkung]. Dadurch ist er eingeschränkt bei [spezifische Einschränkung]. Pflegerisch relevant ist dies, weil [konkrete Maßnahmen nötig sind]."
+      "title": "Information 1: [Beschreibung]",
+      "userText": "Exakte Beschreibung des Users",
+      "score": 0-100,
+      "feedback": "Bewertung der Information und ABEDL-Zuordnung",
+      "positives": ["Korrekt identifizierte Aspekte"],
+      "improvements": [
+        "Konkrete Verbesserung der Informationssammlung",
+        "Bessere ABEDL-Zuordnung mit Begründung"
+      ]
     }
-  ],
-  "ueberseheneInfos": [
-    {
-      "information": "Wichtige übersehene Information",
-      "abedl": "Passender ABEDL-Bereich",
-      "bedeutungFuerPatient": "Dies bedeutet für den Patienten konkrete Einschränkungen"
-    }
-  ],
-  "allgemeinesFeedback": {
-    "positiv": ["Gute Identifikation relevanter Informationen", "Systematische Herangehensweise"],
-    "verbesserung": ["Begründungen spezifischer formulieren", "Mehr Fokus auf Patientenauswirkungen"],
-    "uebersehene_informationen": ["Risikofaktoren", "Ressourcen des Patienten"]
-  }
-}`
+  ]
+}
+
+Bewertungskriterien:
+- Vollständigkeit der Informationssammlung
+- Korrektheit der ABEDL-Zuordnung nach Krohwinkel
+- Fachliche Präzision der Beschreibungen
+- Relevanz für die Pflegeplanung
+
+Bewerte KONSTRUKTIV und gib konkrete Verbesserungsvorschläge für jede Information.`
 }
 
 export async function generateAIResponse(

@@ -4,6 +4,7 @@ import { Brain, Wand2, Copy, ArrowRight, ArrowLeft, Users, Building2, Stethoscop
 import { Button, Input, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
 import { caseService, type CaseGenerationParams, type WorkflowInput } from '../services/caseService'
+import ReviewDisplay from '../components/ReviewDisplay'
 
 interface GeneratorParams extends CaseGenerationParams {
   alter: string
@@ -67,6 +68,7 @@ const FallbeispielGenerator = () => {
   // Review states
   const [showReview, setShowReview] = useState(false)
   const [reviewResult, setReviewResult] = useState('')
+  const [reviewData, setReviewData] = useState<{sections: any[], overallScore: number, generalFeedback: string} | null>(null)
   const [reviewLoading, setReviewLoading] = useState(false)
 
   const altersgruppen = [
@@ -283,8 +285,16 @@ ${pflegeplanungData.evaluation}
       `.trim()
 
       const response = await caseService.reviewWorkflow('pflegeplanung', pflegeplanungText, user.id)
-      setReviewResult(response)
-      setShowReview(true)
+      
+      try {
+        const parsedData = JSON.parse(response)
+        setReviewData(parsedData)
+        setShowReview(true)
+      } catch (parseError) {
+        console.error('Failed to parse JSON response:', parseError)
+        setReviewResult(response)
+        setShowReview(true)
+      }
     } catch (error) {
       console.error('Review error:', error)
     } finally {
@@ -310,8 +320,16 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
       `.trim()
 
       const response = await caseService.reviewWorkflow('abedl', pflegeInfoText, user.id)
-      setReviewResult(response)
-      setShowReview(true)
+      
+      try {
+        const parsedData = JSON.parse(response)
+        setReviewData(parsedData)
+        setShowReview(true)
+      } catch (parseError) {
+        console.error('Failed to parse JSON response:', parseError)
+        setReviewResult(response)
+        setShowReview(true)
+      }
     } catch (error) {
       console.error('Review error:', error)
     } finally {
@@ -324,6 +342,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
     setShowWorkflowOptions(true)
     setShowReview(false)
     setReviewResult('')
+    setReviewData(null)
     setPflegeplanungStep(1)
     setPflegeplanungData({
       pflegeprobleme: '',
@@ -653,11 +672,11 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                           whileTap={{ scale: 0.98 }}
                         >
                           <Card 
-                            className="cursor-pointer transition-all hover:shadow-md border-2 hover:border-blue-300"
+                            className="cursor-pointer transition-all border-2 border-gray-200 hover:border-gray-400"
                             onClick={() => handleWorkflowSelection('pflegeplanung')}
                           >
                             <CardContent className="p-6 text-center">
-                              <Heart className="h-12 w-12 text-blue-500 mx-auto mb-4" />
+                              <Heart className="h-12 w-12 text-gray-700 mx-auto mb-4" />
                               <h3 className="font-semibold text-lg mb-2">Pflegeplanung erstellen</h3>
                               <p className="text-sm text-gray-600">
                                 Entwickeln Sie eine vollständige Pflegeplanung mit Diagnosen, Zielen und Maßnahmen
@@ -672,11 +691,11 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                           whileTap={{ scale: 0.98 }}
                         >
                           <Card 
-                            className="cursor-pointer transition-all hover:shadow-md border-2 hover:border-green-300"
+                            className="cursor-pointer transition-all border-2 border-gray-200 hover:border-gray-400"
                             onClick={() => handleWorkflowSelection('pflegeinfo')}
                           >
                             <CardContent className="p-6 text-center">
-                              <ClipboardList className="h-12 w-12 text-green-500 mx-auto mb-4" />
+                              <ClipboardList className="h-12 w-12 text-gray-700 mx-auto mb-4" />
                               <h3 className="font-semibold text-lg mb-2">Pflegerelevante Infos</h3>
                               <p className="text-sm text-gray-600">
                                 Extrahieren Sie pflegerelevante Informationen und ordnen Sie sie den ABEDL-Bereichen zu
@@ -971,37 +990,38 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
             )}
 
             {/* Review Result */}
-            {showReview && reviewResult && (
+            {showReview && (
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">KI-Überprüfung</h2>
-                  <div className="flex space-x-2">
-                    <Button
-                      variant="outline"
-                      onClick={() => navigator.clipboard.writeText(reviewResult)}
-                    >
-                      <Copy className="h-4 w-4 mr-2" />
-                      Kopieren
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setShowReview(false)}
-                    >
-                      Zurück
-                    </Button>
-                  </div>
+                  <h2 className="text-2xl font-light text-gray-900">KI-Überprüfung</h2>
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowReview(false)}
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Zurück
+                  </Button>
                 </div>
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="prose max-w-none">
-                      <div className="bg-white border rounded-lg p-6">
-                        <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
-                          {reviewResult}
-                        </pre>
+                
+                {reviewData ? (
+                  <ReviewDisplay 
+                    reviewData={reviewData.sections}
+                    overallScore={reviewData.overallScore}
+                    generalFeedback={reviewData.generalFeedback}
+                  />
+                ) : (
+                  <Card>
+                    <CardContent className="p-6">
+                      <div className="prose max-w-none">
+                        <div className="bg-white border rounded-lg p-6">
+                          <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
+                            {reviewResult}
+                          </pre>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                )}
               </div>
             )}
           </div>
