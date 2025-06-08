@@ -83,21 +83,21 @@ const FallbeispielGenerator = () => {
   ]
 
   const krankheitsbereiche = [
-    { value: 'kardiologie', label: 'Kardiologie', description: 'Herz-Kreislauf-Erkrankungen' },
-    { value: 'pneumologie', label: 'Pneumologie', description: 'Atemwegserkrankungen' },
-    { value: 'neurologie', label: 'Neurologie', description: 'Nervensystem-Erkrankungen' },
-    { value: 'gastroenterologie', label: 'Gastroenterologie', description: 'Magen-Darm-Erkrankungen' },
-    { value: 'endokrinologie', label: 'Endokrinologie', description: 'Hormon- und Stoffwechselerkrankungen' },
-    { value: 'orthopaedie', label: 'Orthopädie', description: 'Bewegungsapparat-Erkrankungen' },
-    { value: 'dermatologie', label: 'Dermatologie', description: 'Hauterkrankungen' },
-    { value: 'urologie', label: 'Urologie', description: 'Harn- und Geschlechtsorgane' },
-    { value: 'onkologie', label: 'Onkologie', description: 'Krebserkrankungen' },
-    { value: 'psychiatrie', label: 'Psychiatrie', description: 'Psychische Erkrankungen' },
-    { value: 'geriatrie', label: 'Geriatrie', description: 'Altersbedingte Erkrankungen' },
-    { value: 'paediatrie', label: 'Pädiatrie', description: 'Kindererkrankungen' },
-    { value: 'notfallmedizin', label: 'Notfallmedizin', description: 'Akute Notfälle' },
-    { value: 'palliativmedizin', label: 'Palliativmedizin', description: 'Palliative Versorgung' },
-    { value: 'rehabilitation', label: 'Rehabilitation', description: 'Wiederherstellende Pflege' }
+    { value: 'herz_kreislauf', label: '🫀 Herz-Kreislauf-System', description: 'Herzinfarkt, Herzinsuffizienz, Bluthochdruck' },
+    { value: 'atmung', label: '🫁 Atmungssystem', description: 'COPD, Pneumonie, Asthma' },
+    { value: 'nervensystem', label: '🧠 Nervensystem', description: 'Schlaganfall, Epilepsie, Demenz' },
+    { value: 'bewegungsapparat', label: '🦴 Bewegungsapparat', description: 'Frakturen, Arthrose, Rückenschmerzen' },
+    { value: 'stoffwechsel', label: '🍯 Stoffwechsel', description: 'Diabetes, Schilddrüse, Adipositas' },
+    { value: 'nieren_harnwege', label: '🫘 Nieren und Harnwege', description: 'Niereninsuffizienz, Harnwegsinfekte' },
+    { value: 'verdauung', label: '🍎 Verdauungssystem', description: 'Gastritis, Darmerkrankungen, Leberprobleme' },
+    { value: 'blut_tumore', label: '🩸 Blut und Tumore', description: 'Anämie, Leukämie, Krebserkrankungen' },
+    { value: 'immunsystem', label: '🛡️ Immunsystem und Infekte', description: 'Sepsis, Autoimmunerkrankungen' },
+    { value: 'haut_wunden', label: '🧴 Haut und Wunden', description: 'Dekubitus, Verbrennungen, Hauterkrankungen' },
+    { value: 'entwicklung', label: '🧒 Entwicklung und Wachstum', description: 'Pädiatrische Erkrankungen, Entwicklungsstörungen' },
+    { value: 'reproduktion', label: '🤰 Reproduktion und Hormone', description: 'Schwangerschaft, Hormonelle Störungen' },
+    { value: 'sinnesorgane', label: '👁️ Sinnesorgane', description: 'Sehstörungen, Hörprobleme' },
+    { value: 'psyche', label: '🧠 Psyche', description: 'Depression, Angststörungen, Suchterkrankungen' },
+    { value: 'intensivmedizin', label: '🚑 Intensivmedizin', description: 'Beatmung, Reanimation, Schock' }
   ]
 
   const settings = [
@@ -380,40 +380,31 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
     switch (currentStep) {
       case 1:
         return (
-          <div className="max-w-2xl mx-auto">
-            <div className="grid grid-cols-1 gap-3">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {altersgruppen.map((alter) => (
                 <motion.div
                   key={alter.value}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <Card 
-                    className={`cursor-pointer transition-all border group relative ${
+                    className={`cursor-pointer transition-all border group relative h-24 ${
                       params.alter === alter.value 
                         ? 'border-gray-800 bg-gray-50' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, alter: alter.value }))}
                   >
-                    <CardContent className="p-6 relative">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium text-gray-900 mb-1">{alter.label}</p>
-                          <p className="text-sm text-gray-500">{alter.sublabel}</p>
-                        </div>
-                        {params.alter === alter.value ? (
-                          <div className="w-4 h-4 bg-gray-800 rounded-full flex items-center justify-center">
-                            <div className="w-2 h-2 bg-white rounded-full" />
-                          </div>
-                        ) : (
-                          <div className="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors" />
-                        )}
+                    <CardContent className="p-4 relative h-full flex flex-col justify-center">
+                      <div className="text-center">
+                        <p className="font-medium text-gray-900 text-sm mb-1">{alter.label}</p>
+                        <p className="text-xs text-gray-500">{alter.sublabel}</p>
                       </div>
                       
-                      {/* Subtle selection indicator */}
+                      {/* Selection indicator */}
                       {params.alter === alter.value && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800" />
+                        <div className="absolute top-2 right-2 w-3 h-3 bg-gray-800 rounded-full" />
                       )}
                     </CardContent>
                   </Card>
@@ -425,40 +416,30 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
       case 2:
         return (
-          <div className="max-w-3xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
               {krankheitsbereiche.map((bereich) => (
                 <motion.div
                   key={bereich.value}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <Card 
-                    className={`cursor-pointer transition-all h-full border group relative ${
+                    className={`cursor-pointer transition-all border group relative h-24 ${
                       params.bereich === bereich.value 
                         ? 'border-gray-800 bg-gray-50' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, bereich: bereich.value }))}
                   >
-                    <CardContent className="p-6 relative">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <p className="font-medium text-gray-900 mb-1">{bereich.label}</p>
-                          <p className="text-sm text-gray-500">{bereich.description}</p>
-                        </div>
-                        {params.bereich === bereich.value ? (
-                          <div className="w-4 h-4 bg-gray-800 rounded-full flex items-center justify-center ml-4">
-                            <div className="w-2 h-2 bg-white rounded-full" />
-                          </div>
-                        ) : (
-                          <div className="w-4 h-4 border-2 border-gray-300 rounded-full ml-4 group-hover:border-gray-400 transition-colors" />
-                        )}
+                    <CardContent className="p-3 relative h-full flex flex-col justify-center">
+                      <div className="text-center">
+                        <p className="font-medium text-gray-900 text-sm mb-1 leading-tight">{bereich.label}</p>
                       </div>
                       
-                      {/* Subtle selection indicator */}
+                      {/* Selection indicator */}
                       {params.bereich === bereich.value && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800" />
+                        <div className="absolute top-2 right-2 w-3 h-3 bg-gray-800 rounded-full" />
                       )}
                     </CardContent>
                   </Card>
@@ -470,40 +451,31 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
       case 3:
         return (
-          <div className="max-w-2xl mx-auto">
-            <div className="grid grid-cols-1 gap-3">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {settings.map((setting) => (
                 <motion.div
                   key={setting.value}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <Card 
-                    className={`cursor-pointer transition-all border group relative ${
+                    className={`cursor-pointer transition-all border group relative h-32 ${
                       params.setting === setting.value 
                         ? 'border-gray-800 bg-gray-50' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, setting: setting.value }))}
                   >
-                    <CardContent className="p-6 relative">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium text-gray-900 mb-1">{setting.label}</p>
-                          <p className="text-sm text-gray-500">{setting.description}</p>
-                        </div>
-                        {params.setting === setting.value ? (
-                          <div className="w-4 h-4 bg-gray-800 rounded-full flex items-center justify-center">
-                            <div className="w-2 h-2 bg-white rounded-full" />
-                          </div>
-                        ) : (
-                          <div className="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors" />
-                        )}
+                    <CardContent className="p-4 relative h-full flex flex-col justify-center">
+                      <div className="text-center">
+                        <p className="font-medium text-gray-900 mb-2">{setting.label}</p>
+                        <p className="text-sm text-gray-500 leading-tight">{setting.description}</p>
                       </div>
                       
-                      {/* Subtle selection indicator */}
+                      {/* Selection indicator */}
                       {params.setting === setting.value && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800" />
+                        <div className="absolute top-3 right-3 w-3 h-3 bg-gray-800 rounded-full" />
                       )}
                     </CardContent>
                   </Card>
@@ -645,17 +617,20 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
             {result && !selectedWorkflow && !showReview && (
               <div>
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Ihr Fallbeispiel</h2>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-2xl font-light text-gray-900">Ihr Fallbeispiel</h2>
                   <div className="flex space-x-2">
                     <Button
                       variant="outline"
+                      size="sm"
                       onClick={handleCopy}
+                      className="border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700"
                     >
                       <Copy className="h-4 w-4 mr-2" />
                       Kopieren
                     </Button>
                     <Button
+                      size="sm"
                       onClick={() => {
                         setResult('')
                         setCurrentStep(1)
@@ -670,79 +645,82 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                         setShowWorkflowOptions(false)
                         resetWorkflow()
                       }}
+                      className="bg-gray-800 hover:bg-gray-900 text-white"
                     >
                       Neues Fallbeispiel
                     </Button>
                   </div>
                 </div>
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="prose max-w-none">
-                      <div className="bg-white border rounded-lg p-6">
-                        <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
-                          {result}
-                        </pre>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 mb-6">
+                  <div className="prose max-w-none">
+                    <p className="text-gray-800 font-light leading-relaxed whitespace-pre-wrap">
+                      {result}
+                    </p>
+                  </div>
+                </div>
 
                 {/* Workflow Options */}
                 {showWorkflowOptions && (
-                  <Card className="mt-6">
-                    <CardHeader>
-                      <CardTitle className="flex items-center">
-                        <Play className="h-5 w-5 mr-2" />
-                        Nächste Schritte
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-6">
-                      <p className="text-gray-600 mb-6">
+                  <div>
+                    <div className="mb-6">
+                      <h3 className="text-lg font-light text-gray-900 mb-2">Nächste Schritte</h3>
+                      <p className="text-gray-600 font-light">
                         Wählen Sie, wie Sie mit diesem Fallbeispiel weiterarbeiten möchten:
                       </p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Pflegeplanung Option */}
-                        <motion.div
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Pflegeplanung Option */}
+                      <motion.div
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                      >
+                        <Card 
+                          className="cursor-pointer transition-all border border-gray-200 hover:border-gray-300 group"
+                          onClick={() => handleWorkflowSelection('pflegeplanung')}
                         >
-                          <Card 
-                            className="cursor-pointer transition-all border-2 border-gray-200 hover:border-gray-400"
-                            onClick={() => handleWorkflowSelection('pflegeplanung')}
-                          >
-                            <CardContent className="p-6 text-center">
-                              <Heart className="h-12 w-12 text-gray-700 mx-auto mb-4" />
-                              <h3 className="font-semibold text-lg mb-2">Pflegeplanung erstellen</h3>
-                              <p className="text-sm text-gray-600">
-                                Entwickeln Sie eine vollständige Pflegeplanung mit Diagnosen, Zielen und Maßnahmen
-                              </p>
-                            </CardContent>
-                          </Card>
-                        </motion.div>
+                          <CardContent className="p-6">
+                            <div className="flex items-start space-x-4">
+                              <div className="p-2 bg-gray-100 group-hover:bg-gray-200 rounded-lg transition-colors">
+                                <Heart className="h-5 w-5 text-gray-700" />
+                              </div>
+                              <div>
+                                <h3 className="font-medium text-gray-900 mb-1">Pflegeplanung erstellen</h3>
+                                <p className="text-sm text-gray-600 font-light">
+                                  Entwickeln Sie eine vollständige Pflegeplanung mit Diagnosen, Zielen und Maßnahmen
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
 
-                        {/* Pflegeinfo Option */}
-                        <motion.div
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
+                      {/* Pflegeinfo Option */}
+                      <motion.div
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                      >
+                        <Card 
+                          className="cursor-pointer transition-all border border-gray-200 hover:border-gray-300 group"
+                          onClick={() => handleWorkflowSelection('pflegeinfo')}
                         >
-                          <Card 
-                            className="cursor-pointer transition-all border-2 border-gray-200 hover:border-gray-400"
-                            onClick={() => handleWorkflowSelection('pflegeinfo')}
-                          >
-                            <CardContent className="p-6 text-center">
-                              <ClipboardList className="h-12 w-12 text-gray-700 mx-auto mb-4" />
-                              <h3 className="font-semibold text-lg mb-2">Pflegerelevante Infos</h3>
-                              <p className="text-sm text-gray-600">
-                                Extrahieren Sie pflegerelevante Informationen und ordnen Sie sie den ABEDL-Bereichen zu
-                              </p>
-                            </CardContent>
-                          </Card>
-                        </motion.div>
-                      </div>
-
-                    </CardContent>
-                  </Card>
+                          <CardContent className="p-6">
+                            <div className="flex items-start space-x-4">
+                              <div className="p-2 bg-gray-100 group-hover:bg-gray-200 rounded-lg transition-colors">
+                                <ClipboardList className="h-5 w-5 text-gray-700" />
+                              </div>
+                              <div>
+                                <h3 className="font-medium text-gray-900 mb-1">Pflegerelevante Infos</h3>
+                                <p className="text-sm text-gray-600 font-light">
+                                  Extrahieren Sie pflegerelevante Informationen und ordnen Sie sie den ABEDL-Bereichen zu
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    </div>
+                  </div>
                 )}
               </div>
             )}
@@ -882,9 +860,10 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                             onClick={handlePflegeplanungReview}
                             disabled={reviewLoading}
                             loading={reviewLoading}
+                            className="bg-gray-800 hover:bg-gray-900 text-white border-0"
                           >
-                            <Search className="h-4 w-4 mr-2" />
-                            KI-Überprüfung starten
+                            <Brain className="h-4 w-4 mr-2" />
+                            KI-Bewertung
                           </Button>
                         )}
                       </div>
@@ -1014,9 +993,10 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                           onClick={handlePflegeInfoReview}
                           disabled={pflegeInfos.length === 0 || reviewLoading}
                           loading={reviewLoading}
+                          className="bg-gray-800 hover:bg-gray-900 text-white border-0"
                         >
-                          <Search className="h-4 w-4 mr-2" />
-                          KI-Überprüfung starten
+                          <Brain className="h-4 w-4 mr-2" />
+                          KI-Bewertung
                         </Button>
                       </div>
                     </CardContent>
@@ -1029,10 +1009,11 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
             {showReview && (
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-light text-gray-900">KI-Überprüfung</h2>
+                  <h2 className="text-2xl font-light text-gray-900">KI-Bewertung</h2>
                   <Button
                     variant="outline"
                     onClick={() => setShowReview(false)}
+                    className="border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700"
                   >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Zurück
