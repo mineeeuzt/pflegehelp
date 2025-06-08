@@ -389,16 +389,13 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   whileTap={{ scale: 0.99 }}
                 >
                   <Card 
-                    className={`cursor-pointer transition-all border-2 group relative overflow-hidden ${
+                    className={`cursor-pointer transition-all border group relative ${
                       params.alter === alter.value 
-                        ? 'border-gray-900 bg-gray-50 shadow-md' 
-                        : 'border-gray-200 hover:border-gray-400 hover:shadow-lg'
+                        ? 'border-gray-800 bg-gray-50' 
+                        : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, alter: alter.value }))}
                   >
-                    {/* Subtle hover overlay */}
-                    <div className="absolute inset-0 bg-gray-900 opacity-0 group-hover:opacity-2 transition-opacity" />
-                    
                     <CardContent className="p-6 relative">
                       <div className="flex items-center justify-between">
                         <div>
@@ -406,7 +403,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                           <p className="text-sm text-gray-500">{alter.sublabel}</p>
                         </div>
                         {params.alter === alter.value ? (
-                          <div className="w-4 h-4 bg-gray-900 rounded-full flex items-center justify-center">
+                          <div className="w-4 h-4 bg-gray-800 rounded-full flex items-center justify-center">
                             <div className="w-2 h-2 bg-white rounded-full" />
                           </div>
                         ) : (
@@ -414,9 +411,9 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                         )}
                       </div>
                       
-                      {/* Selection indicator line */}
+                      {/* Subtle selection indicator */}
                       {params.alter === alter.value && (
-                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-900" />
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800" />
                       )}
                     </CardContent>
                   </Card>
@@ -437,23 +434,32 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   whileTap={{ scale: 0.99 }}
                 >
                   <Card 
-                    className={`cursor-pointer transition-all h-full border-2 ${
+                    className={`cursor-pointer transition-all h-full border group relative ${
                       params.bereich === bereich.value 
-                        ? 'border-gray-900 bg-gray-50' 
+                        ? 'border-gray-800 bg-gray-50' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, bereich: bereich.value }))}
                   >
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 relative">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <p className="font-medium text-gray-900 mb-1">{bereich.label}</p>
                           <p className="text-sm text-gray-500">{bereich.description}</p>
                         </div>
-                        {params.bereich === bereich.value && (
-                          <div className="w-3 h-3 bg-gray-900 rounded-full ml-4" />
+                        {params.bereich === bereich.value ? (
+                          <div className="w-4 h-4 bg-gray-800 rounded-full flex items-center justify-center ml-4">
+                            <div className="w-2 h-2 bg-white rounded-full" />
+                          </div>
+                        ) : (
+                          <div className="w-4 h-4 border-2 border-gray-300 rounded-full ml-4 group-hover:border-gray-400 transition-colors" />
                         )}
                       </div>
+                      
+                      {/* Subtle selection indicator */}
+                      {params.bereich === bereich.value && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800" />
+                      )}
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -473,23 +479,32 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   whileTap={{ scale: 0.99 }}
                 >
                   <Card 
-                    className={`cursor-pointer transition-all border-2 ${
+                    className={`cursor-pointer transition-all border group relative ${
                       params.setting === setting.value 
-                        ? 'border-gray-900 bg-gray-50' 
+                        ? 'border-gray-800 bg-gray-50' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, setting: setting.value }))}
                   >
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 relative">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium text-gray-900 mb-1">{setting.label}</p>
                           <p className="text-sm text-gray-500">{setting.description}</p>
                         </div>
-                        {params.setting === setting.value && (
-                          <div className="w-3 h-3 bg-gray-900 rounded-full" />
+                        {params.setting === setting.value ? (
+                          <div className="w-4 h-4 bg-gray-800 rounded-full flex items-center justify-center">
+                            <div className="w-2 h-2 bg-white rounded-full" />
+                          </div>
+                        ) : (
+                          <div className="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors" />
                         )}
                       </div>
+                      
+                      {/* Subtle selection indicator */}
+                      {params.setting === setting.value && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800" />
+                      )}
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -509,21 +524,30 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   whileTap={{ scale: 0.99 }}
                 >
                   <Card 
-                    className={`cursor-pointer transition-all h-full border-2 ${
+                    className={`cursor-pointer transition-all h-full border group relative ${
                       params.schwierigkeitsgrad === grad.value 
-                        ? 'border-gray-900 bg-gray-50' 
+                        ? 'border-gray-800 bg-gray-50' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setParams(prev => ({ ...prev, schwierigkeitsgrad: grad.value }))}
                   >
-                    <CardContent className="p-6 text-center">
+                    <CardContent className="p-6 text-center relative">
                       <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium mb-4 ${grad.color}`}>
                         {grad.label}
                       </div>
                       <h3 className="font-medium text-gray-900 mb-2">{grad.jahr}</h3>
                       <p className="text-sm text-gray-600">{grad.description}</p>
+                      {params.schwierigkeitsgrad === grad.value ? (
+                        <div className="w-4 h-4 bg-gray-800 rounded-full flex items-center justify-center mx-auto mt-4">
+                          <div className="w-2 h-2 bg-white rounded-full" />
+                        </div>
+                      ) : (
+                        <div className="w-4 h-4 border-2 border-gray-300 rounded-full mx-auto mt-4 group-hover:border-gray-400 transition-colors" />
+                      )}
+                      
+                      {/* Subtle selection indicator */}
                       {params.schwierigkeitsgrad === grad.value && (
-                        <div className="w-3 h-3 bg-gray-900 rounded-full mx-auto mt-3" />
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800" />
                       )}
                     </CardContent>
                   </Card>
@@ -1070,7 +1094,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
               
               {/* Active Progress Line */}
               <div 
-                className="absolute top-1/2 left-0 h-px bg-gray-900 transform -translate-y-1/2 transition-all duration-500"
+                className="absolute top-1/2 left-0 h-px bg-gray-800 transform -translate-y-1/2 transition-all duration-500"
                 style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
               />
               
@@ -1091,9 +1115,9 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       <div className={`
                         w-4 h-4 rounded-full border-2 bg-white transition-all duration-300 relative
                         ${isActive 
-                          ? 'border-gray-900 shadow-lg' 
+                          ? 'border-gray-800' 
                           : isCompleted 
-                            ? 'border-gray-900 bg-gray-900'
+                            ? 'border-gray-800 bg-gray-800'
                             : 'border-gray-300'
                         }
                       `}>
@@ -1101,14 +1125,14 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                           <div className="absolute inset-1 bg-white rounded-full" />
                         )}
                         {isActive && (
-                          <div className="absolute inset-1.5 bg-gray-900 rounded-full" />
+                          <div className="absolute inset-1.5 bg-gray-800 rounded-full" />
                         )}
                       </div>
                       
                       {/* Step Label */}
                       <div className="mt-3 text-center">
                         <p className={`text-xs font-medium transition-colors ${
-                          isActive || isCompleted ? 'text-gray-900' : 'text-gray-400'
+                          isActive || isCompleted ? 'text-gray-800' : 'text-gray-400'
                         }`}>
                           {step.title}
                         </p>
