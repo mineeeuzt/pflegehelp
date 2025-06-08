@@ -573,9 +573,15 @@ export async function generateAIResponse(
   prompt: string,
   userInput: string
 ): Promise<string> {
+  // Einfache Model-Optimierung: GPT-3.5 für kurze Aufgaben
+  const useGPT35 = userInput.length < 100 && prompt.includes('pesr')
+  const model = useGPT35 ? 'gpt-3.5-turbo' : 'gpt-4'
+  
+  console.log(`Using ${model} for AI request`)
+  
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model,
       messages: [
         {
           role: 'system',
