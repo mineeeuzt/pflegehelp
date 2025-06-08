@@ -14,7 +14,7 @@ import Dashboard from './pages/Dashboard'
 import FallbeispielGenerator from './pages/FallbeispielGenerator'
 import PflegeplanungWorkflow from './pages/PflegeplanungWorkflow'
 import MedikamentenTraining from './pages/MedikamentenTraining'
-import PESRGenerator from './pages/PESRGenerator'
+import AnamnesesSimulator from './pages/AnamnesesSimulator'
 import SMARTZielAssistent from './pages/SMARTZielAssistent'
 import PflegeinfoWorkflow from './pages/PflegeinfoWorkflow'
 import Profile from './pages/Profile'
@@ -140,11 +140,11 @@ function App() {
             } 
           />
           <Route 
-            path="/pesr-generator" 
+            path="/anamnese-simulator" 
             element={
               <ProtectedRoute>
                 <Layout>
-                  <PESRGenerator />
+                  <AnamnesesSimulator />
                 </Layout>
               </ProtectedRoute>
             } 
