@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Mail, Lock, ArrowRight } from 'lucide-react'
+import { Mail, Lock, ArrowRight, Plus } from 'lucide-react'
 import { Button, Input, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
 
@@ -36,7 +36,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -44,23 +44,18 @@ const Login = () => {
         className="max-w-md w-full"
       >
         <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center space-x-2">
-            <img 
-              src="/peaceful-ghost.png" 
-              alt="PflegeHelp" 
-              className="h-12 w-12"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none'
-              }}
-            />
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">
+          <Link to="/" className="inline-flex items-center space-x-3">
+            <div className="w-8 h-8 border border-gray-300 rounded-lg flex items-center justify-center">
+              <Plus className="h-4 w-4 text-gray-600" strokeWidth={1.5} />
+            </div>
+            <span className="text-2xl font-light text-gray-900">
               PflegeHelp
             </span>
           </Link>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+          <h2 className="mt-8 text-2xl font-light text-gray-900">
             Anmelden
           </h2>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-gray-500 font-light">
             Melden Sie sich in Ihrem Konto an
           </p>
         </div>
@@ -137,7 +132,7 @@ const Login = () => {
 
         <p className="mt-8 text-center text-sm text-gray-600">
           Probleme beim Anmelden?{' '}
-          <a href="mailto:support@pflegehelp.de" className="text-primary-600 hover:text-primary-500">
+          <a href="mailto:support@pflegehelp.de" className="text-gray-700 hover:text-gray-900 underline">
             Kontaktieren Sie den Support
           </a>
         </p>

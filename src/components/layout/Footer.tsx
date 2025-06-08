@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Plus } from 'lucide-react'
 
 const Footer = () => {
   return (
@@ -6,16 +7,11 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <img 
-                src="/peaceful-ghost.png" 
-                alt="PflegeHelp" 
-                className="h-8 w-8"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
-                }}
-              />
-              <span className="text-xl font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-7 h-7 border border-gray-300 rounded-lg flex items-center justify-center">
+                <Plus className="h-4 w-4 text-gray-600" strokeWidth={1.5} />
+              </div>
+              <span className="text-xl font-light text-gray-900">
                 PflegeHelp
               </span>
             </div>
@@ -30,22 +26,22 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/fallbeispiel-generator" className="text-gray-600 hover:text-primary-600 transition-colors">
+                <Link to="/fallbeispiel-generator" className="text-gray-600 hover:text-gray-900 transition-colors">
                   Fallbeispiele
                 </Link>
               </li>
               <li>
-                <Link to="/pflegeplanung" className="text-gray-600 hover:text-primary-600 transition-colors">
+                <Link to="/pflegeplanung" className="text-gray-600 hover:text-gray-900 transition-colors">
                   Pflegeplanung
                 </Link>
               </li>
               <li>
-                <Link to="/pesr-generator" className="text-gray-600 hover:text-primary-600 transition-colors">
+                <Link to="/pesr-generator" className="text-gray-600 hover:text-gray-900 transition-colors">
                   PESR-Diagnosen
                 </Link>
               </li>
               <li>
-                <Link to="/smart-ziel" className="text-gray-600 hover:text-primary-600 transition-colors">
+                <Link to="/smart-ziel" className="text-gray-600 hover:text-gray-900 transition-colors">
                   SMART-Ziele
                 </Link>
               </li>
@@ -58,22 +54,22 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="mailto:support@pflegehelp.de" className="text-gray-600 hover:text-primary-600 transition-colors">
+                <a href="mailto:support@pflegehelp.de" className="text-gray-600 hover:text-gray-900 transition-colors">
                   Kontakt
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-primary-600 transition-colors">
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
                   Hilfe-Center
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-primary-600 transition-colors">
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
                   Datenschutz
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-primary-600 transition-colors">
+                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
                   AGB
                 </a>
               </li>

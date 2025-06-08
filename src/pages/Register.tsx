@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Mail, Lock, User, ArrowRight, Check } from 'lucide-react'
+import { Mail, Lock, User, ArrowRight, Check, Plus } from 'lucide-react'
 import { Button, Input, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
 import { authService } from '../services/authService'
@@ -93,7 +93,7 @@ const Register = () => {
   ]
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -101,20 +101,15 @@ const Register = () => {
         className="max-w-md w-full"
       >
         <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center space-x-2">
-            <img 
-              src="/peaceful-ghost.png" 
-              alt="PflegeHelp" 
-              className="h-12 w-12"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none'
-              }}
-            />
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">
+          <Link to="/" className="inline-flex items-center space-x-3">
+            <div className="h-10 w-10 rounded-lg border border-gray-300 flex items-center justify-center bg-white">
+              <Plus className="h-5 w-5 text-gray-600" />
+            </div>
+            <span className="text-2xl font-light text-gray-900">
               PflegeHelp
             </span>
           </Link>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+          <h2 className="mt-6 text-3xl font-light text-gray-900">
             Kostenlos registrieren
           </h2>
           <p className="mt-2 text-gray-600">
@@ -140,7 +135,7 @@ const Register = () => {
                 </motion.div>
                 
                 <div className="space-y-2">
-                  <h3 className="text-lg font-semibold text-green-700">
+                  <h3 className="text-lg font-medium text-gray-700">
                     Registrierung erfolgreich!
                   </h3>
                   <p className="text-gray-600">
@@ -149,9 +144,9 @@ const Register = () => {
                   </p>
                 </div>
 
-                <div className="bg-blue-50 border border-blue-200 p-4 rounded-md text-left">
-                  <h4 className="font-medium text-blue-900 mb-2">Nächste Schritte:</h4>
-                  <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
+                <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg text-left">
+                  <h4 className="font-medium text-gray-800 mb-2">Nächste Schritte:</h4>
+                  <ol className="text-sm text-gray-600 space-y-1 list-decimal list-inside">
                     <li>Überprüfen Sie Ihr E-Mail-Postfach (auch Spam-Ordner)</li>
                     <li>Klicken Sie auf den Bestätigungslink in der E-Mail</li>
                     <li>Sie werden automatisch angemeldet und zur Zahlungsseite weitergeleitet</li>
@@ -170,7 +165,7 @@ const Register = () => {
                   
                   <p className="text-xs text-gray-500">
                     Keine E-Mail erhalten? Überprüfen Sie Ihren Spam-Ordner oder kontaktieren Sie uns unter{' '}
-                    <a href="mailto:support@pflegehelp.app" className="text-primary-600 hover:text-primary-500">
+                    <a href="mailto:support@pflegehelp.app" className="text-gray-600 hover:text-gray-500 underline">
                       support@pflegehelp.app
                     </a>
                   </p>
@@ -252,9 +247,9 @@ const Register = () => {
                   required
                 />
 
-                <div className="bg-blue-50 border border-blue-200 p-4 rounded-md">
-                  <h4 className="font-medium text-blue-900 mb-2">Was Sie erhalten:</h4>
-                  <ul className="text-sm text-blue-800 space-y-1">
+                <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                  <h4 className="font-medium text-gray-800 mb-2">Was Sie erhalten:</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
                     <li>✓ {APP_CONFIG.trialDays} Tage kostenlos testen</li>
                     <li>✓ Alle KI-Features verfügbar</li>
                     <li>✓ Jederzeit kündbar</li>
@@ -296,11 +291,11 @@ const Register = () => {
 
               <p className="mt-6 text-xs text-gray-500 text-center">
                 Mit der Registrierung stimmen Sie unseren{' '}
-                <a href="#" className="text-primary-600 hover:text-primary-500">
+                <a href="#" className="text-gray-600 hover:text-gray-500 underline">
                   AGB
                 </a>{' '}
                 und{' '}
-                <a href="#" className="text-primary-600 hover:text-primary-500">
+                <a href="#" className="text-gray-600 hover:text-gray-500 underline">
                   Datenschutzbestimmungen
                 </a>{' '}
                 zu.

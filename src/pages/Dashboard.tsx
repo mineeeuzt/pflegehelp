@@ -40,7 +40,7 @@ const Dashboard = () => {
       description: 'Realistische Fallbeispiele erstellen',
       icon: Brain,
       href: '/fallbeispiel-generator',
-      primary: true
+      primary: false
     },
     {
       title: 'Pflegeplanung',
@@ -123,46 +123,23 @@ const Dashboard = () => {
                 whileTap={{ scale: 0.98 }}
               >
                 <Link to={tool.href}>
-                  <Card className={`group transition-all duration-300 hover:shadow-2xl border-2 relative overflow-hidden ${
-                    tool.primary 
-                      ? 'border-gray-900 bg-gray-900 text-white hover:bg-gray-800' 
-                      : 'border-gray-200 hover:border-gray-400 bg-white hover:bg-gray-50'
-                  }`}>
-                    {/* Subtle gradient overlay */}
-                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity ${
-                      tool.primary ? 'bg-white' : 'bg-gray-900'
-                    }`} />
-                    
+                  <Card className="group transition-all duration-300 hover:shadow-lg border border-gray-200 hover:border-gray-300 bg-white relative overflow-hidden">
                     <CardContent className="p-8 relative">
                       <div className="flex items-start justify-between mb-6">
-                        <div className={`p-2 rounded-lg transition-colors ${
-                          tool.primary 
-                            ? 'bg-white/10 group-hover:bg-white/20' 
-                            : 'bg-gray-100 group-hover:bg-gray-200'
-                        }`}>
-                          <Icon className={`h-6 w-6 ${
-                            tool.primary ? 'text-white' : 'text-gray-700'
-                          }`} />
+                        <div className="p-3 bg-gray-50 group-hover:bg-gray-100 rounded-xl transition-colors">
+                          <Icon className="h-6 w-6 text-gray-700" />
                         </div>
-                        <ArrowRight className={`h-5 w-5 transform translate-x-0 group-hover:translate-x-1 opacity-60 group-hover:opacity-100 transition-all ${
-                          tool.primary ? 'text-white' : 'text-gray-500'
-                        }`} />
+                        <ArrowRight className="h-5 w-5 transform translate-x-0 group-hover:translate-x-1 opacity-40 group-hover:opacity-60 transition-all text-gray-400" />
                       </div>
-                      <h3 className={`text-xl font-medium mb-3 ${
-                        tool.primary ? 'text-white' : 'text-gray-900'
-                      }`}>
+                      <h3 className="text-xl font-medium mb-3 text-gray-900">
                         {tool.title}
                       </h3>
-                      <p className={`text-sm leading-relaxed ${
-                        tool.primary ? 'text-gray-300' : 'text-gray-600'
-                      }`}>
+                      <p className="text-sm leading-relaxed text-gray-600 font-light">
                         {tool.description}
                       </p>
                       
-                      {/* Bottom accent line */}
-                      <div className={`absolute bottom-0 left-0 right-0 h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left ${
-                        tool.primary ? 'bg-white/30' : 'bg-gray-900'
-                      }`} />
+                      {/* Subtle bottom accent */}
+                      <div className="absolute bottom-0 left-0 right-0 h-px transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left bg-gray-300" />
                     </CardContent>
                   </Card>
                 </Link>

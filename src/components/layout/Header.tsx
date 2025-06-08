@@ -31,12 +31,9 @@ const Header = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <Link to="/dashboard" className="flex items-center space-x-2 group">
-              <div className="relative">
-                <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
-                  <Plus className="h-5 w-5 text-white" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-gray-700 rounded-full"></div>
+            <Link to="/dashboard" className="flex items-center space-x-3 group">
+              <div className="w-7 h-7 border border-gray-300 rounded-lg flex items-center justify-center group-hover:border-gray-400 transition-colors">
+                <Plus className="h-4 w-4 text-gray-600 group-hover:text-gray-700 transition-colors" strokeWidth={1.5} />
               </div>
               <span className="text-2xl font-light text-gray-900 group-hover:text-gray-700 transition-colors">
                 PflegeHelp
