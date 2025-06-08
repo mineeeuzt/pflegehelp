@@ -1,4 +1,5 @@
 import OpenAI from 'openai'
+import { simpleCache } from './simpleCache'
 
 // Alter API-Key für Fallbeispiel-Generator  
 const apiKey = import.meta.env.VITE_OPENAI_API_KEY
@@ -573,6 +574,13 @@ export async function generateAIResponse(
   prompt: string,
   userInput: string
 ): Promise<string> {
+  // Prüfe einfachen Cache zuerst (nur für PESR und SMART-Ziele)
+  const cacheableTask = prompt.includes('pesr') || prompt.includes('smartZiel')
+  if (cacheableTask) {
+    const cached = simpleCache.get(userInput)
+    if (cached) return cached
+  }
+  
   // Erweiterte Model-Optimierung: GPT-3.5 für einfache Aufgaben
   const useGPT35 = (
     (userInput.length < 100 && prompt.includes('pesr')) ||
@@ -601,7 +609,14 @@ export async function generateAIResponse(
       temperature: 0.7,
     })
 
-    return completion.choices[0]?.message?.content || 'Keine Antwort erhalten.'
+    const response = completion.choices[0]?.message?.content || 'Keine Antwort erhalten.'
+    
+    // Cache nur erfolgreiche Antworten für cacheable Tasks
+    if (cacheableTask && response !== 'Keine Antwort erhalten.') {
+      simpleCache.set(userInput, response)
+    }
+    
+    return response
   } catch (error) {
     console.error('OpenAI API Error:', error)
     throw new Error('Fehler bei der KI-Generierung. Bitte versuchen Sie es erneut.')
