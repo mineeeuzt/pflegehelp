@@ -27,86 +27,70 @@ const Header = () => {
     : []
 
   return (
-    <header className="bg-white shadow-sm border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <header className="bg-white border-b border-gray-200">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
-              <img 
-                src="/peaceful-ghost.png" 
-                alt="PflegeHelp" 
-                className="h-8 w-8"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
-                }}
-              />
-              <span className="text-xl font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">
-                PflegeHelp
-              </span>
+            <Link to="/dashboard" className="text-2xl font-light text-gray-900">
+              PflegeHelp
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-1">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors"
+                className="text-gray-600 hover:text-gray-900 px-4 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50"
               >
                 {item.name}
               </Link>
             ))}
           </nav>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             {user ? (
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 transition-colors"
+                  className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 transition-colors"
                 >
-                  <User size={20} />
-                  <span className="hidden sm:block">{user.name}</span>
+                  <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                    <User size={16} />
+                  </div>
+                  <span className="hidden sm:block font-medium">{user.name}</span>
                 </button>
                 
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border">
-                    <Link
-                      to="/profile"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={() => setIsUserMenuOpen(false)}
-                    >
-                      <Settings size={16} className="mr-2" />
-                      Profil
-                    </Link>
+                  <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-lg py-2 z-50 border border-gray-200">
                     <Link
                       to="/subscription"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
                       onClick={() => setIsUserMenuOpen(false)}
                     >
-                      <Settings size={16} className="mr-2" />
+                      <Settings size={16} className="mr-3" />
                       Abonnement
                     </Link>
                     <button
                       onClick={handleSignOut}
-                      className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
                     >
-                      <LogOut size={16} className="mr-2" />
+                      <LogOut size={16} className="mr-3" />
                       Abmelden
                     </button>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-3">
                 <Link to="/login">
                   <Button variant="ghost" size="sm">
                     Anmelden
                   </Button>
                 </Link>
                 <Link to="/register">
-                  <Button size="sm">
+                  <Button size="sm" className="bg-gray-900 hover:bg-gray-800 text-white">
                     Registrieren
                   </Button>
                 </Link>
