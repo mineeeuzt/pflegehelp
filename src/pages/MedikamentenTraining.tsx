@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Activity, 
@@ -61,6 +61,7 @@ const MedikamentenTraining = () => {
   const [isGeneratingScenario, setIsGeneratingScenario] = useState(false)
   const [aiGeneratedScenarios, setAiGeneratedScenarios] = useState<Scenario[]>([])
   const [availableMedications, setAvailableMedications] = useState<Medication[]>([])
+  const [isInitialLoading, setIsInitialLoading] = useState(true)
   const dropZoneRef = useRef<HTMLDivElement>(null)
 
   const allMedications: Medication[] = [
@@ -300,11 +301,13 @@ const MedikamentenTraining = () => {
     return [correctMed, ...otherMeds].sort(() => Math.random() - 0.5)
   }
 
-  const startGame = () => {
+  const startGame = async () => {
     setGameStarted(true)
     setScore(0)
     setCompletedScenarios(0)
-    nextScenario()
+    setIsInitialLoading(true)
+    await nextScenario()
+    setIsInitialLoading(false)
   }
 
   const generateAIScenario = async (): Promise<Scenario | null> => {
@@ -487,61 +490,67 @@ const MedikamentenTraining = () => {
     return 'text-gray-700'
   }
 
-  if (!gameStarted) {
+  // Auto-start the game immediately when component mounts
+  useEffect(() => {
+    if (!gameStarted) {
+      startGame()
+    }
+  }, [])
+
+  // Show loading animation during initial load or when generating any scenario
+  if (isInitialLoading || isGeneratingScenario) {
     return (
-      <div className="min-h-screen bg-white">
-        <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
+            className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white shadow-lg mb-6 mx-auto"
+            animate={{ 
+              rotate: [0, 360],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ 
+              rotate: {
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear"
+              },
+              scale: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }
+            }}
           >
-            <h1 className="text-4xl font-light text-gray-900 mb-4">
-              💊 Medikamenten-Training
-            </h1>
-            <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto">
-              Trainiere mit KI-generierten, abwechslungsreichen Medikamenten-Szenarien. Über 20 verschiedene Wirkstoffe aus allen Bereichen der Medizin warten auf dich!
-            </p>
+            <Plus className="h-16 w-16 text-slate-600" strokeWidth={1.5} />
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <Card className="text-center">
-              <CardContent className="p-6">
-                <Target className="h-12 w-12 text-slate-600 mx-auto mb-4" />
-                <h3 className="font-medium text-gray-900 mb-2">Drag & Drop</h3>
-                <p className="text-sm text-gray-600">Ziehe Medikamente ins Zielfeld</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="p-6">
-                <Phone className="h-12 w-12 text-slate-600 mx-auto mb-4" />
-                <h3 className="font-medium text-gray-900 mb-2">Arzt-Entscheidung</h3>
-                <p className="text-sm text-gray-600">Entscheide bei kritischen Fällen</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="p-6">
-                <Trophy className="h-12 w-12 text-slate-600 mx-auto mb-4" />
-                <h3 className="font-medium text-gray-900 mb-2">Punkte sammeln</h3>
-                <p className="text-sm text-gray-600">Erhalte Feedback und Level-ups</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="text-center">
-            <Button
-              onClick={startGame}
-              className="bg-slate-800 hover:bg-slate-900 text-white px-8 py-3 text-lg"
-            >
-              <Play className="h-5 w-5 mr-2" />
-              Training starten
-            </Button>
-          </div>
-        </div>
+          <motion.h2 
+            className="text-2xl font-light text-gray-900 mb-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            Medikamenten-Training
+          </motion.h2>
+          <motion.p 
+            className="text-gray-600 font-light"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            {isInitialLoading ? 'Lade Trainingsumgebung...' : 'Erstelle neues Szenario...'}
+          </motion.p>
+        </motion.div>
       </div>
     )
+  }
+
+  if (!gameStarted) {
+    return null
   }
 
   if (!currentScenario) return null
@@ -569,10 +578,26 @@ const MedikamentenTraining = () => {
               )}
               {isGeneratingScenario && (
                 <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  className="w-6 h-6 border-2 border-slate-300 border-t-slate-600 rounded-full"
-                />
+                  className="w-8 h-8 border border-slate-300 rounded flex items-center justify-center bg-white shadow-sm"
+                  animate={{ 
+                    rotate: [0, 360],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ 
+                    rotate: {
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear"
+                    },
+                    scale: {
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
+                  }}
+                >
+                  <Plus className="h-4 w-4 text-slate-600" strokeWidth={1.5} />
+                </motion.div>
               )}
             </div>
           </div>
