@@ -403,79 +403,140 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
   "level": 1, 2 oder 3
 }
 
-VERFÜGBARE MEDIKAMENTE (verwende exakt diese IDs und variiere die Auswahl):
+VERFÜGBARE MEDIKAMENTE (verwende exakt diese IDs und sorge für maximale Vielfalt):
 
-ACE-HEMMER:
-- "ramipril" (5mg) - Bluthochdruck, Herzinsuffizienz
-- "enalapril" (10mg) - Bluthochdruck, Herzinsuffizienz
+🫀 HERZ-KREISLAUF:
+- "ramipril" (5mg) - ACE-Hemmer, Bluthochdruck
+- "enalapril" (10mg) - ACE-Hemmer, Herzinsuffizienz
+- "metoprolol" (50mg) - Betablocker, Herzrasen
+- "bisoprolol" (5mg) - Betablocker, Herzinsuffizienz
+- "verapamil" (5mg) - Kalziumantagonist, Tachykardie
+- "amiodaron" (200mg) - Antiarrhythmikum, Vorhofflimmern
+- "digitoxin" (0.25mg) - Herzglykosid, Herzinsuffizienz
+- "losartan" (50mg) - AT1-Antagonist, Hypertonie
+- "candesartan" (8mg) - AT1-Antagonist, Herzinsuffizienz
+- "amlodipin" (5mg) - Kalziumantagonist, Hypertonie
 
-BETABLOCKER:
-- "metoprolol" (50mg) - Herzrasen, Bluthochdruck, Herzinsuffizienz
-- "bisoprolol" (5mg) - Herzinsuffizienz, Bluthochdruck
+💧 DIURETIKA & ELEKTROLYTE:
+- "furosemid" (40mg) - Schleifendiuretikum, Ödeme
+- "torasemid" (10mg) - Schleifendiuretikum, Herzinsuffizienz
+- "hydrochlorothiazid" (25mg) - Thiazid, Hypertonie
+- "spironolacton" (25mg) - Kaliumsparend, Herzinsuffizienz
 
-DIURETIKA:
-- "furosemid" (40mg) - Wassereinlagerungen, Herzinsuffizienz
-- "torasemid" (10mg) - Herzinsuffizienz, Hypertonie
-
-SCHMERZMITTEL:
-- "ibuprofen" (400mg) - Entzündungen, Fieber, Schmerzen
-- "paracetamol" (500mg) - Fieber, Kopfschmerzen
-- "metamizol" (500mg) - starke Schmerzen, Fieber
-
-NOTFALLMEDIKAMENTE:
-- "atropin" (0.5mg) - Bradykardie, Vergiftungen
-- "adrenalin" (1mg) - Anaphylaxie, Reanimation
-
-ANTIBIOTIKA:
-- "amoxicillin" (1000mg) - bakterielle Infekte
-- "ciprofloxacin" (500mg) - Harnwegsinfekte, schwere Infekte
-
-INSULIN:
-- "insulin-rapid" (4 IE) - akute Hyperglykämie
-- "insulin-long" (12 IE) - Diabetes-Einstellung
-
-ANTIKOAGULANTIEN:
+🩸 ANTIKOAGULATION & THROMBOSE:
 - "heparin" (5000 IE) - Thromboseprophylaxe
-- "marcumar" (3mg) - orale Antikoagulation
+- "marcumar" (3mg) - Orale Antikoagulation
+- "rivaroxaban" (20mg) - NOAK, Vorhofflimmern
+- "enoxaparin" (40mg) - NMH, Thromboseprophylaxe
+- "aspirin" (100mg) - Thrombozytenaggregation
 
-BRONCHODILATATOREN:
-- "salbutamol" (2 Hübe) - Asthma, COPD-Exazerbation
-- "ipratropium" (2 Hübe) - COPD, Bronchospasmus
+😷 ATEMWEGE:
+- "salbutamol" (2 Hübe) - Beta-2-Agonist, Asthma
+- "ipratropium" (2 Hübe) - Anticholinergikum, COPD
+- "theophyllin" (200mg) - Bronchodilatator, COPD
+- "budesonid" (2 Hübe) - Inhalatives Steroid, Asthma
 
-STEROIDE:
-- "prednisolon" (20mg) - Entzündungen, Asthma
-- "dexamethason" (4mg) - schwere Entzündungen, Hirnödem
+💊 SCHMERZ & ENTZÜNDUNG:
+- "ibuprofen" (400mg) - NSAID, Entzündung
+- "paracetamol" (500mg) - Analgetikum, Fieber
+- "metamizol" (500mg) - Analgetikum, starke Schmerzen
+- "diclofenac" (75mg) - NSAID, Rheuma
+- "morphin" (10mg) - Opioid, starke Schmerzen
+- "tramadol" (100mg) - Opioid, mäßige Schmerzen
+- "prednisolon" (20mg) - Kortikoid, Entzündung
+- "dexamethason" (4mg) - Kortikoid, schwere Entzündung
+- "methylprednisolon" (40mg) - Kortikoid, Allergie
 
-ANTIARRHYTHMIKA:
-- "amiodaron" (200mg) - Vorhofflimmern, ventrikuläre Arrhythmien
-- "verapamil" (5mg) - supraventrikuläre Tachykardie
+🦠 ANTIBIOTIKA & INFEKTE:
+- "amoxicillin" (1000mg) - Penicillin, Atemwegsinfekt
+- "ciprofloxacin" (500mg) - Fluorchinolon, Harnwegsinfekt
+- "cefuroxim" (500mg) - Cephalosporin, schwere Infekte
+- "clarithromycin" (500mg) - Makrolid, atypische Pneumonie
+- "doxycyclin" (100mg) - Tetrazyklin, Borrelien
+- "meropenem" (1g) - Carbapenem, Sepsis
+- "vancomycin" (1g) - Glykopeptid, MRSA
 
-ANTIEMETIKA:
-- "ondansetron" (4mg) - Übelkeit, Erbrechen
-- "metoclopramid" (10mg) - Übelkeit, Gastroparese
+🍯 DIABETES & ENDOKRINOLOGIE:
+- "insulin-rapid" (4 IE) - Schnellwirkendes Insulin
+- "insulin-long" (12 IE) - Langzeitinsulin
+- "metformin" (850mg) - Biguanid, Diabetes Typ 2
+- "glimepirid" (2mg) - Sulfonylharnstoff, Diabetes
+- "levothyroxin" (100µg) - Schilddrüsenhormon, Hypothyreose
 
-ZUSÄTZLICHE MEDIKAMENTE (kannst du auch verwenden):
-- Andere Analgetika: "diclofenac", "aspirin", "morphin", "tramadol"
-- Andere Antihypertensiva: "losartan", "candesartan", "amlodipin", "hydrochlorothiazid"
-- Andere Antibiotika: "cefuroxim", "clarithromycin", "doxycyclin", "meropenem"
-- Psychopharmaka: "lorazepam", "diazepam", "haloperidol", "risperidon"
-- Antihistaminika: "cetirizin", "clemastin", "dimetinden"
-- Protonenpumpenhemmer: "pantoprazol", "omeprazol"
-- Andere: "digitoxin", "theophyllin", "levothyroxin", "methylprednisolon"
+🧠 NEUROLOGIE & PSYCHIATRIE:
+- "lorazepam" (1mg) - Benzodiazepin, Angst
+- "diazepam" (5mg) - Benzodiazepin, Krampfanfall
+- "haloperidol" (5mg) - Neuroleptikum, Psychose
+- "risperidon" (2mg) - Atypisches Neuroleptikum
+- "levodopa" (100mg) - Parkinson-Medikament
+- "carbamazepin" (200mg) - Antiepileptikum
+- "gabapentin" (300mg) - Antiepileptikum, Nervenschmerz
 
-ABWECHSLUNG SCHAFFEN:
-- Verwende verschiedene Medikamentengruppen
-- Variiere Krankheitsbilder: Herz-Kreislauf, Diabetes, Atemwege, Infekte, Schmerzen, etc.
-- Nutze optionale Vitalparameter für Realismus
-- Erstelle sowohl häufige als auch seltene Situationen
-- Berücksichtige verschiedene Altersgruppen und Grunderkrankungen
+🤢 MAGEN-DARM & ÜBELKEIT:
+- "ondansetron" (4mg) - 5-HT3-Antagonist, Übelkeit
+- "metoclopramid" (10mg) - Prokinetikum, Übelkeit
+- "pantoprazol" (40mg) - PPI, Magenschutz
+- "omeprazol" (20mg) - PPI, Reflux
+- "domperidon" (10mg) - Prokinetikum, Gastroparese
 
-LEVEL-DEFINITIONEN:
-- Level 1: Routine (Diabetes-Entgleisung, leichte Infekte, Standardschmerzen)
-- Level 2: Mittelschwer (Herzrhythmusstörungen, Asthma-Anfall, Antibiotika-Entscheidung)  
-- Level 3: Kritisch (Anaphylaxie, Reanimation, Multi-Organ-Versagen)
+🚑 NOTFALL & INTENSIVMEDIZIN:
+- "adrenalin" (1mg) - Katecholamin, Anaphylaxie
+- "atropin" (0.5mg) - Parasympatholytikum, Bradykardie
+- "noradrenalin" (2mg) - Katecholamin, Schock
+- "dobutamin" (250mg) - Katecholamin, Herzinsuffizienz
+- "midazolam" (5mg) - Benzodiazepin, Sedierung
+- "propofol" (20mg) - Narkotikum, Sedierung
 
-Erstelle medizinisch korrekte, lehrreiche Szenarien mit maximaler Abwechslung!`
+🌡️ ALLERGIE & IMMUNSYSTEM:
+- "cetirizin" (10mg) - Antihistaminikum, Allergie
+- "clemastin" (2mg) - Antihistaminikum, Urtikaria
+- "dimetinden" (4mg) - Antihistaminikum, Juckreiz
+- "azathioprin" (50mg) - Immunsuppressivum
+
+💉 HORMONE & SPEZIELLE THERAPIEN:
+- "insulin-aspart" (6 IE) - Schnellwirkendes Analoginsulin
+- "oxytocin" (5 IE) - Wehenhormon, Geburt
+- "calcitonin" (100 IE) - Kalziumregulation
+- "erythropoetin" (2000 IE) - Blutbildung, Anämie
+
+MAXIMALE VIELFALT SCHAFFEN:
+
+🎯 MEDIKAMENTENGRUPPEN ROTIEREN:
+- Nutze alle 10 Kategorien gleichmäßig
+- Vermeide Wiederholungen derselben Wirkstoffgruppe
+- Kombiniere verschiedene Indikationen kreativ
+
+🏥 VIELFÄLTIGE KRANKHEITSBILDER:
+- Herz-Kreislauf: Hypertonie, Herzinsuffizienz, Arrhythmien, Thrombose
+- Diabetes: Typ 1 & 2, Hypo-/Hyperglykämie, Ketoazidose
+- Atemwege: Asthma, COPD, Pneumonie, Lungenembolie
+- Infekte: Sepsis, Pneumonie, Harnwegsinfekt, Meningitis
+- Neurologie: Epilepsie, Parkinson, Schlaganfall, Migräne
+- Psychiatrie: Depression, Psychose, Panikattacke, Delir
+- Gastroenterologie: Reflux, Gastroparese, Ileus
+- Allergie: Anaphylaxie, Urtikaria, Bronchospasmus
+- Endokrinologie: Schilddrüse, Nebenniere, Hormone
+- Intensivmedizin: Schock, Reanimation, Sedierung
+
+👥 ALTERSGRUPPEN VARIIEREN:
+- Kinder (2-12 Jahre): Besondere Dosierungen, Fieberkrampf
+- Jugendliche (13-17 Jahre): Diabetes Typ 1, Asthma
+- Erwachsene (18-64 Jahre): Herzinfarkt, Depression, Infekte
+- Senioren (65+ Jahre): Polypharmazie, Sturzgefahr, Demenz
+
+⚡ SZENARIO-KOMPLEXITÄT:
+- Level 1: Einzeldiagnose, klare Symptome (Diabetes, Hypertonie)
+- Level 2: Mehrere Faktoren, Differentialdiagnose (Asthma vs. Herzinsuffizienz)
+- Level 3: Kritische Situationen, Zeitdruck (Anaphylaxie, Sepsis)
+
+🔄 ROTATION SICHERSTELLEN:
+- Jedes 5. Szenario aus neuer Kategorie
+- Nie zwei gleiche Hauptdiagnosen hintereinander
+- Verschiedene Vitalparameter-Kombinationen
+- Wechsel zwischen akut und chronisch
+- Balance zwischen häufigen und seltenen Situationen
+
+Erstelle medizinisch korrekte, abwechslungsreiche Szenarien mit maximaler Lernvielfalt!`
 }
 
 export async function generateAIResponse(
