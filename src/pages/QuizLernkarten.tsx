@@ -269,37 +269,37 @@ const QuizLernkarten = () => {
   const MainCategorySelection = () => (
     <Card className="mb-6">
       <CardHeader>
-        <CardTitle>Kategorien auswählen</CardTitle>
-        <p className="text-gray-600">Wähle eine Hauptkategorie aus, um die Unterbereiche zu sehen.</p>
+        <CardTitle>Lernbereiche</CardTitle>
+        <p className="text-gray-600">Wähle einen Fachbereich aus, um mit dem Lernen zu beginnen.</p>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Anatomie & Physiologie */}
           <button
             onClick={() => navigateToMain('anatomy')}
-            className="flex items-center gap-4 p-6 bg-blue-50 rounded-xl border-2 border-blue-200 hover:border-blue-300 transition-all"
+            className="flex items-center gap-4 p-6 bg-blue-50 rounded-xl border-2 border-blue-200 hover:border-blue-300 transition-all group"
           >
             <span className="text-4xl">🏥</span>
-            <div className="text-left">
-              <div className="text-xl font-semibold text-blue-700">Anatomie & Physiologie</div>
-              <div className="text-blue-600">9 Hauptsysteme mit allen Unterbereichen</div>
-              <div className="text-sm text-blue-500 mt-1">400+ detaillierte Kategorien</div>
+            <div className="text-left flex-1">
+              <div className="text-xl font-semibold text-blue-700 mb-1">Anatomie & Physiologie</div>
+              <div className="text-blue-600 text-sm">Körperaufbau und Funktionen</div>
+              <div className="text-xs text-blue-500 mt-2">9 Organsysteme • 400+ Kategorien</div>
             </div>
-            <ChevronRight className="w-6 h-6 text-blue-500 ml-auto" />
+            <ChevronRight className="w-6 h-6 text-blue-500 group-hover:translate-x-1 transition-transform" />
           </button>
           
           {/* Krankheitslehre */}
           <button
             onClick={() => navigateToMain('pathology')}
-            className="flex items-center gap-4 p-6 bg-red-50 rounded-xl border-2 border-red-200 hover:border-red-300 transition-all"
+            className="flex items-center gap-4 p-6 bg-red-50 rounded-xl border-2 border-red-200 hover:border-red-300 transition-all group"
           >
             <span className="text-4xl">🦠</span>
-            <div className="text-left">
-              <div className="text-xl font-semibold text-red-700">Krankheitslehre</div>
-              <div className="text-red-600">8 Hauptbereiche mit allen Unterbereichen</div>
-              <div className="text-sm text-red-500 mt-1">Alle wichtigen Krankheitsbilder</div>
+            <div className="text-left flex-1">
+              <div className="text-xl font-semibold text-red-700 mb-1">Krankheitslehre</div>
+              <div className="text-red-600 text-sm">Pathologie und Erkrankungen</div>
+              <div className="text-xs text-red-500 mt-2">8 Fachbereiche • Alle Krankheitsbilder</div>
             </div>
-            <ChevronRight className="w-6 h-6 text-red-500 ml-auto" />
+            <ChevronRight className="w-6 h-6 text-red-500 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
