@@ -1,159 +1,136 @@
 import { useState } from 'react'
-import { useLocation, Link } from 'react-router-dom'
-import { Search, Bell, Menu, ChevronRight } from 'lucide-react'
-import { Button, Input } from '../ui'
+import { Link, useNavigate } from 'react-router-dom'
+import { Menu, X, User, LogOut, Settings, Plus } from 'lucide-react'
+import { Button } from '../ui'
+import { useAuthStore } from '../../store/authStore'
 
-interface HeaderProps {
-  onMenuToggle: () => void
-}
+const Header = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  const { user, signOut } = useAuthStore()
+  const navigate = useNavigate()
 
-const Header = ({ onMenuToggle }: HeaderProps) => {
-  const location = useLocation()
-  const [searchQuery, setSearchQuery] = useState('')
-  const [notifications] = useState(3) // Mock notification count
-
-  // Generate breadcrumbs based on current route
-  const generateBreadcrumbs = () => {
-    const path = location.pathname
-    const segments = path.split('/').filter(segment => segment !== '')
-    
-    const breadcrumbMap: Record<string, string> = {
-      'quiz-home': 'Home',
-      'quiz-lernkarten': 'Quiz & Lernkarten',
-      'flashcards': 'Lernkarten',
-      'progress': 'Fortschritt',
-      'export': 'Export',
-      'profile': 'Profil',
-      'dashboard': 'Dashboard'
-    }
-
-    const breadcrumbs = [
-      { label: 'PflegeQuiz', href: '/quiz-home', active: false }
-    ]
-
-    segments.forEach((segment, index) => {
-      const label = breadcrumbMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1)
-      const href = '/' + segments.slice(0, index + 1).join('/')
-      const active = index === segments.length - 1
-      
-      breadcrumbs.push({ label, href, active })
-    })
-
-    return breadcrumbs
+  const handleSignOut = async () => {
+    await signOut()
+    navigate('/')
   }
 
-  const breadcrumbs = generateBreadcrumbs()
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Implement search functionality
-    console.log('Searching for:', searchQuery)
-  }
+  const navigation = user
+    ? [
+        { name: 'Dashboard', href: '/dashboard' },
+        { name: 'Fallbeispiel Generator', href: '/fallbeispiel-generator' },
+        { name: 'Medikamenten-Training', href: '/medikamenten-training' },
+        { name: 'Anamnese-Simulator', href: '/anamnese-simulator' },
+        { name: 'Quiz & Lernkarten', href: '/quiz-lernkarten' },
+      ]
+    : []
 
   return (
-    <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4">
-      <div className="flex items-center justify-between">
-        {/* Left side: Mobile menu + Breadcrumbs */}
-        <div className="flex items-center space-x-4">
-          {/* Mobile menu button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onMenuToggle}
-            className="lg:hidden p-2"
-          >
-            <Menu className="w-5 h-5" />
-          </Button>
-
-          {/* Breadcrumbs */}
-          <nav className="hidden md:flex items-center space-x-2 text-sm">
-            {breadcrumbs.map((crumb, index) => (
-              <div key={crumb.href} className="flex items-center">
-                {index > 0 && (
-                  <ChevronRight className="w-4 h-4 text-gray-400 mx-2" />
-                )}
-                {crumb.active ? (
-                  <span className="text-gray-900 font-medium">
-                    {crumb.label}
-                  </span>
-                ) : (
-                  <Link
-                    to={crumb.href}
-                    className="text-gray-500 hover:text-gray-700 transition-colors"
-                  >
-                    {crumb.label}
-                  </Link>
-                )}
+    <header className="bg-white border-b border-gray-200">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex justify-between items-center h-20">
+          <div className="flex items-center">
+            <Link to="/dashboard" className="flex items-center space-x-3 group">
+              <div className="w-7 h-7 border border-slate-300 rounded-lg flex items-center justify-center group-hover:border-slate-400 transition-colors">
+                <Plus className="h-4 w-4 text-slate-600 group-hover:text-slate-700 transition-colors" strokeWidth={1.5} />
               </div>
+              <span className="text-2xl font-light text-gray-900 group-hover:text-gray-700 transition-colors">
+                PflegeHelp
+              </span>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-6">
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-light transition-colors"
+              >
+                {item.name}
+              </Link>
             ))}
           </nav>
 
-          {/* Mobile page title */}
-          <div className="md:hidden">
-            <h1 className="text-lg font-semibold text-gray-900">
-              {breadcrumbs[breadcrumbs.length - 1]?.label}
-            </h1>
-          </div>
-        </div>
+          <div className="flex items-center space-x-6">
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 transition-colors"
+                >
+                  <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                    <User size={16} />
+                  </div>
+                  <span className="hidden sm:block font-medium">{user.name}</span>
+                </button>
+                
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-lg py-2 z-50 border border-gray-200">
+                    <Link
+                      to="/subscription"
+                      className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <Settings size={16} className="mr-3" />
+                      Abonnement
+                    </Link>
+                    <button
+                      onClick={handleSignOut}
+                      className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      <LogOut size={16} className="mr-3" />
+                      Abmelden
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center space-x-3">
+                <Link to="/login">
+                  <Button variant="ghost" size="sm">
+                    Anmelden
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button size="sm" className="bg-primary-600 hover:bg-primary-700 text-white">
+                    Registrieren
+                  </Button>
+                </Link>
+              </div>
+            )}
 
-        {/* Right side: Search + Notifications */}
-        <div className="flex items-center space-x-4">
-          {/* Search */}
-          <form onSubmit={handleSearch} className="hidden sm:block relative">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="Themen suchen..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 w-64 bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-500"
-              />
-            </div>
-          </form>
-
-          {/* Notifications */}
-          <div className="relative">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="p-2 relative"
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden text-gray-700 hover:text-gray-900"
             >
-              <Bell className="w-5 h-5 text-gray-600" />
-              {notifications > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                  {notifications > 9 ? '9+' : notifications}
-                </span>
-              )}
-            </Button>
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
-
-          {/* Mobile search button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="sm:hidden p-2"
-          >
-            <Search className="w-5 h-5 text-gray-600" />
-          </Button>
         </div>
-      </div>
 
-      {/* Mobile search bar (expandable) */}
-      <div className="sm:hidden mt-4">
-        <form onSubmit={handleSearch} className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <Input
-            type="text"
-            placeholder="Themen suchen..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-4 py-2 w-full bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-500"
-          />
-        </form>
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden py-4 border-t">
+            <nav className="flex flex-col space-y-2">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   )
 }
 
-export default Header
+export { Header }
