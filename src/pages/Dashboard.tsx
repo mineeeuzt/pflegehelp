@@ -111,25 +111,25 @@ const Dashboard = () => {
         {/* Trial Status */}
         {trialInfo.isTrialActive && user?.subscription_status === 'trial' && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-12"
+            className="mb-8"
           >
-            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <div className="bg-gray-50/50 border border-gray-100 rounded-lg p-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-green-500 rounded-full opacity-60"></div>
                   <div>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-sm text-gray-700 font-light">
                       Testphase aktiv
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs text-gray-500">
                       Noch {trialInfo.daysLeft} Tag{trialInfo.daysLeft !== 1 ? 'e' : ''}
                     </p>
                   </div>
                 </div>
                 <Link to="/subscription">
-                  <Button variant="outline" size="sm">
+                  <Button variant="ghost" size="sm" className="text-xs text-gray-500 hover:text-gray-700 px-2 py-1 h-auto">
                     Verwalten
                   </Button>
                 </Link>
