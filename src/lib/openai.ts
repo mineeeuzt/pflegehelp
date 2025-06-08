@@ -574,23 +574,44 @@ export async function generateAIResponse(
   prompt: string,
   userInput: string
 ): Promise<string> {
-  // Prüfe einfachen Cache zuerst (nur für PESR und SMART-Ziele)
-  const cacheableTask = prompt.includes('pesr') || prompt.includes('smartZiel')
+  // Finale Model-Optimierung: Intelligente Auswahl basierend auf Komplexität
+  const isSimpleTask = (
+    prompt.includes('pesr') ||
+    prompt.includes('smartZiel') ||
+    prompt.includes('medikamentenszenario') ||
+    (userInput.length < 50 && !prompt.includes('fallbeispielProfi')) ||
+    (userInput.length < 100 && !prompt.includes('pflegeplanung'))
+  )
+  
+  const model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
+  
+  // Dynamische Token-Optimierung basierend auf Task-Typ
+  let maxTokens: number
+  if (prompt.includes('pesr')) maxTokens = 400
+  else if (prompt.includes('smartZiel')) maxTokens = 300
+  else if (prompt.includes('medikamentenszenario')) maxTokens = 800
+  else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
+  else if (isSimpleTask) maxTokens = 800
+  else maxTokens = 2000
+  
+  // Erweiterte Caching-Strategie für häufige Tasks
+  const cacheableTask = (
+    prompt.includes('pesr') || 
+    prompt.includes('smartZiel') ||
+    (prompt.includes('medikamentenszenario') && userInput.length < 80) ||
+    (isSimpleTask && userInput.length < 60)
+  )
+  
+  // Prüfe Cache zuerst
   if (cacheableTask) {
     const cached = simpleCache.get(userInput)
-    if (cached) return cached
+    if (cached) {
+      console.log(`⚡ Cache HIT: ${model} | Tokens: ${maxTokens} | Instant response`)
+      return cached
+    }
   }
   
-  // Erweiterte Model-Optimierung: GPT-3.5 für einfache Aufgaben
-  const useGPT35 = (
-    (userInput.length < 100 && prompt.includes('pesr')) ||
-    prompt.includes('smartZiel') ||
-    (userInput.length < 50 && !prompt.includes('fallbeispielProfi')) ||
-    prompt.includes('medikamentenszenario')
-  )
-  const model = useGPT35 ? 'gpt-3.5-turbo' : 'gpt-4'
-  
-  console.log(`Using ${model} for AI request`)
+  console.log(`🤖 AI: ${model} | Tokens: ${maxTokens} | Cache: ${cacheableTask ? 'enabled' : 'disabled'}`)
   
   try {
     const completion = await openai.chat.completions.create({
@@ -605,7 +626,7 @@ export async function generateAIResponse(
           content: userInput,
         },
       ],
-      max_tokens: useGPT35 ? 1000 : 2000, // Weniger Token für einfache Aufgaben
+      max_tokens: maxTokens,
       temperature: 0.7,
     })
 
