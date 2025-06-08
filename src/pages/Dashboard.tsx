@@ -58,10 +58,10 @@ const Dashboard = () => {
       href: '/anamnese-simulator'
     },
     {
-      title: 'SMART-Ziele',
-      description: 'Präzise Pflegeziele formulieren',
+      title: 'Quiz & Lernkarten',
+      description: 'Interaktives Lernsystem mit Spaced Repetition',
       icon: Target,
-      href: '/smart-ziel'
+      href: '/quiz-lernkarten'
     }
   ]
 

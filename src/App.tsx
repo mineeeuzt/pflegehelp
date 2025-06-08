@@ -15,7 +15,7 @@ import FallbeispielGenerator from './pages/FallbeispielGenerator'
 import PflegeplanungWorkflow from './pages/PflegeplanungWorkflow'
 import MedikamentenTraining from './pages/MedikamentenTraining'
 import AnamnesesSimulator from './pages/AnamnesesSimulator'
-import SMARTZielAssistent from './pages/SMARTZielAssistent'
+import QuizLernkarten from './pages/QuizLernkarten'
 import PflegeinfoWorkflow from './pages/PflegeinfoWorkflow'
 import Profile from './pages/Profile'
 import Subscription from './pages/Subscription'
@@ -150,11 +150,11 @@ function App() {
             } 
           />
           <Route 
-            path="/smart-ziel" 
+            path="/quiz-lernkarten" 
             element={
               <ProtectedRoute>
                 <Layout>
-                  <SMARTZielAssistent />
+                  <QuizLernkarten />
                 </Layout>
               </ProtectedRoute>
             } 
