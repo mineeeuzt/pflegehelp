@@ -268,7 +268,6 @@ Verwende Fachsprache, aktuelle Pflegestandards und individualisiere auf den konk
   
   pesr: `Erstelle eine PESR-Pflegediagnose (Problem-Etiologie-Symptome/Signs-Ressourcen) basierend auf der beschriebenen Pflegesituation. Formuliere nach folgendem Schema: P (Problem): Beschreibe das Hauptproblem des Patienten präzise. E (Etiologie): Identifiziere die Ursachen und beitragenden Faktoren. S (Symptome/Signs): Liste beobachtbare Zeichen und Symptome auf. R (Ressourcen): Identifiziere Stärken und Ressourcen des Patienten. Verwende NANDA-I Terminologie und achte auf fachliche Präzision.`,
   
-  smartZiel: `Formuliere ein SMART-Pflegeziel für die beschriebene Pflegesituation. Das Ziel muss folgende Kriterien erfüllen: S (Spezifisch): Konkret und eindeutig formuliert, M (Messbar): Mit klaren Erfolgskriterien, A (Erreichbar): Realistisch und umsetzbar, R (Relevant): Bedeutsam für den Patienten, T (Terminiert): Mit klarem Zeitrahmen. Begründe, warum das Ziel alle SMART-Kriterien erfüllt und gib konkrete Evaluationsmethoden an.`,
   
   pflegeinfo: `Rolle: Du bist ein erfahrener Pflegeexperte und Qualitätsmanager mit Expertise in Pflegedokumentation und -standards. Du bewertest und optimierst Pflegeinformationen nach aktuellen Qualitätskriterien.
 
@@ -577,7 +576,6 @@ export async function generateAIResponse(
   // Finale Model-Optimierung: Intelligente Auswahl basierend auf Komplexität
   const isSimpleTask = (
     prompt.includes('pesr') ||
-    prompt.includes('smartZiel') ||
     prompt.includes('medikamentenszenario') ||
     (userInput.length < 50 && !prompt.includes('fallbeispielProfi')) ||
     (userInput.length < 100 && !prompt.includes('pflegeplanung'))
@@ -588,7 +586,6 @@ export async function generateAIResponse(
   // Dynamische Token-Optimierung basierend auf Task-Typ
   let maxTokens: number
   if (prompt.includes('pesr')) maxTokens = 400
-  else if (prompt.includes('smartZiel')) maxTokens = 300
   else if (prompt.includes('medikamentenszenario')) maxTokens = 800
   else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
   else if (isSimpleTask) maxTokens = 800
@@ -597,7 +594,6 @@ export async function generateAIResponse(
   // Erweiterte Caching-Strategie für häufige Tasks
   const cacheableTask = (
     prompt.includes('pesr') || 
-    prompt.includes('smartZiel') ||
     (prompt.includes('medikamentenszenario') && userInput.length < 80) ||
     (isSimpleTask && userInput.length < 60)
   )

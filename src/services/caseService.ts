@@ -19,10 +19,6 @@ export interface PESRInput {
   beobachtungen?: string
 }
 
-export interface SMARTZielInput {
-  pflegesituation: string
-  gewuenschteVerbesserung: string
-}
 
 export interface PflegeinfoInput {
   dokumentation: string
@@ -132,36 +128,6 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
     }
   },
 
-  async generateSMARTZiel(
-    input: SMARTZielInput,
-    userId: string
-  ): Promise<string> {
-    try {
-      await authService.incrementUsageCount(userId, 'care_plan')
-
-      const userInput = `
-Pflegesituation: ${input.pflegesituation}
-Gewünschte Verbesserung: ${input.gewuenschteVerbesserung}
-      `.trim()
-
-      const response = await generateAIResponse(AI_PROMPTS.smartZiel, userInput)
-
-      const caseData = {
-        title: 'SMART-Ziel',
-        content: userInput,
-        case_type: 'smart_ziel' as const,
-        ai_response: response,
-        user_id: userId
-      }
-
-      await useCaseStore.getState().createCase(caseData)
-      
-      return response
-    } catch (error) {
-      console.error('Error generating SMART-Ziel:', error)
-      throw new Error('Fehler beim Formulieren des SMART-Ziels')
-    }
-  },
 
   async evaluatePflegeinfo(
     input: PflegeinfoInput,
