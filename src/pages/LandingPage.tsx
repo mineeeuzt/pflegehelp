@@ -48,7 +48,7 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="text-4xl md:text-6xl text-gray-900 mb-6"
-              style={{ fontFamily: "'La Belle Aurore', cursive", fontWeight: 400 }}
+              style={{ fontFamily: "'Inter', sans-serif", fontWeight: 200, letterSpacing: '0.02em' }}
             >
               Dein intelligenter Lernassistent für die Pflege
             </motion.h1>
