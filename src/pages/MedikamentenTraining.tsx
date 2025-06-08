@@ -21,6 +21,9 @@ interface Medication {
   name: string
   dosage: string
   category: 'ace' | 'beta' | 'diuretic' | 'painkiller' | 'emergency' | 'antibiotic' | 'insulin' | 'anticoagulant' | 'bronchodilator' | 'steroid' | 'antiarrhythmic' | 'antiemetic'
+  activeIngredient: string
+  drugClass: string
+  indication: string
   color: string
 }
 
@@ -56,57 +59,58 @@ const MedikamentenTraining = () => {
   const [draggedItem, setDraggedItem] = useState<string | null>(null)
   const [isGeneratingScenario, setIsGeneratingScenario] = useState(false)
   const [aiGeneratedScenarios, setAiGeneratedScenarios] = useState<Scenario[]>([])
+  const [availableMedications, setAvailableMedications] = useState<Medication[]>([])
   const dropZoneRef = useRef<HTMLDivElement>(null)
 
-  const medications: Medication[] = [
+  const allMedications: Medication[] = [
     // ACE-Hemmer
-    { id: 'ramipril', name: 'Ramipril', dosage: '5mg', category: 'ace', color: 'bg-red-100 border-red-300 text-red-800' },
-    { id: 'enalapril', name: 'Enalapril', dosage: '10mg', category: 'ace', color: 'bg-red-100 border-red-300 text-red-800' },
+    { id: 'ramipril', name: 'Ramipril', dosage: '5mg', activeIngredient: 'Ramipril', drugClass: 'ACE-Hemmer', indication: 'Hypertonie, Herzinsuffizienz', category: 'ace', color: 'bg-red-50 border-red-200 text-red-700' },
+    { id: 'enalapril', name: 'Enalapril', dosage: '10mg', activeIngredient: 'Enalapril', drugClass: 'ACE-Hemmer', indication: 'Hypertonie, Herzinsuffizienz', category: 'ace', color: 'bg-red-50 border-red-200 text-red-700' },
     
     // Betablocker
-    { id: 'metoprolol', name: 'Metoprolol', dosage: '50mg', category: 'beta', color: 'bg-blue-100 border-blue-300 text-blue-800' },
-    { id: 'bisoprolol', name: 'Bisoprolol', dosage: '5mg', category: 'beta', color: 'bg-blue-100 border-blue-300 text-blue-800' },
+    { id: 'metoprolol', name: 'Metoprolol', dosage: '50mg', activeIngredient: 'Metoprolol', drugClass: 'Betablocker', indication: 'Tachykardie, Hypertonie', category: 'beta', color: 'bg-blue-50 border-blue-200 text-blue-700' },
+    { id: 'bisoprolol', name: 'Bisoprolol', dosage: '5mg', activeIngredient: 'Bisoprolol', drugClass: 'Betablocker', indication: 'Herzinsuffizienz, Hypertonie', category: 'beta', color: 'bg-blue-50 border-blue-200 text-blue-700' },
     
     // Diuretika
-    { id: 'furosemid', name: 'Furosemid', dosage: '40mg', category: 'diuretic', color: 'bg-yellow-100 border-yellow-300 text-yellow-800' },
-    { id: 'torasemid', name: 'Torasemid', dosage: '10mg', category: 'diuretic', color: 'bg-yellow-100 border-yellow-300 text-yellow-800' },
+    { id: 'furosemid', name: 'Furosemid', dosage: '40mg', activeIngredient: 'Furosemid', drugClass: 'Schleifendiuretikum', indication: 'Ödeme, Herzinsuffizienz', category: 'diuretic', color: 'bg-yellow-50 border-yellow-200 text-yellow-700' },
+    { id: 'torasemid', name: 'Torasemid', dosage: '10mg', activeIngredient: 'Torasemid', drugClass: 'Schleifendiuretikum', indication: 'Herzinsuffizienz, Hypertonie', category: 'diuretic', color: 'bg-yellow-50 border-yellow-200 text-yellow-700' },
     
     // Schmerzmittel
-    { id: 'ibuprofen', name: 'Ibuprofen', dosage: '400mg', category: 'painkiller', color: 'bg-green-100 border-green-300 text-green-800' },
-    { id: 'paracetamol', name: 'Paracetamol', dosage: '500mg', category: 'painkiller', color: 'bg-green-100 border-green-300 text-green-800' },
-    { id: 'metamizol', name: 'Metamizol', dosage: '500mg', category: 'painkiller', color: 'bg-green-100 border-green-300 text-green-800' },
+    { id: 'ibuprofen', name: 'Ibuprofen', dosage: '400mg', activeIngredient: 'Ibuprofen', drugClass: 'NSAID', indication: 'Schmerzen, Entzündung', category: 'painkiller', color: 'bg-green-50 border-green-200 text-green-700' },
+    { id: 'paracetamol', name: 'Paracetamol', dosage: '500mg', activeIngredient: 'Paracetamol', drugClass: 'Analgetikum', indication: 'Fieber, Kopfschmerzen', category: 'painkiller', color: 'bg-green-50 border-green-200 text-green-700' },
+    { id: 'metamizol', name: 'Metamizol', dosage: '500mg', activeIngredient: 'Metamizol', drugClass: 'Pyrazolon', indication: 'Starke Schmerzen, Fieber', category: 'painkiller', color: 'bg-green-50 border-green-200 text-green-700' },
     
     // Notfallmedikamente
-    { id: 'atropin', name: 'Atropin', dosage: '0.5mg', category: 'emergency', color: 'bg-purple-100 border-purple-300 text-purple-800' },
-    { id: 'adrenalin', name: 'Adrenalin', dosage: '1mg', category: 'emergency', color: 'bg-purple-100 border-purple-300 text-purple-800' },
+    { id: 'atropin', name: 'Atropin', dosage: '0.5mg', activeIngredient: 'Atropin', drugClass: 'Parasympatholytikum', indication: 'Bradykardie, Vergiftung', category: 'emergency', color: 'bg-purple-50 border-purple-200 text-purple-700' },
+    { id: 'adrenalin', name: 'Adrenalin', dosage: '1mg', activeIngredient: 'Epinephrin', drugClass: 'Sympathomimetikum', indication: 'Anaphylaxie, Reanimation', category: 'emergency', color: 'bg-purple-50 border-purple-200 text-purple-700' },
     
     // Antibiotika
-    { id: 'amoxicillin', name: 'Amoxicillin', dosage: '1000mg', category: 'antibiotic', color: 'bg-orange-100 border-orange-300 text-orange-800' },
-    { id: 'ciprofloxacin', name: 'Ciprofloxacin', dosage: '500mg', category: 'antibiotic', color: 'bg-orange-100 border-orange-300 text-orange-800' },
+    { id: 'amoxicillin', name: 'Amoxicillin', dosage: '1000mg', activeIngredient: 'Amoxicillin', drugClass: 'Penicillin', indication: 'Bakterielle Infekte', category: 'antibiotic', color: 'bg-orange-50 border-orange-200 text-orange-700' },
+    { id: 'ciprofloxacin', name: 'Ciprofloxacin', dosage: '500mg', activeIngredient: 'Ciprofloxacin', drugClass: 'Fluorchinolon', indication: 'Harnwegsinfekte', category: 'antibiotic', color: 'bg-orange-50 border-orange-200 text-orange-700' },
     
     // Insulin
-    { id: 'insulin-rapid', name: 'Insulin rapid', dosage: '4 IE', category: 'insulin', color: 'bg-pink-100 border-pink-300 text-pink-800' },
-    { id: 'insulin-long', name: 'Insulin long', dosage: '12 IE', category: 'insulin', color: 'bg-pink-100 border-pink-300 text-pink-800' },
+    { id: 'insulin-rapid', name: 'Insulin rapid', dosage: '4 IE', activeIngredient: 'Insulin aspart', drugClass: 'Kurz-Insulin', indication: 'Hyperglykämie', category: 'insulin', color: 'bg-pink-50 border-pink-200 text-pink-700' },
+    { id: 'insulin-long', name: 'Insulin long', dosage: '12 IE', activeIngredient: 'Insulin glargin', drugClass: 'Lang-Insulin', indication: 'Diabetes-Einstellung', category: 'insulin', color: 'bg-pink-50 border-pink-200 text-pink-700' },
     
     // Antikoagulantien
-    { id: 'heparin', name: 'Heparin', dosage: '5000 IE', category: 'anticoagulant', color: 'bg-indigo-100 border-indigo-300 text-indigo-800' },
-    { id: 'marcumar', name: 'Marcumar', dosage: '3mg', category: 'anticoagulant', color: 'bg-indigo-100 border-indigo-300 text-indigo-800' },
+    { id: 'heparin', name: 'Heparin', dosage: '5000 IE', activeIngredient: 'Heparin', drugClass: 'Antikoagulans', indication: 'Thromboseprophylaxe', category: 'anticoagulant', color: 'bg-indigo-50 border-indigo-200 text-indigo-700' },
+    { id: 'marcumar', name: 'Marcumar', dosage: '3mg', activeIngredient: 'Phenprocoumon', drugClass: 'Cumarin', indication: 'Antikoagulation', category: 'anticoagulant', color: 'bg-indigo-50 border-indigo-200 text-indigo-700' },
     
     // Bronchodilatatoren
-    { id: 'salbutamol', name: 'Salbutamol', dosage: '2 Hübe', category: 'bronchodilator', color: 'bg-cyan-100 border-cyan-300 text-cyan-800' },
-    { id: 'ipratropium', name: 'Ipratropium', dosage: '2 Hübe', category: 'bronchodilator', color: 'bg-cyan-100 border-cyan-300 text-cyan-800' },
+    { id: 'salbutamol', name: 'Salbutamol', dosage: '2 Hübe', activeIngredient: 'Salbutamol', drugClass: 'Beta-2-Agonist', indication: 'Asthma, COPD', category: 'bronchodilator', color: 'bg-cyan-50 border-cyan-200 text-cyan-700' },
+    { id: 'ipratropium', name: 'Ipratropium', dosage: '2 Hübe', activeIngredient: 'Ipratropium', drugClass: 'Anticholinergikum', indication: 'COPD, Bronchospasmus', category: 'bronchodilator', color: 'bg-cyan-50 border-cyan-200 text-cyan-700' },
     
     // Steroide
-    { id: 'prednisolon', name: 'Prednisolon', dosage: '20mg', category: 'steroid', color: 'bg-teal-100 border-teal-300 text-teal-800' },
-    { id: 'dexamethason', name: 'Dexamethason', dosage: '4mg', category: 'steroid', color: 'bg-teal-100 border-teal-300 text-teal-800' },
+    { id: 'prednisolon', name: 'Prednisolon', dosage: '20mg', activeIngredient: 'Prednisolon', drugClass: 'Kortikosteroid', indication: 'Entzündung, Asthma', category: 'steroid', color: 'bg-teal-50 border-teal-200 text-teal-700' },
+    { id: 'dexamethason', name: 'Dexamethason', dosage: '4mg', activeIngredient: 'Dexamethason', drugClass: 'Kortikosteroid', indication: 'Schwere Entzündung', category: 'steroid', color: 'bg-teal-50 border-teal-200 text-teal-700' },
     
     // Antiarrhythmika
-    { id: 'amiodaron', name: 'Amiodaron', dosage: '200mg', category: 'antiarrhythmic', color: 'bg-violet-100 border-violet-300 text-violet-800' },
-    { id: 'verapamil', name: 'Verapamil', dosage: '5mg', category: 'antiarrhythmic', color: 'bg-violet-100 border-violet-300 text-violet-800' },
+    { id: 'amiodaron', name: 'Amiodaron', dosage: '200mg', activeIngredient: 'Amiodaron', drugClass: 'Antiarrhythmikum', indication: 'Vorhofflimmern', category: 'antiarrhythmic', color: 'bg-violet-50 border-violet-200 text-violet-700' },
+    { id: 'verapamil', name: 'Verapamil', dosage: '5mg', activeIngredient: 'Verapamil', drugClass: 'Kalziumantagonist', indication: 'Supravent. Tachykardie', category: 'antiarrhythmic', color: 'bg-violet-50 border-violet-200 text-violet-700' },
     
     // Antiemetika
-    { id: 'ondansetron', name: 'Ondansetron', dosage: '4mg', category: 'antiemetic', color: 'bg-rose-100 border-rose-300 text-rose-800' },
-    { id: 'metoclopramid', name: 'Metoclopramid', dosage: '10mg', category: 'antiemetic', color: 'bg-rose-100 border-rose-300 text-rose-800' }
+    { id: 'ondansetron', name: 'Ondansetron', dosage: '4mg', activeIngredient: 'Ondansetron', drugClass: '5-HT3-Antagonist', indication: 'Übelkeit, Erbrechen', category: 'antiemetic', color: 'bg-rose-50 border-rose-200 text-rose-700' },
+    { id: 'metoclopramid', name: 'Metoclopramid', dosage: '10mg', activeIngredient: 'Metoclopramid', drugClass: 'Dopamin-Antagonist', indication: 'Übelkeit, Gastroparese', category: 'antiemetic', color: 'bg-rose-50 border-rose-200 text-rose-700' }
   ]
 
   const scenarios: Scenario[] = [
@@ -279,6 +283,22 @@ const MedikamentenTraining = () => {
     }
   ]
 
+  // Funktion zum Auswählen von 8 zufälligen Medikamenten pro Szenario
+  const selectRandomMedications = (correctMedId: string): Medication[] => {
+    // Stelle sicher, dass das korrekte Medikament dabei ist
+    const correctMed = allMedications.find(m => m.id === correctMedId)
+    if (!correctMed) return []
+    
+    // Wähle 7 andere zufällige Medikamente
+    const otherMeds = allMedications
+      .filter(m => m.id !== correctMedId)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 7)
+    
+    // Mische alle 8 Medikamente
+    return [correctMed, ...otherMeds].sort(() => Math.random() - 0.5)
+  }
+
   const startGame = () => {
     setGameStarted(true)
     setScore(0)
@@ -367,6 +387,7 @@ const MedikamentenTraining = () => {
     const aiScenario = await generateAIScenario()
     if (aiScenario) {
       setCurrentScenario(aiScenario)
+      setAvailableMedications(selectRandomMedications(aiScenario.correctMedication))
       setSelectedMedication(null)
       setDoctorCalled(null)
       setShowResult(false)
@@ -384,6 +405,7 @@ const MedikamentenTraining = () => {
     const randomScenario = scenarioPool[Math.floor(Math.random() * scenarioPool.length)]
     
     setCurrentScenario(randomScenario)
+    setAvailableMedications(selectRandomMedications(randomScenario.correctMedication))
     setSelectedMedication(null)
     setDoctorCalled(null)
     setShowResult(false)
@@ -530,11 +552,28 @@ const MedikamentenTraining = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-light text-gray-900">Medikamenten-Training</h1>
-            <p className="text-gray-600">
-              Szenario {completedScenarios + 1} • {currentScenario?.title}
-              {currentScenario?.id.startsWith('ai-') && <span className="ml-2 text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">🤖 KI-generiert</span>}
-              {isGeneratingScenario && <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">⚡ Generiere neues Szenario...</span>}
-            </p>
+            <div className="flex items-center space-x-3">
+              <p className="text-gray-600">
+                Szenario {completedScenarios + 1} • 
+                {isGeneratingScenario ? (
+                  <span className="text-slate-600 font-medium">Neues Szenario wird erstellt...</span>
+                ) : (
+                  <span className="text-slate-800 font-medium">{currentScenario?.title.replace(/\b(Hypertensive|Symptomatische|Supraventrikuläre|Hyperglykämische|Bakterielle|Anaphylaktischer|Postoperative)\b/g, '').trim()}</span>
+                )}
+              </p>
+              {currentScenario?.id.startsWith('ai-') && !isGeneratingScenario && (
+                <span className="text-xs bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 px-2 py-1 rounded-full border border-purple-200">
+                  🤖 KI-generiert
+                </span>
+              )}
+              {isGeneratingScenario && (
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  className="w-6 h-6 border-2 border-slate-300 border-t-slate-600 rounded-full"
+                />
+              )}
+            </div>
           </div>
           <div className="text-right">
             <div className="text-2xl font-bold text-slate-700">🏆 {score}</div>
@@ -653,9 +692,9 @@ const MedikamentenTraining = () => {
                     {selectedMedication ? (
                       <div className="flex items-center justify-center">
                         <div className={`px-4 py-2 rounded-lg border ${
-                          medications.find(m => m.id === selectedMedication)?.color
+                          availableMedications.find(m => m.id === selectedMedication)?.color
                         }`}>
-                          {medications.find(m => m.id === selectedMedication)?.name} {medications.find(m => m.id === selectedMedication)?.dosage}
+                          {availableMedications.find(m => m.id === selectedMedication)?.name} {availableMedications.find(m => m.id === selectedMedication)?.dosage}
                         </div>
                       </div>
                     ) : (
@@ -703,24 +742,62 @@ const MedikamentenTraining = () => {
           <div>
             <Card>
               <CardHeader>
-                <CardTitle>💊 Verfügbare Medikamente</CardTitle>
+                <CardTitle className="flex items-center text-slate-800">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                    <span className="text-white text-sm font-bold">💊</span>
+                  </div>
+                  <div>
+                    <div className="text-base font-semibold">Verfügbare Medikamente</div>
+                    <div className="text-xs text-slate-500 font-normal">{availableMedications.length} von {allMedications.length} Medikamenten</div>
+                  </div>
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
-                  {medications.map((med) => (
+                {isGeneratingScenario ? (
+                  <div className="flex flex-col items-center justify-center py-8 space-y-4">
                     <motion.div
-                      key={med.id}
-                      className={`p-3 rounded-lg border cursor-move transition-all hover:scale-105 ${med.color}`}
-                      draggable
-                      onDragStart={() => handleDragStart(med.id)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      className="w-16 h-16 border border-slate-300 rounded-lg flex items-center justify-center bg-white shadow-sm"
+                      animate={{ 
+                        scale: [1, 1.1, 1],
+                        rotate: [0, 5, -5, 0]
+                      }}
+                      transition={{ 
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
                     >
-                      <div className="font-medium">{med.name}</div>
-                      <div className="text-sm opacity-75">{med.dosage}</div>
+                      <Plus className="h-8 w-8 text-slate-600" strokeWidth={1.5} />
                     </motion.div>
-                  ))}
-                </div>
+                    <div className="text-center">
+                      <p className="text-sm font-medium text-slate-700">Erstelle neues Szenario</p>
+                      <p className="text-xs text-slate-500">KI wählt Medikamente aus...</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {availableMedications.map((med) => (
+                      <motion.div
+                        key={med.id}
+                        className={`p-3 rounded-xl border cursor-move transition-all hover:shadow-md hover:-translate-y-0.5 ${med.color}`}
+                        draggable
+                        onDragStart={() => handleDragStart(med.id)}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: Math.random() * 0.3 }}
+                      >
+                        <div className="font-semibold text-sm">{med.name}</div>
+                        <div className="text-xs opacity-75 font-medium">{med.dosage}</div>
+                        <div className="text-xs opacity-60 mt-1">
+                          <span className="font-medium">{med.activeIngredient}</span> • {med.drugClass}
+                        </div>
+                        <div className="text-xs opacity-50 mt-0.5">{med.indication}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
