@@ -3487,6 +3487,232 @@ export const medicalBasicsCategories: Category[] = [
                 ]
               }
             ]
+          },
+          {
+            id: 'urinary-tract',
+            name: 'Harnwege',
+            description: 'Anatomie und Pathologie der ableitenden Harnwege',
+            icon: '🚿',
+            difficulty: 'medium',
+            parentId: 'renal-system',
+            children: [
+              {
+                id: 'ureter',
+                name: 'Harnleiter (Ureter)',
+                description: 'Harnleitung von Niere zur Blase',
+                icon: '🚰',
+                difficulty: 'medium',
+                parentId: 'urinary-tract',
+                children: [
+                  {
+                    id: 'ureter-anatomy',
+                    name: 'Anatomie & Verlauf',
+                    description: 'Anatomischer Verlauf der Harnleiter',
+                    icon: '📏',
+                    difficulty: 'medium',
+                    parentId: 'ureter'
+                  },
+                  {
+                    id: 'ureter-peristalsis',
+                    name: 'Peristaltik',
+                    description: 'Wellenförmiger Harntransport',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'ureter'
+                  },
+                  {
+                    id: 'ureter-constrictions',
+                    name: 'Engstellen (3 physiologische)',
+                    description: 'Anatomische Verengungen des Harnleiters',
+                    icon: '🔗',
+                    difficulty: 'medium',
+                    parentId: 'ureter'
+                  },
+                  {
+                    id: 'ureteral-stones',
+                    name: 'Harnleiter-Steine',
+                    description: 'Nephrolithiasis und Ureterolithiasis',
+                    icon: '💎',
+                    difficulty: 'medium',
+                    parentId: 'ureter'
+                  },
+                  {
+                    id: 'vesicoureteral-reflux',
+                    name: 'Vesikoureteraler Reflux',
+                    description: 'Rückfluss von Urin in den Harnleiter',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'ureter'
+                  }
+                ]
+              },
+              {
+                id: 'bladder',
+                name: 'Harnblase',
+                description: 'Harnspeicherung und -entleerung',
+                icon: '🫧',
+                difficulty: 'medium',
+                parentId: 'urinary-tract',
+                children: [
+                  {
+                    id: 'bladder-anatomy',
+                    name: 'Anatomie (Detrusor, Trigonium)',
+                    description: 'Aufbau der Harnblase',
+                    icon: '🫧',
+                    difficulty: 'medium',
+                    parentId: 'bladder'
+                  },
+                  {
+                    id: 'bladder-filling',
+                    name: 'Blasenfüllung & -entleerung',
+                    description: 'Physiologie der Blasenfunktion',
+                    icon: '⏳',
+                    difficulty: 'medium',
+                    parentId: 'bladder'
+                  },
+                  {
+                    id: 'micturition',
+                    name: 'Miktion (Blasenentleerung)',
+                    description: 'Koordinierte Blasenentleerung',
+                    icon: '🚿',
+                    difficulty: 'medium',
+                    parentId: 'bladder'
+                  },
+                  {
+                    id: 'bladder-reflexes',
+                    name: 'Blasenreflexe',
+                    description: 'Neuroreflektorische Kontrolle',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'bladder'
+                  },
+                  {
+                    id: 'neurogenic-bladder',
+                    name: 'Neurogenic Bladder',
+                    description: 'Neurologische Blasenentleerungsstörungen',
+                    icon: '🧠',
+                    difficulty: 'hard',
+                    parentId: 'bladder'
+                  },
+                  {
+                    id: 'bladder-capacity',
+                    name: 'Blasenkapazität (300-500ml)',
+                    description: 'Normale Blasenfüllungsmengen',
+                    icon: '📏',
+                    difficulty: 'easy',
+                    parentId: 'bladder'
+                  }
+                ]
+              },
+              {
+                id: 'urethra',
+                name: 'Harnröhre (Urethra)',
+                description: 'Harnausleitung und Kontinenzmechanismen',
+                icon: '🚿',
+                difficulty: 'medium',
+                parentId: 'urinary-tract',
+                children: [
+                  {
+                    id: 'male-urethra',
+                    name: 'Männliche Harnröhre (20cm: Pars prostatica, membranacea, spongiosa)',
+                    description: 'Anatomie der männlichen Harnröhre',
+                    icon: '♂️',
+                    difficulty: 'medium',
+                    parentId: 'urethra'
+                  },
+                  {
+                    id: 'female-urethra',
+                    name: 'Weibliche Harnröhre (3-5cm: kurz, gerade)',
+                    description: 'Anatomie der weiblichen Harnröhre',
+                    icon: '♀️',
+                    difficulty: 'medium',
+                    parentId: 'urethra'
+                  },
+                  {
+                    id: 'urethral-sphincters',
+                    name: 'Schließmuskeln (intern/extern)',
+                    description: 'Kontinenz-Schließmuskeln',
+                    icon: '🔒',
+                    difficulty: 'medium',
+                    parentId: 'urethra'
+                  },
+                  {
+                    id: 'continence-mechanisms',
+                    name: 'Kontinenz-Mechanismen',
+                    description: 'Physiologie der Harnkontinenz',
+                    icon: '🛡️',
+                    difficulty: 'hard',
+                    parentId: 'urethra'
+                  },
+                  {
+                    id: 'urethral-valves',
+                    name: 'Harnröhrenklappen',
+                    description: 'Angeborene Harnröhrenfehlbildungen',
+                    icon: '🚪',
+                    difficulty: 'medium',
+                    parentId: 'urethra'
+                  }
+                ]
+              },
+              {
+                id: 'urinary-incontinence',
+                name: 'Harninkontinenz',
+                description: 'Formen und Mechanismen der Harninkontinenz',
+                icon: '💧',
+                difficulty: 'medium',
+                parentId: 'urinary-tract',
+                children: [
+                  {
+                    id: 'stress-incontinence',
+                    name: 'Belastungsinkontinenz',
+                    description: 'Urinverlust bei körperlicher Belastung',
+                    icon: '🏃',
+                    difficulty: 'medium',
+                    parentId: 'urinary-incontinence'
+                  },
+                  {
+                    id: 'urge-incontinence',
+                    name: 'Dranginkontinenz',
+                    description: 'Urinverlust bei imperativem Harndrang',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'urinary-incontinence'
+                  },
+                  {
+                    id: 'mixed-incontinence',
+                    name: 'Mischinkontinenz',
+                    description: 'Kombination aus Belastungs- und Dranginkontinenz',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'urinary-incontinence'
+                  },
+                  {
+                    id: 'overflow-incontinence',
+                    name: 'Überlaufinkontinenz',
+                    description: 'Urinverlust bei überfüllter Blase',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'urinary-incontinence'
+                  },
+                  {
+                    id: 'reflex-incontinence',
+                    name: 'Reflexinkontinenz',
+                    description: 'Neurologisch bedingte Inkontinenz',
+                    icon: '🧠',
+                    difficulty: 'medium',
+                    parentId: 'urinary-incontinence'
+                  },
+                  {
+                    id: 'extraurethral-incontinence',
+                    name: 'Extraurethrale Inkontinenz',
+                    description: 'Urinverlust nicht über die Harnröhre',
+                    icon: '🔀',
+                    difficulty: 'medium',
+                    parentId: 'urinary-incontinence'
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
