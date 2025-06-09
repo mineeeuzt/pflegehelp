@@ -1032,6 +1032,106 @@ export const quizCategories: QuizCategory[] = [
     color: 'bg-amber-900',
     icon: '🏔️'
   },
+  // Frakturheilung
+  {
+    id: 'fracture-healing',
+    name: 'Frakturheilung',
+    description: 'Phasen der Knochenheilung',
+    color: 'bg-rose-500',
+    icon: '🩹'
+  },
+  {
+    id: 'hematoma-inflammation',
+    name: 'Hämatom- & Entzündungsphase',
+    description: 'Initiale Phase der Frakturheilung',
+    color: 'bg-rose-400',
+    icon: '🩸'
+  },
+  {
+    id: 'repair-phase',
+    name: 'Reparationsphase (weicher/harter Kallus)',
+    description: 'Kallusbildung bei der Frakturheilung',
+    color: 'bg-rose-300',
+    icon: '🦴'
+  },
+  {
+    id: 'remodeling-phase',
+    name: 'Umbauphase (Remodeling)',
+    description: 'Finale Knochenumbauprozesse',
+    color: 'bg-rose-600',
+    icon: '🔄'
+  },
+  {
+    id: 'fracture-types',
+    name: 'Frakturtypen (AO-Klassifikation)',
+    description: 'Systematische Fraktureinteilung',
+    color: 'bg-rose-700',
+    icon: '📋'
+  },
+  {
+    id: 'fracture-complications',
+    name: 'Komplikationen (Pseudarthrose, Osteomyelitis)',
+    description: 'Heilungsstörungen und Komplikationen',
+    color: 'bg-rose-800',
+    icon: '⚠️'
+  },
+  {
+    id: 'healing-disorders',
+    name: 'Heilungsstörungen',
+    description: 'Störungen der Frakturheilung',
+    color: 'bg-rose-900',
+    icon: '🚫'
+  },
+  // Knochenstoffwechsel
+  {
+    id: 'bone-metabolism',
+    name: 'Knochenstoffwechsel',
+    description: 'Regulation des Knochenstoffwechsels',
+    color: 'bg-lime-500',
+    icon: '🧪'
+  },
+  {
+    id: 'calcium-phosphate',
+    name: 'Kalzium-Phosphat-Haushalt',
+    description: 'Mineralstoffwechsel des Knochens',
+    color: 'bg-lime-400',
+    icon: '🧱'
+  },
+  {
+    id: 'vitamin-d',
+    name: 'Vitamin D (Cholecalciferol → Calcitriol)',
+    description: 'Vitamin D-Stoffwechsel und Knochengesundheit',
+    color: 'bg-lime-300',
+    icon: '☀️'
+  },
+  {
+    id: 'parathyroid-hormone',
+    name: 'Parathormon (PTH)',
+    description: 'Kalziumregulation durch Parathormon',
+    color: 'bg-lime-600',
+    icon: '🧬'
+  },
+  {
+    id: 'calcitonin',
+    name: 'Calcitonin',
+    description: 'Kalziumsenkung durch Calcitonin',
+    color: 'bg-lime-700',
+    icon: '🎯'
+  },
+  {
+    id: 'osteoporosis-pathophysiology',
+    name: 'Osteoporose-Pathophysiologie',
+    description: 'Entstehung und Mechanismen der Osteoporose',
+    color: 'bg-lime-800',
+    icon: '🕳️'
+  },
+  {
+    id: 'rank-rankl-opg',
+    name: 'RANK/RANKL/OPG-System',
+    description: 'Molekulare Regulation des Knochenumbaus',
+    color: 'bg-lime-900',
+    icon: '🔬'
+  },
   // Gelenksystem
   {
     id: 'joint-system',
@@ -1727,7 +1827,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Kompakta und Spongiosa', 'Periost und Endost', 'Osteozyten und Osteoblasten', 'Mark und Kortex'],
     correctAnswer: 0,
     explanation: 'Knochengewebe besteht aus Kompakta (kompakte, dichte Knochensubstanz) und Spongiosa (schwammartige, poröse Knochensubstanz).',
-    category: quizCategories[932], // compact-spongy
+    category: quizCategories[944], // compact-spongy
     difficulty: 'leicht',
     tags: ['knochen', 'histologie', 'kompakta', 'spongiosa']
   },
@@ -1737,7 +1837,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Osteoblasten', 'Osteozyten', 'Osteoklasten', 'Chondrozyten'],
     correctAnswer: 2,
     explanation: 'Osteoklasten sind die Zellen, die für den Knochenabbau (Resorption) verantwortlich sind. Osteoblasten bauen Knochen auf, Osteozyten sind reife Knochenzellen.',
-    category: quizCategories[935], // bone-cells
+    category: quizCategories[947], // bone-cells
     difficulty: 'mittel',
     tags: ['osteoklasten', 'knochenabbau', 'remodeling']
   },
@@ -1747,7 +1847,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Knochen wachsen nur bis zum 25. Lebensjahr', 'Knochen passen sich der Belastung an', 'Alle Knochen haben die gleiche Dichte', 'Knochenbruch heilt immer vollständig'],
     correctAnswer: 1,
     explanation: 'Das Wolff\'sche Gesetz besagt, dass sich Knochen an die mechanische Belastung anpassen: Bei höherer Belastung werden sie stärker, bei fehlender Belastung schwächer.',
-    category: quizCategories[952], // wolffs-law
+    category: quizCategories[964], // wolffs-law
     difficulty: 'mittel',
     tags: ['wolff-gesetz', 'anpassung', 'belastung']
   },
@@ -1757,7 +1857,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Scharniergelenk', 'Kugelgelenk', 'Sattelgelenk', 'Drehgelenk'],
     correctAnswer: 1,
     explanation: 'Das Kugelgelenk (z.B. Schulter- und Hüftgelenk) ist ein dreiachsiges Gelenk, das Bewegungen in allen drei Raumachsen ermöglicht.',
-    category: quizCategories[960], // ball-socket
+    category: quizCategories[972], // ball-socket
     difficulty: 'leicht',
     tags: ['kugelgelenk', 'bewegungsachsen', 'schulter', 'hüfte']
   },
@@ -1767,7 +1867,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Skelettmuskel ist unwillkürlich', 'Glatter Muskel ist quergestreift', 'Skelettmuskel ist willkürlich steuerbar', 'Beide sind identisch'],
     correctAnswer: 2,
     explanation: 'Skelettmuskel ist quergestreift und willkürlich steuerbar, während glatter Muskel nicht quergestreift und unwillkürlich (autonom) gesteuert wird.',
-    category: quizCategories[967], // skeletal-muscle
+    category: quizCategories[979], // skeletal-muscle
     difficulty: 'leicht',
     tags: ['skelettmuskel', 'willkürlich', 'quergestreift']
   },
@@ -1777,7 +1877,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Bänder', 'Sehnen', 'Knorpel', 'Faszien'],
     correctAnswer: 1,
     explanation: 'Sehnen (Tendines) verbinden Muskeln mit Knochen und übertragen die Muskelkraft auf das Skelett. Bänder verbinden Knochen mit Knochen.',
-    category: quizCategories[967], // skeletal-muscle
+    category: quizCategories[979], // skeletal-muscle
     difficulty: 'leicht',
     tags: ['sehnen', 'muskeln', 'knochen', 'kraftübertragung']
   },
@@ -1787,7 +1887,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Ein Muskeltyp', 'Strukturelle Einheit der Kompakta', 'Ein Gelenktyp', 'Eine Knochenerkrankung'],
     correctAnswer: 1,
     explanation: 'Das Havers-System (Osteon) ist die strukturelle und funktionelle Grundeinheit der Kompakta, bestehend aus konzentrisch angeordneten Knochenlamellen um einen Zentralkanal.',
-    category: quizCategories[940], // haversian-system
+    category: quizCategories[952], // haversian-system
     difficulty: 'schwer',
     tags: ['havers-system', 'osteon', 'kompakta', 'histologie']
   },
@@ -1797,9 +1897,61 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Kniegelenk', 'Ellenbogengelenk', 'Schultergelenk', 'Handgelenk'],
     correctAnswer: 2,
     explanation: 'Das Schultergelenk ist als Kugelgelenk das beweglichste Gelenk des Körpers, allerdings auf Kosten der Stabilität.',
-    category: quizCategories[960], // ball-socket
+    category: quizCategories[972], // ball-socket
     difficulty: 'leicht',
     tags: ['schultergelenk', 'beweglichkeit', 'kugelgelenk']
+  },
+  
+  // Frakturheilung & Knochenstoffwechsel - Fragen
+  {
+    id: 'bone_fx_001',
+    question: 'Welche ist die erste Phase der Frakturheilung?',
+    options: ['Kallusbildung', 'Hämatom- und Entzündungsphase', 'Remodeling', 'Knöcherne Überbrückung'],
+    correctAnswer: 1,
+    explanation: 'Die Hämatom- und Entzündungsphase ist die erste Phase der Frakturheilung. Es bildet sich ein Bluterguss und Entzündungszellen wandern ein.',
+    category: quizCategories[1036], // hematoma-inflammation
+    difficulty: 'leicht',
+    tags: ['frakturheilung', 'hämatom', 'entzündung']
+  },
+  {
+    id: 'bone_fx_002',
+    question: 'Was ist eine Pseudarthrose?',
+    options: ['Normale Knochenheilung', 'Falschgelenkbildung', 'Zu schnelle Heilung', 'Knocheninfektion'],
+    correctAnswer: 1,
+    explanation: 'Eine Pseudarthrose ist eine Falschgelenkbildung, bei der die Fraktur nicht knöchern heilt, sondern bindegewebig überbrückt wird.',
+    category: quizCategories[1041], // fracture-complications
+    difficulty: 'mittel',
+    tags: ['pseudarthrose', 'komplikationen', 'heilungsstörung']
+  },
+  {
+    id: 'bone_fx_003',
+    question: 'Welches Vitamin ist essentiell für die Kalziumaufnahme im Darm?',
+    options: ['Vitamin A', 'Vitamin B12', 'Vitamin C', 'Vitamin D'],
+    correctAnswer: 3,
+    explanation: 'Vitamin D (Calcitriol) ist essentiell für die Kalziumaufnahme im Darm und spielt eine zentrale Rolle im Knochenstoffwechsel.',
+    category: quizCategories[1046], // vitamin-d
+    difficulty: 'leicht',
+    tags: ['vitamin-d', 'kalzium', 'knochenstoffwechsel']
+  },
+  {
+    id: 'bone_fx_004',
+    question: 'Welches Hormon erhöht den Kalziumspiegel im Blut?',
+    options: ['Calcitonin', 'Parathormon', 'Insulin', 'Cortisol'],
+    correctAnswer: 1,
+    explanation: 'Parathormon (PTH) erhöht den Kalziumspiegel im Blut durch Freisetzung aus den Knochen, erhöhte Resorption in der Niere und Aktivierung von Vitamin D.',
+    category: quizCategories[1047], // parathyroid-hormone
+    difficulty: 'mittel',
+    tags: ['parathormon', 'kalzium', 'hormonregulation']
+  },
+  {
+    id: 'bone_fx_005',
+    question: 'Was bedeutet RANK/RANKL im Knochenstoffwechsel?',
+    options: ['Vitaminrezeptoren', 'Osteoklasten-Aktivierungssystem', 'Knochenwachstumsfaktoren', 'Kalziumtransporter'],
+    correctAnswer: 1,
+    explanation: 'RANK/RANKL ist ein Rezeptor-Ligand-System, das die Osteoklasten-Differenzierung und -Aktivierung reguliert. OPG wirkt als Decoy-Rezeptor und hemmt die Osteoklasten.',
+    category: quizCategories[1051], // rank-rankl-opg
+    difficulty: 'schwer',
+    tags: ['rank-rankl', 'osteoklasten', 'knochenumbau']
   },
 
   // Medikamentenlehre
@@ -2193,7 +2345,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_musculo_001',
     front: 'Knochenaufbau - Kompakta vs. Spongiosa',
     back: '**Kompakta (Corticalis):**\n• Dichte, kompakte Knochensubstanz\n• Außenschicht der Röhrenknochen\n• Hohe mechanische Festigkeit\n• Havers-Systeme (Osteone)\n\n**Spongiosa (Trabeculae):**\n• Schwammartige, poröse Struktur\n• Innenschicht, Epiphysen\n• Gerüstartige Knochenbälkchen\n• Enthält rotes Knochenmark\n\n**Funktionale Bedeutung:**\n• Kompakta: Stabilität, Biegefestigkeit\n• Spongiosa: Gewichtsreduktion, Hämatopoese',
-    category: quizCategories[932], // compact-spongy
+    category: quizCategories[944], // compact-spongy
     difficulty: 'mittel',
     tags: ['kompakta', 'spongiosa', 'knochenaufbau', 'histologie'],
     reviewCount: 0,
@@ -2203,7 +2355,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_musculo_002',
     front: 'Knochenzellen - Funktionen und Bedeutung',
     back: '**Osteoblasten:**\n• Knochenaufbauende Zellen\n• Produzieren Osteoid (Knochenmatrix)\n• Werden zu Osteozyten\n\n**Osteozyten:**\n• Reife Knochenzellen\n• In Lakunen eingeschlossen\n• Mechanosensoren für Belastung\n• Regulation des Knochenumbaus\n\n**Osteoklasten:**\n• Knochenabbauende Riesenzellen\n• Resorption alter Knochensubstanz\n• Schaffen Platz für Neubau\n\n**Klinische Bedeutung:**\n• Balance bestimmt Knochenstabilität\n• Störungen → Osteoporose/Osteosklerose',
-    category: quizCategories[935], // bone-cells
+    category: quizCategories[947], // bone-cells
     difficulty: 'schwer',
     tags: ['osteoblasten', 'osteozyten', 'osteoklasten', 'knochenumbau'],
     reviewCount: 0,
@@ -2213,7 +2365,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_musculo_003',
     front: 'Gelenktypen nach Beweglichkeit und Achsen',
     back: '**Nach Beweglichkeit:**\n• **Synarthrosen:** Unbeweglich (Schädelnähte)\n• **Amphiarthrosen:** Wenig beweglich (Symphysen)\n• **Diarthrosen:** Frei beweglich (echte Gelenke)\n\n**Nach Bewegungsachsen:**\n• **Einachsig:** Scharniergelenk (Ellenbogen)\n• **Zweiachsig:** Eigelenk (Handgelenk), Sattelgelenk (Daumen)\n• **Dreiachsig:** Kugelgelenk (Schulter, Hüfte)\n• **Rotationsgelenk:** Drehgelenk (Atlas-Axis)\n\n**Bewegungsarten:**\n• Flexion/Extension, Abduktion/Adduktion\n• Innen-/Außenrotation, Zirkumduktion',
-    category: quizCategories[955], // joint-types
+    category: quizCategories[967], // joint-types
     difficulty: 'schwer',
     tags: ['gelenktypen', 'bewegungsachsen', 'diarthrosen', 'biomechanik'],
     reviewCount: 0,
@@ -2223,7 +2375,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_musculo_004',
     front: 'Muskeltypen - Eigenschaften und Funktionen',
     back: '**Skelettmuskel:**\n• Quergestreift, multinukleär\n• Willkürlich steuerbar\n• Kraftvolle, schnelle Kontraktionen\n• Ermüdet schnell\n\n**Herzmuskel:**\n• Quergestreift, aber unwillkürlich\n• Glanzstreifen (Intercalated discs)\n• Autorhythmisch, ermüdungsresistent\n• Spezielle Leitungssystem\n\n**Glatte Muskulatur:**\n• Nicht quergestreift, einkernig\n• Unwillkürlich (autonom)\n• Langsame, anhaltende Kontraktionen\n• In Organen, Gefäßen, Verdauungstrakt\n\n**Neuromuskuläre Übertragung:**\n• Motorische Endplatte (Skelettmuskel)\n• Autonome Innervation (glatt)',
-    category: quizCategories[967], // skeletal-muscle
+    category: quizCategories[979], // skeletal-muscle
     difficulty: 'schwer',
     tags: ['skelettmuskel', 'herzmuskel', 'glatte-muskulatur', 'kontraktion'],
     reviewCount: 0,
@@ -2233,9 +2385,41 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_musculo_005',
     front: 'Wolff\'sches Gesetz und Knochenanpassung',
     back: '**Definition:**\n"Die Knochen passen sich in ihrer Struktur den mechanischen Anforderungen an"\n\n**Mechanismus:**\n• Belastung aktiviert Osteozyten\n• Mechanosignale triggern Remodeling\n• Erhöhte Belastung → Stärkung\n• Fehlende Belastung → Abbau\n\n**Klinische Beispiele:**\n• **Immobilisation:** Knochenabbau\n• **Sport:** Knochenverdichtung\n• **Schwerelosigkeit:** Osteoporose\n• **Frakturbeilung:** Anpassung an neue Belastung\n\n**Therapeutische Bedeutung:**\n• Kraft-/Widerstandstraining\n• Frühe Mobilisation\n• Prävention von Osteoporose',
-    category: quizCategories[952], // wolffs-law
+    category: quizCategories[964], // wolffs-law
     difficulty: 'mittel',
     tags: ['wolff-gesetz', 'knochenanpassung', 'belastung', 'remodeling'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  
+  // Neue Frakturheilung & Knochenstoffwechsel-Lernkarten
+  {
+    id: 'fc_bone_fx_001',
+    front: 'Phasen der Frakturheilung',
+    back: '**1. Hämatom- & Entzündungsphase (0-5 Tage):**\n• Blutung → Hämatom\n• Entzündungszellen (Granulozyten, Makrophagen)\n• Abbau nekrotischen Gewebes\n• Wachstumsfaktoren-Freisetzung\n\n**2. Reparationsphase (5 Tage - 4 Wochen):**\n• **Weicher Kallus:** Bindegewebe, Knorpel\n• **Harter Kallus:** Geflechtknochen\n• Überbrückung der Fraktur\n\n**3. Umbauphase (Wochen - Jahre):**\n• Geflechtknochen → Lamellenknochen\n• Wiederherstellung der Knochenstruktur\n• Anpassung an Belastung (Wolff)\n\n**Störungsfaktoren:**\n• Bewegung, Infektion, Durchblutung↓\n• Rauchen, Diabetes, Steroide',
+    category: quizCategories[1035], // fracture-healing
+    difficulty: 'schwer',
+    tags: ['frakturheilung', 'kallus', 'knochenheilung', 'phasen'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_bone_fx_002',
+    front: 'Kalzium-Hormon-Regulation',
+    back: '**Parathormon (PTH) - Kalzium ↑:**\n• Knochen: Osteoklastenaktivierung\n• Niere: Ca²⁺-Rückresorption ↑, Phosphat ↓\n• Darm: Vitamin D-Aktivierung → Ca-Resorption ↑\n\n**Calcitonin - Kalzium ↓:**\n• Knochen: Osteoblastenaktivierung\n• Niere: Ca²⁺-Ausscheidung ↑\n• Gegenspieler zu PTH\n\n**Vitamin D (Calcitriol):**\n• Haut: 7-Dehydrocholesterol + UV → Cholecalciferol\n• Leber: → 25-OH-D₃ (Speicherform)\n• Niere: → 1,25-(OH)₂-D₃ (aktive Form)\n• Darm: Ca²⁺-Resorption ↑\n\n**Regelkreis:**\nCa²⁺ ↓ → PTH ↑ → Ca²⁺ ↑ → PTH ↓',
+    category: quizCategories[1044], // bone-metabolism
+    difficulty: 'schwer',
+    tags: ['kalzium', 'parathormon', 'calcitonin', 'vitamin-d'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_bone_fx_003',
+    front: 'RANK/RANKL/OPG-System',
+    back: '**Komponenten:**\n• **RANKL:** Ligand auf Osteoblasten\n• **RANK:** Rezeptor auf Osteoklastenvorläufern\n• **OPG:** Decoy-Rezeptor (Osteoprotegerin)\n\n**Funktion:**\n• RANKL + RANK → Osteoklastenreifung\n• OPG bindet RANKL → Hemmung\n• Balance bestimmt Knochenumbau\n\n**Regulation:**\n• **Pro-resorptiv:** PTH, Cortisol, IL-1, TNF-α\n• **Anti-resorptiv:** Östrogen, Calcitonin\n\n**Klinische Bedeutung:**\n• **Denosumab:** RANKL-Antikörper\n• Osteoporose-Therapie\n• Knochenmetastasen\n\n**Pathologie:**\n• RANKL ↑ → Osteoporose\n• OPG ↑ → Osteopetrose',
+    category: quizCategories[1051], // rank-rankl-opg
+    difficulty: 'schwer',
+    tags: ['rank', 'rankl', 'opg', 'osteoklasten', 'knochenumbau'],
     reviewCount: 0,
     easeFactor: 2.5
   }
