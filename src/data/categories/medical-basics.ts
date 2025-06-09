@@ -2891,6 +2891,172 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'glomerular-filtration'
                   }
                 ]
+              },
+              {
+                id: 'tubular-secretion',
+                name: 'Tubuläre Sekretion',
+                description: 'Aktive Ausscheidung durch Tubuluszellen',
+                icon: '🚮',
+                difficulty: 'medium',
+                parentId: 'kidney-function',
+                children: [
+                  {
+                    id: 'active-transport',
+                    name: 'Aktiver Transport',
+                    description: 'Energieabhängige Transportprozesse',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'tubular-secretion'
+                  },
+                  {
+                    id: 'pah-clearance',
+                    name: 'PAH-Clearance',
+                    description: 'Maß für den renalen Plasmafluss',
+                    icon: '🌊',
+                    difficulty: 'hard',
+                    parentId: 'tubular-secretion'
+                  },
+                  {
+                    id: 'drug-excretion',
+                    name: 'Medikamenten-Ausscheidung',
+                    description: 'Elimination von Arzneistoffen',
+                    icon: '💊',
+                    difficulty: 'medium',
+                    parentId: 'tubular-secretion'
+                  },
+                  {
+                    id: 'acid-base-regulation',
+                    name: 'Säure-Basen-Regulation',
+                    description: 'pH-Regulation durch die Nieren',
+                    icon: '⚖️',
+                    difficulty: 'hard',
+                    parentId: 'tubular-secretion'
+                  },
+                  {
+                    id: 'potassium-secretion',
+                    name: 'Kaliumsekretion',
+                    description: 'Kaliumausscheidung im distalen Tubulus',
+                    icon: '🔋',
+                    difficulty: 'medium',
+                    parentId: 'tubular-secretion'
+                  }
+                ]
+              },
+              {
+                id: 'tubular-reabsorption',
+                name: 'Tubuläre Rückresorption',
+                description: 'Rückgewinnung von Wasser und Stoffen',
+                icon: '🔄',
+                difficulty: 'medium',
+                parentId: 'kidney-function',
+                children: [
+                  {
+                    id: 'water-reabsorption',
+                    name: 'Wasser-Rückresorption (obligatorisch/fakultativ)',
+                    description: 'Wasserrückgewinnung in verschiedenen Tubulusabschnitten',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'tubular-reabsorption'
+                  },
+                  {
+                    id: 'sodium-reabsorption',
+                    name: 'Natrium-Rückresorption (67% proximal)',
+                    description: 'Natriumrückgewinnung entlang des Nephrons',
+                    icon: '🧂',
+                    difficulty: 'medium',
+                    parentId: 'tubular-reabsorption'
+                  },
+                  {
+                    id: 'glucose-reabsorption',
+                    name: 'Glukose-Rückresorption (SGLT1/2)',
+                    description: 'Glukose-Transporter in der Niere',
+                    icon: '🍯',
+                    difficulty: 'medium',
+                    parentId: 'tubular-reabsorption'
+                  },
+                  {
+                    id: 'amino-acids-proteins',
+                    name: 'Aminosäuren & Proteine',
+                    description: 'Rückresorption von Proteinen und Aminosäuren',
+                    icon: '🧬',
+                    difficulty: 'medium',
+                    parentId: 'tubular-reabsorption'
+                  },
+                  {
+                    id: 'urine-concentration',
+                    name: 'Harnkonzentrierung',
+                    description: 'Mechanismen der Urinkonzentration',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'tubular-reabsorption'
+                  },
+                  {
+                    id: 'countercurrent-system',
+                    name: 'Gegenstromsystem',
+                    description: 'Konzentrations- und Verdünnungsmechanismus',
+                    icon: '↕️',
+                    difficulty: 'hard',
+                    parentId: 'tubular-reabsorption'
+                  }
+                ]
+              },
+              {
+                id: 'hormonal-regulation',
+                name: 'Hormonelle Regulation',
+                description: 'Hormonelle Steuerung der Nierenfunktion',
+                icon: '🧪',
+                difficulty: 'hard',
+                parentId: 'kidney-function',
+                children: [
+                  {
+                    id: 'adh',
+                    name: 'ADH (Antidiuretisches Hormon)',
+                    description: 'Wasserhaushalt-Regulation',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'hormonal-regulation'
+                  },
+                  {
+                    id: 'aldosterone',
+                    name: 'Aldosteron',
+                    description: 'Mineralokortikoid-Regulation',
+                    icon: '🧂',
+                    difficulty: 'medium',
+                    parentId: 'hormonal-regulation'
+                  },
+                  {
+                    id: 'renin-angiotensin-system',
+                    name: 'Renin-Angiotensin-System',
+                    description: 'Blutdruck- und Volumenregulation',
+                    icon: '🩸',
+                    difficulty: 'hard',
+                    parentId: 'hormonal-regulation'
+                  },
+                  {
+                    id: 'natriuretic-peptides',
+                    name: 'ANP/BNP (Natriuretische Peptide)',
+                    description: 'Gegenspieler des RAAS',
+                    icon: '💝',
+                    difficulty: 'medium',
+                    parentId: 'hormonal-regulation'
+                  },
+                  {
+                    id: 'pth-vitamin-d',
+                    name: 'Parathormon & Vitamin D',
+                    description: 'Kalzium-Phosphat-Regulation',
+                    icon: '🦴',
+                    difficulty: 'medium',
+                    parentId: 'hormonal-regulation'
+                  },
+                  {
+                    id: 'erythropoietin',
+                    name: 'Erythropoietin (EPO)',
+                    description: 'Regulation der Erythropoese',
+                    icon: '🔴',
+                    difficulty: 'medium',
+                    parentId: 'hormonal-regulation'
+                  }
+                ]
               }
             ]
           }
