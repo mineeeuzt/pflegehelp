@@ -1685,6 +1685,224 @@ export const quizCategories: QuizCategory[] = [
     color: 'bg-purple-900',
     icon: '🧘'
   },
+  // Wirbelsäule & Rücken-Kategorien
+  {
+    id: 'spine-anatomy',
+    name: 'Wirbelsäulen-Anatomie',
+    description: 'Aufbau und Struktur der Wirbelsäule',
+    color: 'bg-amber-200',
+    icon: '🦴'
+  },
+  {
+    id: 'vertebral-column-overview',
+    name: 'Wirbelsäule Übersicht',
+    description: 'Allgemeiner Aufbau und Krümmungen',
+    color: 'bg-amber-300',
+    icon: '🌊'
+  },
+  {
+    id: 'cervical-vertebrae',
+    name: 'Halswirbelsäule (C1-C7)',
+    description: 'Zervikale Wirbel und Besonderheiten',
+    color: 'bg-amber-400',
+    icon: '🔝'
+  },
+  {
+    id: 'atlas-axis',
+    name: 'Atlas & Axis (C1/C2)',
+    description: 'Besondere Halswirbel',
+    color: 'bg-amber-500',
+    icon: '👑'
+  },
+  {
+    id: 'thoracic-vertebrae',
+    name: 'Brustwirbelsäule (T1-T12)',
+    description: 'Thorakale Wirbel mit Rippenansätzen',
+    color: 'bg-amber-600',
+    icon: '🫁'
+  },
+  {
+    id: 'lumbar-vertebrae',
+    name: 'Lendenwirbelsäule (L1-L5)',
+    description: 'Lumbale Wirbel, größte Belastung',
+    color: 'bg-amber-700',
+    icon: '💪'
+  },
+  {
+    id: 'sacrum-coccyx',
+    name: 'Kreuzbein & Steißbein',
+    description: 'Verwachsene Wirbel des Beckens',
+    color: 'bg-amber-800',
+    icon: '🔺'
+  },
+  {
+    id: 'vertebral-structure',
+    name: 'Wirbelaufbau',
+    description: 'Anatomie eines einzelnen Wirbels',
+    color: 'bg-amber-900',
+    icon: '🔧'
+  },
+  {
+    id: 'vertebral-body',
+    name: 'Wirbelkörper',
+    description: 'Lasttragende Struktur',
+    color: 'bg-yellow-200',
+    icon: '🧱'
+  },
+  {
+    id: 'vertebral-arch',
+    name: 'Wirbelbogen',
+    description: 'Schützende Struktur um Rückenmark',
+    color: 'bg-yellow-300',
+    icon: '🌉'
+  },
+  {
+    id: 'spinous-transverse-processes',
+    name: 'Dorn- & Querfortsätze',
+    description: 'Ansatzstellen für Muskeln und Bänder',
+    color: 'bg-yellow-400',
+    icon: '🔱'
+  },
+  {
+    id: 'intervertebral-discs',
+    name: 'Bandscheiben',
+    description: 'Pufferkissen zwischen Wirbeln',
+    color: 'bg-yellow-500',
+    icon: '💿'
+  },
+  {
+    id: 'spinal-biomechanics',
+    name: 'Wirbelsäulen-Biomechanik',
+    description: 'Bewegung und Belastung der Wirbelsäule',
+    color: 'bg-yellow-600',
+    icon: '⚙️'
+  },
+  {
+    id: 'spinal-curvatures',
+    name: 'Wirbelsäulenkrümmungen',
+    description: 'Lordose und Kyphose',
+    color: 'bg-yellow-700',
+    icon: '🌊'
+  },
+  {
+    id: 'cervical-lordosis',
+    name: 'Halslordose',
+    description: 'Natürliche Vorwärtskrümmung der HWS',
+    color: 'bg-yellow-800',
+    icon: '🦢'
+  },
+  {
+    id: 'thoracic-kyphosis',
+    name: 'Brustkyphose',
+    description: 'Natürliche Rückwärtskrümmung der BWS',
+    color: 'bg-yellow-900',
+    icon: '🏔️'
+  },
+  {
+    id: 'lumbar-lordosis',
+    name: 'Lendenlordose',
+    description: 'Natürliche Vorwärtskrümmung der LWS',
+    color: 'bg-orange-200',
+    icon: '🌙'
+  },
+  {
+    id: 'spinal-movements',
+    name: 'Wirbelsäulenbewegungen',
+    description: 'Flexion, Extension, Lateralflexion, Rotation',
+    color: 'bg-orange-300',
+    icon: '🤸'
+  },
+  {
+    id: 'segmental-mobility',
+    name: 'Segmentale Beweglichkeit',
+    description: 'Bewegung zwischen einzelnen Wirbeln',
+    color: 'bg-orange-400',
+    icon: '🔗'
+  },
+  {
+    id: 'spinal-stability',
+    name: 'Wirbelsäulenstabilität',
+    description: 'Passive und aktive Stabilisierung',
+    color: 'bg-orange-500',
+    icon: '🏛️'
+  },
+  {
+    id: 'load-distribution',
+    name: 'Lastverteilung',
+    description: 'Kraftübertragung in der Wirbelsäule',
+    color: 'bg-orange-600',
+    icon: '⚖️'
+  },
+  {
+    id: 'back-muscles',
+    name: 'Rückenmuskulatur',
+    description: 'Muskulatur des Rückens',
+    color: 'bg-orange-700',
+    icon: '💪'
+  },
+  {
+    id: 'deep-back-muscles',
+    name: 'Tiefe Rückenmuskulatur',
+    description: 'Autochthone Rückenmuskulatur',
+    color: 'bg-orange-800',
+    icon: '🏗️'
+  },
+  {
+    id: 'erector-spinae',
+    name: 'M. erector spinae',
+    description: 'Rückenstrecker-Komplex',
+    color: 'bg-orange-900',
+    icon: '🏛️'
+  },
+  {
+    id: 'multifidus',
+    name: 'M. multifidus',
+    description: 'Tiefe segmentale Stabilisatoren',
+    color: 'bg-red-200',
+    icon: '🕸️'
+  },
+  {
+    id: 'superficial-back-muscles',
+    name: 'Oberflächliche Rückenmuskulatur',
+    description: 'Sekundäre Rückenmuskulatur',
+    color: 'bg-red-300',
+    icon: '🦅'
+  },
+  {
+    id: 'trapezius',
+    name: 'M. trapezius',
+    description: 'Kapuzenmuskel',
+    color: 'bg-red-400',
+    icon: '🔺'
+  },
+  {
+    id: 'latissimus-dorsi',
+    name: 'M. latissimus dorsi',
+    description: 'Breitester Rückenmuskel',
+    color: 'bg-red-500',
+    icon: '🦅'
+  },
+  {
+    id: 'rhomboids',
+    name: 'M. rhomboideus',
+    description: 'Rautenmuskel',
+    color: 'bg-red-600',
+    icon: '◊'
+  },
+  {
+    id: 'serratus-posterior',
+    name: 'M. serratus posterior',
+    description: 'Hinterer Sägemuskel',
+    color: 'bg-red-700',
+    icon: '🪚'
+  },
+  {
+    id: 'levator-scapulae',
+    name: 'M. levator scapulae',
+    description: 'Schulterblattheber',
+    color: 'bg-red-800',
+    icon: '⬆️'
+  },
   {
     id: 'renal-system',
     name: 'Nieren & Harnwege',
@@ -2422,6 +2640,68 @@ export const sampleQuestions: QuizQuestion[] = [
     difficulty: 'mittel',
     tags: ['core', 'stabilisation', 'rumpf', 'wirbelsäule']
   },
+
+  // Wirbelsäule & Rücken - Fragen
+  {
+    id: 'spine_001',
+    question: 'Wie viele Wirbel hat die menschliche Wirbelsäule normalerweise?',
+    options: ['32-34 Wirbel', '30-32 Wirbel', '34-36 Wirbel', '28-30 Wirbel'],
+    correctAnswer: 0,
+    explanation: 'Die Wirbelsäule besteht aus 32-34 Wirbeln: 7 Halswirbel, 12 Brustwirbel, 5 Lendenwirbel, 5 Kreuzbeinwirbel (verwachsen) und 3-5 Steißbeinwirbel (verwachsen).',
+    category: quizCategories[1453], // vertebral-column-overview
+    difficulty: 'leicht',
+    tags: ['wirbelsäule', 'anatomie', 'anzahl', 'aufbau']
+  },
+  {
+    id: 'spine_002',
+    question: 'Welche natürlichen Krümmungen hat die Wirbelsäule?',
+    options: ['Nur Lordosen', 'Nur Kyphosen', 'Wechselnd Lordosen und Kyphosen', 'Eine einzige S-Krümmung'],
+    correctAnswer: 2,
+    explanation: 'Die Wirbelsäule hat vier natürliche Krümmungen: Halslordose, Brustkyphose, Lendenlordose und Kreuzbeinkyphose. Dies ermöglicht optimale Lastverteilung.',
+    category: quizCategories[1464], // spinal-curvatures
+    difficulty: 'mittel',
+    tags: ['krümmungen', 'lordose', 'kyphose', 'biomechanik']
+  },
+  {
+    id: 'spine_003',
+    question: 'Was ist die Hauptfunktion der Bandscheiben?',
+    options: ['Muskelansatz', 'Stoßdämpfung und Beweglichkeit', 'Nervenleitung', 'Blutversorgung'],
+    correctAnswer: 1,
+    explanation: 'Bandscheiben dienen als Stoßdämpfer zwischen den Wirbeln und ermöglichen Beweglichkeit. Sie bestehen aus Faserring (Anulus fibrosus) und Gallertkern (Nucleus pulposus).',
+    category: quizCategories[1463], // intervertebral-discs
+    difficulty: 'leicht',
+    tags: ['bandscheiben', 'stoßdämpfung', 'beweglichkeit']
+  },
+  {
+    id: 'spine_004',
+    question: 'Welcher Muskel gehört zur tiefen Rückenmuskulatur?',
+    options: ['M. trapezius', 'M. latissimus dorsi', 'M. multifidus', 'M. rhomboideus'],
+    correctAnswer: 2,
+    explanation: 'Der M. multifidus gehört zur autochthonen (tiefen) Rückenmuskulatur und dient der segmentalen Stabilisierung der Wirbelsäule. Die anderen sind oberflächliche Muskeln.',
+    category: quizCategories[1476], // multifidus
+    difficulty: 'mittel',
+    tags: ['multifidus', 'tiefe-rückenmuskulatur', 'stabilisation']
+  },
+  {
+    id: 'spine_005',
+    question: 'Was charakterisiert den Atlas (C1)?',
+    options: ['Hat einen Dornfortsatz', 'Hat keinen Wirbelkörper', 'Ist der größte Halswirbel', 'Hat einen Dens'],
+    correctAnswer: 1,
+    explanation: 'Der Atlas (C1) hat keinen Wirbelkörper, sondern nur einen vorderen und hinteren Bogen. Er trägt den Kopf und artikuliert mit dem Hinterhauptbein.',
+    category: quizCategories[1455], // atlas-axis
+    difficulty: 'mittel',
+    tags: ['atlas', 'c1', 'halswirbel', 'besonderheiten']
+  },
+  {
+    id: 'spine_006',
+    question: 'Welche Bewegung ist in der Lendenwirbelsäule am eingeschränktesten?',
+    options: ['Flexion', 'Extension', 'Rotation', 'Lateralflexion'],
+    correctAnswer: 2,
+    explanation: 'Die Rotation ist in der Lendenwirbelsäule am stärksten eingeschränkt aufgrund der sagittalen Ausrichtung der Gelenkfortsätze. Dies schützt vor Bandscheibenverletzungen.',
+    category: quizCategories[1469], // spinal-movements
+    difficulty: 'mittel',
+    tags: ['lendenwirbelsäule', 'rotation', 'bewegungseinschränkung']
+  },
   
   // Frakturheilung & Knochenstoffwechsel - Fragen
   {
@@ -3033,6 +3313,48 @@ export const sampleFlashcards: Flashcard[] = [
     category: quizCategories[1449], // core-muscles
     difficulty: 'mittel',
     tags: ['core', 'stabilisation', 'rumpf', 'wirbelsäule'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+
+  // Wirbelsäule & Rücken - Lernkarten
+  {
+    id: 'fc_spine_001',
+    front: 'Wirbelsäule - Aufbau und Krümmungen',
+    back: '**Gliederung (32-34 Wirbel):**\n• **Halswirbelsäule (HWS):** C1-C7\n• **Brustwirbelsäule (BWS):** T1-T12\n• **Lendenwirbelsäule (LWS):** L1-L5\n• **Kreuzbein:** 5 verwachsene Wirbel\n• **Steißbein:** 3-5 verwachsene Wirbel\n\n**Natürliche Krümmungen:**\n• **Halslordose:** Vorwärtskrümmung (konvex nach vorn)\n• **Brustkyphose:** Rückwärtskrümmung (konvex nach hinten)\n• **Lendenlordose:** Vorwärtskrümmung\n• **Kreuzbeinkyphose:** Rückwärtskrümmung\n\n**Funktion:** Optimale Lastverteilung, Federung',
+    category: quizCategories[1453], // vertebral-column-overview
+    difficulty: 'mittel',
+    tags: ['wirbelsäule', 'krümmungen', 'anatomie', 'gliederung'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_spine_002',
+    front: 'Bandscheiben - Aufbau und Funktion',
+    back: '**Anatomischer Aufbau:**\n• **Anulus fibrosus:** Äußerer Faserring\n  - Kollagenfasern in Schichten\n  - Hohe Zugfestigkeit\n• **Nucleus pulposus:** Innerer Gallertkern\n  - 80% Wasser bei Jugendlichen\n  - Proteoglykane, Kollagen Typ II\n\n**Funktionen:**\n• Stoßdämpfung zwischen Wirbeln\n• Lastverteilung\n• Ermöglichung von Wirbelsäulenbewegungen\n• Druckresistenz (bis 1000 kg)\n\n**Alterung:**\n• Wassergehalt nimmt ab (70% → 30%)\n• Höhenverlust, Rissbildung\n• Bandscheibenvorfall-Risiko',
+    category: quizCategories[1463], // intervertebral-discs
+    difficulty: 'mittel',
+    tags: ['bandscheiben', 'anulus', 'nucleus', 'stoßdämpfung'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_spine_003',
+    front: 'Tiefe Rückenmuskulatur - Stabilisation',
+    back: '**Autochthone Rückenmuskulatur:**\n• Entwickelt sich aus Myotomen\n• Innervation durch R. dorsales der Spinalnerven\n\n**Wichtigste Muskeln:**\n• **M. multifidus:**\n  - Segmentale Stabilisation\n  - Span 2-4 Wirbelsegmente\n  - Rotations- und Extensionshemmung\n\n• **M. erector spinae:**\n  - M. iliocostalis, M. longissimus, M. spinalis\n  - Wirbelsäulenaufrichtung\n  - Beidseitig: Extension, einseitig: Lateralflexion\n\n**Funktionen:**\n• Segmentale Stabilisation\n• Propriozeptive Rückmeldung\n• Kontrolle der neutralen Zone\n• Schutz vor Überlastung',
+    category: quizCategories[1474], // deep-back-muscles
+    difficulty: 'schwer',
+    tags: ['tiefe-rückenmuskulatur', 'multifidus', 'erector-spinae', 'stabilisation'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_spine_004',
+    front: 'Atlas & Axis - Besondere Halswirbel',
+    back: '**Atlas (C1):**\n• Kein Wirbelkörper\n• Vorderer und hinterer Bogen\n• Masse laterales mit Gelenkflächen\n• Trägt den Kopf (Atlanto-okzipital-Gelenk)\n• Nickbewegungen (Ja-Bewegung)\n\n**Axis (C2):**\n• **Dens axis:** Zahnfortsatz\n• Zapfen für Atlanto-axial-Gelenk\n• Ermöglicht Kopfrotation (Nein-Bewegung)\n• Querband des Atlas hält Dens\n\n**Klinische Bedeutung:**\n• Häufigste Verletzungsregion der HWS\n• „Whiplash“-Verletzungen\n• Dens-Frakturen bei älteren Patienten\n• Instabilitäten bei rheumatoider Arthritis',
+    category: quizCategories[1455], // atlas-axis
+    difficulty: 'mittel',
+    tags: ['atlas', 'axis', 'dens', 'halswirbel'],
     reviewCount: 0,
     easeFactor: 2.5
   },
