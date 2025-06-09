@@ -1203,6 +1203,170 @@ export const quizCategories: QuizCategory[] = [
     color: 'bg-yellow-50',
     icon: '🥚'
   },
+  // Gelenkaufbau
+  {
+    id: 'joint-structure',
+    name: 'Gelenkaufbau',
+    description: 'Anatomische Strukturen der Gelenke',
+    color: 'bg-teal-500',
+    icon: '🏗️'
+  },
+  {
+    id: 'articular-cartilage',
+    name: 'Gelenkknorpel (hyaliner Knorpel)',
+    description: 'Knorpelüberzug der Gelenkflächen',
+    color: 'bg-teal-400',
+    icon: '🔵'
+  },
+  {
+    id: 'joint-capsule',
+    name: 'Gelenkkapsel (Stratum fibrosum/synoviale)',
+    description: 'Zweischichtiger Aufbau der Gelenkkapsel',
+    color: 'bg-teal-300',
+    icon: '🏛️'
+  },
+  {
+    id: 'synovial-fluid',
+    name: 'Synovialflüssigkeit (Hyaluronsäure)',
+    description: 'Gelenkschmiere und Nährstoffversorgung',
+    color: 'bg-teal-600',
+    icon: '💧'
+  },
+  {
+    id: 'ligaments-tendons',
+    name: 'Bänder & Sehnen',
+    description: 'Stabilisierung und Kraftübertragung',
+    color: 'bg-teal-700',
+    icon: '🔗'
+  },
+  {
+    id: 'menisci-disci',
+    name: 'Menisken & Disci',
+    description: 'Zusätzliche Gelenkstrukturen',
+    color: 'bg-teal-800',
+    icon: '🌙'
+  },
+  {
+    id: 'bursae',
+    name: 'Schleimbeutel (Bursae)',
+    description: 'Polster zur Druckverteilung',
+    color: 'bg-teal-900',
+    icon: '🫧'
+  },
+  {
+    id: 'joint-innervation',
+    name: 'Gelenkinnervation',
+    description: 'Nervale Versorgung der Gelenke',
+    color: 'bg-teal-200',
+    icon: '⚡'
+  },
+  // Bewegungslehre
+  {
+    id: 'movement-theory',
+    name: 'Bewegungslehre',
+    description: 'Biomechanik und Bewegungsarten',
+    color: 'bg-indigo-500',
+    icon: '🏃'
+  },
+  {
+    id: 'flexion-extension',
+    name: 'Flexion/Extension',
+    description: 'Beugung und Streckung',
+    color: 'bg-indigo-400',
+    icon: '↕️'
+  },
+  {
+    id: 'abduction-adduction',
+    name: 'Abduktion/Adduktion',
+    description: 'Abspreizen und Heranführen',
+    color: 'bg-indigo-300',
+    icon: '↔️'
+  },
+  {
+    id: 'internal-external-rotation',
+    name: 'Innen-/Außenrotation',
+    description: 'Drehbewegungen um die Längsachse',
+    color: 'bg-indigo-600',
+    icon: '🔄'
+  },
+  {
+    id: 'circumduction',
+    name: 'Zirkumduktion',
+    description: 'Kreisende Bewegung',
+    color: 'bg-indigo-700',
+    icon: '🔃'
+  },
+  {
+    id: 'pronation-supination',
+    name: 'Pro-/Supination',
+    description: 'Drehbewegungen des Unterarms',
+    color: 'bg-indigo-800',
+    icon: '🤲'
+  },
+  {
+    id: 'dorsal-plantar-flexion',
+    name: 'Dorsalflexion/Plantarflexion',
+    description: 'Fußbewegungen nach oben/unten',
+    color: 'bg-indigo-900',
+    icon: '🦶'
+  },
+  {
+    id: 'neutral-null-method',
+    name: 'Neutral-Null-Methode',
+    description: 'Standardisierte Bewegungsmessung',
+    color: 'bg-indigo-200',
+    icon: '📐'
+  },
+  // Gelenkpathologie
+  {
+    id: 'joint-pathology',
+    name: 'Gelenkpathologie',
+    description: 'Erkrankungen und Verletzungen der Gelenke',
+    color: 'bg-red-600',
+    icon: '⚠️'
+  },
+  {
+    id: 'arthrosis',
+    name: 'Arthrose (degenerativ)',
+    description: 'Verschleißerkrankung der Gelenke',
+    color: 'bg-red-500',
+    icon: '⚙️'
+  },
+  {
+    id: 'arthritis',
+    name: 'Arthritis (entzündlich)',
+    description: 'Entzündliche Gelenkerkrankungen',
+    color: 'bg-red-400',
+    icon: '🔥'
+  },
+  {
+    id: 'joint-effusion',
+    name: 'Gelenkerguss',
+    description: 'Flüssigkeitsansammlung im Gelenk',
+    color: 'bg-red-700',
+    icon: '💧'
+  },
+  {
+    id: 'luxation-subluxation',
+    name: 'Luxation/Subluxation',
+    description: 'Vollständige/teilweise Gelenkausrenkung',
+    color: 'bg-red-800',
+    icon: '🦴'
+  },
+  {
+    id: 'joint-stiffness',
+    name: 'Gelenksteife/Ankylose',
+    description: 'Bewegungseinschränkung bis Versteifung',
+    color: 'bg-red-900',
+    icon: '🔒'
+  },
+  {
+    id: 'joint-instability',
+    name: 'Gelenkinstabilität',
+    description: 'Insuffizienz der Gelenkstabilisatoren',
+    color: 'bg-red-300',
+    icon: '⚡'
+  },
   // Muskelsystem
   {
     id: 'muscle-system',
@@ -1953,6 +2117,68 @@ export const sampleQuestions: QuizQuestion[] = [
     difficulty: 'schwer',
     tags: ['rank-rankl', 'osteoklasten', 'knochenumbau']
   },
+  
+  // Gelenksystem - Fragen
+  {
+    id: 'joint_001',
+    question: 'Welche Funktion hat die Synovialflüssigkeit?',
+    options: ['Nur Schmierung', 'Schmierung und Nährstoffversorgung', 'Nur Stoßdämpfung', 'Bildung von Knorpel'],
+    correctAnswer: 1,
+    explanation: 'Die Synovialflüssigkeit (Synovia) hat zwei Hauptfunktionen: Schmierung der Gelenkflächen zur Reibungsminderung und Nährstoffversorgung des gefäßlosen Gelenkknorpels durch Diffusion.',
+    category: quizCategories[1229], // synovial-fluid
+    difficulty: 'mittel',
+    tags: ['synovialflüssigkeit', 'gelenkschmiere', 'nährstoffe']
+  },
+  {
+    id: 'joint_002',
+    question: 'Was ist der Unterschied zwischen Bändern und Sehnen?',
+    options: ['Kein Unterschied', 'Bänder verbinden Knochen-Knochen, Sehnen Muskel-Knochen', 'Bänder sind elastischer', 'Sehnen verbinden Knochen-Knochen'],
+    correctAnswer: 1,
+    explanation: 'Bänder (Ligamente) verbinden Knochen mit Knochen und stabilisieren Gelenke. Sehnen (Tendines) verbinden Muskeln mit Knochen und übertragen die Muskelkraft.',
+    category: quizCategories[1236], // ligaments-tendons
+    difficulty: 'leicht',
+    tags: ['bänder', 'sehnen', 'bindegewebe']
+  },
+  {
+    id: 'joint_003',
+    question: 'Welche Bewegung bezeichnet man als Zirkumduktion?',
+    options: ['Beugung', 'Streckung', 'Drehung', 'Kreisende Bewegung'],
+    correctAnswer: 3,
+    explanation: 'Die Zirkumduktion ist eine kreisende Bewegung, bei der das distale Ende einer Extremität einen Kreis beschreibt, während das proximale Ende fixiert bleibt.',
+    category: quizCategories[1293], // circumduction
+    difficulty: 'mittel',
+    tags: ['zirkumduktion', 'bewegung', 'biomechanik']
+  },
+  {
+    id: 'joint_004',
+    question: 'Was ist die Neutral-Null-Methode?',
+    options: ['Eine Behandlungsmethode', 'Standardisierte Bewegungsmessung', 'Eine Operationstechnik', 'Ein Schmerztest'],
+    correctAnswer: 1,
+    explanation: 'Die Neutral-Null-Methode ist ein standardisiertes Verfahren zur Messung und Dokumentation von Gelenkbewegungen. Die Neutralstellung (0°) ist die anatomische Grundstellung.',
+    category: quizCategories[1223], // neutral-null-method
+    difficulty: 'mittel',
+    tags: ['neutral-null', 'bewegungsmessung', 'dokumentation']
+  },
+  {
+    id: 'joint_005',
+    question: 'Was ist der Hauptunterschied zwischen Arthrose und Arthritis?',
+    options: ['Kein Unterschied', 'Arthrose ist degenerativ, Arthritis ist entzündlich', 'Arthrose betrifft nur alte Menschen', 'Arthritis ist heilbar'],
+    correctAnswer: 1,
+    explanation: 'Arthrose ist eine degenerative Gelenkerkrankung (Verschleiß), während Arthritis eine entzündliche Gelenkerkrankung ist, die verschiedene Ursachen haben kann.',
+    category: quizCategories[1322], // joint-pathology
+    difficulty: 'mittel',
+    tags: ['arthrose', 'arthritis', 'gelenkerkrankungen']
+  },
+  {
+    id: 'joint_006',
+    question: 'Was sind Menisken?',
+    options: ['Bänder im Knie', 'Halbmondförmige Knorpelscheiben', 'Schleimbeutel', 'Muskelsehnen'],
+    correctAnswer: 1,
+    explanation: 'Menisken sind halbmondförmige Faserknorpelscheiben im Kniegelenk, die als Stoßdämpfer fungieren und die Druckverteilung verbessern.',
+    category: quizCategories[1243], // menisci-disci
+    difficulty: 'leicht',
+    tags: ['menisken', 'kniegelenk', 'knorpel']
+  },
 
   // Medikamentenlehre
   {
@@ -2420,6 +2646,48 @@ export const sampleFlashcards: Flashcard[] = [
     category: quizCategories[1051], // rank-rankl-opg
     difficulty: 'schwer',
     tags: ['rank', 'rankl', 'opg', 'osteoklasten', 'knochenumbau'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  
+  // Neue Gelenksystem-Lernkarten
+  {
+    id: 'fc_joint_001',
+    front: 'Gelenkaufbau - Schichten und Strukturen',
+    back: '**Gelenkknorpel (Cartilago articularis):**\n• Hyaliner Knorpel, 2-4 mm dick\n• Gefäß- und nervenlos\n• Ernährung durch Diffusion\n\n**Gelenkkapsel:**\n• **Stratum fibrosum:** Außen, straffes Bindegewebe\n• **Stratum synoviale:** Innen, produziert Synovia\n\n**Synovialflüssigkeit:**\n• Hyaluronsäure + Proteine\n• Schmierung & Nährstoffversorgung\n• Viskoelastisch (thixotrop)\n\n**Stabilisatoren:**\n• **Bänder:** Knochen-Knochen\n• **Sehnen:** Muskel-Knochen\n• **Menisken:** Druckverteilung\n• **Bursae:** Reibungsminderung',
+    category: quizCategories[1208], // joint-structure
+    difficulty: 'schwer',
+    tags: ['gelenkaufbau', 'knorpel', 'synovia', 'gelenkkapsel'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_joint_002',
+    front: 'Bewegungsarten der Gelenke',
+    back: '**Hauptbewegungsrichtungen:**\n\n**Sagittalebene:**\n• **Flexion:** Beugung (Winkelverkleinerung)\n• **Extension:** Streckung (Winkelvergrößerung)\n\n**Frontalebene:**\n• **Abduktion:** Abspreizen vom Körper\n• **Adduktion:** Heranführen zum Körper\n\n**Transversalebene:**\n• **Innenrotation:** Drehung nach innen\n• **Außenrotation:** Drehung nach außen\n\n**Spezialbewegungen:**\n• **Zirkumduktion:** Kreisende Bewegung\n• **Pronation:** Handfläche nach unten\n• **Supination:** Handfläche nach oben\n• **Dorsalflexion:** Fuß nach oben\n• **Plantarflexion:** Fuß nach unten',
+    category: quizCategories[1214], // movement-theory
+    difficulty: 'mittel',
+    tags: ['bewegungslehre', 'flexion', 'extension', 'rotation'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_joint_003',
+    front: 'Arthrose vs. Arthritis',
+    back: '**Arthrose (Osteoarthrose):**\n• Degenerative Gelenkerkrankung\n• Knorpelverschleiß\n• Alter, Überbelastung, Fehlstellung\n• Schmerz bei Belastung\n• Anlaufschmerz, Ermüdungsschmerz\n\n**Arthritis:**\n• Entzündliche Gelenkerkrankung\n• Synovialitis (Gelenkschleimhautentzündung)\n• Autoimmun, infektiös, metabolisch\n• Ruheschmerz, Nachtschmerz\n• Schwellung, Überwärmung, Rötung\n\n**Diagnostik:**\n• **Arthrose:** Röntgen (Gelenkspaltverschmälerung)\n• **Arthritis:** Labor (CRP, BSG, RF)\n\n**Therapie:**\n• **Arthrose:** Bewegung, Entlastung, TEP\n• **Arthritis:** Antirheumatika, Immunsuppression',
+    category: quizCategories[1322], // joint-pathology
+    difficulty: 'schwer',
+    tags: ['arthrose', 'arthritis', 'gelenkerkrankungen', 'differenzialdiagnose'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_joint_004',
+    front: 'Neutral-Null-Methode',
+    back: '**Definition:**\nStandardisierte Methode zur Messung und Dokumentation von Gelenkbewegungen\n\n**Grundprinzipien:**\n• **Nullstellung:** Anatomische Grundstellung\n• **3 Zahlen:** Extension/Flexion/0\n• **Dokumentation:** Ext/Flex 10-0-120\n\n**Beispiele:**\n• **Knie normal:** 5-0-140°\n• **Knie Streckdefizit:** 0-10-140°\n• **Ellenbogen normal:** 10-0-150°\n\n**Bewegungsebenen:**\n• **Sagittal:** Flexion/Extension\n• **Frontal:** Abduktion/Adduktion\n• **Transversal:** Rotation\n\n**Klinische Bedeutung:**\n• Verlaufskontrolle\n• Gutachten\n• Therapieplanung',
+    category: quizCategories[1223], // neutral-null-method
+    difficulty: 'mittel',
+    tags: ['neutral-null', 'bewegungsmessung', 'goniometrie', 'dokumentation'],
     reviewCount: 0,
     easeFactor: 2.5
   }
