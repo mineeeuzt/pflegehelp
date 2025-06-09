@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Brain, Wand2, Copy, ArrowRight, ArrowLeft, Users, Building2, Stethoscope, FileText, Target, Heart, ClipboardList, Search, Play, Plus, Trash2, HelpCircle, X } from 'lucide-react'
+import { Brain, Wand2, Copy, ArrowRight, ArrowLeft, Users, Building2, Stethoscope, FileText, Target, Heart, ClipboardList, Search, Play, Plus, Trash2, HelpCircle, X, Info } from 'lucide-react'
 import { Button, Input, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
 import { caseService, type CaseGenerationParams, type WorkflowInput } from '../services/caseService'
@@ -29,7 +29,7 @@ interface PflegeInfo {
   begruendung: string
 }
 
-// Helper Component für Hilfe-Tooltips
+// Helper Component für Hilfe-Tooltips im Apple-Style
 const HelpTooltip = ({ content, onClose }: { content: { title: string; content: string }, onClose: () => void }) => {
   // Einfache Markdown-Formatierung
   const formatContent = (text: string) => {
@@ -37,7 +37,7 @@ const HelpTooltip = ({ content, onClose }: { content: { title: string; content: 
       .split('\n')
       .map((line, index) => {
         // Bold formatting
-        let formattedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        let formattedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
         
         // Emoji und Bullets erhalten
         if (line.trim().startsWith('•') || line.trim().startsWith('✅') || 
@@ -47,41 +47,57 @@ const HelpTooltip = ({ content, onClose }: { content: { title: string; content: 
             line.trim().startsWith('✔️') || line.trim().startsWith('📊') ||
             line.trim().match(/^[0-9]️⃣/)) {
           return (
-            <div key={index} className="ml-4 mb-1" dangerouslySetInnerHTML={{ __html: formattedLine }} />
+            <div key={index} className="ml-6 mb-2 text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: formattedLine }} />
           )
         }
         
         // Headers (lines starting with emojis and bold text)
         if (line.match(/^[🔹🎯📋🔬✔️📊]/)) {
           return (
-            <div key={index} className="font-semibold mt-3 mb-2" dangerouslySetInnerHTML={{ __html: formattedLine }} />
+            <div key={index} className="font-medium text-gray-900 mt-6 mb-3 text-base" dangerouslySetInnerHTML={{ __html: formattedLine }} />
           )
         }
         
         return formattedLine ? (
-          <div key={index} className="mb-1" dangerouslySetInnerHTML={{ __html: formattedLine }} />
+          <div key={index} className="mb-2 text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: formattedLine }} />
         ) : (
-          <br key={index} />
+          <div key={index} className="h-2" />
         )
       })
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      className="mb-4 p-5 bg-blue-50 border border-blue-200 rounded-lg relative max-h-96 overflow-y-auto"
+      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+      transition={{ type: "spring", damping: 25, stiffness: 300 }}
+      className="mb-6 relative"
+      style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+      }}
     >
-      <button
-        onClick={onClose}
-        className="absolute top-3 right-3 p-1.5 hover:bg-blue-100 rounded-lg transition-colors"
-      >
-        <X className="h-4 w-4 text-blue-600" />
-      </button>
-      <h4 className="font-semibold text-blue-900 text-lg mb-3 pr-8">{content.title}</h4>
-      <div className="text-sm text-blue-800 space-y-1">
-        {formatContent(content.content)}
+      <div className="rounded-2xl border border-gray-200/60 shadow-xl overflow-hidden">
+        {/* Header */}
+        <div className="px-6 py-4 border-b border-gray-200/60 bg-gray-50/50 flex items-center justify-between">
+          <h4 className="font-medium text-gray-900 text-base">{content.title}</h4>
+          <button
+            onClick={onClose}
+            className="p-1.5 hover:bg-gray-200/60 rounded-lg transition-all group"
+            aria-label="Schließen"
+          >
+            <X className="h-4 w-4 text-gray-500 group-hover:text-gray-700 transition-colors" />
+          </button>
+        </div>
+        
+        {/* Content */}
+        <div className="px-6 py-5 max-h-[400px] overflow-y-auto custom-scrollbar">
+          <div className="text-sm space-y-1">
+            {formatContent(content.content)}
+          </div>
+        </div>
       </div>
     </motion.div>
   )
@@ -1037,10 +1053,18 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                             <h3 className="font-semibold">Pflegeprobleme formulieren</h3>
                             <button
                               onClick={() => setShowHelpTooltip(showHelpTooltip === 1 ? null : 1)}
-                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
-                              title="Hilfe anzeigen"
+                              className={`
+                                inline-flex items-center gap-1.5 px-3 py-1.5 
+                                text-xs font-medium rounded-full
+                                transition-all duration-200 
+                                ${showHelpTooltip === 1 
+                                  ? 'bg-gray-900 text-white shadow-md' 
+                                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900'
+                                }
+                              `}
                             >
-                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                              <Info className="h-3.5 w-3.5" />
+                              <span>Anleitung</span>
                             </button>
                           </div>
                           <p className="text-sm text-gray-600 mb-4">
@@ -1072,10 +1096,18 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                             <h3 className="font-semibold">Nahziele formulieren</h3>
                             <button
                               onClick={() => setShowHelpTooltip(showHelpTooltip === 2 ? null : 2)}
-                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
-                              title="Hilfe anzeigen"
+                              className={`
+                                inline-flex items-center gap-1.5 px-3 py-1.5 
+                                text-xs font-medium rounded-full
+                                transition-all duration-200 
+                                ${showHelpTooltip === 2 
+                                  ? 'bg-gray-900 text-white shadow-md' 
+                                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900'
+                                }
+                              `}
                             >
-                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                              <Info className="h-3.5 w-3.5" />
+                              <span>Anleitung</span>
                             </button>
                           </div>
                           <p className="text-sm text-gray-600 mb-4">
@@ -1106,10 +1138,18 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                             <h3 className="font-semibold">Fernziele formulieren</h3>
                             <button
                               onClick={() => setShowHelpTooltip(showHelpTooltip === 3 ? null : 3)}
-                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
-                              title="Hilfe anzeigen"
+                              className={`
+                                inline-flex items-center gap-1.5 px-3 py-1.5 
+                                text-xs font-medium rounded-full
+                                transition-all duration-200 
+                                ${showHelpTooltip === 3 
+                                  ? 'bg-gray-900 text-white shadow-md' 
+                                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900'
+                                }
+                              `}
                             >
-                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                              <Info className="h-3.5 w-3.5" />
+                              <span>Anleitung</span>
                             </button>
                           </div>
                           <p className="text-sm text-gray-600 mb-4">
@@ -1140,10 +1180,18 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                             <h3 className="font-semibold">Konkrete Maßnahmen</h3>
                             <button
                               onClick={() => setShowHelpTooltip(showHelpTooltip === 4 ? null : 4)}
-                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
-                              title="Hilfe anzeigen"
+                              className={`
+                                inline-flex items-center gap-1.5 px-3 py-1.5 
+                                text-xs font-medium rounded-full
+                                transition-all duration-200 
+                                ${showHelpTooltip === 4 
+                                  ? 'bg-gray-900 text-white shadow-md' 
+                                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900'
+                                }
+                              `}
                             >
-                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                              <Info className="h-3.5 w-3.5" />
+                              <span>Anleitung</span>
                             </button>
                           </div>
                           <p className="text-sm text-gray-600 mb-4">
@@ -1174,10 +1222,18 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                             <h3 className="font-semibold">Begründung der Maßnahmen</h3>
                             <button
                               onClick={() => setShowHelpTooltip(showHelpTooltip === 5 ? null : 5)}
-                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
-                              title="Hilfe anzeigen"
+                              className={`
+                                inline-flex items-center gap-1.5 px-3 py-1.5 
+                                text-xs font-medium rounded-full
+                                transition-all duration-200 
+                                ${showHelpTooltip === 5 
+                                  ? 'bg-gray-900 text-white shadow-md' 
+                                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900'
+                                }
+                              `}
                             >
-                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                              <Info className="h-3.5 w-3.5" />
+                              <span>Anleitung</span>
                             </button>
                           </div>
                           <p className="text-sm text-gray-600 mb-4">
@@ -1208,10 +1264,18 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                             <h3 className="font-semibold">Evaluationsmöglichkeiten</h3>
                             <button
                               onClick={() => setShowHelpTooltip(showHelpTooltip === 6 ? null : 6)}
-                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
-                              title="Hilfe anzeigen"
+                              className={`
+                                inline-flex items-center gap-1.5 px-3 py-1.5 
+                                text-xs font-medium rounded-full
+                                transition-all duration-200 
+                                ${showHelpTooltip === 6 
+                                  ? 'bg-gray-900 text-white shadow-md' 
+                                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900'
+                                }
+                              `}
                             >
-                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                              <Info className="h-3.5 w-3.5" />
+                              <span>Anleitung</span>
                             </button>
                           </div>
                           <p className="text-sm text-gray-600 mb-4">
