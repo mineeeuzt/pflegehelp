@@ -2757,6 +2757,140 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'kidney-microscopic-anatomy'
                   }
                 ]
+              },
+              {
+                id: 'kidney-blood-supply',
+                name: 'Blutversorgung',
+                description: 'Gefäßsystem der Nieren',
+                icon: '🩸',
+                difficulty: 'hard',
+                parentId: 'kidney-structure',
+                children: [
+                  {
+                    id: 'renal-artery-segments',
+                    name: 'A. renalis → Segmentarterien',
+                    description: 'Aufzweigung der Nierenarterie',
+                    icon: '🌳',
+                    difficulty: 'medium',
+                    parentId: 'kidney-blood-supply'
+                  },
+                  {
+                    id: 'interlobular-arteries',
+                    name: 'Interlobuläre Arterien',
+                    description: 'Arterien zwischen den Nierenlappen',
+                    icon: '🌿',
+                    difficulty: 'medium',
+                    parentId: 'kidney-blood-supply'
+                  },
+                  {
+                    id: 'afferent-efferent-vessels',
+                    name: 'Vas afferens/efferens',
+                    description: 'Zu- und abführende Glomerulus-Gefäße',
+                    icon: '↔️',
+                    difficulty: 'medium',
+                    parentId: 'kidney-blood-supply'
+                  },
+                  {
+                    id: 'glomerular-capillaries',
+                    name: 'Glomeruläre Kapillaren',
+                    description: 'Kapillarnetz im Glomerulus',
+                    icon: '🕸️',
+                    difficulty: 'medium',
+                    parentId: 'kidney-blood-supply'
+                  },
+                  {
+                    id: 'peritubular-capillaries',
+                    name: 'Peritubulare Kapillaren',
+                    description: 'Kapillarnetz um die Tubuli',
+                    icon: '🔗',
+                    difficulty: 'medium',
+                    parentId: 'kidney-blood-supply'
+                  },
+                  {
+                    id: 'vasa-recta',
+                    name: 'Vasa recta',
+                    description: 'Gerade Gefäße im Nierenmark',
+                    icon: '📏',
+                    difficulty: 'hard',
+                    parentId: 'kidney-blood-supply'
+                  },
+                  {
+                    id: 'venous-return',
+                    name: 'Venöser Rückfluss',
+                    description: 'Venöses System der Niere',
+                    icon: '🔙',
+                    difficulty: 'medium',
+                    parentId: 'kidney-blood-supply'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'kidney-function',
+            name: 'Nierenfunktion',
+            description: 'Physiologie und Regulation der Nierenfunktion',
+            icon: '⚙️',
+            difficulty: 'hard',
+            parentId: 'renal-system',
+            children: [
+              {
+                id: 'glomerular-filtration',
+                name: 'Glomeruläre Filtration',
+                description: 'Filtrationsprozesse im Glomerulus',
+                icon: '🔍',
+                difficulty: 'hard',
+                parentId: 'kidney-function',
+                children: [
+                  {
+                    id: 'filtration-pressure',
+                    name: 'Filtrationsdruck (hydrostatisch, onkotisch)',
+                    description: 'Druckverhältnisse bei der Filtration',
+                    icon: '⚖️',
+                    difficulty: 'hard',
+                    parentId: 'glomerular-filtration'
+                  },
+                  {
+                    id: 'gfr',
+                    name: 'Glomeruläre Filtrationsrate (GFR)',
+                    description: 'Maß für die Nierenfunktion',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'glomerular-filtration'
+                  },
+                  {
+                    id: 'clearance-concept',
+                    name: 'Clearance-Konzept',
+                    description: 'Reinigungsleistung der Nieren',
+                    icon: '🧹',
+                    difficulty: 'hard',
+                    parentId: 'glomerular-filtration'
+                  },
+                  {
+                    id: 'creatinine-clearance',
+                    name: 'Kreatinin-Clearance',
+                    description: 'Goldstandard der GFR-Messung',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'glomerular-filtration'
+                  },
+                  {
+                    id: 'egfr-calculation',
+                    name: 'eGFR-Berechnung (CKD-EPI, MDRD)',
+                    description: 'Geschätzte GFR-Formeln',
+                    icon: '🧮',
+                    difficulty: 'medium',
+                    parentId: 'glomerular-filtration'
+                  },
+                  {
+                    id: 'filtration-barrier',
+                    name: 'Filtrationsbarriere',
+                    description: 'Selektive Permeabilität des Glomerulus',
+                    icon: '🚧',
+                    difficulty: 'hard',
+                    parentId: 'glomerular-filtration'
+                  }
+                ]
               }
             ]
           }
