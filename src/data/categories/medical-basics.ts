@@ -3277,6 +3277,216 @@ export const medicalBasicsCategories: Category[] = [
                 ]
               }
             ]
+          },
+          {
+            id: 'acid-base-balance',
+            name: 'Säure-Basen-Haushalt',
+            description: 'Regulation des pH-Werts und Säure-Basen-Gleichgewichts',
+            icon: '⚖️',
+            difficulty: 'hard',
+            parentId: 'renal-system',
+            children: [
+              {
+                id: 'ph-regulation',
+                name: 'pH-Regulation',
+                description: 'Mechanismen der pH-Wert-Kontrolle',
+                icon: '🎛️',
+                difficulty: 'hard',
+                parentId: 'acid-base-balance',
+                children: [
+                  {
+                    id: 'henderson-hasselbalch',
+                    name: 'Henderson-Hasselbalch-Gleichung',
+                    description: 'Mathematische Grundlage der pH-Berechnung',
+                    icon: '🧮',
+                    difficulty: 'hard',
+                    parentId: 'ph-regulation'
+                  },
+                  {
+                    id: 'buffer-systems',
+                    name: 'Puffersysteme (Bikarbonat, Phosphat, Protein)',
+                    description: 'Chemische Puffersysteme des Körpers',
+                    icon: '🛡️',
+                    difficulty: 'hard',
+                    parentId: 'ph-regulation'
+                  },
+                  {
+                    id: 'respiratory-compensation',
+                    name: 'Respiratorische Kompensation',
+                    description: 'CO2-Regulation über die Atmung',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'ph-regulation'
+                  },
+                  {
+                    id: 'renal-compensation',
+                    name: 'Renale Kompensation',
+                    description: 'H+- und HCO3--Regulation über die Nieren',
+                    icon: '🫘',
+                    difficulty: 'hard',
+                    parentId: 'ph-regulation'
+                  },
+                  {
+                    id: 'ph-normal-values',
+                    name: 'pH-Normalwerte (7,35-7,45)',
+                    description: 'Normbereich des arteriellen pH-Werts',
+                    icon: '📊',
+                    difficulty: 'easy',
+                    parentId: 'ph-regulation'
+                  },
+                  {
+                    id: 'isohydric-principle',
+                    name: 'Isohydrie-Prinzip',
+                    description: 'Konstanter pH trotz unterschiedlicher Puffer',
+                    icon: '⚖️',
+                    difficulty: 'hard',
+                    parentId: 'ph-regulation'
+                  }
+                ]
+              },
+              {
+                id: 'acidosis',
+                name: 'Azidose',
+                description: 'pH-Erniedrigung und Übersäuerung',
+                icon: '🔴',
+                difficulty: 'medium',
+                parentId: 'acid-base-balance',
+                children: [
+                  {
+                    id: 'metabolic-acidosis',
+                    name: 'Metabolische Azidose',
+                    description: 'Primär erniedrigtes HCO3-',
+                    icon: '⬇️',
+                    difficulty: 'medium',
+                    parentId: 'acidosis'
+                  },
+                  {
+                    id: 'respiratory-acidosis',
+                    name: 'Respiratorische Azidose',
+                    description: 'Primär erhöhtes pCO2',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'acidosis'
+                  },
+                  {
+                    id: 'anion-gap',
+                    name: 'Anionenlücke',
+                    description: 'Differentialdiagnose metabolischer Azidosen',
+                    icon: '🔢',
+                    difficulty: 'hard',
+                    parentId: 'acidosis'
+                  },
+                  {
+                    id: 'acidosis-compensation',
+                    name: 'Kompensationsmechanismen',
+                    description: 'Ausgleichsreaktionen bei Azidose',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'acidosis'
+                  },
+                  {
+                    id: 'acidosis-causes',
+                    name: 'Ursachen (Diabetes, Niereninsuff., Diarrhö)',
+                    description: 'Häufige Ursachen von Azidosen',
+                    icon: '🎯',
+                    difficulty: 'medium',
+                    parentId: 'acidosis'
+                  }
+                ]
+              },
+              {
+                id: 'alkalosis',
+                name: 'Alkalose',
+                description: 'pH-Erhöhung und Alkalisierung',
+                icon: '🔵',
+                difficulty: 'medium',
+                parentId: 'acid-base-balance',
+                children: [
+                  {
+                    id: 'metabolic-alkalosis',
+                    name: 'Metabolische Alkalose',
+                    description: 'Primär erhöhtes HCO3-',
+                    icon: '⬆️',
+                    difficulty: 'medium',
+                    parentId: 'alkalosis'
+                  },
+                  {
+                    id: 'respiratory-alkalosis',
+                    name: 'Respiratorische Alkalose',
+                    description: 'Primär erniedrigtes pCO2',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'alkalosis'
+                  },
+                  {
+                    id: 'alkalosis-compensation',
+                    name: 'Kompensationsmechanismen',
+                    description: 'Ausgleichsreaktionen bei Alkalose',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'alkalosis'
+                  },
+                  {
+                    id: 'alkalosis-causes',
+                    name: 'Ursachen (Erbrechen, Hyperventilation)',
+                    description: 'Häufige Ursachen von Alkalosen',
+                    icon: '🎯',
+                    difficulty: 'medium',
+                    parentId: 'alkalosis'
+                  }
+                ]
+              },
+              {
+                id: 'blood-gas-analysis',
+                name: 'Blutgasanalyse',
+                description: 'Diagnostik des Säure-Basen-Haushalts',
+                icon: '🩸',
+                difficulty: 'hard',
+                parentId: 'acid-base-balance',
+                children: [
+                  {
+                    id: 'ph-pco2-po2',
+                    name: 'pH, pCO2, pO2',
+                    description: 'Grundparameter der Blutgasanalyse',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'blood-gas-analysis'
+                  },
+                  {
+                    id: 'hco3-base-excess',
+                    name: 'HCO3-, BE (Base Excess)',
+                    description: 'Bikarbonat und Basenüberschuss',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'blood-gas-analysis'
+                  },
+                  {
+                    id: 'oxygen-saturation',
+                    name: 'Sauerstoffsättigung',
+                    description: 'O2-Sättigung des Hämoglobins',
+                    icon: '🔴',
+                    difficulty: 'easy',
+                    parentId: 'blood-gas-analysis'
+                  },
+                  {
+                    id: 'lactate',
+                    name: 'Laktat',
+                    description: 'Gewebshypoxie und Azidose-Marker',
+                    icon: '🏃',
+                    difficulty: 'medium',
+                    parentId: 'blood-gas-analysis'
+                  },
+                  {
+                    id: 'bga-interpretation',
+                    name: 'Interpretation (Stufenschema)',
+                    description: 'Systematische BGA-Auswertung',
+                    icon: '🔍',
+                    difficulty: 'hard',
+                    parentId: 'blood-gas-analysis'
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
