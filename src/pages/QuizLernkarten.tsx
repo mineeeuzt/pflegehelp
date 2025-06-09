@@ -187,41 +187,47 @@ const QuizLernkarten = () => {
   const CategoryGrid = ({ categories, color = 'blue' }: { categories: any[], color?: string }) => {
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {categories.map((category) => {
+        {categories.map((category, index) => {
           const isSelected = selectedCategories.includes(category.id)
           const hasChildren = category.children && category.children.length > 0
           
           return (
-            <div key={category.id} className="relative">
-              <button
+            <motion.div 
+              key={category.id} 
+              className="relative"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+            >
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => selectCategory(category.id)}
-                className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
+                className={`w-full p-4 rounded-lg border-2 transition-all text-left group ${
                   isSelected
-                    ? color === 'blue' 
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-red-500 bg-red-50'
-                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                    ? 'border-black bg-gray-50'
+                    : 'border-gray-200 hover:border-gray-300 hover:shadow-md bg-white'
                 }`}
               >
-                <div className="text-2xl mb-2">{category.icon}</div>
-                <div className="text-sm font-medium mb-1">{category.name}</div>
-                <div className="text-xs text-gray-600">{category.description}</div>
+                <div className="text-2xl mb-3">{category.icon}</div>
+                <div className="text-sm font-medium mb-2 text-gray-900">{category.name}</div>
+                <div className="text-xs text-gray-600 font-light leading-relaxed">{category.description}</div>
                 {hasChildren && (
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs text-gray-500 mt-2">
                     {category.children.length} Unterkategorien
                   </div>
                 )}
-              </button>
+              </motion.button>
               {hasChildren && (
                 <button
                   onClick={() => navigateToDetail(category)}
-                  className="absolute top-2 right-2 p-1 rounded-full bg-white shadow hover:bg-gray-100"
+                  className="absolute top-3 right-3 p-1.5 rounded-full bg-white shadow-sm hover:shadow border border-gray-200 hover:border-gray-300 transition-all"
                   title="Details anzeigen"
                 >
-                  <ChevronRight className="w-4 h-4 text-gray-600" />
+                  <ChevronRight className="w-3 h-3 text-gray-600" />
                 </button>
               )}
-            </div>
+            </motion.div>
           )
         })}
       </div>
@@ -230,97 +236,93 @@ const QuizLernkarten = () => {
 
   // Main Category Selection View - Clean Two-Button Interface
   const MainCategorySelection = () => (
-    <Card className="mb-6">
-      <CardHeader>
-        <CardTitle>Lernbereiche</CardTitle>
-        <p className="text-gray-600">Wähle einen Fachbereich aus, um mit dem Lernen zu beginnen.</p>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Anatomie & Physiologie */}
-          <button
-            onClick={() => navigateToMain('anatomy')}
-            className="flex items-center gap-4 p-6 bg-blue-50 rounded-xl border-2 border-blue-200 hover:border-blue-300 transition-all group"
-          >
-            <span className="text-4xl">🏥</span>
-            <div className="text-left flex-1">
-              <div className="text-xl font-semibold text-blue-700 mb-1">Anatomie & Physiologie</div>
-              <div className="text-blue-600 text-sm">Körperaufbau und Funktionen</div>
-              <div className="text-xs text-blue-500 mt-2">9 Organsysteme • 287 Lernkategorien</div>
-            </div>
-            <ChevronRight className="w-6 h-6 text-blue-500 group-hover:translate-x-1 transition-transform" />
-          </button>
-          
-          {/* Krankheitslehre */}
-          <button
-            onClick={() => navigateToMain('pathology')}
-            className="flex items-center gap-4 p-6 bg-red-50 rounded-xl border-2 border-red-200 hover:border-red-300 transition-all group"
-          >
-            <span className="text-4xl">🦠</span>
-            <div className="text-left flex-1">
-              <div className="text-xl font-semibold text-red-700 mb-1">Krankheitslehre</div>
-              <div className="text-red-600 text-sm">Pathologie und Erkrankungen</div>
-              <div className="text-xs text-red-500 mt-2">8 Fachbereiche • 84 Krankheitsbilder</div>
-            </div>
-            <ChevronRight className="w-6 h-6 text-red-500 group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
-
-      </CardContent>
-    </Card>
+    <div className="mb-12">
+      <h2 className="text-2xl font-light text-gray-900 mb-8 text-center">Lernbereiche</h2>
+      <p className="text-gray-600 font-light text-center mb-8">Wähle einen Fachbereich aus, um mit dem Lernen zu beginnen.</p>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Anatomie & Physiologie */}
+        <motion.button
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigateToMain('anatomy')}
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg"
+        >
+          <span className="text-4xl">🏥</span>
+          <div className="text-left flex-1">
+            <div className="text-xl font-medium text-gray-900 mb-1">Anatomie & Physiologie</div>
+            <div className="text-gray-600 text-sm font-light">Körperaufbau und Funktionen</div>
+            <div className="text-xs text-gray-500 mt-2">9 Organsysteme • 287 Lernkategorien</div>
+          </div>
+          <ChevronRight className="w-6 h-6 text-gray-400 group-hover:translate-x-1 transition-transform" />
+        </motion.button>
+        
+        {/* Krankheitslehre */}
+        <motion.button
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigateToMain('pathology')}
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg"
+        >
+          <span className="text-4xl">🦠</span>
+          <div className="text-left flex-1">
+            <div className="text-xl font-medium text-gray-900 mb-1">Krankheitslehre</div>
+            <div className="text-gray-600 text-sm font-light">Pathologie und Erkrankungen</div>
+            <div className="text-xs text-gray-500 mt-2">8 Fachbereiche • 84 Krankheitsbilder</div>
+          </div>
+          <ChevronRight className="w-6 h-6 text-gray-400 group-hover:translate-x-1 transition-transform" />
+        </motion.button>
+      </div>
+    </div>
   )
 
   // Subcategory View - Shows main systems
   const SubcategoryView = () => {
     if (selectedMainCategory === 'anatomy') {
       return (
-        <Card className="mb-6">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle>
-                <BreadcrumbNav />
-                🏥 Anatomie & Physiologie
-              </CardTitle>
-              <Button variant="outline" onClick={navigateBack}>
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Zurück
-              </Button>
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <BreadcrumbNav />
+              <h2 className="text-2xl font-light text-gray-900 mb-2">🏥 Anatomie & Physiologie</h2>
+              <p className="text-gray-600 font-light">Wähle ein Organsystem aus, um die Details zu sehen:</p>
             </div>
-            <p className="text-gray-600">Wähle ein Organsystem aus, um die Details zu sehen:</p>
-          </CardHeader>
-          <CardContent>
-            <CategoryGrid 
-              categories={medicalBasicsCategories[0]?.children || []}
-              color="blue"
-            />
-          </CardContent>
-        </Card>
+            <Button variant="outline" onClick={navigateBack} className="shrink-0">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Zurück
+            </Button>
+          </div>
+          <CategoryGrid 
+            categories={medicalBasicsCategories[0]?.children || []}
+            color="blue"
+          />
+        </div>
       )
     }
     
     if (selectedMainCategory === 'pathology') {
       return (
-        <Card className="mb-6">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle>
-                <BreadcrumbNav />
-                🦠 Krankheitslehre
-              </CardTitle>
-              <Button variant="outline" onClick={navigateBack}>
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Zurück
-              </Button>
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <BreadcrumbNav />
+              <h2 className="text-2xl font-light text-gray-900 mb-2">🦠 Krankheitslehre</h2>
+              <p className="text-gray-600 font-light">Wähle einen Krankheitsbereich aus, um die Details zu sehen:</p>
             </div>
-            <p className="text-gray-600">Wähle einen Krankheitsbereich aus, um die Details zu sehen:</p>
-          </CardHeader>
-          <CardContent>
-            <CategoryGrid 
-              categories={pathologyCategories[0]?.children || []}
-              color="red"
-            />
-          </CardContent>
-        </Card>
+            <Button variant="outline" onClick={navigateBack} className="shrink-0">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Zurück
+            </Button>
+          </div>
+          <CategoryGrid 
+            categories={pathologyCategories[0]?.children || []}
+            color="red"
+          />
+        </div>
       )
     }
     
@@ -329,29 +331,27 @@ const QuizLernkarten = () => {
 
   // Detail View - Shows deepest level categories
   const DetailView = () => (
-    <Card className="mb-6">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle>
-            <BreadcrumbNav />
+    <div className="mb-12">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <BreadcrumbNav />
+          <h2 className="text-2xl font-light text-gray-900 mb-2">
             {selectedSubcategory?.icon} {selectedSubcategory?.name}
-          </CardTitle>
-          <Button variant="outline" onClick={navigateBack}>
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Zurück
-          </Button>
+          </h2>
+          <p className="text-gray-600 font-light">{selectedSubcategory?.description}</p>
         </div>
-        <p className="text-gray-600">{selectedSubcategory?.description}</p>
-      </CardHeader>
-      <CardContent>
-        {selectedSubcategory?.children && (
-          <CategoryGrid 
-            categories={selectedSubcategory.children}
-            color={selectedMainCategory === 'pathology' ? 'red' : 'blue'}
-          />
-        )}
-      </CardContent>
-    </Card>
+        <Button variant="outline" onClick={navigateBack} className="shrink-0">
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Zurück
+        </Button>
+      </div>
+      {selectedSubcategory?.children && (
+        <CategoryGrid 
+          categories={selectedSubcategory.children}
+          color={selectedMainCategory === 'pathology' ? 'red' : 'blue'}
+        />
+      )}
+    </div>
   )
 
   // Category Selection Logic
@@ -367,30 +367,31 @@ const QuizLernkarten = () => {
 
   // Study Mode Selection
   const StudyModeSelection = () => (
-    <Card className="mb-6">
-      <CardHeader>
-        <CardTitle>Lernmodus wählen</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {studyModes.map((mode) => (
-            <button
-              key={mode.id}
-              onClick={() => setStudyMode(mode.id)}
-              className={`p-4 rounded-lg border-2 text-left transition-all ${
-                studyMode === mode.id
-                  ? 'border-blue-500 bg-blue-50'
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
-            >
-              <div className="text-3xl mb-2">{mode.icon}</div>
-              <div className="font-medium mb-1">{mode.name}</div>
-              <div className="text-sm text-gray-600">{mode.description}</div>
-            </button>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+    <div className="mb-12">
+      <h2 className="text-2xl font-light text-gray-900 mb-8 text-center">Lernmodus wählen</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {studyModes.map((mode, index) => (
+          <motion.button
+            key={mode.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setStudyMode(mode.id)}
+            className={`group p-6 rounded-lg border-2 text-left transition-all ${
+              studyMode === mode.id
+                ? 'border-black bg-gray-50'
+                : 'border-gray-200 hover:border-gray-300 bg-white'
+            }`}
+          >
+            <div className="text-3xl mb-4">{mode.icon}</div>
+            <div className="font-medium mb-2 text-gray-900">{mode.name}</div>
+            <div className="text-sm text-gray-600 font-light leading-relaxed">{mode.description}</div>
+          </motion.button>
+        ))}
+      </div>
+    </div>
   )
 
   // Quiz Interface
@@ -711,33 +712,33 @@ const QuizLernkarten = () => {
 
   // Main selection screen
   return (
-    <div className="container mx-auto px-4 py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-6xl mx-auto"
-      >
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Brain className="w-8 h-8 text-primary" />
-            <h1 className="text-3xl font-bold">🧠 Quiz & Lernkarten</h1>
-          </div>
-          <p className="text-lg text-gray-600 mb-2">Interaktives Lernsystem für die Pflegeausbildung</p>
-          <p className="text-sm text-gray-500">Teste dein Wissen mit Quiz oder lerne mit Karteikarten</p>
-        </div>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-4xl mx-auto px-6 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-5xl font-light text-gray-900 mb-4">
+            Quiz & Lernkarten
+          </h1>
+          <p className="text-xl text-gray-600 font-light">
+            Interaktives Lernsystem für die Pflegeausbildung
+          </p>
+        </motion.div>
 
         <StudyModeSelection />
         <CategorySelection />
 
-        <div className="text-center">
+        <div className="text-center mt-12">
           {studyMode === 'quiz' && (
             <Button
               size="lg"
               onClick={handleStartQuiz}
               disabled={selectedCategories.length === 0}
-              className="mr-4"
+              className="px-8 py-3 text-base"
             >
-              <Play className="w-4 h-4 mr-2" />
+              <Play className="w-5 h-5 mr-2" />
               Quiz starten
             </Button>
           )}
@@ -747,20 +748,22 @@ const QuizLernkarten = () => {
               size="lg"
               onClick={handleStartFlashcards}
               disabled={selectedCategories.length === 0}
+              className="px-8 py-3 text-base"
             >
-              <BookOpen className="w-4 h-4 mr-2" />
+              <BookOpen className="w-5 h-5 mr-2" />
               Lernkarten starten
             </Button>
           )}
 
           {studyMode === 'mixed' && (
-            <div className="space-x-4">
+            <div className="flex gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={handleStartQuiz}
                 disabled={selectedCategories.length === 0}
+                className="px-8 py-3 text-base"
               >
-                <Play className="w-4 h-4 mr-2" />
+                <Play className="w-5 h-5 mr-2" />
                 Quiz starten
               </Button>
               <Button
@@ -768,14 +771,15 @@ const QuizLernkarten = () => {
                 variant="outline"
                 onClick={handleStartFlashcards}
                 disabled={selectedCategories.length === 0}
+                className="px-8 py-3 text-base"
               >
-                <BookOpen className="w-4 h-4 mr-2" />
+                <BookOpen className="w-5 h-5 mr-2" />
                 Lernkarten starten
               </Button>
             </div>
           )}
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }
