@@ -28,6 +28,13 @@
     /* Neue Blaugrün-Varianten für Overlays */
     --overlay-dark: 184 35% 8%; /* Dunkles Blaugrün für Overlays */
     --overlay-medium: 184 25% 12%;
+    
+    /* Apple-style durchsichtiges Grau */
+    --glass-bg: 255 255 255 / 0.8; /* Weißes Glas mit 80% Opazität */
+    --glass-border: 255 255 255 / 0.2; /* Subtile weiße Border */
+    --glass-shadow: 0 0 0 / 0.1; /* Weicher Schatten */
+    --glass-surface: 248 250 252 / 0.8; /* Subtiles Grau für Oberflächen */
+    --glass-overlay: 0 0 0 / 0.05; /* Subtiles dunkles Overlay */
   }
 }
 

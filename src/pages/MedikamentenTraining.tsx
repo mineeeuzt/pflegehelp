@@ -584,21 +584,21 @@ const MedikamentenTraining = () => {
                 {/* Vitaldaten */}
                 <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl font-mono mb-8">
                   <div className="grid grid-cols-3 gap-6 text-center mb-6">
-                    <div className="bg-white rounded-lg p-4 border border-gray-200">
+                    <div className="bg-white/80 rounded-lg p-4 border border-gray-200/40 backdrop-blur-sm">
                       <Heart className="h-5 w-5 mx-auto mb-2 text-gray-600" />
                       <div className="text-xs text-gray-500 font-normal mb-1">Herzfrequenz</div>
                       <div className={`text-lg font-semibold ${getVitalColor('heartRate', currentScenario.vitals.heartRate)}`}>
                         {currentScenario.vitals.heartRate} bpm
                       </div>
                     </div>
-                    <div className="bg-white rounded-lg p-4 border border-gray-200">
+                    <div className="bg-white/80 rounded-lg p-4 border border-gray-200/40 backdrop-blur-sm">
                       <Activity className="h-5 w-5 mx-auto mb-2 text-gray-600" />
                       <div className="text-xs text-gray-500 font-normal mb-1">Blutdruck</div>
                       <div className={`text-lg font-semibold ${getVitalColor('bloodPressure', currentScenario.vitals.bloodPressure)}`}>
                         {currentScenario.vitals.bloodPressure}
                       </div>
                     </div>
-                    <div className="bg-white rounded-lg p-4 border border-gray-200">
+                    <div className="bg-white/80 rounded-lg p-4 border border-gray-200/40 backdrop-blur-sm">
                       <Thermometer className="h-5 w-5 mx-auto mb-2 text-gray-600" />
                       <div className="text-xs text-gray-500 font-normal mb-1">Temperatur</div>
                       <div className={`text-lg font-semibold ${getVitalColor('temperature', currentScenario.vitals.temperature)}`}>
