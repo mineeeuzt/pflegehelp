@@ -4013,18 +4013,18 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'primary-hemostasis'
                   },
                   {
-                    id: 'platelet-plug',
-                    name: 'Thrombozytenpfropf',
-                    description: 'Bildung des Plättchenpfropfs',
-                    icon: '🔌',
+                    id: 'thrombocyte-adhesion',
+                    name: 'Thrombozytenadhäsion',
+                    description: 'Anheftung der Thrombozyten an Gefäßwand',
+                    icon: '📎',
                     difficulty: 'medium',
                     parentId: 'primary-hemostasis'
                   },
                   {
-                    id: 'endothelial-function',
-                    name: 'Endothelfunktion',
-                    description: 'Rolle des Endothels bei der Hämostase',
-                    icon: '🔗',
+                    id: 'thrombocyte-aggregation-hemostasis',
+                    name: 'Thrombozytenaggregation',
+                    description: 'Verklumpung der Blutplättchen',
+                    icon: '🤝',
                     difficulty: 'medium',
                     parentId: 'primary-hemostasis'
                   }
@@ -4039,17 +4039,17 @@ export const medicalBasicsCategories: Category[] = [
                 parentId: 'blood-coagulation',
                 children: [
                   {
-                    id: 'intrinsic-pathway',
-                    name: 'Intrinsisches System (PTT)',
-                    description: 'Kontaktaktiviertes Gerinnungssystem',
+                    id: 'intrinsic-system',
+                    name: 'Intrinsisches System',
+                    description: 'Kontaktaktiviertes Gerinnungssystem (PTT)',
                     icon: '🔄',
                     difficulty: 'hard',
                     parentId: 'secondary-hemostasis'
                   },
                   {
-                    id: 'extrinsic-pathway',
-                    name: 'Extrinsisches System (PT/INR)',
-                    description: 'Tissue Factor-aktiviertes System',
+                    id: 'extrinsic-system',
+                    name: 'Extrinsisches System',
+                    description: 'Tissue Factor-aktiviertes System (PT/INR)',
                     icon: '⚡',
                     difficulty: 'hard',
                     parentId: 'secondary-hemostasis'
@@ -4057,7 +4057,7 @@ export const medicalBasicsCategories: Category[] = [
                   {
                     id: 'common-pathway',
                     name: 'Gemeinsame Endstrecke',
-                    description: 'Fibrinbildung und Thrombusentstehung',
+                    description: 'Konvergenz beider Gerinnungswege',
                     icon: '🛤️',
                     difficulty: 'hard',
                     parentId: 'secondary-hemostasis'
@@ -4081,27 +4081,27 @@ export const medicalBasicsCategories: Category[] = [
                 parentId: 'blood-coagulation',
                 children: [
                   {
-                    id: 'plasmin-system',
-                    name: 'Plasmin-System',
-                    description: 'Fibrinabbau durch Plasmin',
-                    icon: '✂️',
+                    id: 'plasminogen-plasmin',
+                    name: 'Plasminogen → Plasmin',
+                    description: 'Aktivierung des fibrinolytischen Systems',
+                    icon: '🔀',
                     difficulty: 'hard',
                     parentId: 'fibrinolysis'
                   },
                   {
-                    id: 'tpa-activation',
-                    name: 'tPA (Tissue Plasminogen Activator)',
-                    description: 'Aktivator der Fibrinolyse',
+                    id: 'tpa-upa',
+                    name: 't-PA, u-PA',
+                    description: 'Tissue- und Urokinase-Plasminogen-Aktivator',
                     icon: '🔑',
                     difficulty: 'hard',
                     parentId: 'fibrinolysis'
                   },
                   {
-                    id: 'pai-inhibition',
-                    name: 'PAI-1 (Plasminogen Activator Inhibitor)',
-                    description: 'Hemmung der Fibrinolyse',
-                    icon: '🛑',
-                    difficulty: 'hard',
+                    id: 'd-dimers',
+                    name: 'D-Dimere',
+                    description: 'Fibrinabbauprodukte als Marker',
+                    icon: '🧪',
+                    difficulty: 'medium',
                     parentId: 'fibrinolysis'
                   }
                 ]
@@ -4115,7 +4115,7 @@ export const medicalBasicsCategories: Category[] = [
                 parentId: 'blood-coagulation',
                 children: [
                   {
-                    id: 'antithrombin',
+                    id: 'antithrombin-iii',
                     name: 'Antithrombin III',
                     description: 'Wichtigster Gerinnungshemmer',
                     icon: '🔒',
@@ -4124,18 +4124,26 @@ export const medicalBasicsCategories: Category[] = [
                   },
                   {
                     id: 'protein-c-s',
-                    name: 'Protein C & S System',
-                    description: 'Vitamin K-abhängige Hemmer',
+                    name: 'Protein C/S',
+                    description: 'Vitamin K-abhängige Gerinnungshemmer',
                     icon: '🗝️',
                     difficulty: 'hard',
                     parentId: 'anticoagulation'
                   },
                   {
-                    id: 'heparin-cofactor',
-                    name: 'Heparin-Cofaktor II',
-                    description: 'Thrombin-spezifischer Hemmer',
-                    icon: '🎯',
+                    id: 'tfpi',
+                    name: 'TFPI',
+                    description: 'Tissue Factor Pathway Inhibitor',
+                    icon: '🚫',
                     difficulty: 'hard',
+                    parentId: 'anticoagulation'
+                  },
+                  {
+                    id: 'heparin-effect',
+                    name: 'Heparin-Wirkung',
+                    description: 'Verstärkung der Antithrombin-Aktivität',
+                    icon: '💉',
+                    difficulty: 'medium',
                     parentId: 'anticoagulation'
                   }
                 ]
