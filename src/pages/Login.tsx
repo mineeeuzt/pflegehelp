@@ -23,8 +23,8 @@ const Login = () => {
       const result = await signIn(email, password)
       
       if (result.success) {
-        // Use navigate instead of window.location for SPA navigation
-        navigate('/dashboard')
+        // Navigate immediately after successful login
+        navigate('/dashboard', { replace: true })
       } else {
         setError(result.error || 'Anmeldung fehlgeschlagen')
       }

@@ -30,8 +30,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       }
 
       if (data.user) {
-        // Load user profile immediately after successful auth
+        // Load user profile immediately after successful auth and wait for completion
         await get().loadUser()
+        
+        // Ensure we have a user loaded before considering success
+        const currentState = get()
+        if (!currentState.user) {
+          set({ isLoading: false })
+          return { success: false, error: 'Benutzerprofil konnte nicht geladen werden' }
+        }
       }
 
       set({ isLoading: false })
