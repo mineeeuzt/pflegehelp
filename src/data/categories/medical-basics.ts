@@ -3831,6 +3831,858 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'leukocytes'
                   }
                 ]
+              },
+              {
+                id: 'thrombocytes',
+                name: 'Thrombozyten (Blutplättchen)',
+                description: 'Blutstillung und Blutgerinnung',
+                icon: '🩹',
+                difficulty: 'medium',
+                parentId: 'blood-components',
+                children: [
+                  {
+                    id: 'thrombocyte-structure',
+                    name: 'Struktur (Zellmembran, Granula)',
+                    description: 'Aufbau der Blutplättchen',
+                    icon: '🔬',
+                    difficulty: 'medium',
+                    parentId: 'thrombocytes'
+                  },
+                  {
+                    id: 'thrombopoiesis',
+                    name: 'Thrombopoese',
+                    description: 'Bildung der Thrombozyten',
+                    icon: '🏭',
+                    difficulty: 'medium',
+                    parentId: 'thrombocytes'
+                  },
+                  {
+                    id: 'platelet-aggregation',
+                    name: 'Thrombozytenaggregation',
+                    description: 'Verklumpung der Blutplättchen',
+                    icon: '🤝',
+                    difficulty: 'medium',
+                    parentId: 'thrombocytes'
+                  },
+                  {
+                    id: 'platelet-adhesion',
+                    name: 'Thrombozytenadhäsion',
+                    description: 'Anheftung an Gefäßwand',
+                    icon: '📎',
+                    difficulty: 'medium',
+                    parentId: 'thrombocytes'
+                  },
+                  {
+                    id: 'platelet-granules',
+                    name: 'Granula (α-Granula, dichte Granula)',
+                    description: 'Speicherorganellen der Thrombozyten',
+                    icon: '📦',
+                    difficulty: 'hard',
+                    parentId: 'thrombocytes'
+                  },
+                  {
+                    id: 'platelet-count',
+                    name: 'Thrombozytenzahl (150-400/nl)',
+                    description: 'Normale Plättchenzahl',
+                    icon: '📊',
+                    difficulty: 'easy',
+                    parentId: 'thrombocytes'
+                  }
+                ]
+              },
+              {
+                id: 'blood-plasma',
+                name: 'Blutplasma',
+                description: 'Flüssiger Anteil des Blutes',
+                icon: '💧',
+                difficulty: 'medium',
+                parentId: 'blood-components',
+                children: [
+                  {
+                    id: 'plasma-proteins',
+                    name: 'Plasmaproteine',
+                    description: 'Proteine im Blutplasma',
+                    icon: '🧬',
+                    difficulty: 'medium',
+                    parentId: 'blood-plasma',
+                    children: [
+                      {
+                        id: 'albumin',
+                        name: 'Albumin (Onkotischer Druck)',
+                        description: 'Wichtigstes Plasmaprotein',
+                        icon: '🫧',
+                        difficulty: 'medium',
+                        parentId: 'plasma-proteins'
+                      },
+                      {
+                        id: 'globulins',
+                        name: 'Globuline (α, β, γ)',
+                        description: 'Transportproteine und Antikörper',
+                        icon: '🚛',
+                        difficulty: 'medium',
+                        parentId: 'plasma-proteins'
+                      },
+                      {
+                        id: 'fibrinogen',
+                        name: 'Fibrinogen',
+                        description: 'Gerinnungsprotein',
+                        icon: '🕸️',
+                        difficulty: 'medium',
+                        parentId: 'plasma-proteins'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'electrolytes',
+                    name: 'Elektrolyte (Na+, K+, Cl-, HCO3-)',
+                    description: 'Ionen im Blutplasma',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'blood-plasma'
+                  },
+                  {
+                    id: 'plasma-volume',
+                    name: 'Plasmavolumen (55% des Blutes)',
+                    description: 'Anteil des Plasmas am Gesamtblut',
+                    icon: '📏',
+                    difficulty: 'easy',
+                    parentId: 'blood-plasma'
+                  },
+                  {
+                    id: 'serum-vs-plasma',
+                    name: 'Serum vs. Plasma',
+                    description: 'Unterschied zwischen Serum und Plasma',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'blood-plasma'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'blood-coagulation',
+            name: 'Blutgerinnung',
+            description: 'Hämostase und Gerinnungssystem',
+            icon: '🩹',
+            difficulty: 'hard',
+            parentId: 'blood-immune-system',
+            children: [
+              {
+                id: 'primary-hemostasis',
+                name: 'Primäre Hämostase',
+                description: 'Thrombozytäre Blutstillung',
+                icon: '🔴',
+                difficulty: 'medium',
+                parentId: 'blood-coagulation',
+                children: [
+                  {
+                    id: 'vasoconstriction',
+                    name: 'Vasokonstriktion',
+                    description: 'Gefäßverengung bei Verletzung',
+                    icon: '🤏',
+                    difficulty: 'easy',
+                    parentId: 'primary-hemostasis'
+                  },
+                  {
+                    id: 'platelet-plug',
+                    name: 'Thrombozytenpfropf',
+                    description: 'Bildung des Plättchenpfropfs',
+                    icon: '🔌',
+                    difficulty: 'medium',
+                    parentId: 'primary-hemostasis'
+                  },
+                  {
+                    id: 'von-willebrand-factor',
+                    name: 'Von-Willebrand-Faktor',
+                    description: 'Bindungsprotein für Thrombozyten',
+                    icon: '🔗',
+                    difficulty: 'hard',
+                    parentId: 'primary-hemostasis'
+                  }
+                ]
+              },
+              {
+                id: 'secondary-hemostasis',
+                name: 'Sekundäre Hämostase',
+                description: 'Plasmatische Gerinnung',
+                icon: '🕸️',
+                difficulty: 'hard',
+                parentId: 'blood-coagulation',
+                children: [
+                  {
+                    id: 'intrinsic-pathway',
+                    name: 'Intrinsisches System (PTT)',
+                    description: 'Kontaktaktiviertes Gerinnungssystem',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'secondary-hemostasis'
+                  },
+                  {
+                    id: 'extrinsic-pathway',
+                    name: 'Extrinsisches System (PT/INR)',
+                    description: 'Tissue Factor-aktiviertes System',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'secondary-hemostasis'
+                  },
+                  {
+                    id: 'common-pathway',
+                    name: 'Gemeinsame Endstrecke',
+                    description: 'Fibrinbildung und Thrombusentstehung',
+                    icon: '🛤️',
+                    difficulty: 'hard',
+                    parentId: 'secondary-hemostasis'
+                  },
+                  {
+                    id: 'coagulation-factors',
+                    name: 'Gerinnungsfaktoren (I-XIII)',
+                    description: 'Plasmatische Gerinnungsproteine',
+                    icon: '🔢',
+                    difficulty: 'hard',
+                    parentId: 'secondary-hemostasis'
+                  }
+                ]
+              },
+              {
+                id: 'fibrinolysis',
+                name: 'Fibrinolyse',
+                description: 'Thrombenauflösung',
+                icon: '🧹',
+                difficulty: 'hard',
+                parentId: 'blood-coagulation',
+                children: [
+                  {
+                    id: 'plasmin-system',
+                    name: 'Plasmin-System',
+                    description: 'Fibrinabbau durch Plasmin',
+                    icon: '✂️',
+                    difficulty: 'hard',
+                    parentId: 'fibrinolysis'
+                  },
+                  {
+                    id: 'tpa-activation',
+                    name: 'tPA (Tissue Plasminogen Activator)',
+                    description: 'Aktivator der Fibrinolyse',
+                    icon: '🔑',
+                    difficulty: 'hard',
+                    parentId: 'fibrinolysis'
+                  },
+                  {
+                    id: 'pai-inhibition',
+                    name: 'PAI-1 (Plasminogen Activator Inhibitor)',
+                    description: 'Hemmung der Fibrinolyse',
+                    icon: '🛑',
+                    difficulty: 'hard',
+                    parentId: 'fibrinolysis'
+                  }
+                ]
+              },
+              {
+                id: 'anticoagulation',
+                name: 'Gerinnungshemmung',
+                description: 'Natürliche Antikoagulation',
+                icon: '🛡️',
+                difficulty: 'hard',
+                parentId: 'blood-coagulation',
+                children: [
+                  {
+                    id: 'antithrombin',
+                    name: 'Antithrombin III',
+                    description: 'Wichtigster Gerinnungshemmer',
+                    icon: '🔒',
+                    difficulty: 'hard',
+                    parentId: 'anticoagulation'
+                  },
+                  {
+                    id: 'protein-c-s',
+                    name: 'Protein C & S System',
+                    description: 'Vitamin K-abhängige Hemmer',
+                    icon: '🗝️',
+                    difficulty: 'hard',
+                    parentId: 'anticoagulation'
+                  },
+                  {
+                    id: 'heparin-cofactor',
+                    name: 'Heparin-Cofaktor II',
+                    description: 'Thrombin-spezifischer Hemmer',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'anticoagulation'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'immune-system',
+            name: 'Immunsystem',
+            description: 'Körperliche Abwehr und Immunität',
+            icon: '🛡️',
+            difficulty: 'hard',
+            parentId: 'blood-immune-system',
+            children: [
+              {
+                id: 'innate-immunity',
+                name: 'Angeborene Immunität',
+                description: 'Unspezifische Immunabwehr',
+                icon: '🏰',
+                difficulty: 'medium',
+                parentId: 'immune-system',
+                children: [
+                  {
+                    id: 'physical-barriers',
+                    name: 'Physikalische Barrieren',
+                    description: 'Haut, Schleimhäute, Flimmerhärchen',
+                    icon: '🧱',
+                    difficulty: 'easy',
+                    parentId: 'innate-immunity'
+                  },
+                  {
+                    id: 'chemical-barriers',
+                    name: 'Chemische Barrieren',
+                    description: 'pH-Wert, Enzyme, antimikrobielle Peptide',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'innate-immunity'
+                  },
+                  {
+                    id: 'phagocytes',
+                    name: 'Phagozyten (Makrophagen, Neutrophile)',
+                    description: 'Fresszellen der Immunabwehr',
+                    icon: '🦠',
+                    difficulty: 'medium',
+                    parentId: 'innate-immunity'
+                  },
+                  {
+                    id: 'complement-system',
+                    name: 'Komplementsystem',
+                    description: 'Kaskadensystem der Immunabwehr',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'innate-immunity'
+                  },
+                  {
+                    id: 'inflammatory-response',
+                    name: 'Entzündungsreaktion',
+                    description: 'Akute Entzündung als Abwehrreaktion',
+                    icon: '🔥',
+                    difficulty: 'medium',
+                    parentId: 'innate-immunity'
+                  }
+                ]
+              },
+              {
+                id: 'adaptive-immunity',
+                name: 'Erworbene Immunität',
+                description: 'Spezifische adaptive Immunabwehr',
+                icon: '🎯',
+                difficulty: 'hard',
+                parentId: 'immune-system',
+                children: [
+                  {
+                    id: 'humoral-immunity',
+                    name: 'Humorale Immunität (B-Zellen)',
+                    description: 'Antikörper-vermittelte Immunabwehr',
+                    icon: '🧬',
+                    difficulty: 'hard',
+                    parentId: 'adaptive-immunity',
+                    children: [
+                      {
+                        id: 'b-cell-activation',
+                        name: 'B-Zell-Aktivierung',
+                        description: 'Aktivierung und Differenzierung',
+                        icon: '⚡',
+                        difficulty: 'hard',
+                        parentId: 'humoral-immunity'
+                      },
+                      {
+                        id: 'antibody-classes',
+                        name: 'Antikörperklassen (IgG, IgM, IgA, IgE, IgD)',
+                        description: 'Verschiedene Immunglobulin-Typen',
+                        icon: '🔤',
+                        difficulty: 'hard',
+                        parentId: 'humoral-immunity'
+                      },
+                      {
+                        id: 'memory-b-cells',
+                        name: 'Gedächtnis-B-Zellen',
+                        description: 'Immunologisches Gedächtnis',
+                        icon: '🧠',
+                        difficulty: 'medium',
+                        parentId: 'humoral-immunity'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'cellular-immunity',
+                    name: 'Zelluläre Immunität (T-Zellen)',
+                    description: 'T-Zell-vermittelte Immunabwehr',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'adaptive-immunity',
+                    children: [
+                      {
+                        id: 'cd4-t-cells',
+                        name: 'CD4+ T-Helferzellen (Th1, Th2, Th17)',
+                        description: 'Regulatorische T-Zellen',
+                        icon: '👥',
+                        difficulty: 'hard',
+                        parentId: 'cellular-immunity'
+                      },
+                      {
+                        id: 'cd8-t-cells',
+                        name: 'CD8+ zytotoxische T-Zellen',
+                        description: 'Killerzellen gegen infizierte Zellen',
+                        icon: '⚔️',
+                        difficulty: 'hard',
+                        parentId: 'cellular-immunity'
+                      },
+                      {
+                        id: 'regulatory-t-cells',
+                        name: 'Regulatorische T-Zellen (Tregs)',
+                        description: 'Immunsuppressive T-Zellen',
+                        icon: '⚖️',
+                        difficulty: 'hard',
+                        parentId: 'cellular-immunity'
+                      },
+                      {
+                        id: 'memory-t-cells',
+                        name: 'Gedächtnis-T-Zellen',
+                        description: 'T-Zell-Gedächtnis',
+                        icon: '🧠',
+                        difficulty: 'medium',
+                        parentId: 'cellular-immunity'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'lymphatic-system',
+            name: 'Lymphatisches System',
+            description: 'Lymphbahnen und lymphatische Organe',
+            icon: '🌊',
+            difficulty: 'medium',
+            parentId: 'blood-immune-system',
+            children: [
+              {
+                id: 'lymph-vessels',
+                name: 'Lymphgefäße',
+                description: 'Lymphbahnen und Lymphtransport',
+                icon: '🛤️',
+                difficulty: 'medium',
+                parentId: 'lymphatic-system',
+                children: [
+                  {
+                    id: 'lymph-capillaries',
+                    name: 'Lymphkapillaren',
+                    description: 'Beginn des Lymphsystems',
+                    icon: '🌱',
+                    difficulty: 'medium',
+                    parentId: 'lymph-vessels'
+                  },
+                  {
+                    id: 'lymph-collectors',
+                    name: 'Lymphkollektoren',
+                    description: 'Hauptlymphbahnen',
+                    icon: '🏞️',
+                    difficulty: 'medium',
+                    parentId: 'lymph-vessels'
+                  },
+                  {
+                    id: 'thoracic-duct',
+                    name: 'Ductus thoracicus',
+                    description: 'Hauptlymphgang',
+                    icon: '🏗️',
+                    difficulty: 'medium',
+                    parentId: 'lymph-vessels'
+                  },
+                  {
+                    id: 'lymph-function',
+                    name: 'Lymphfunktion (Drainage, Immunabwehr)',
+                    description: 'Aufgaben des Lymphsystems',
+                    icon: '🚰',
+                    difficulty: 'medium',
+                    parentId: 'lymph-vessels'
+                  }
+                ]
+              },
+              {
+                id: 'primary-lymphoid-organs',
+                name: 'Primäre lymphatische Organe',
+                description: 'Lymphozytenbildung und -reifung',
+                icon: '🏭',
+                difficulty: 'medium',
+                parentId: 'lymphatic-system',
+                children: [
+                  {
+                    id: 'bone-marrow-lymphoid',
+                    name: 'Knochenmark (B-Zell-Reifung)',
+                    description: 'Bildungsort der B-Lymphozyten',
+                    icon: '🦴',
+                    difficulty: 'medium',
+                    parentId: 'primary-lymphoid-organs'
+                  },
+                  {
+                    id: 'thymus',
+                    name: 'Thymus (T-Zell-Reifung)',
+                    description: 'Reifungsort der T-Lymphozyten',
+                    icon: '🦋',
+                    difficulty: 'medium',
+                    parentId: 'primary-lymphoid-organs'
+                  },
+                  {
+                    id: 'thymic-selection',
+                    name: 'Positive/negative Selektion',
+                    description: 'T-Zell-Auswahl im Thymus',
+                    icon: '✅',
+                    difficulty: 'hard',
+                    parentId: 'primary-lymphoid-organs'
+                  }
+                ]
+              },
+              {
+                id: 'secondary-lymphoid-organs',
+                name: 'Sekundäre lymphatische Organe',
+                description: 'Immunantwort und Antigenpräsentation',
+                icon: '🏛️',
+                difficulty: 'medium',
+                parentId: 'lymphatic-system',
+                children: [
+                  {
+                    id: 'lymph-nodes',
+                    name: 'Lymphknoten',
+                    description: 'Filterstationen des Lymphsystems',
+                    icon: '🔍',
+                    difficulty: 'medium',
+                    parentId: 'secondary-lymphoid-organs'
+                  },
+                  {
+                    id: 'spleen',
+                    name: 'Milz',
+                    description: 'Blutfilter und Immunorgan',
+                    icon: '🫘',
+                    difficulty: 'medium',
+                    parentId: 'secondary-lymphoid-organs'
+                  },
+                  {
+                    id: 'malt',
+                    name: 'MALT (Mukosa-assoziiertes Lymphgewebe)',
+                    description: 'Schleimhaut-Immunsystem',
+                    icon: '🌸',
+                    difficulty: 'medium',
+                    parentId: 'secondary-lymphoid-organs'
+                  },
+                  {
+                    id: 'peyers-patches',
+                    name: 'Peyer-Plaques (Darm)',
+                    description: 'Darmspezifisches Lymphgewebe',
+                    icon: '🌀',
+                    difficulty: 'medium',
+                    parentId: 'secondary-lymphoid-organs'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'immune-reactions',
+            name: 'Immunreaktionen',
+            description: 'Immunantworten und Hypersensitivität',
+            icon: '⚡',
+            difficulty: 'hard',
+            parentId: 'blood-immune-system',
+            children: [
+              {
+                id: 'antigen-recognition',
+                name: 'Antigenerkennung',
+                description: 'MHC-Komplexe und Antigenpräsentation',
+                icon: '🔍',
+                difficulty: 'hard',
+                parentId: 'immune-reactions',
+                children: [
+                  {
+                    id: 'mhc-class-i',
+                    name: 'MHC-Klasse I (endogene Antigene)',
+                    description: 'Präsentation intrazellulärer Peptide',
+                    icon: '🏠',
+                    difficulty: 'hard',
+                    parentId: 'antigen-recognition'
+                  },
+                  {
+                    id: 'mhc-class-ii',
+                    name: 'MHC-Klasse II (exogene Antigene)',
+                    description: 'Präsentation extrazellulärer Peptide',
+                    icon: '🌍',
+                    difficulty: 'hard',
+                    parentId: 'antigen-recognition'
+                  },
+                  {
+                    id: 'cross-presentation',
+                    name: 'Kreuzpräsentation',
+                    description: 'Alternative Antigenpräsentation',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'antigen-recognition'
+                  }
+                ]
+              },
+              {
+                id: 'hypersensitivity',
+                name: 'Hypersensitivitätsreaktionen',
+                description: 'Überempfindlichkeitsreaktionen (Typ I-IV)',
+                icon: '⚠️',
+                difficulty: 'hard',
+                parentId: 'immune-reactions',
+                children: [
+                  {
+                    id: 'type-i-hypersensitivity',
+                    name: 'Typ I (IgE-vermittelt, Allergie)',
+                    description: 'Soforttyp-Allergie',
+                    icon: '💥',
+                    difficulty: 'medium',
+                    parentId: 'hypersensitivity'
+                  },
+                  {
+                    id: 'type-ii-hypersensitivity',
+                    name: 'Typ II (zytotoxisch)',
+                    description: 'Antikörper-vermittelte Zellzerstörung',
+                    icon: '⚔️',
+                    difficulty: 'hard',
+                    parentId: 'hypersensitivity'
+                  },
+                  {
+                    id: 'type-iii-hypersensitivity',
+                    name: 'Typ III (Immunkomplexe)',
+                    description: 'Immunkomplex-Krankheit',
+                    icon: '🕸️',
+                    difficulty: 'hard',
+                    parentId: 'hypersensitivity'
+                  },
+                  {
+                    id: 'type-iv-hypersensitivity',
+                    name: 'Typ IV (T-Zell-vermittelt)',
+                    description: 'Spättyp-Allergie',
+                    icon: '🐌',
+                    difficulty: 'hard',
+                    parentId: 'hypersensitivity'
+                  }
+                ]
+              },
+              {
+                id: 'autoimmunity',
+                name: 'Autoimmunität',
+                description: 'Immunreaktionen gegen körpereigene Strukturen',
+                icon: '🔄',
+                difficulty: 'hard',
+                parentId: 'immune-reactions',
+                children: [
+                  {
+                    id: 'self-tolerance',
+                    name: 'Selbsttoleranz',
+                    description: 'Vermeidung von Autoimmunität',
+                    icon: '☮️',
+                    difficulty: 'hard',
+                    parentId: 'autoimmunity'
+                  },
+                  {
+                    id: 'autoantibodies',
+                    name: 'Autoantikörper',
+                    description: 'Antikörper gegen körpereigene Strukturen',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'autoimmunity'
+                  },
+                  {
+                    id: 'molecular-mimicry',
+                    name: 'Molekulare Mimikry',
+                    description: 'Kreuzreaktion mit körpereigenen Strukturen',
+                    icon: '🎭',
+                    difficulty: 'hard',
+                    parentId: 'autoimmunity'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'blood-groups',
+            name: 'Blutgruppensysteme',
+            description: 'Blutgruppenbestimmung und Kompatibilität',
+            icon: '🅰️',
+            difficulty: 'medium',
+            parentId: 'blood-immune-system',
+            children: [
+              {
+                id: 'abo-system',
+                name: 'AB0-System',
+                description: 'Hauptblutgruppensystem',
+                icon: '🅰️',
+                difficulty: 'medium',
+                parentId: 'blood-groups',
+                children: [
+                  {
+                    id: 'abo-antigens',
+                    name: 'A- und B-Antigene',
+                    description: 'Oberflächenantigene der Erythrozyten',
+                    icon: '🔴',
+                    difficulty: 'medium',
+                    parentId: 'abo-system'
+                  },
+                  {
+                    id: 'abo-antibodies',
+                    name: 'Anti-A und Anti-B Antikörper',
+                    description: 'Natürliche Blutgruppenantikörper',
+                    icon: '🧬',
+                    difficulty: 'medium',
+                    parentId: 'abo-system'
+                  },
+                  {
+                    id: 'universal-donor',
+                    name: 'Universalspender (0) und -empfänger (AB)',
+                    description: 'Besondere Transfusionseigenschaften',
+                    icon: '🎁',
+                    difficulty: 'easy',
+                    parentId: 'abo-system'
+                  },
+                  {
+                    id: 'abo-inheritance',
+                    name: 'Vererbung (Mendel-Gesetze)',
+                    description: 'Genetik der AB0-Blutgruppen',
+                    icon: '🧬',
+                    difficulty: 'medium',
+                    parentId: 'abo-system'
+                  }
+                ]
+              },
+              {
+                id: 'rhesus-system',
+                name: 'Rhesus-System',
+                description: 'Zweitwichtigstes Blutgruppensystem',
+                icon: '🐒',
+                difficulty: 'medium',
+                parentId: 'blood-groups',
+                children: [
+                  {
+                    id: 'rh-d-antigen',
+                    name: 'Rh-D Antigen',
+                    description: 'Wichtigstes Rhesus-Antigen',
+                    icon: '🔵',
+                    difficulty: 'medium',
+                    parentId: 'rhesus-system'
+                  },
+                  {
+                    id: 'rh-immunization',
+                    name: 'Rh-Immunisierung',
+                    description: 'Antikörperbildung gegen Rh-D',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'rhesus-system'
+                  },
+                  {
+                    id: 'anti-d-prophylaxis',
+                    name: 'Anti-D-Prophylaxe',
+                    description: 'Verhütung der Rh-Immunisierung',
+                    icon: '🛡️',
+                    difficulty: 'medium',
+                    parentId: 'rhesus-system'
+                  },
+                  {
+                    id: 'hemolytic-disease',
+                    name: 'Morbus haemolyticus neonatorum',
+                    description: 'Rh-Inkompatibilität beim Neugeborenen',
+                    icon: '👶',
+                    difficulty: 'hard',
+                    parentId: 'rhesus-system'
+                  }
+                ]
+              },
+              {
+                id: 'other-blood-groups',
+                name: 'Weitere Blutgruppensysteme',
+                description: 'Zusätzliche Blutgruppenantigene',
+                icon: '🔤',
+                difficulty: 'hard',
+                parentId: 'blood-groups',
+                children: [
+                  {
+                    id: 'kell-system',
+                    name: 'Kell-System',
+                    description: 'Drittwichtigstes Blutgruppensystem',
+                    icon: '🔑',
+                    difficulty: 'hard',
+                    parentId: 'other-blood-groups'
+                  },
+                  {
+                    id: 'duffy-system',
+                    name: 'Duffy-System',
+                    description: 'Blutgruppe mit Malaria-Resistenz',
+                    icon: '🦟',
+                    difficulty: 'hard',
+                    parentId: 'other-blood-groups'
+                  },
+                  {
+                    id: 'kidd-system',
+                    name: 'Kidd-System',
+                    description: 'Harnstofftransporter-Antigene',
+                    icon: '🚛',
+                    difficulty: 'hard',
+                    parentId: 'other-blood-groups'
+                  },
+                  {
+                    id: 'lewis-system',
+                    name: 'Lewis-System',
+                    description: 'Sekretions-abhängige Blutgruppe',
+                    icon: '💧',
+                    difficulty: 'hard',
+                    parentId: 'other-blood-groups'
+                  }
+                ]
+              },
+              {
+                id: 'blood-typing',
+                name: 'Blutgruppenbestimmung',
+                description: 'Labormethoden zur Blutgruppenbestimmung',
+                icon: '🧪',
+                difficulty: 'medium',
+                parentId: 'blood-groups',
+                children: [
+                  {
+                    id: 'bedside-test',
+                    name: 'Bedside-Test',
+                    description: 'Schnelle Blutgruppenbestimmung',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'blood-typing'
+                  },
+                  {
+                    id: 'cross-matching',
+                    name: 'Kreuzprobe',
+                    description: 'Kompatibilitätsprüfung vor Transfusion',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'blood-typing'
+                  },
+                  {
+                    id: 'antibody-screening',
+                    name: 'Antikörpersuchtest',
+                    description: 'Suche nach irregulären Antikörpern',
+                    icon: '🔍',
+                    difficulty: 'medium',
+                    parentId: 'blood-typing'
+                  },
+                  {
+                    id: 'transfusion-reactions',
+                    name: 'Transfusionsreaktionen',
+                    description: 'Komplikationen bei Bluttransfusion',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'blood-typing'
+                  }
+                ]
               }
             ]
           }
