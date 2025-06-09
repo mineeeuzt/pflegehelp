@@ -4183,9 +4183,9 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'innate-immunity'
                   },
                   {
-                    id: 'phagocytes',
-                    name: 'Phagozyten (Makrophagen, Neutrophile)',
-                    description: 'Fresszellen der Immunabwehr',
+                    id: 'cellular-defense',
+                    name: 'Zelluläre Abwehr (Phagozyten)',
+                    description: 'Makrophagen, Neutrophile, dendritische Zellen',
                     icon: '🦠',
                     difficulty: 'medium',
                     parentId: 'innate-immunity'
@@ -4199,10 +4199,10 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'innate-immunity'
                   },
                   {
-                    id: 'inflammatory-response',
-                    name: 'Entzündungsreaktion',
-                    description: 'Akute Entzündung als Abwehrreaktion',
-                    icon: '🔥',
+                    id: 'acute-phase-proteins',
+                    name: 'Akute-Phase-Proteine',
+                    description: 'CRP, Fibrinogen, Ferritin bei Entzündung',
+                    icon: '📈',
                     difficulty: 'medium',
                     parentId: 'innate-immunity'
                   }
@@ -4218,7 +4218,7 @@ export const medicalBasicsCategories: Category[] = [
                 children: [
                   {
                     id: 'humoral-immunity',
-                    name: 'Humorale Immunität (B-Zellen)',
+                    name: 'Humorale Immunität (B-Zellen, Antikörper)',
                     description: 'Antikörper-vermittelte Immunabwehr',
                     icon: '🧬',
                     difficulty: 'hard',
@@ -4241,11 +4241,11 @@ export const medicalBasicsCategories: Category[] = [
                         parentId: 'humoral-immunity'
                       },
                       {
-                        id: 'memory-b-cells',
-                        name: 'Gedächtnis-B-Zellen',
-                        description: 'Immunologisches Gedächtnis',
-                        icon: '🧠',
-                        difficulty: 'medium',
+                        id: 'antibody-functions',
+                        name: 'Antikörperfunktionen',
+                        description: 'Neutralisation, Opsonierung, Komplementaktivierung',
+                        icon: '⚔️',
+                        difficulty: 'hard',
                         parentId: 'humoral-immunity'
                       }
                     ]
@@ -4281,14 +4281,84 @@ export const medicalBasicsCategories: Category[] = [
                         icon: '⚖️',
                         difficulty: 'hard',
                         parentId: 'cellular-immunity'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'mhc-molecules',
+                    name: 'MHC-Moleküle (HLA)',
+                    description: 'Haupthistokompatibilitätskomplex',
+                    icon: '🔑',
+                    difficulty: 'hard',
+                    parentId: 'adaptive-immunity',
+                    children: [
+                      {
+                        id: 'mhc-class-i',
+                        name: 'MHC-Klasse I (HLA-A, B, C)',
+                        description: 'Präsentation intrazellulärer Peptide',
+                        icon: '🏠',
+                        difficulty: 'hard',
+                        parentId: 'mhc-molecules'
+                      },
+                      {
+                        id: 'mhc-class-ii',
+                        name: 'MHC-Klasse II (HLA-DR, DQ, DP)',
+                        description: 'Präsentation extrazellulärer Peptide',
+                        icon: '🌍',
+                        difficulty: 'hard',
+                        parentId: 'mhc-molecules'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'antigen-presentation',
+                    name: 'Antigenpräsentation',
+                    description: 'Darstellung von Antigenen für T-Zellen',
+                    icon: '🎭',
+                    difficulty: 'hard',
+                    parentId: 'adaptive-immunity',
+                    children: [
+                      {
+                        id: 'dendritic-cells',
+                        name: 'Dendritische Zellen',
+                        description: 'Professionelle antigenpräsentierende Zellen',
+                        icon: '🌿',
+                        difficulty: 'hard',
+                        parentId: 'antigen-presentation'
+                      },
+                      {
+                        id: 'cross-presentation',
+                        name: 'Kreuzpräsentation',
+                        description: 'Alternative Antigenpräsentation',
+                        icon: '🔄',
+                        difficulty: 'hard',
+                        parentId: 'antigen-presentation'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'immunological-memory',
+                    name: 'Immunologisches Gedächtnis',
+                    description: 'Langfristige Immunität nach Erstkontakt',
+                    icon: '🧠',
+                    difficulty: 'medium',
+                    parentId: 'adaptive-immunity',
+                    children: [
+                      {
+                        id: 'memory-b-cells',
+                        name: 'Gedächtnis-B-Zellen',
+                        description: 'B-Zell-Gedächtnis für Antikörperantwort',
+                        icon: '📚',
+                        difficulty: 'medium',
+                        parentId: 'immunological-memory'
                       },
                       {
                         id: 'memory-t-cells',
                         name: 'Gedächtnis-T-Zellen',
-                        description: 'T-Zell-Gedächtnis',
+                        description: 'T-Zell-Gedächtnis für zelluläre Antwort',
                         icon: '🧠',
                         difficulty: 'medium',
-                        parentId: 'cellular-immunity'
+                        parentId: 'immunological-memory'
                       }
                     ]
                   }
@@ -4305,50 +4375,8 @@ export const medicalBasicsCategories: Category[] = [
             parentId: 'blood-immune-system',
             children: [
               {
-                id: 'lymph-vessels',
-                name: 'Lymphgefäße',
-                description: 'Lymphbahnen und Lymphtransport',
-                icon: '🛤️',
-                difficulty: 'medium',
-                parentId: 'lymphatic-system',
-                children: [
-                  {
-                    id: 'lymph-capillaries',
-                    name: 'Lymphkapillaren',
-                    description: 'Beginn des Lymphsystems',
-                    icon: '🌱',
-                    difficulty: 'medium',
-                    parentId: 'lymph-vessels'
-                  },
-                  {
-                    id: 'lymph-collectors',
-                    name: 'Lymphkollektoren',
-                    description: 'Hauptlymphbahnen',
-                    icon: '🏞️',
-                    difficulty: 'medium',
-                    parentId: 'lymph-vessels'
-                  },
-                  {
-                    id: 'thoracic-duct',
-                    name: 'Ductus thoracicus',
-                    description: 'Hauptlymphgang',
-                    icon: '🏗️',
-                    difficulty: 'medium',
-                    parentId: 'lymph-vessels'
-                  },
-                  {
-                    id: 'lymph-function',
-                    name: 'Lymphfunktion (Drainage, Immunabwehr)',
-                    description: 'Aufgaben des Lymphsystems',
-                    icon: '🚰',
-                    difficulty: 'medium',
-                    parentId: 'lymph-vessels'
-                  }
-                ]
-              },
-              {
                 id: 'primary-lymphoid-organs',
-                name: 'Primäre lymphatische Organe',
+                name: 'Primäre lymphatische Organe (Knochenmark, Thymus)',
                 description: 'Lymphozytenbildung und -reifung',
                 icon: '🏭',
                 difficulty: 'medium',
@@ -4382,20 +4410,12 @@ export const medicalBasicsCategories: Category[] = [
               },
               {
                 id: 'secondary-lymphoid-organs',
-                name: 'Sekundäre lymphatische Organe',
+                name: 'Sekundäre lymphatische Organe (Milz, Lymphknoten)',
                 description: 'Immunantwort und Antigenpräsentation',
                 icon: '🏛️',
                 difficulty: 'medium',
                 parentId: 'lymphatic-system',
                 children: [
-                  {
-                    id: 'lymph-nodes',
-                    name: 'Lymphknoten',
-                    description: 'Filterstationen des Lymphsystems',
-                    icon: '🔍',
-                    difficulty: 'medium',
-                    parentId: 'secondary-lymphoid-organs'
-                  },
                   {
                     id: 'spleen',
                     name: 'Milz',
@@ -4405,20 +4425,96 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'secondary-lymphoid-organs'
                   },
                   {
-                    id: 'malt',
-                    name: 'MALT (Mukosa-assoziiertes Lymphgewebe)',
-                    description: 'Schleimhaut-Immunsystem',
-                    icon: '🌸',
+                    id: 'lymph-nodes',
+                    name: 'Lymphknoten',
+                    description: 'Filterstationen des Lymphsystems',
+                    icon: '🔍',
                     difficulty: 'medium',
                     parentId: 'secondary-lymphoid-organs'
                   },
                   {
-                    id: 'peyers-patches',
-                    name: 'Peyer-Plaques (Darm)',
-                    description: 'Darmspezifisches Lymphgewebe',
-                    icon: '🌀',
+                    id: 'lymph-node-structure',
+                    name: 'Lymphknotenstruktur',
+                    description: 'Rinde, Mark, Keimzentren',
+                    icon: '🏗️',
                     difficulty: 'medium',
                     parentId: 'secondary-lymphoid-organs'
+                  }
+                ]
+              },
+              {
+                id: 'malt',
+                name: 'MALT (Mucosa-associated lymphoid tissue)',
+                description: 'Schleimhaut-assoziiertes Lymphgewebe',
+                icon: '🌸',
+                difficulty: 'medium',
+                parentId: 'lymphatic-system',
+                children: [
+                  {
+                    id: 'galt',
+                    name: 'GALT (Gut-associated lymphoid tissue)',
+                    description: 'Darm-assoziiertes Lymphgewebe',
+                    icon: '🌀',
+                    difficulty: 'medium',
+                    parentId: 'malt'
+                  },
+                  {
+                    id: 'balt',
+                    name: 'BALT (Bronchus-associated lymphoid tissue)',
+                    description: 'Bronchien-assoziiertes Lymphgewebe',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'malt'
+                  },
+                  {
+                    id: 'nalt',
+                    name: 'NALT (Nasal-associated lymphoid tissue)',
+                    description: 'Nasen-assoziiertes Lymphgewebe',
+                    icon: '👃',
+                    difficulty: 'medium',
+                    parentId: 'malt'
+                  }
+                ]
+              },
+              {
+                id: 'lymph-circulation',
+                name: 'Lymphzirkulation',
+                description: 'Lymphfluss und -transport',
+                icon: '🔄',
+                difficulty: 'medium',
+                parentId: 'lymphatic-system',
+                children: [
+                  {
+                    id: 'lymph-capillaries',
+                    name: 'Lymphkapillaren',
+                    description: 'Beginn des Lymphsystems',
+                    icon: '🌱',
+                    difficulty: 'medium',
+                    parentId: 'lymph-circulation'
+                  },
+                  {
+                    id: 'lymph-collectors',
+                    name: 'Lymphkollektoren',
+                    description: 'Hauptlymphbahnen',
+                    icon: '🏞️',
+                    difficulty: 'medium',
+                    parentId: 'lymph-circulation'
+                  },
+                  {
+                    id: 'thoracic-duct',
+                    name: 'Ductus thoracicus',
+                    description: 'Hauptlymphgang',
+                    icon: '🏗️',
+                    difficulty: 'medium',
+                    parentId: 'lymph-circulation'
+                  },
+                  {
+                    id: 'lymph-pumping',
+                    name: 'Lymphpumpfunktion',
+                    description: 'Mechanismen des Lymphtransports',
+                    icon: '💓',
+                    difficulty: 'medium',
+                    parentId: 'lymph-circulation'
                   }
                 ]
               }
@@ -4433,78 +4529,122 @@ export const medicalBasicsCategories: Category[] = [
             parentId: 'blood-immune-system',
             children: [
               {
-                id: 'antigen-recognition',
-                name: 'Antigenerkennung',
-                description: 'MHC-Komplexe und Antigenpräsentation',
-                icon: '🔍',
-                difficulty: 'hard',
+                id: 'type-i-hypersensitivity',
+                name: 'Typ I (IgE-vermittelt, Soforttyp)',
+                description: 'Soforttyp-Allergie und Anaphylaxie',
+                icon: '💥',
+                difficulty: 'medium',
                 parentId: 'immune-reactions',
                 children: [
                   {
-                    id: 'mhc-class-i',
-                    name: 'MHC-Klasse I (endogene Antigene)',
-                    description: 'Präsentation intrazellulärer Peptide',
-                    icon: '🏠',
-                    difficulty: 'hard',
-                    parentId: 'antigen-recognition'
+                    id: 'ige-antibodies',
+                    name: 'IgE-Antikörper',
+                    description: 'Allergie-auslösende Immunglobuline',
+                    icon: '🔴',
+                    difficulty: 'medium',
+                    parentId: 'type-i-hypersensitivity'
                   },
                   {
-                    id: 'mhc-class-ii',
-                    name: 'MHC-Klasse II (exogene Antigene)',
-                    description: 'Präsentation extrazellulärer Peptide',
-                    icon: '🌍',
-                    difficulty: 'hard',
-                    parentId: 'antigen-recognition'
+                    id: 'mast-cells',
+                    name: 'Mastzellen & Basophile',
+                    description: 'Effektorzellen der Typ-I-Reaktion',
+                    icon: '💣',
+                    difficulty: 'medium',
+                    parentId: 'type-i-hypersensitivity'
                   },
                   {
-                    id: 'cross-presentation',
-                    name: 'Kreuzpräsentation',
-                    description: 'Alternative Antigenpräsentation',
-                    icon: '🔄',
+                    id: 'anaphylaxis',
+                    name: 'Anaphylaxie',
+                    description: 'Systemische allergische Reaktion',
+                    icon: '🚨',
                     difficulty: 'hard',
-                    parentId: 'antigen-recognition'
+                    parentId: 'type-i-hypersensitivity'
                   }
                 ]
               },
               {
-                id: 'hypersensitivity',
-                name: 'Hypersensitivitätsreaktionen',
-                description: 'Überempfindlichkeitsreaktionen (Typ I-IV)',
-                icon: '⚠️',
+                id: 'type-ii-hypersensitivity',
+                name: 'Typ II (Zytotoxisch)',
+                description: 'Antikörper-vermittelte Zellzerstörung',
+                icon: '⚔️',
                 difficulty: 'hard',
                 parentId: 'immune-reactions',
                 children: [
                   {
-                    id: 'type-i-hypersensitivity',
-                    name: 'Typ I (IgE-vermittelt, Allergie)',
-                    description: 'Soforttyp-Allergie',
+                    id: 'complement-mediated',
+                    name: 'Komplement-vermittelte Zytolyse',
+                    description: 'Zellzerstörung durch Komplement',
                     icon: '💥',
-                    difficulty: 'medium',
-                    parentId: 'hypersensitivity'
+                    difficulty: 'hard',
+                    parentId: 'type-ii-hypersensitivity'
                   },
                   {
-                    id: 'type-ii-hypersensitivity',
-                    name: 'Typ II (zytotoxisch)',
-                    description: 'Antikörper-vermittelte Zellzerstörung',
+                    id: 'adcc',
+                    name: 'ADCC (Antikörper-abhängige Zytotoxizität)',
+                    description: 'NK-Zell-vermittelte Zellzerstörung',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'type-ii-hypersensitivity'
+                  }
+                ]
+              },
+              {
+                id: 'type-iii-hypersensitivity',
+                name: 'Typ III (Immunkomplex)',
+                description: 'Immunkomplex-vermittelte Entzündung',
+                icon: '🕸️',
+                difficulty: 'hard',
+                parentId: 'immune-reactions',
+                children: [
+                  {
+                    id: 'immune-complexes',
+                    name: 'Antigen-Antikörper-Komplexe',
+                    description: 'Bildung und Ablagerung von Immunkomplexen',
+                    icon: '🔗',
+                    difficulty: 'hard',
+                    parentId: 'type-iii-hypersensitivity'
+                  },
+                  {
+                    id: 'arthus-reaction',
+                    name: 'Arthus-Reaktion',
+                    description: 'Lokale Immunkomplex-Reaktion',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'type-iii-hypersensitivity'
+                  }
+                ]
+              },
+              {
+                id: 'type-iv-hypersensitivity',
+                name: 'Typ IV (Zellvermittelt, Spättyp)',
+                description: 'T-Zell-vermittelte Spättyp-Allergie',
+                icon: '🐌',
+                difficulty: 'hard',
+                parentId: 'immune-reactions',
+                children: [
+                  {
+                    id: 'th1-response',
+                    name: 'Th1-vermittelte Reaktion',
+                    description: 'Makrophagen-Aktivierung',
+                    icon: '🦠',
+                    difficulty: 'hard',
+                    parentId: 'type-iv-hypersensitivity'
+                  },
+                  {
+                    id: 'cytotoxic-t-cells',
+                    name: 'Zytotoxische T-Zell-Reaktion',
+                    description: 'Direkte Zellzerstörung durch CD8+ T-Zellen',
                     icon: '⚔️',
                     difficulty: 'hard',
-                    parentId: 'hypersensitivity'
+                    parentId: 'type-iv-hypersensitivity'
                   },
                   {
-                    id: 'type-iii-hypersensitivity',
-                    name: 'Typ III (Immunkomplexe)',
-                    description: 'Immunkomplex-Krankheit',
-                    icon: '🕸️',
-                    difficulty: 'hard',
-                    parentId: 'hypersensitivity'
-                  },
-                  {
-                    id: 'type-iv-hypersensitivity',
-                    name: 'Typ IV (T-Zell-vermittelt)',
-                    description: 'Spättyp-Allergie',
-                    icon: '🐌',
-                    difficulty: 'hard',
-                    parentId: 'hypersensitivity'
+                    id: 'contact-dermatitis',
+                    name: 'Kontaktdermatitis',
+                    description: 'Allergische Hautreaktion',
+                    icon: '🧴',
+                    difficulty: 'medium',
+                    parentId: 'type-iv-hypersensitivity'
                   }
                 ]
               },
