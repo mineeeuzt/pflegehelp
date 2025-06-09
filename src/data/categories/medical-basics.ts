@@ -4923,6 +4923,98 @@ export const medicalBasicsCategories: Category[] = [
             ]
           },
           {
+            id: 'fat-metabolism',
+            name: 'Fettstoffwechsel',
+            description: 'Lipidstoffwechsel und Energiegewinnung',
+            icon: '🧈',
+            difficulty: 'hard',
+            parentId: 'metabolism-hormones',
+            children: [
+              {
+                id: 'lipolysis',
+                name: 'Lipolyse',
+                description: 'Fettabbau zu Glycerin und Fettsäuren',
+                icon: '✂️',
+                difficulty: 'hard',
+                parentId: 'fat-metabolism'
+              },
+              {
+                id: 'beta-oxidation',
+                name: 'β-Oxidation',
+                description: 'Fettsäureabbau zu Acetyl-CoA',
+                icon: '🔥',
+                difficulty: 'hard',
+                parentId: 'fat-metabolism'
+              },
+              {
+                id: 'fatty-acid-synthesis',
+                name: 'Fettsäuresynthese',
+                description: 'Aufbau von Fettsäuren aus Acetyl-CoA',
+                icon: '🏗️',
+                difficulty: 'hard',
+                parentId: 'fat-metabolism'
+              },
+              {
+                id: 'ketone-bodies',
+                name: 'Ketonkörper',
+                description: 'Alternative Energiequelle bei Hungerzuständen',
+                icon: '⚡',
+                difficulty: 'hard',
+                parentId: 'fat-metabolism'
+              },
+              {
+                id: 'cholesterol-metabolism',
+                name: 'Cholesterinstoffwechsel',
+                description: 'Cholesterinsynthese und Lipoproteine',
+                icon: '🧪',
+                difficulty: 'hard',
+                parentId: 'fat-metabolism'
+              }
+            ]
+          },
+          {
+            id: 'protein-metabolism',
+            name: 'Proteinstoffwechsel',
+            description: 'Aminosäurestoffwechsel und Stickstoffhaushalt',
+            icon: '🧬',
+            difficulty: 'hard',
+            parentId: 'metabolism-hormones',
+            children: [
+              {
+                id: 'amino-acid-degradation',
+                name: 'Aminosäureabbau',
+                description: 'Desaminierung und Transaminierung',
+                icon: '✂️',
+                difficulty: 'hard',
+                parentId: 'protein-metabolism'
+              },
+              {
+                id: 'urea-cycle',
+                name: 'Harnstoffzyklus',
+                description: 'Entgiftung von Ammoniak zu Harnstoff',
+                icon: '🔄',
+                difficulty: 'hard',
+                parentId: 'protein-metabolism'
+              },
+              {
+                id: 'protein-synthesis',
+                name: 'Proteinsynthese',
+                description: 'Translation und Proteinbiosynthese',
+                icon: '🏗️',
+                difficulty: 'hard',
+                parentId: 'protein-metabolism'
+              },
+              {
+                id: 'nitrogen-balance',
+                name: 'Stickstoffbilanz',
+                description: 'Ein- und Ausscheidung von Stickstoff',
+                icon: '⚖️',
+                difficulty: 'medium',
+                parentId: 'protein-metabolism'
+              }
+            ]
+          },
+          {
             id: 'hormone-system',
             name: 'Hormonsystem',
             description: 'Endokrine Regulation und Signaltransduktion',
@@ -4936,7 +5028,33 @@ export const medicalBasicsCategories: Category[] = [
                 description: 'Zentrale endokrine Steuerung',
                 icon: '🧠',
                 difficulty: 'hard',
-                parentId: 'hormone-system'
+                parentId: 'hormone-system',
+                children: [
+                  {
+                    id: 'hypothalamic-hormones',
+                    name: 'Hypothalamische Hormone',
+                    description: 'Releasing- und Inhibiting-Hormone',
+                    icon: '🔗',
+                    difficulty: 'hard',
+                    parentId: 'hypothalamic-pituitary-axis'
+                  },
+                  {
+                    id: 'anterior-pituitary',
+                    name: 'Hypophysenvorderlappen (HVL)',
+                    description: 'ACTH, TSH, FSH, LH, GH, Prolaktin',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'hypothalamic-pituitary-axis'
+                  },
+                  {
+                    id: 'posterior-pituitary',
+                    name: 'Hypophysenhinterlappen (HHL)',
+                    description: 'ADH und Oxytocin',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'hypothalamic-pituitary-axis'
+                  }
+                ]
               },
               {
                 id: 'thyroid-hormones',
@@ -4944,7 +5062,33 @@ export const medicalBasicsCategories: Category[] = [
                 description: 'T3, T4 und Stoffwechselregulation',
                 icon: '🦋',
                 difficulty: 'medium',
-                parentId: 'hormone-system'
+                parentId: 'hormone-system',
+                children: [
+                  {
+                    id: 'thyroid-hormone-synthesis',
+                    name: 'Hormonsynthese',
+                    description: 'Thyroxin (T4) und Triiodthyronin (T3)',
+                    icon: '🏭',
+                    difficulty: 'hard',
+                    parentId: 'thyroid-hormones'
+                  },
+                  {
+                    id: 'thyroid-regulation',
+                    name: 'TSH-Regelkreis',
+                    description: 'Hypothalamus-Hypophyse-Schilddrüse',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'thyroid-hormones'
+                  },
+                  {
+                    id: 'calcitonin',
+                    name: 'Calcitonin',
+                    description: 'Kalziumregulation durch C-Zellen',
+                    icon: '🦴',
+                    difficulty: 'medium',
+                    parentId: 'thyroid-hormones'
+                  }
+                ]
               },
               {
                 id: 'adrenal-hormones',
@@ -4952,7 +5096,33 @@ export const medicalBasicsCategories: Category[] = [
                 description: 'Kortisol, Aldosteron und Katecholamine',
                 icon: '⚡',
                 difficulty: 'medium',
-                parentId: 'hormone-system'
+                parentId: 'hormone-system',
+                children: [
+                  {
+                    id: 'adrenal-cortex',
+                    name: 'Nebennierenrinde',
+                    description: 'Kortisol, Aldosteron, Androgene',
+                    icon: '🧅',
+                    difficulty: 'hard',
+                    parentId: 'adrenal-hormones'
+                  },
+                  {
+                    id: 'adrenal-medulla',
+                    name: 'Nebennierenmark',
+                    description: 'Adrenalin und Noradrenalin',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'adrenal-hormones'
+                  },
+                  {
+                    id: 'stress-response',
+                    name: 'Stressantwort',
+                    description: 'HPA-Achse und Kampf-oder-Flucht',
+                    icon: '🚨',
+                    difficulty: 'medium',
+                    parentId: 'adrenal-hormones'
+                  }
+                ]
               },
               {
                 id: 'pancreatic-hormones',
@@ -4960,7 +5130,33 @@ export const medicalBasicsCategories: Category[] = [
                 description: 'Insulin, Glukagon und Blutzuckerregulation',
                 icon: '🥞',
                 difficulty: 'medium',
-                parentId: 'hormone-system'
+                parentId: 'hormone-system',
+                children: [
+                  {
+                    id: 'insulin',
+                    name: 'Insulin',
+                    description: 'Blutzuckersenkung und Anabolismus',
+                    icon: '📉',
+                    difficulty: 'medium',
+                    parentId: 'pancreatic-hormones'
+                  },
+                  {
+                    id: 'glucagon',
+                    name: 'Glukagon',
+                    description: 'Blutzuckersteigerung und Katabolismus',
+                    icon: '📈',
+                    difficulty: 'medium',
+                    parentId: 'pancreatic-hormones'
+                  },
+                  {
+                    id: 'somatostatin',
+                    name: 'Somatostatin',
+                    description: 'Hemmung von Insulin und Glukagon',
+                    icon: '🛑',
+                    difficulty: 'medium',
+                    parentId: 'pancreatic-hormones'
+                  }
+                ]
               },
               {
                 id: 'sex-hormones',
@@ -4968,7 +5164,33 @@ export const medicalBasicsCategories: Category[] = [
                 description: 'Östrogen, Testosteron und Reproduktion',
                 icon: '♀️♂️',
                 difficulty: 'medium',
-                parentId: 'hormone-system'
+                parentId: 'hormone-system',
+                children: [
+                  {
+                    id: 'male-hormones',
+                    name: 'Männliche Geschlechtshormone',
+                    description: 'Testosteron und Androgene',
+                    icon: '♂️',
+                    difficulty: 'medium',
+                    parentId: 'sex-hormones'
+                  },
+                  {
+                    id: 'female-hormones',
+                    name: 'Weibliche Geschlechtshormone',
+                    description: 'Östrogen und Progesteron',
+                    icon: '♀️',
+                    difficulty: 'medium',
+                    parentId: 'sex-hormones'
+                  },
+                  {
+                    id: 'menstrual-cycle',
+                    name: 'Menstruationszyklus',
+                    description: 'FSH, LH und Zyklusregulation',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'sex-hormones'
+                  }
+                ]
               },
               {
                 id: 'other-hormones',
@@ -4976,7 +5198,41 @@ export const medicalBasicsCategories: Category[] = [
                 description: 'PTH, Calcitonin, Melatonin und andere',
                 icon: '🧪',
                 difficulty: 'medium',
-                parentId: 'hormone-system'
+                parentId: 'hormone-system',
+                children: [
+                  {
+                    id: 'parathyroid-hormone',
+                    name: 'Parathormon (PTH)',
+                    description: 'Kalzium- und Phosphatregulation',
+                    icon: '🦴',
+                    difficulty: 'medium',
+                    parentId: 'other-hormones'
+                  },
+                  {
+                    id: 'vitamin-d',
+                    name: 'Vitamin D (Calcitriol)',
+                    description: 'Kalziumaufnahme und Knochenstoffwechsel',
+                    icon: '☀️',
+                    difficulty: 'medium',
+                    parentId: 'other-hormones'
+                  },
+                  {
+                    id: 'melatonin',
+                    name: 'Melatonin',
+                    description: 'Circadianer Rhythmus und Schlaf',
+                    icon: '🌙',
+                    difficulty: 'easy',
+                    parentId: 'other-hormones'
+                  },
+                  {
+                    id: 'erythropoietin',
+                    name: 'Erythropoietin (EPO)',
+                    description: 'Regulation der Erythropoese',
+                    icon: '🔴',
+                    difficulty: 'medium',
+                    parentId: 'other-hormones'
+                  }
+                ]
               }
             ]
           }
