@@ -7,7 +7,7 @@ import { useAuthStore } from '../../store/authStore'
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-  const { user, signOut } = useAuthStore()
+  const { user, signOut, isLoading } = useAuthStore()
   const navigate = useNavigate()
 
   const handleSignOut = async () => {
@@ -54,7 +54,10 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-6">
-            {user ? (
+            {isLoading ? (
+              // Show placeholder during auth loading to prevent flash
+              <div className="w-24 h-8 bg-gray-100 rounded animate-pulse"></div>
+            ) : user ? (
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}

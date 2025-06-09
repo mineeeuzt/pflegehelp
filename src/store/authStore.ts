@@ -13,7 +13,7 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
-  isLoading: false,
+  isLoading: true, // Start with loading true to prevent initial flash
 
   signIn: async (email: string, password: string) => {
     try {
@@ -184,6 +184,9 @@ let isInitialized = false
 export const initializeAuth = async () => {
   if (isInitialized) return
   isInitialized = true
+  
+  // Set loading state immediately to prevent UI flash
+  useAuthStore.setState({ isLoading: true })
   
   const { data: { session } } = await supabase.auth.getSession()
   if (session) {
