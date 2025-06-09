@@ -1410,6 +1410,175 @@ export const quizCategories: QuizCategory[] = [
     color: 'bg-red-800',
     icon: '🔄'
   },
+  // Erweiterte Muskelsystem-Kategorien
+  {
+    id: 'muscle-physiology',
+    name: 'Muskelphysiologie',
+    description: 'Funktion und Arbeitsweise der Muskulatur',
+    color: 'bg-red-300',
+    icon: '⚡'
+  },
+  {
+    id: 'muscle-contraction',
+    name: 'Muskelkontraktion',
+    description: 'Mechanismus der Muskelkontraktion',
+    color: 'bg-red-400',
+    icon: '🤏'
+  },
+  {
+    id: 'sliding-filament-theory',
+    name: 'Gleitfilament-Theorie',
+    description: 'Aktin-Myosin-Interaktion',
+    color: 'bg-red-500',
+    icon: '🧬'
+  },
+  {
+    id: 'excitation-contraction-coupling',
+    name: 'Erregungs-Kontraktions-Kopplung',
+    description: 'Signalübertragung zur Kontraktion',
+    color: 'bg-red-600',
+    icon: '⚡'
+  },
+  {
+    id: 'calcium-regulation',
+    name: 'Kalzium-Regulation',
+    description: 'Troponin-Tropomyosin-System',
+    color: 'bg-red-700',
+    icon: '🧪'
+  },
+  {
+    id: 'muscle-fiber-types',
+    name: 'Muskelfasertypen',
+    description: 'Typ I und Typ II Fasern',
+    color: 'bg-red-200',
+    icon: '🎯'
+  },
+  {
+    id: 'type-i-fibers',
+    name: 'Typ I Fasern (langsam, oxidativ)',
+    description: 'Ausdauerfasern, rote Fasern',
+    color: 'bg-red-100',
+    icon: '🟥'
+  },
+  {
+    id: 'type-iia-fibers',
+    name: 'Typ IIa Fasern (schnell, oxidativ-glykolytisch)',
+    description: 'Intermediäre Fasern',
+    color: 'bg-pink-200',
+    icon: '🟡'
+  },
+  {
+    id: 'type-iix-fibers',
+    name: 'Typ IIx Fasern (schnell, glykolytisch)',
+    description: 'Schnellkraftfasern, weiße Fasern',
+    color: 'bg-pink-300',
+    icon: '⚪'
+  },
+  {
+    id: 'motor-units',
+    name: 'Motorische Einheiten',
+    description: 'Motoneuron und Muskelfasern',
+    color: 'bg-pink-400',
+    icon: '🎛️'
+  },
+  {
+    id: 'muscle-metabolism',
+    name: 'Muskelstoffwechsel',
+    description: 'Energiebereitstellung im Muskel',
+    color: 'bg-pink-500',
+    icon: '⚡'
+  },
+  {
+    id: 'atp-pcr-system',
+    name: 'ATP-Phosphokreatin-System',
+    description: 'Schnelle anaerobe Energiebereitstellung',
+    color: 'bg-pink-600',
+    icon: '💨'
+  },
+  {
+    id: 'glycolytic-system',
+    name: 'Glykolytisches System',
+    description: 'Anaerobe Glykolyse',
+    color: 'bg-pink-700',
+    icon: '🍯'
+  },
+  {
+    id: 'oxidative-system',
+    name: 'Oxidatives System',
+    description: 'Aerobe Energiebereitstellung',
+    color: 'bg-pink-800',
+    icon: '🫁'
+  },
+  {
+    id: 'muscle-fatigue',
+    name: 'Muskelermüdung',
+    description: 'Ursachen und Mechanismen der Ermüdung',
+    color: 'bg-red-900',
+    icon: '😴'
+  },
+  {
+    id: 'muscle-adaptation',
+    name: 'Muskeladaptation',
+    description: 'Anpassung an Training',
+    color: 'bg-rose-200',
+    icon: '📈'
+  },
+  {
+    id: 'muscle-hypertrophy',
+    name: 'Muskelhypertrophie',
+    description: 'Dickenwachstum der Muskelfasern',
+    color: 'bg-rose-300',
+    icon: '💪'
+  },
+  {
+    id: 'muscle-hyperplasia',
+    name: 'Muskelhyperplasie',
+    description: 'Vermehrung der Muskelfasern',
+    color: 'bg-rose-400',
+    icon: '🔢'
+  },
+  {
+    id: 'muscle-atrophy',
+    name: 'Muskelatrophie',
+    description: 'Muskelschwund und Ursachen',
+    color: 'bg-rose-500',
+    icon: '📉'
+  },
+  {
+    id: 'neuromuscular-junction',
+    name: 'Neuromuskuläre Endplatte',
+    description: 'Synapse zwischen Nerv und Muskel',
+    color: 'bg-rose-600',
+    icon: '🔗'
+  },
+  {
+    id: 'acetylcholine-release',
+    name: 'Acetylcholin-Freisetzung',
+    description: 'Neurotransmitter-Freisetzung',
+    color: 'bg-rose-700',
+    icon: '💊'
+  },
+  {
+    id: 'muscle-receptors',
+    name: 'Muskelrezeptoren',
+    description: 'Propriozeption und Muskelspindeln',
+    color: 'bg-rose-800',
+    icon: '📡'
+  },
+  {
+    id: 'muscle-spindles',
+    name: 'Muskelspindeln',
+    description: 'Dehnungsrezeptoren im Muskel',
+    color: 'bg-rose-900',
+    icon: '🌀'
+  },
+  {
+    id: 'golgi-tendon-organs',
+    name: 'Golgi-Sehnenorgane',
+    description: 'Spannungsrezeptoren in Sehnen',
+    color: 'bg-violet-200',
+    icon: '⚖️'
+  },
   {
     id: 'renal-system',
     name: 'Nieren & Harnwege',
@@ -2065,6 +2234,68 @@ export const sampleQuestions: QuizQuestion[] = [
     difficulty: 'leicht',
     tags: ['schultergelenk', 'beweglichkeit', 'kugelgelenk']
   },
+
+  // Neue Muskelsystem-Fragen
+  {
+    id: 'muscle_001',
+    question: 'Welche Proteine sind hauptsächlich für die Muskelkontraktion verantwortlich?',
+    options: ['Kollagen und Elastin', 'Aktin und Myosin', 'Troponin und Albumin', 'Keratin und Fibrin'],
+    correctAnswer: 1,
+    explanation: 'Aktin und Myosin sind die Hauptproteine der Muskelkontraktion. Sie bilden die dünnen und dicken Filamente, die sich nach der Gleitfilament-Theorie gegeneinander verschieben.',
+    category: quizCategories[1417], // sliding-filament-theory
+    difficulty: 'mittel',
+    tags: ['aktin', 'myosin', 'gleitfilament', 'kontraktion']
+  },
+  {
+    id: 'muscle_002',
+    question: 'Was charakterisiert Typ I Muskelfasern?',
+    options: ['Schnelle Kontraktion, glykolytisch', 'Langsame Kontraktion, oxidativ', 'Mittlere Geschwindigkeit, gemischt', 'Sehr schnell, anaerob'],
+    correctAnswer: 1,
+    explanation: 'Typ I Fasern (rote Fasern) sind langsam kontrahierend und oxidativ. Sie sind ausdauernd, ermüden langsam und eignen sich für langanhaltende Aktivitäten.',
+    category: quizCategories[1421], // type-i-fibers
+    difficulty: 'mittel',
+    tags: ['muskelfasertypen', 'typ-i', 'ausdauer', 'oxidativ']
+  },
+  {
+    id: 'muscle_003',
+    question: 'Welches System stellt bei hochintensiven, kurzen Belastungen primär Energie bereit?',
+    options: ['Oxidatives System', 'Glykolytisches System', 'ATP-Phosphokreatin-System', 'Lipolytisches System'],
+    correctAnswer: 2,
+    explanation: 'Das ATP-Phosphokreatin-System stellt bei hochintensiven, kurzen Belastungen (0-10 Sekunden) sofort verfügbare Energie bereit, ohne Sauerstoff zu benötigen.',
+    category: quizCategories[1426], // atp-pcr-system
+    difficulty: 'mittel',
+    tags: ['energiebereitstellung', 'phosphokreatin', 'anaerob', 'kurzzeitbelastung']
+  },
+  {
+    id: 'muscle_004',
+    question: 'Was ist eine motorische Einheit?',
+    options: ['Ein Muskel mit allen Sehnen', 'Ein Motoneuron mit allen innervierten Muskelfasern', 'Eine Muskelfaser mit ihrer Endplatte', 'Ein Nerv mit einem Muskel'],
+    correctAnswer: 1,
+    explanation: 'Eine motorische Einheit besteht aus einem α-Motoneuron und allen von ihm innervierten Muskelfasern. Die Größe variiert je nach erforderlicher Präzision.',
+    category: quizCategories[1424], // motor-units
+    difficulty: 'mittel',
+    tags: ['motorische-einheit', 'motoneuron', 'innervation']
+  },
+  {
+    id: 'muscle_005',
+    question: 'Welche Funktion haben Muskelspindeln?',
+    options: ['Kraftmessung', 'Dehnungsmessung', 'Temperaturmessung', 'Geschwindigkeitsmessung'],
+    correctAnswer: 1,
+    explanation: 'Muskelspindeln sind Dehnungsrezeptoren, die die Länge und Längenänderung des Muskels messen. Sie sind wichtig für Propriozeption und Reflexe.',
+    category: quizCategories[1435], // muscle-spindles
+    difficulty: 'mittel',
+    tags: ['muskelspindeln', 'propriozeption', 'dehnungsrezeptoren']
+  },
+  {
+    id: 'muscle_006',
+    question: 'Was ist Muskelhypertrophie?',
+    options: ['Zunahme der Muskelfaseranzahl', 'Zunahme der Muskelfaserdicke', 'Abnahme der Muskelmasse', 'Verkürzung der Muskeln'],
+    correctAnswer: 1,
+    explanation: 'Muskelhypertrophie ist die Zunahme der Muskelfaserdicke durch vermehrte Proteinsynthese, besonders bei Krafttraining. Die Faseranzahl bleibt gleich.',
+    category: quizCategories[1430], // muscle-hypertrophy
+    difficulty: 'leicht',
+    tags: ['hypertrophie', 'krafttraining', 'proteinsynthese']
+  },
   
   // Frakturheilung & Knochenstoffwechsel - Fragen
   {
@@ -2614,6 +2845,48 @@ export const sampleFlashcards: Flashcard[] = [
     category: quizCategories[964], // wolffs-law
     difficulty: 'mittel',
     tags: ['wolff-gesetz', 'knochenanpassung', 'belastung', 'remodeling'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+
+  // Neue Muskelsystem-Lernkarten
+  {
+    id: 'fc_muscle_001',
+    front: 'Gleitfilament-Theorie - Mechanismus der Muskelkontraktion',
+    back: '**Grundprinzip:**\n• Aktin (dünne Filamente) und Myosin (dicke Filamente)\n• Querverbindungen (Cross-Bridges) zwischen Filamenten\n• Filamente gleiten aneinander vorbei (verkürzen sich nicht)\n\n**Kontraktionszyklus:**\n1. **Bindung:** Myosin bindet an Aktin\n2. **Kraftschlag:** Myosin kippt um → Filamente gleiten\n3. **ATP-Bindung:** Myosin löst sich von Aktin\n4. **Hydrolyse:** ATP → ADP + Pi (Energie für nächsten Zyklus)\n\n**Regulation:**\n• Ca²⁺ bindet an Troponin\n• Tropomyosin gibt Bindungsstellen frei\n• Ohne Ca²⁺: Ruhezustand',
+    category: quizCategories[1417], // sliding-filament-theory
+    difficulty: 'schwer',
+    tags: ['gleitfilament', 'aktin', 'myosin', 'kontraktion'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_muscle_002',
+    front: 'Muskelfasertypen - Typ I vs. Typ II',
+    back: '**Typ I (Slow-Twitch, rote Fasern):**\n• Langsame Kontraktion, ermüden langsam\n• Oxidativer Stoffwechsel (O₂-abhängig)\n• Viele Mitochondrien, Myoglobin\n• Ausdauerleistung (Marathonläufer)\n\n**Typ IIa (Fast-Twitch oxidativ-glykolytisch):**\n• Schnelle Kontraktion, mittlere Ermüdung\n• Gemischter Stoffwechsel\n• Mittlere Kraft und Ausdauer\n\n**Typ IIx (Fast-Twitch glykolytisch, weiße Fasern):**\n• Sehr schnelle Kontraktion, schnelle Ermüdung\n• Anaerober Stoffwechsel\n• Hohe Kraft, kurze Dauer (Sprinter)\n\n**Verteilung:** Genetisch + Training bestimmt',
+    category: quizCategories[1420], // muscle-fiber-types
+    difficulty: 'mittel',
+    tags: ['muskelfasertypen', 'typ-i', 'typ-ii', 'stoffwechsel'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_muscle_003',
+    front: 'Energiebereitstellung im Muskel - Drei Systeme',
+    back: '**1. ATP-Phosphokreatin-System (0-10s):**\n• Sofort verfügbar, anaerob\n• Phosphokreatin + ADP → ATP + Kreatin\n• Hochintensive, kurze Belastungen\n• Kapazität: ~10 Sekunden\n\n**2. Glykolytisches System (10s-2min):**\n• Glukose/Glykogen → Laktat\n• Anaerob, schnell verfügbar\n• Mittlere Intensität und Dauer\n• Nebenprodukt: Laktat (Übersäuerung)\n\n**3. Oxidatives System (>2min):**\n• Glukose/Fette + O₂ → CO₂ + H₂O\n• Aerob, langsam, aber nachhaltig\n• Ausdauerbelastungen\n• Höchste ATP-Ausbeute',
+    category: quizCategories[1425], // muscle-metabolism
+    difficulty: 'mittel',
+    tags: ['energiebereitstellung', 'atp', 'phosphokreatin', 'glykolyse'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_muscle_004',
+    front: 'Motorische Einheiten und Rekrutierung',
+    back: '**Definition:**\n• 1 α-Motoneuron + alle innervierte Muskelfasern\n• Funktionelle Grundeinheit der Bewegung\n\n**Größen:**\n• **Klein:** 10-100 Fasern (Augenmuskeln, feine Motorik)\n• **Groß:** 1000-2000 Fasern (Beinmuskeln, grobe Kraft)\n\n**Rekrutierungsprinzip (Hennéman):**\n1. **Typ I** zuerst (niedrige Schwelle)\n2. **Typ IIa** bei höherer Anforderung\n3. **Typ IIx** bei maximaler Kraft\n\n**Kraftregulation:**\n• Rekrutierung: Anzahl aktiver Einheiten\n• Frequenzierung: Impulsfrequenz\n• Synchronisation: zeitliche Koordination',
+    category: quizCategories[1424], // motor-units
+    difficulty: 'mittel',
+    tags: ['motorische-einheit', 'rekrutierung', 'hennéman', 'kraftregulation'],
     reviewCount: 0,
     easeFactor: 2.5
   },
