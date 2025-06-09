@@ -39,20 +39,15 @@ const HelpTooltip = ({ content, onClose }: { content: { title: string; content: 
         // Bold formatting
         let formattedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
         
-        // Emoji und Bullets erhalten
-        if (line.trim().startsWith('•') || line.trim().startsWith('✅') || 
-            line.trim().startsWith('❌') || line.trim().startsWith('📌') ||
-            line.trim().startsWith('🔹') || line.trim().startsWith('🎯') ||
-            line.trim().startsWith('📋') || line.trim().startsWith('🔬') ||
-            line.trim().startsWith('✔️') || line.trim().startsWith('📊') ||
-            line.trim().match(/^[0-9]️⃣/)) {
+        // Bullets und Listen erhalten
+        if (line.trim().startsWith('•') || line.trim().match(/^[0-9]\.\s/)) {
           return (
             <div key={index} className="ml-6 mb-2 text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: formattedLine }} />
           )
         }
         
-        // Headers (lines starting with emojis and bold text)
-        if (line.match(/^[🔹🎯📋🔬✔️📊]/)) {
+        // Headers (lines starting with bold text)
+        if (line.match(/^\*\*[A-Za-z]/)) {
           return (
             <div key={index} className="font-medium text-gray-900 mt-6 mb-3 text-base" dangerouslySetInnerHTML={{ __html: formattedLine }} />
           )
@@ -241,16 +236,16 @@ const FallbeispielGenerator = () => {
     1: {
       title: 'Pflegeproblem nach PESR-Schema',
       content: `
-🔹 **PESR-Reihenfolge einhalten:**
+**PESR-Reihenfolge einhalten:**
 • **P** (Problem): Das Hauptproblem des Patienten
 • **E** (Einflussfaktor/Ursache): Warum besteht das Problem?
 • **S** (Symptome): Woran zeigt sich das Problem?
 • **R** (Ressourcen): Was kann der Patient noch?
 
-✅ **Beispiel:**
+**Beispiel:**
 "Herr M. hat ein erhöhtes Risiko für einen Dekubitus **(P)**, weil er sich aufgrund einer Hemiparese nicht selbstständig umlagern kann **(E)**, was sich daran zeigt, dass er seit drei Tagen in Rückenlage liegt und erste Hautrötungen im Sakralbereich sichtbar sind **(S)**. Unterstützend wirkt, dass er Druckstellen verbal äußern kann und kooperationsfähig ist **(R)**."
 
-❌ **Häufige Fehler:**
+**Häufige Fehler:**
 • Medizinische Diagnosen statt Pflegeprobleme
 • Reihenfolge vertauscht oder unvollständig
 • Vage Aussagen wie "hat Probleme mit..."
@@ -259,17 +254,17 @@ const FallbeispielGenerator = () => {
     2: {
       title: 'Nahziele nach SMART-Kriterien',
       content: `
-🎯 **SMART-Kriterien:**
+**SMART-Kriterien:**
 • **S**pezifisch: Was genau soll erreicht werden?
 • **M**essbar: Woran erkenne ich die Zielerreichung?
 • **A**kzeptiert/Erreichbar: Ist es realistisch?
 • **R**elevant: Warum ist dieses Ziel wichtig?
 • **T**erminiert: Bis wann? (Nahziel: 1-3 Tage)
 
-✅ **Beispiel Nahziel:**
+**Beispiel Nahziel:**
 "Herr M. zeigt innerhalb der nächsten 3 Tage keine Hautrötung im Sakralbereich und die Haut ist intakt."
 
-📌 **Wichtige Regeln:**
+**Wichtige Regeln:**
 • Positive Formulierung (Zustand beschreiben, nicht Vermeidung)
 • Gegenwartsform verwenden ("Die Haut ist intakt")
 • Patientenbezogen ("Der Patient..." nicht "Es soll...")
@@ -278,15 +273,15 @@ const FallbeispielGenerator = () => {
     3: {
       title: 'Fernziele nach SMART-Kriterien',
       content: `
-🎯 **Fernziele (mehrere Wochen/Monate):**
+**Fernziele (mehrere Wochen/Monate):**
 • Langfristige, übergeordnete Ziele
 • Gleiche SMART-Kriterien wie Nahziele
 • Zeitrahmen: mehrere Wochen bis Monate
 
-✅ **Beispiel Fernziel:**
+**Beispiel Fernziel:**
 "Herr M. ist während des gesamten Klinikaufenthalts (ca. 14 Tage) dekubitusfrei und die Haut ist an allen druckgefährdeten Stellen intakt."
 
-📌 **Unterschied zu Nahzielen:**
+**Unterschied zu Nahzielen:**
 • Umfassendere Zielsetzung
 • Längerer Zeitrahmen
 • Nachhaltigkeit und Stabilität
@@ -295,32 +290,32 @@ const FallbeispielGenerator = () => {
     4: {
       title: 'Pflegemaßnahmen nach 5-W-Regel',
       content: `
-📋 **Alle 5 W-Fragen müssen beantwortet sein:**
+**Alle 5 W-Fragen müssen beantwortet sein:**
 • **Wer?** Pflegefachkraft, Pflegehilfskraft
 • **Was?** Konkrete Handlung beschreiben
 • **Wann?** Tageszeit, Zeitpunkt
 • **Wie oft?** Täglich, 3x täglich, alle 2 Stunden
 • **Wie?** Methode, Technik, Hilfsmittel
 
-✅ **Beispiele:**
-1️⃣ "Die Pflegefachkraft kontrolliert **täglich morgens und abends** beim Waschen die Haut im Sakral-, Fersen- und Trochanterbereich **durch systematische Sichtkontrolle** auf Rötungen."
+**Beispiele:**
+1. "Die Pflegefachkraft kontrolliert **täglich morgens und abends** beim Waschen die Haut im Sakral-, Fersen- und Trochanterbereich **durch systematische Sichtkontrolle** auf Rötungen."
 
-2️⃣ "Die Pflegefachkraft lagert Herrn M. **alle 2 Stunden** um (Rücken-, Seiten-, 30°-Lagerung) **mit Hilfe von Lagerungskissen** zur Druckentlastung."
+2. "Die Pflegefachkraft lagert Herrn M. **alle 2 Stunden** um (Rücken-, Seiten-, 30°-Lagerung) **mit Hilfe von Lagerungskissen** zur Druckentlastung."
 
-📌 **Mindestens 3 vollständige Maßnahmen pro Problem!**`
+**Mindestens 3 vollständige Maßnahmen pro Problem!**`
     },
     5: {
       title: 'Begründung der Maßnahmen',
       content: `
-🔬 **Jede Maßnahme einzeln begründen:**
+**Jede Maßnahme einzeln begründen:**
 • Warum ist die Maßnahme notwendig? (Pathophysiologie)
 • Welcher Standard/Leitlinie? (Expertenstandards)
 • Wie trägt sie zur Zielerreichung bei?
 
-✅ **Beispiel Begründung:**
+**Beispiel Begründung:**
 "Durch die systematische tägliche Hautkontrolle können erste Anzeichen für druckbedingte Hautveränderungen (Kategorie 1 Dekubitus) frühzeitig erkannt werden. Dies entspricht dem Expertenstandard zur Dekubitusprophylaxe (2017) und ermöglicht rechtzeitige Interventionen."
 
-📌 **Elemente einer guten Begründung:**
+**Elemente einer guten Begründung:**
 • Fachliche Tiefe zeigen
 • Evidenzbasierung nennen
 • Direkter Bezug zum Ziel
@@ -329,20 +324,20 @@ const FallbeispielGenerator = () => {
     6: {
       title: 'Evaluation der Zielerreichung',
       content: `
-✔️ **Evaluationskriterien:**
+**Evaluationskriterien:**
 • Zeitlich terminiert und messbar
 • Muss zum jeweiligen Ziel passen
 • Klare Ja/Nein-Antwort ermöglichen
 • Objektive Kriterien definieren
 
-📊 **Evaluationsmethoden:**
+**Evaluationsmethoden:**
 • Sichtkontrolle (Haut, Wunden)
 • Befragung (Schmerzskala, Wohlbefinden)
 • Messungen (Vitalzeichen, Gewicht)
 • Beobachtung (Verhalten, Fähigkeiten)
 • Assessment-Tools (Braden-Skala, Barthel-Index)
 
-✅ **Beispiele:**
+**Beispiele:**
 **Nahziel-Evaluation:**
 "Das Nahziel ist erreicht, wenn Herr M. am dritten Tag bei der Hautinspektion keine Hautrötungen zeigt (Kategorie 0) und auf der Schmerzskala 0-2 beim Lagern angibt."
 
