@@ -5260,7 +5260,57 @@ export const medicalBasicsCategories: Category[] = [
                 description: 'Mechanische Zerkleinerung und Speichelsekretion',
                 icon: '👄',
                 difficulty: 'easy',
-                parentId: 'gi-anatomy'
+                parentId: 'gi-anatomy',
+                children: [
+                  {
+                    id: 'lips-cheeks-palate',
+                    name: 'Lippen, Wangen, Gaumen',
+                    description: 'Äußere Begrenzung der Mundhöhle',
+                    icon: '👄',
+                    difficulty: 'easy',
+                    parentId: 'oral-cavity'
+                  },
+                  {
+                    id: 'tongue',
+                    name: 'Zunge (Papillen, Geschmacksknospen)',
+                    description: 'Geschmacksorgan und Schluckhilfe',
+                    icon: '👅',
+                    difficulty: 'medium',
+                    parentId: 'oral-cavity'
+                  },
+                  {
+                    id: 'salivary-glands',
+                    name: 'Speicheldrüsen (Parotis, Submandibularis, Sublingualis)',
+                    description: 'Große Speicheldrüsen',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'oral-cavity'
+                  },
+                  {
+                    id: 'teeth',
+                    name: 'Zähne (Aufbau, Gebiss, Zahnhalteapparat)',
+                    description: 'Dentition und Parodontium',
+                    icon: '🦷',
+                    difficulty: 'medium',
+                    parentId: 'oral-cavity'
+                  },
+                  {
+                    id: 'swallowing-phases',
+                    name: 'Schluckakt (oral, pharyngeal, ösophageal)',
+                    description: 'Drei Phasen des Schluckens',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'oral-cavity'
+                  },
+                  {
+                    id: 'saliva-production',
+                    name: 'Speichelproduktion & -zusammensetzung',
+                    description: 'Speichelsekretion und Enzyme',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'oral-cavity'
+                  }
+                ]
               },
               {
                 id: 'esophagus',
@@ -5268,7 +5318,49 @@ export const medicalBasicsCategories: Category[] = [
                 description: 'Schluckakt und Peristaltik',
                 icon: '🌊',
                 difficulty: 'medium',
-                parentId: 'gi-anatomy'
+                parentId: 'gi-anatomy',
+                children: [
+                  {
+                    id: 'esophageal-anatomy',
+                    name: 'Anatomischer Aufbau (Schichten)',
+                    description: 'Wandaufbau der Speiseröhre',
+                    icon: '🏗️',
+                    difficulty: 'medium',
+                    parentId: 'esophagus'
+                  },
+                  {
+                    id: 'esophageal-constrictions',
+                    name: 'Physiologische Engstellen',
+                    description: 'Natürliche Verengungen des Ösophagus',
+                    icon: '🤏',
+                    difficulty: 'medium',
+                    parentId: 'esophagus'
+                  },
+                  {
+                    id: 'peristalsis',
+                    name: 'Peristaltik',
+                    description: 'Wellenförmige Muskelkontraktionen',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'esophagus'
+                  },
+                  {
+                    id: 'lower-esophageal-sphincter',
+                    name: 'Unterer Ösophagussphinkter',
+                    description: 'Verschluss zum Magen',
+                    icon: '🚪',
+                    difficulty: 'medium',
+                    parentId: 'esophagus'
+                  },
+                  {
+                    id: 'swallowing-mechanism',
+                    name: 'Schluckmechanismus',
+                    description: 'Koordinierter Schluckvorgang',
+                    icon: '⚙️',
+                    difficulty: 'medium',
+                    parentId: 'esophagus'
+                  }
+                ]
               },
               {
                 id: 'stomach',
@@ -5276,57 +5368,787 @@ export const medicalBasicsCategories: Category[] = [
                 description: 'Magensäureproduktion und Proteinvorverdauung',
                 icon: '🫃',
                 difficulty: 'medium',
-                parentId: 'gi-anatomy'
+                parentId: 'gi-anatomy',
+                children: [
+                  {
+                    id: 'stomach-anatomy',
+                    name: 'Anatomie (Kardia, Fundus, Korpus, Antrum, Pylorus)',
+                    description: 'Aufbau des Magens',
+                    icon: '🏗️',
+                    difficulty: 'medium',
+                    parentId: 'stomach'
+                  },
+                  {
+                    id: 'gastric-wall',
+                    name: 'Magenwand (Schichten, Drüsen)',
+                    description: 'Wandaufbau und Drüsensystem',
+                    icon: '🧱',
+                    difficulty: 'hard',
+                    parentId: 'stomach'
+                  },
+                  {
+                    id: 'gastric-juice',
+                    name: 'Magensaft (HCl, Pepsin, Intrinsic Factor)',
+                    description: 'Magensekretion und Enzyme',
+                    icon: '💧',
+                    difficulty: 'hard',
+                    parentId: 'stomach'
+                  },
+                  {
+                    id: 'gastric-motility',
+                    name: 'Motilität & Entleerung',
+                    description: 'Magenbewegungen und Entleerung',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'stomach'
+                  },
+                  {
+                    id: 'acid-regulation',
+                    name: 'Regulation der Säureproduktion',
+                    description: 'Kontrolle der Magensäuresekretion',
+                    icon: '⚙️',
+                    difficulty: 'hard',
+                    parentId: 'stomach'
+                  },
+                  {
+                    id: 'protective-mechanisms',
+                    name: 'Schutzmechanismen (Schleim, Bikarbonat)',
+                    description: 'Magenschutz vor Selbstverdauung',
+                    icon: '🛡️',
+                    difficulty: 'medium',
+                    parentId: 'stomach'
+                  }
+                ]
               },
               {
                 id: 'small-intestine',
-                name: 'Dünndarm (Duodenum, Jejunum, Ileum)',
+                name: 'Dünndarm',
                 description: 'Haupt-Verdauungs- und Absorptionsort',
                 icon: '🌀',
                 difficulty: 'hard',
-                parentId: 'gi-anatomy'
+                parentId: 'gi-anatomy',
+                children: [
+                  {
+                    id: 'duodenum',
+                    name: 'Duodenum (Zwölffingerdarm)',
+                    description: 'Erster Dünndarmabschnitt',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'small-intestine'
+                  },
+                  {
+                    id: 'jejunum',
+                    name: 'Jejunum (Leerdarm)',
+                    description: 'Mittlerer Dünndarmabschnitt',
+                    icon: '🌀',
+                    difficulty: 'medium',
+                    parentId: 'small-intestine'
+                  },
+                  {
+                    id: 'ileum',
+                    name: 'Ileum (Krummdarm)',
+                    description: 'Letzter Dünndarmabschnitt',
+                    icon: '🔚',
+                    difficulty: 'medium',
+                    parentId: 'small-intestine'
+                  },
+                  {
+                    id: 'intestinal-wall',
+                    name: 'Darmwand (Kerckring-Falten, Villi, Mikrovilli)',
+                    description: 'Oberflächenvergrößerung für Resorption',
+                    icon: '🏗️',
+                    difficulty: 'hard',
+                    parentId: 'small-intestine'
+                  },
+                  {
+                    id: 'intestinal-glands',
+                    name: 'Brunner-Drüsen, Lieberkühn-Krypten',
+                    description: 'Darmdrüsen und Sekretion',
+                    icon: '💧',
+                    difficulty: 'hard',
+                    parentId: 'small-intestine'
+                  },
+                  {
+                    id: 'peyers-patches',
+                    name: 'Peyer-Plaques (Immunsystem)',
+                    description: 'Darmassoziiertes Lymphgewebe',
+                    icon: '🛡️',
+                    difficulty: 'medium',
+                    parentId: 'small-intestine'
+                  }
+                ]
               },
               {
                 id: 'large-intestine',
-                name: 'Dickdarm (Kolon, Rektum)',
+                name: 'Dickdarm',
                 description: 'Wasserresorption und Stuhlformung',
                 icon: '🔄',
                 difficulty: 'medium',
-                parentId: 'gi-anatomy'
+                parentId: 'gi-anatomy',
+                children: [
+                  {
+                    id: 'cecum-appendix',
+                    name: 'Caecum & Appendix',
+                    description: 'Blinddarm und Wurmfortsatz',
+                    icon: '🔚',
+                    difficulty: 'medium',
+                    parentId: 'large-intestine'
+                  },
+                  {
+                    id: 'colon',
+                    name: 'Colon (ascendens, transversum, descendens, sigmoideum)',
+                    description: 'Grimmdarmabschnitte',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'large-intestine'
+                  },
+                  {
+                    id: 'rectum-anal-canal',
+                    name: 'Rektum & Analkanal',
+                    description: 'Mastdarm und Afterkanal',
+                    icon: '🚪',
+                    difficulty: 'medium',
+                    parentId: 'large-intestine'
+                  },
+                  {
+                    id: 'haustra-taeniae',
+                    name: 'Haustren & Taenien',
+                    description: 'Dickdarmmuskulatur und -ausbuchtungen',
+                    icon: '🏗️',
+                    difficulty: 'medium',
+                    parentId: 'large-intestine'
+                  },
+                  {
+                    id: 'gut-microbiome',
+                    name: 'Darmflora (Mikrobiom)',
+                    description: 'Bakterielle Besiedlung des Darms',
+                    icon: '🦠',
+                    difficulty: 'medium',
+                    parentId: 'large-intestine'
+                  },
+                  {
+                    id: 'continence-mechanism',
+                    name: 'Kontinenzmechanismus',
+                    description: 'Stuhlkontinenz und Sphinkter',
+                    icon: '🔒',
+                    difficulty: 'medium',
+                    parentId: 'large-intestine'
+                  }
+                ]
+              },
+              {
+                id: 'accessory-glands',
+                name: 'Anhangsdrüsen',
+                description: 'Leber, Gallenblase und Pankreas',
+                icon: '🥞',
+                difficulty: 'hard',
+                parentId: 'gi-anatomy',
+                children: [
+                  {
+                    id: 'liver',
+                    name: 'Leber',
+                    description: 'Stoffwechselorgan und Entgiftung',
+                    icon: '🍯',
+                    difficulty: 'hard',
+                    parentId: 'accessory-glands',
+                    children: [
+                      {
+                        id: 'liver-anatomy',
+                        name: 'Anatomie (Lappen, Segmente)',
+                        description: 'Aufbau der Leber',
+                        icon: '🏗️',
+                        difficulty: 'medium',
+                        parentId: 'liver'
+                      },
+                      {
+                        id: 'hepatic-lobule',
+                        name: 'Funktionseinheit (Leberläppchen)',
+                        description: 'Hepatozyten und Sinusoide',
+                        icon: '🔬',
+                        difficulty: 'hard',
+                        parentId: 'liver'
+                      },
+                      {
+                        id: 'bile-production',
+                        name: 'Galleproduktion',
+                        description: 'Gallensäuresynthese und -sekretion',
+                        icon: '💧',
+                        difficulty: 'medium',
+                        parentId: 'liver'
+                      },
+                      {
+                        id: 'liver-metabolism',
+                        name: 'Stoffwechselfunktionen',
+                        description: 'Metabolische Leistungen der Leber',
+                        icon: '⚗️',
+                        difficulty: 'hard',
+                        parentId: 'liver'
+                      },
+                      {
+                        id: 'liver-detoxification',
+                        name: 'Entgiftung',
+                        description: 'Biotransformation und Entgiftung',
+                        icon: '🧹',
+                        difficulty: 'hard',
+                        parentId: 'liver'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'gallbladder-bile-ducts',
+                    name: 'Gallenblase & Gallenwege',
+                    description: 'Gallenspeicherung und -transport',
+                    icon: '🫒',
+                    difficulty: 'medium',
+                    parentId: 'accessory-glands',
+                    children: [
+                      {
+                        id: 'gallbladder-structure',
+                        name: 'Gallenblase (Aufbau, Funktion)',
+                        description: 'Anatomie und Physiologie der Gallenblase',
+                        icon: '🫒',
+                        difficulty: 'medium',
+                        parentId: 'gallbladder-bile-ducts'
+                      },
+                      {
+                        id: 'bile-ducts',
+                        name: 'Gallenwege (intra-/extrahepatisch)',
+                        description: 'Gallengangsystem',
+                        icon: '🛤️',
+                        difficulty: 'medium',
+                        parentId: 'gallbladder-bile-ducts'
+                      },
+                      {
+                        id: 'sphincter-oddi',
+                        name: 'Sphincter Oddi',
+                        description: 'Verschluss der Papilla Vateri',
+                        icon: '🚪',
+                        difficulty: 'medium',
+                        parentId: 'gallbladder-bile-ducts'
+                      },
+                      {
+                        id: 'bile-composition',
+                        name: 'Gallezusammensetzung',
+                        description: 'Bestandteile der Galle',
+                        icon: '🧪',
+                        difficulty: 'medium',
+                        parentId: 'gallbladder-bile-ducts'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'pancreas',
+                    name: 'Pankreas',
+                    description: 'Exokrine und endokrine Funktionen',
+                    icon: '🥞',
+                    difficulty: 'hard',
+                    parentId: 'accessory-glands',
+                    children: [
+                      {
+                        id: 'pancreas-anatomy',
+                        name: 'Anatomie (Kopf, Körper, Schwanz)',
+                        description: 'Aufbau des Pankreas',
+                        icon: '🏗️',
+                        difficulty: 'medium',
+                        parentId: 'pancreas'
+                      },
+                      {
+                        id: 'exocrine-pancreas',
+                        name: 'Exokrine Funktion (Verdauungsenzyme)',
+                        description: 'Pankreasenzyme für Verdauung',
+                        icon: '⚗️',
+                        difficulty: 'hard',
+                        parentId: 'pancreas'
+                      },
+                      {
+                        id: 'endocrine-pancreas',
+                        name: 'Endokrine Funktion (Insulin, Glucagon)',
+                        description: 'Langerhans-Inseln und Hormone',
+                        icon: '🧪',
+                        difficulty: 'medium',
+                        parentId: 'pancreas'
+                      },
+                      {
+                        id: 'pancreatic-juice',
+                        name: 'Pankreassaft',
+                        description: 'Zusammensetzung des Pankreassekrets',
+                        icon: '💧',
+                        difficulty: 'medium',
+                        parentId: 'pancreas'
+                      },
+                      {
+                        id: 'pancreatic-duct',
+                        name: 'Ductus pancreaticus',
+                        description: 'Pankreasgang und Sekretion',
+                        icon: '🛤️',
+                        difficulty: 'medium',
+                        parentId: 'pancreas'
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
           {
-            id: 'digestive-organs',
-            name: 'Verdauungsorgane',
-            description: 'Leber, Gallenblase und Pankreas',
-            icon: '🥞',
+            id: 'digestive-physiology',
+            name: 'Verdauungsphysiologie',
+            description: 'Verdauungsprozesse und Enzymfunktionen',
+            icon: '⚗️',
             difficulty: 'hard',
             parentId: 'digestive-system',
             children: [
               {
-                id: 'liver',
-                name: 'Leber (Hepar)',
-                description: 'Stoffwechselorgan und Entgiftung',
-                icon: '🍯',
-                difficulty: 'hard',
-                parentId: 'digestive-organs'
-              },
-              {
-                id: 'gallbladder',
-                name: 'Gallenblase & Gallenwege',
-                description: 'Gallenspeicherung und -sekretion',
-                icon: '🫒',
+                id: 'carbohydrate-digestion',
+                name: 'Kohlenhydratverdauung',
+                description: 'Stärke- und Zuckerabbau',
+                icon: '🍞',
                 difficulty: 'medium',
-                parentId: 'digestive-organs'
+                parentId: 'digestive-physiology',
+                children: [
+                  {
+                    id: 'oral-amylase',
+                    name: 'Mundamylase (Ptyalin)',
+                    description: 'Stärkeabbau im Mund',
+                    icon: '👄',
+                    difficulty: 'medium',
+                    parentId: 'carbohydrate-digestion'
+                  },
+                  {
+                    id: 'pancreatic-amylase',
+                    name: 'Pankreasamylase',
+                    description: 'Stärkeabbau im Dünndarm',
+                    icon: '🥞',
+                    difficulty: 'medium',
+                    parentId: 'carbohydrate-digestion'
+                  },
+                  {
+                    id: 'disaccharidases',
+                    name: 'Disaccharidasen (Maltase, Laktase, Saccharase)',
+                    description: 'Doppelzuckerspaltung',
+                    icon: '✂️',
+                    difficulty: 'medium',
+                    parentId: 'carbohydrate-digestion'
+                  },
+                  {
+                    id: 'glucose-absorption',
+                    name: 'Resorption (SGLT1, GLUT2, GLUT5)',
+                    description: 'Zuckertransporter im Darm',
+                    icon: '🚛',
+                    difficulty: 'hard',
+                    parentId: 'carbohydrate-digestion'
+                  },
+                  {
+                    id: 'lactose-intolerance',
+                    name: 'Laktoseintoleranz',
+                    description: 'Milchzuckerunverträglichkeit',
+                    icon: '🥛',
+                    difficulty: 'medium',
+                    parentId: 'carbohydrate-digestion'
+                  }
+                ]
               },
               {
-                id: 'pancreas',
-                name: 'Pankreas (Bauchspeicheldrüse)',
-                description: 'Exokrine und endokrine Funktionen',
-                icon: '🥞',
+                id: 'protein-digestion',
+                name: 'Proteinverdauung',
+                description: 'Eiweißabbau und Aminosäurenresorption',
+                icon: '🥩',
                 difficulty: 'hard',
-                parentId: 'digestive-organs'
+                parentId: 'digestive-physiology',
+                children: [
+                  {
+                    id: 'pepsin',
+                    name: 'Pepsin (Magen)',
+                    description: 'Proteinabbau im sauren Milieu',
+                    icon: '🫃',
+                    difficulty: 'medium',
+                    parentId: 'protein-digestion'
+                  },
+                  {
+                    id: 'pancreatic-proteases',
+                    name: 'Trypsin, Chymotrypsin (Pankreas)',
+                    description: 'Pankreasproteasen',
+                    icon: '🥞',
+                    difficulty: 'hard',
+                    parentId: 'protein-digestion'
+                  },
+                  {
+                    id: 'peptidases',
+                    name: 'Peptidasen (Dünndarm)',
+                    description: 'Peptidspaltung an der Darmwand',
+                    icon: '✂️',
+                    difficulty: 'hard',
+                    parentId: 'protein-digestion'
+                  },
+                  {
+                    id: 'amino-acid-transporters',
+                    name: 'Aminosäuretransporter',
+                    description: 'Aminosäurenaufnahme ins Blut',
+                    icon: '🚛',
+                    difficulty: 'hard',
+                    parentId: 'protein-digestion'
+                  },
+                  {
+                    id: 'protein-absorption',
+                    name: 'Proteinresorption',
+                    description: 'Aufnahme von Aminosäuren',
+                    icon: '📤',
+                    difficulty: 'medium',
+                    parentId: 'protein-digestion'
+                  }
+                ]
+              },
+              {
+                id: 'fat-digestion',
+                name: 'Fettverdauung',
+                description: 'Lipidabbau und Resorption',
+                icon: '🧈',
+                difficulty: 'hard',
+                parentId: 'digestive-physiology',
+                children: [
+                  {
+                    id: 'lipases',
+                    name: 'Lipase (Zunge, Magen, Pankreas)',
+                    description: 'Fettspaltende Enzyme',
+                    icon: '✂️',
+                    difficulty: 'medium',
+                    parentId: 'fat-digestion'
+                  },
+                  {
+                    id: 'bile-emulsification',
+                    name: 'Emulgierung durch Gallensäuren',
+                    description: 'Fettverteilung für Verdauung',
+                    icon: '🫧',
+                    difficulty: 'medium',
+                    parentId: 'fat-digestion'
+                  },
+                  {
+                    id: 'micelle-formation',
+                    name: 'Mizellenbildung',
+                    description: 'Fetttröpfchen für Resorption',
+                    icon: '🫧',
+                    difficulty: 'hard',
+                    parentId: 'fat-digestion'
+                  },
+                  {
+                    id: 'chylomicron-formation',
+                    name: 'Resorption & Chylomikronen',
+                    description: 'Fetttransport im Lymphsystem',
+                    icon: '🚛',
+                    difficulty: 'hard',
+                    parentId: 'fat-digestion'
+                  },
+                  {
+                    id: 'fat-soluble-vitamins',
+                    name: 'Fettlösliche Vitamine (A, D, E, K)',
+                    description: 'Vitaminresorption mit Fetten',
+                    icon: '💊',
+                    difficulty: 'medium',
+                    parentId: 'fat-digestion'
+                  }
+                ]
+              },
+              {
+                id: 'absorption-transport',
+                name: 'Resorption & Transport',
+                description: 'Nährstoffaufnahme und -transport',
+                icon: '🚛',
+                difficulty: 'medium',
+                parentId: 'digestive-physiology',
+                children: [
+                  {
+                    id: 'water-electrolytes',
+                    name: 'Wasser & Elektrolyte',
+                    description: 'Wasser- und Salzresorption',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'absorption-transport'
+                  },
+                  {
+                    id: 'vitamin-absorption',
+                    name: 'Vitamine (wasserlöslich/fettlöslich)',
+                    description: 'Vitaminaufnahme im Darm',
+                    icon: '💊',
+                    difficulty: 'medium',
+                    parentId: 'absorption-transport'
+                  },
+                  {
+                    id: 'mineral-absorption',
+                    name: 'Mineralstoffe (Eisen, Kalzium, etc.)',
+                    description: 'Mineralstoffresorption',
+                    icon: '🧲',
+                    difficulty: 'medium',
+                    parentId: 'absorption-transport'
+                  },
+                  {
+                    id: 'transport-mechanisms',
+                    name: 'Aktive & passive Transportmechanismen',
+                    description: 'Transportwege durch die Darmwand',
+                    icon: '⚙️',
+                    difficulty: 'hard',
+                    parentId: 'absorption-transport'
+                  },
+                  {
+                    id: 'malabsorption',
+                    name: 'Resorptionsstörungen',
+                    description: 'Gestörte Nährstoffaufnahme',
+                    icon: '⚠️',
+                    difficulty: 'medium',
+                    parentId: 'absorption-transport'
+                  }
+                ]
+              },
+              {
+                id: 'motility-regulation',
+                name: 'Motilität & Regulation',
+                description: 'Darmbewegungen und Steuerung',
+                icon: '🔄',
+                difficulty: 'hard',
+                parentId: 'digestive-physiology',
+                children: [
+                  {
+                    id: 'migrating-motor-complex',
+                    name: 'Migrating Motor Complex (MMC)',
+                    description: 'Darmmotilität zwischen Mahlzeiten',
+                    icon: '🌊',
+                    difficulty: 'hard',
+                    parentId: 'motility-regulation'
+                  },
+                  {
+                    id: 'gastrocolic-reflex',
+                    name: 'Gastrokolischer Reflex',
+                    description: 'Darmantwort auf Magenentleerung',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'motility-regulation'
+                  },
+                  {
+                    id: 'defecation-reflex',
+                    name: 'Defäkationsreflex',
+                    description: 'Stuhlentleerungsreflex',
+                    icon: '🚪',
+                    difficulty: 'medium',
+                    parentId: 'motility-regulation'
+                  },
+                  {
+                    id: 'neural-regulation',
+                    name: 'Nervale Regulation (ENS, Vagus, Sympathikus)',
+                    description: 'Nervensystem der Verdauung',
+                    icon: '🧠',
+                    difficulty: 'hard',
+                    parentId: 'motility-regulation'
+                  },
+                  {
+                    id: 'hormonal-regulation',
+                    name: 'Hormonelle Regulation (Gastrin, Sekretin, CCK)',
+                    description: 'Verdauungshormone',
+                    icon: '🧪',
+                    difficulty: 'hard',
+                    parentId: 'motility-regulation'
+                  },
+                  {
+                    id: 'local-regulation',
+                    name: 'Lokale Regulation (Serotonin, VIP)',
+                    description: 'Lokale Mediatoren',
+                    icon: '📍',
+                    difficulty: 'hard',
+                    parentId: 'motility-regulation'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'metabolic-functions',
+            name: 'Stoffwechselfunktionen',
+            description: 'Metabolische Leistungen der Verdauungsorgane',
+            icon: '⚗️',
+            difficulty: 'hard',
+            parentId: 'digestive-system',
+            children: [
+              {
+                id: 'intermediate-metabolism',
+                name: 'Intermediärstoffwechsel',
+                description: 'Zentrale Stoffwechselwege',
+                icon: '🔄',
+                difficulty: 'hard',
+                parentId: 'metabolic-functions',
+                children: [
+                  {
+                    id: 'glucose-metabolism-liver',
+                    name: 'Glukosestoffwechsel',
+                    description: 'Glukosehomöostase der Leber',
+                    icon: '🍯',
+                    difficulty: 'hard',
+                    parentId: 'intermediate-metabolism'
+                  },
+                  {
+                    id: 'amino-acid-metabolism-liver',
+                    name: 'Aminosäurestoffwechsel',
+                    description: 'Proteinmetabolismus der Leber',
+                    icon: '🧬',
+                    difficulty: 'hard',
+                    parentId: 'intermediate-metabolism'
+                  },
+                  {
+                    id: 'lipid-metabolism-liver',
+                    name: 'Lipidstoffwechsel',
+                    description: 'Fettstoffwechsel der Leber',
+                    icon: '🧈',
+                    difficulty: 'hard',
+                    parentId: 'intermediate-metabolism'
+                  },
+                  {
+                    id: 'urea-cycle-liver',
+                    name: 'Harnstoffzyklus',
+                    description: 'Stickstoffmetabolismus',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'intermediate-metabolism'
+                  },
+                  {
+                    id: 'ketone-body-formation',
+                    name: 'Ketonkörperbildung',
+                    description: 'Alternative Energiegewinnung',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'intermediate-metabolism'
+                  }
+                ]
+              },
+              {
+                id: 'biotransformation',
+                name: 'Biotransformation',
+                description: 'Entgiftung und Medikamentenstoffwechsel',
+                icon: '🧹',
+                difficulty: 'hard',
+                parentId: 'metabolic-functions',
+                children: [
+                  {
+                    id: 'phase-i-reactions',
+                    name: 'Phase-I-Reaktionen (Oxidation, Reduktion)',
+                    description: 'Funktionalisierung von Fremdstoffen',
+                    icon: '⚗️',
+                    difficulty: 'hard',
+                    parentId: 'biotransformation'
+                  },
+                  {
+                    id: 'phase-ii-reactions',
+                    name: 'Phase-II-Reaktionen (Konjugation)',
+                    description: 'Wasserlöslichmachung von Metaboliten',
+                    icon: '🔗',
+                    difficulty: 'hard',
+                    parentId: 'biotransformation'
+                  },
+                  {
+                    id: 'cytochrome-p450',
+                    name: 'Cytochrom P450-System',
+                    description: 'Enzymsystem der Biotransformation',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'biotransformation'
+                  },
+                  {
+                    id: 'first-pass-effect',
+                    name: 'First-Pass-Effekt',
+                    description: 'Präsystemischer Metabolismus',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'biotransformation'
+                  }
+                ]
+              },
+              {
+                id: 'storage-synthesis',
+                name: 'Speicher- & Synthesefunktionen',
+                description: 'Speicherung und Synthese von Biomolekülen',
+                icon: '🏪',
+                difficulty: 'medium',
+                parentId: 'metabolic-functions',
+                children: [
+                  {
+                    id: 'glycogen-storage',
+                    name: 'Glykogenspeicher',
+                    description: 'Glukosespeicherung als Glykogen',
+                    icon: '🏪',
+                    difficulty: 'medium',
+                    parentId: 'storage-synthesis'
+                  },
+                  {
+                    id: 'vitamin-storage',
+                    name: 'Vitaminspeicher',
+                    description: 'Speicherung fettlöslicher Vitamine',
+                    icon: '💊',
+                    difficulty: 'medium',
+                    parentId: 'storage-synthesis'
+                  },
+                  {
+                    id: 'protein-synthesis-liver',
+                    name: 'Proteinsynthese (Albumin, Gerinnungsfaktoren)',
+                    description: 'Synthese von Plasmaproteinen',
+                    icon: '🏭',
+                    difficulty: 'hard',
+                    parentId: 'storage-synthesis'
+                  },
+                  {
+                    id: 'cholesterol-synthesis-liver',
+                    name: 'Cholesterinsynthese',
+                    description: 'Endogene Cholesterinproduktion',
+                    icon: '🧪',
+                    difficulty: 'hard',
+                    parentId: 'storage-synthesis'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'gut-brain-axis',
+            name: 'Darm-Hirn-Achse',
+            description: 'Wechselwirkung zwischen Darm und Nervensystem',
+            icon: '🧠',
+            difficulty: 'hard',
+            parentId: 'digestive-system',
+            children: [
+              {
+                id: 'enteric-nervous-system',
+                name: 'Enterisches Nervensystem (ENS)',
+                description: 'Darmnervensystem und autonome Kontrolle',
+                icon: '🧠',
+                difficulty: 'hard',
+                parentId: 'gut-brain-axis'
+              },
+              {
+                id: 'vagus-connection',
+                name: 'Vagusnerv-Verbindung',
+                description: 'Neuronale Darm-Hirn-Kommunikation',
+                icon: '🔗',
+                difficulty: 'medium',
+                parentId: 'gut-brain-axis'
+              },
+              {
+                id: 'microbiome-influence',
+                name: 'Mikrobiom-Einfluss',
+                description: 'Einfluss der Darmflora auf das Nervensystem',
+                icon: '🦠',
+                difficulty: 'hard',
+                parentId: 'gut-brain-axis'
+              },
+              {
+                id: 'gut-neurotransmitters',
+                name: 'Neurotransmitter im Darm',
+                description: 'Serotonin, GABA und andere Botenstoffe',
+                icon: '🧪',
+                difficulty: 'hard',
+                parentId: 'gut-brain-axis'
+              },
+              {
+                id: 'psychosomatic-aspects',
+                name: 'Psychosomatische Aspekte',
+                description: 'Stress und Verdauung',
+                icon: '💭',
+                difficulty: 'medium',
+                parentId: 'gut-brain-axis'
               }
             ]
           }
