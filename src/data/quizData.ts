@@ -1579,6 +1579,112 @@ export const quizCategories: QuizCategory[] = [
     color: 'bg-violet-200',
     icon: '⚖️'
   },
+  // Weitere Muskelsystem-Kategorien
+  {
+    id: 'skeletal-muscle-anatomy',
+    name: 'Skelettmuskel-Anatomie',
+    description: 'Aufbau und Struktur der Skelettmuskulatur',
+    color: 'bg-violet-300',
+    icon: '🏗️'
+  },
+  {
+    id: 'muscle-origin-insertion',
+    name: 'Ursprung & Ansatz',
+    description: 'Muskelursprung und -ansatz an Knochen',
+    color: 'bg-violet-400',
+    icon: '🔗'
+  },
+  {
+    id: 'muscle-fiber-architecture',
+    name: 'Faserarchitektur',
+    description: 'Parallelfaserig, gefiedert, spiral',
+    color: 'bg-violet-500',
+    icon: '🪶'
+  },
+  {
+    id: 'fascia-aponeurosis',
+    name: 'Faszien & Aponeurosen',
+    description: 'Bindegewebige Muskelhüllen',
+    color: 'bg-violet-600',
+    icon: '🕸️'
+  },
+  {
+    id: 'muscle-mechanics',
+    name: 'Muskelmechanik',
+    description: 'Biomechanik der Muskelkraft',
+    color: 'bg-violet-700',
+    icon: '⚙️'
+  },
+  {
+    id: 'lever-systems',
+    name: 'Hebelsysteme',
+    description: 'Hebel 1., 2. und 3. Grades im Körper',
+    color: 'bg-violet-800',
+    icon: '🎯'
+  },
+  {
+    id: 'muscle-moment-arms',
+    name: 'Kraftarme & Drehmomente',
+    description: 'Mechanische Vorteile der Muskeln',
+    color: 'bg-violet-900',
+    icon: '🔧'
+  },
+  {
+    id: 'length-tension-relationship',
+    name: 'Länge-Kraft-Beziehung',
+    description: 'Optimale Muskellänge für Kraftentwicklung',
+    color: 'bg-purple-200',
+    icon: '📏'
+  },
+  {
+    id: 'force-velocity-relationship',
+    name: 'Kraft-Geschwindigkeits-Beziehung',
+    description: 'Hill-Gleichung der Muskelkontraktion',
+    color: 'bg-purple-300',
+    icon: '🏃'
+  },
+  {
+    id: 'muscle-groups-head-neck',
+    name: 'Kopf- & Halsmuskulatur',
+    description: 'Mimische und Kaumuskulatur',
+    color: 'bg-purple-400',
+    icon: '🗣️'
+  },
+  {
+    id: 'muscle-groups-trunk',
+    name: 'Rumpfmuskulatur',
+    description: 'Rücken-, Bauch- und Atemmuskulatur',
+    color: 'bg-purple-500',
+    icon: '🫁'
+  },
+  {
+    id: 'muscle-groups-upper-limb',
+    name: 'Obere Extremität',
+    description: 'Arm-, Schulter- und Handmuskulatur',
+    color: 'bg-purple-600',
+    icon: '💪'
+  },
+  {
+    id: 'muscle-groups-lower-limb',
+    name: 'Untere Extremität',
+    description: 'Bein-, Hüft- und Fußmuskulatur',
+    color: 'bg-purple-700',
+    icon: '🦵'
+  },
+  {
+    id: 'core-muscles',
+    name: 'Core-Muskulatur',
+    description: 'Stabilisierende Rumpfmuskulatur',
+    color: 'bg-purple-800',
+    icon: '🎯'
+  },
+  {
+    id: 'postural-muscles',
+    name: 'Haltungsmuskulatur',
+    description: 'Tonische vs. phasische Muskulatur',
+    color: 'bg-purple-900',
+    icon: '🧘'
+  },
   {
     id: 'renal-system',
     name: 'Nieren & Harnwege',
@@ -2296,6 +2402,26 @@ export const sampleQuestions: QuizQuestion[] = [
     difficulty: 'leicht',
     tags: ['hypertrophie', 'krafttraining', 'proteinsynthese']
   },
+  {
+    id: 'muscle_007',
+    question: 'Welcher Hebeltyp wird am häufigsten im menschlichen Körper verwendet?',
+    options: ['Hebel 1. Grades', 'Hebel 2. Grades', 'Hebel 3. Grades', 'Alle gleich häufig'],
+    correctAnswer: 2,
+    explanation: 'Hebel 3. Grades sind am häufigsten: Gelenk als Drehpunkt, Muskelkraft zwischen Gelenk und Last. Vorteil: Geschwindigkeit, Nachteil: geringere Kraft.',
+    category: quizCategories[1441], // lever-systems
+    difficulty: 'mittel',
+    tags: ['hebelsysteme', 'biomechanik', 'mechanik']
+  },
+  {
+    id: 'muscle_008',
+    question: 'Was charakterisiert die Core-Muskulatur?',
+    options: ['Nur die Bauchmuskeln', 'Stabilisierung der Wirbelsäule und des Beckens', 'Nur die Rückenstrecker', 'Muskeln für Armbewegungen'],
+    correctAnswer: 1,
+    explanation: 'Die Core-Muskulatur umfasst alle tiefen Rumpfmuskeln, die Wirbelsäule und Becken stabilisieren: Zwerchfell, Beckenboden, tiefe Bauch- und Rückenmuskulatur.',
+    category: quizCategories[1449], // core-muscles
+    difficulty: 'mittel',
+    tags: ['core', 'stabilisation', 'rumpf', 'wirbelsäule']
+  },
   
   // Frakturheilung & Knochenstoffwechsel - Fragen
   {
@@ -2887,6 +3013,26 @@ export const sampleFlashcards: Flashcard[] = [
     category: quizCategories[1424], // motor-units
     difficulty: 'mittel',
     tags: ['motorische-einheit', 'rekrutierung', 'hennéman', 'kraftregulation'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_muscle_005',
+    front: 'Hebelsysteme im menschlichen Körper',
+    back: '**Hebel 1. Grades (Drehpunkt zwischen Kraft und Last):**\n• Beispiel: Kopfneigung (Atlas-Okziput)\n• Gleichgewichtshebel, mechanischer Vorteil möglich\n\n**Hebel 2. Grades (Last zwischen Drehpunkt und Kraft):**\n• Beispiel: Zehenstand (Sprunggelenk-Drehpunkt)\n• Krafthebel, mechanischer Vorteil\n• Selten im Körper\n\n**Hebel 3. Grades (Kraft zwischen Drehpunkt und Last):**\n• Häufigster Typ im Körper\n• Beispiel: Bizeps-Kontraktion (Ellenbogen-Drehpunkt)\n• Geschwindigkeitshebel, mechanischer Nachteil\n• Vorteil: Schnelle, weite Bewegungen\n\n**Biologischer Sinn:** Geschwindigkeit > Kraft für Überleben',
+    category: quizCategories[1441], // lever-systems
+    difficulty: 'mittel',
+    tags: ['hebelsysteme', 'biomechanik', 'mechanik', 'kraft'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_muscle_006',
+    front: 'Core-Muskulatur - Aufbau und Funktion',
+    back: '**Definition:**\n• Tiefe Rumpfmuskulatur zur Stabilisation\n• „Muskeläre Korsett“ der Wirbelsäule\n\n**Komponenten:**\n• **Oben:** Zwerchfell (Diaphragma)\n• **Unten:** Beckenboden (M. levator ani)\n• **Hinten:** M. multifidus, M. erector spinae\n• **Vorne:** M. transversus abdominis\n• **Seitlich:** M. quadratus lumborum\n\n**Funktionen:**\n• Stabilisation der Lendenwirbelsäule\n• Intraabdomineller Druckaufbau\n• Koordination mit Atmung\n• Basis für alle Extremitätenbewegungen\n\n**Klinische Bedeutung:**\n• Rückenschmerzprävention\n• Leistungssteigerung im Sport',
+    category: quizCategories[1449], // core-muscles
+    difficulty: 'mittel',
+    tags: ['core', 'stabilisation', 'rumpf', 'wirbelsäule'],
     reviewCount: 0,
     easeFactor: 2.5
   },
