@@ -587,7 +587,7 @@ const MedikamentenTraining = () => {
         >
           {/* Main Rotating Logo */}
           <motion.div
-            className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white/90 backdrop-blur-sm shadow-xl mb-6 mx-auto relative"
+            className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white/90 backdrop-blur-sm shadow-xl mb-6 mx-auto"
             animate={{ 
               rotate: [0, 360],
               scale: [1, 1.1, 1]
@@ -606,71 +606,157 @@ const MedikamentenTraining = () => {
             }}
           >
             <Plus className="h-16 w-16 text-slate-600" strokeWidth={1.5} />
-            
-            {/* Inner rotating decoration */}
+          </motion.div>
+
+          {/* Floating Vital Signs */}
+          <div className="absolute inset-0">
+            {/* Heart Rate - Floating */}
             <motion.div
-              className="absolute inset-2 border border-gray-300/50 rounded-md"
-              animate={{ rotate: [360, 0] }}
+              className="absolute"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0, 1, 0.8, 1, 0.9],
+                x: [
+                  Math.cos(0) * 120,
+                  Math.cos(Math.PI * 2 * 0.25) * 120,
+                  Math.cos(Math.PI * 2 * 0.5) * 120,
+                  Math.cos(Math.PI * 2 * 0.75) * 120,
+                  Math.cos(Math.PI * 2) * 120
+                ],
+                y: [
+                  Math.sin(0) * 120,
+                  Math.sin(Math.PI * 2 * 0.25) * 120,
+                  Math.sin(Math.PI * 2 * 0.5) * 120,
+                  Math.sin(Math.PI * 2 * 0.75) * 120,
+                  Math.sin(Math.PI * 2) * 120
+                ]
+              }}
               transition={{
-                duration: 4,
+                delay: 1,
+                duration: 12,
                 repeat: Infinity,
                 ease: "linear"
               }}
-            />
-          </motion.div>
+              style={{
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="flex items-center bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg border border-red-200/50"
+              >
+                <Heart className="h-4 w-4 text-red-500 mr-2" />
+                <motion.span 
+                  className="text-sm font-mono text-gray-700 font-medium"
+                  animate={{ opacity: [0.7, 1, 0.7] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                >
+                  72 bpm
+                </motion.span>
+              </motion.div>
+            </motion.div>
 
-          {/* Vital Signs Display */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="mb-4 flex justify-center space-x-6"
-          >
+            {/* Blood Pressure - Floating */}
             <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-200/50"
+              className="absolute"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0, 0.9, 1, 0.8, 1],
+                x: [
+                  Math.cos(Math.PI * 2 / 3) * 130,
+                  Math.cos(Math.PI * 2 / 3 + Math.PI * 2 * 0.25) * 130,
+                  Math.cos(Math.PI * 2 / 3 + Math.PI * 2 * 0.5) * 130,
+                  Math.cos(Math.PI * 2 / 3 + Math.PI * 2 * 0.75) * 130,
+                  Math.cos(Math.PI * 2 / 3 + Math.PI * 2) * 130
+                ],
+                y: [
+                  Math.sin(Math.PI * 2 / 3) * 130,
+                  Math.sin(Math.PI * 2 / 3 + Math.PI * 2 * 0.25) * 130,
+                  Math.sin(Math.PI * 2 / 3 + Math.PI * 2 * 0.5) * 130,
+                  Math.sin(Math.PI * 2 / 3 + Math.PI * 2 * 0.75) * 130,
+                  Math.sin(Math.PI * 2 / 3 + Math.PI * 2) * 130
+                ]
+              }}
+              transition={{
+                delay: 1.5,
+                duration: 15,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              style={{
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
             >
-              <Heart className="h-4 w-4 text-red-500 mr-2" />
-              <motion.span 
-                className="text-sm font-mono text-gray-700"
-                animate={{ opacity: [0.7, 1, 0.7] }}
-                transition={{ duration: 1, repeat: Infinity }}
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity, delay: 0.3 }}
+                className="flex items-center bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg border border-blue-200/50"
               >
-                72 bpm
-              </motion.span>
+                <Activity className="h-4 w-4 text-blue-500 mr-2" />
+                <motion.span 
+                  className="text-sm font-mono text-gray-700 font-medium"
+                  animate={{ opacity: [0.7, 1, 0.7] }}
+                  transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}
+                >
+                  120/80
+                </motion.span>
+              </motion.div>
             </motion.div>
-            
+
+            {/* Temperature - Floating */}
             <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 1.8, repeat: Infinity, delay: 0.3 }}
-              className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-200/50"
+              className="absolute"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0, 1, 0.9, 1, 0.8],
+                x: [
+                  Math.cos(Math.PI * 4 / 3) * 125,
+                  Math.cos(Math.PI * 4 / 3 + Math.PI * 2 * 0.25) * 125,
+                  Math.cos(Math.PI * 4 / 3 + Math.PI * 2 * 0.5) * 125,
+                  Math.cos(Math.PI * 4 / 3 + Math.PI * 2 * 0.75) * 125,
+                  Math.cos(Math.PI * 4 / 3 + Math.PI * 2) * 125
+                ],
+                y: [
+                  Math.sin(Math.PI * 4 / 3) * 125,
+                  Math.sin(Math.PI * 4 / 3 + Math.PI * 2 * 0.25) * 125,
+                  Math.sin(Math.PI * 4 / 3 + Math.PI * 2 * 0.5) * 125,
+                  Math.sin(Math.PI * 4 / 3 + Math.PI * 2 * 0.75) * 125,
+                  Math.sin(Math.PI * 4 / 3 + Math.PI * 2) * 125
+                ]
+              }}
+              transition={{
+                delay: 2,
+                duration: 18,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              style={{
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
             >
-              <Activity className="h-4 w-4 text-blue-500 mr-2" />
-              <motion.span 
-                className="text-sm font-mono text-gray-700"
-                animate={{ opacity: [0.7, 1, 0.7] }}
-                transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2.1, repeat: Infinity, delay: 0.6 }}
+                className="flex items-center bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg border border-green-200/50"
               >
-                120/80
-              </motion.span>
+                <Thermometer className="h-4 w-4 text-green-500 mr-2" />
+                <motion.span 
+                  className="text-sm font-mono text-gray-700 font-medium"
+                  animate={{ opacity: [0.7, 1, 0.7] }}
+                  transition={{ duration: 1.4, repeat: Infinity, delay: 0.4 }}
+                >
+                  36.5°C
+                </motion.span>
+              </motion.div>
             </motion.div>
-            
-            <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2.1, repeat: Infinity, delay: 0.6 }}
-              className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-200/50"
-            >
-              <Thermometer className="h-4 w-4 text-green-500 mr-2" />
-              <motion.span 
-                className="text-sm font-mono text-gray-700"
-                animate={{ opacity: [0.7, 1, 0.7] }}
-                transition={{ duration: 1.4, repeat: Infinity, delay: 0.4 }}
-              >
-                36.5°C
-              </motion.span>
-            </motion.div>
-          </motion.div>
+          </div>
 
           <motion.h2 
             className="text-2xl font-light text-gray-900 mb-2"
