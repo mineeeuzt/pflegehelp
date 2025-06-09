@@ -143,6 +143,8 @@ const FallbeispielGenerator = () => {
   const [reviewResult, setReviewResult] = useState('')
   const [reviewData, setReviewData] = useState<{sections: any[], overallScore: number, generalFeedback: string} | null>(null)
   const [reviewLoading, setReviewLoading] = useState(false)
+  const [isReviewStreaming, setIsReviewStreaming] = useState(false)
+  const [streamingReviewText, setStreamingReviewText] = useState('')
   const [showHelpTooltip, setShowHelpTooltip] = useState<number | null>(null)
 
   const altersgruppen = [
@@ -479,6 +481,12 @@ const FallbeispielGenerator = () => {
     if (!user) return
 
     setReviewLoading(true)
+    setIsReviewStreaming(true)
+    setStreamingReviewText('')
+    setReviewData(null)
+    setReviewResult('')
+    setShowReview(true)
+
     try {
       const pflegeplanungText = `
 Fallbeispiel:
@@ -503,20 +511,42 @@ Evaluation:
 ${pflegeplanungData.evaluation}
       `.trim()
 
-      const response = await caseService.reviewWorkflow('pflegeplanung', pflegeplanungText, user.id)
-      
-      try {
-        const parsedData = JSON.parse(response)
-        setReviewData(parsedData)
-        setShowReview(true)
-      } catch (parseError) {
-        console.error('Failed to parse JSON response:', parseError)
-        setReviewResult(response)
-        setShowReview(true)
-      }
+      await caseService.reviewWorkflowStreaming(
+        'pflegeplanung',
+        pflegeplanungText,
+        user.id,
+        // onChunk - wird bei jedem neuen Text-Chunk aufgerufen
+        (chunk: string) => {
+          setStreamingReviewText(prev => prev + chunk)
+        },
+        // onComplete - wird aufgerufen wenn das Streaming komplett ist
+        (fullText: string) => {
+          try {
+            const parsedData = JSON.parse(fullText)
+            setReviewData(parsedData)
+            setStreamingReviewText('')
+            setIsReviewStreaming(false)
+            setReviewLoading(false)
+          } catch (parseError) {
+            console.error('Failed to parse JSON response:', parseError)
+            setReviewResult(fullText)
+            setStreamingReviewText('')
+            setIsReviewStreaming(false)
+            setReviewLoading(false)
+          }
+        },
+        // onError - wird bei Fehlern aufgerufen
+        (error: Error) => {
+          console.error('Review streaming error:', error)
+          setStreamingReviewText('')
+          setIsReviewStreaming(false)
+          setReviewLoading(false)
+        }
+      )
     } catch (error) {
       console.error('Review error:', error)
-    } finally {
+      setStreamingReviewText('')
+      setIsReviewStreaming(false)
       setReviewLoading(false)
     }
   }
@@ -525,6 +555,12 @@ ${pflegeplanungData.evaluation}
     if (!user || pflegeInfos.length === 0) return
 
     setReviewLoading(true)
+    setIsReviewStreaming(true)
+    setStreamingReviewText('')
+    setReviewData(null)
+    setReviewResult('')
+    setShowReview(true)
+
     try {
       const pflegeInfoText = `
 Fallbeispiel:
@@ -538,20 +574,42 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 `).join('\n')}
       `.trim()
 
-      const response = await caseService.reviewWorkflow('abedl', pflegeInfoText, user.id)
-      
-      try {
-        const parsedData = JSON.parse(response)
-        setReviewData(parsedData)
-        setShowReview(true)
-      } catch (parseError) {
-        console.error('Failed to parse JSON response:', parseError)
-        setReviewResult(response)
-        setShowReview(true)
-      }
+      await caseService.reviewWorkflowStreaming(
+        'abedl',
+        pflegeInfoText,
+        user.id,
+        // onChunk - wird bei jedem neuen Text-Chunk aufgerufen
+        (chunk: string) => {
+          setStreamingReviewText(prev => prev + chunk)
+        },
+        // onComplete - wird aufgerufen wenn das Streaming komplett ist
+        (fullText: string) => {
+          try {
+            const parsedData = JSON.parse(fullText)
+            setReviewData(parsedData)
+            setStreamingReviewText('')
+            setIsReviewStreaming(false)
+            setReviewLoading(false)
+          } catch (parseError) {
+            console.error('Failed to parse JSON response:', parseError)
+            setReviewResult(fullText)
+            setStreamingReviewText('')
+            setIsReviewStreaming(false)
+            setReviewLoading(false)
+          }
+        },
+        // onError - wird bei Fehlern aufgerufen
+        (error: Error) => {
+          console.error('Review streaming error:', error)
+          setStreamingReviewText('')
+          setIsReviewStreaming(false)
+          setReviewLoading(false)
+        }
+      )
     } catch (error) {
       console.error('Review error:', error)
-    } finally {
+      setStreamingReviewText('')
+      setIsReviewStreaming(false)
       setReviewLoading(false)
     }
   }
@@ -562,6 +620,9 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
     setShowReview(false)
     setReviewResult('')
     setReviewData(null)
+    setReviewLoading(false)
+    setIsReviewStreaming(false)
+    setStreamingReviewText('')
     setPflegeplanungStep(1)
     setPflegeplanungData({
       pflegeprobleme: '',
@@ -1463,7 +1524,19 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
             {showReview && (
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-light text-gray-900">KI-Bewertung</h2>
+                  <div className="flex items-center space-x-4">
+                    <h2 className="text-2xl font-light text-gray-900">KI-Bewertung</h2>
+                    {isReviewStreaming && (
+                      <div className="flex items-center space-x-2">
+                        <motion.div
+                          className="w-2 h-2 bg-blue-500 rounded-full"
+                          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                          transition={{ repeat: Infinity, duration: 1.5 }}
+                        />
+                        <span className="text-sm text-gray-600 font-light">Live analysiert</span>
+                      </div>
+                    )}
+                  </div>
                   <Button
                     variant="outline"
                     onClick={() => setShowReview(false)}
@@ -1474,17 +1547,60 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   </Button>
                 </div>
                 
-                {reviewData ? (
+                {isReviewStreaming ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-6"
+                  >
+                    <Card 
+                      className="border border-gray-200 overflow-hidden"
+                      style={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                        backdropFilter: 'blur(20px) saturate(180%)',
+                        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                      }}
+                    >
+                      <CardHeader className="border-b border-gray-200/60 bg-gray-50/50">
+                        <CardTitle className="flex items-center text-gray-900 font-medium">
+                          <Brain className="h-5 w-5 mr-3 text-blue-600" />
+                          Analyse wird erstellt
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-8">
+                        <div className="bg-white/60 backdrop-blur-sm border border-gray-200/60 rounded-xl p-6">
+                          <div className="prose max-w-none">
+                            <div className="text-gray-800 font-light leading-relaxed whitespace-pre-wrap">
+                              {streamingReviewText}
+                              <motion.span
+                                className="inline-block w-2 h-5 bg-blue-600 ml-1"
+                                animate={{ opacity: [1, 0, 1] }}
+                                transition={{ repeat: Infinity, duration: 1 }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ) : reviewData ? (
                   <ReviewDisplay 
                     reviewData={reviewData.sections}
                     overallScore={reviewData.overallScore}
                     generalFeedback={reviewData.generalFeedback}
                   />
-                ) : (
-                  <Card>
+                ) : reviewResult ? (
+                  <Card 
+                    className="border border-gray-200"
+                    style={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                      backdropFilter: 'blur(20px) saturate(180%)',
+                      WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                    }}
+                  >
                     <CardContent className="p-6">
                       <div className="prose max-w-none">
-                        <div className="bg-white border rounded-lg p-6">
+                        <div className="bg-white/60 backdrop-blur-sm border border-gray-200/60 rounded-xl p-6">
                           <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
                             {reviewResult}
                           </pre>
@@ -1492,7 +1608,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       </div>
                     </CardContent>
                   </Card>
-                )}
+                ) : null}
               </div>
             )}
           </div>

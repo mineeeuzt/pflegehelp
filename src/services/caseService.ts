@@ -302,5 +302,50 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
       console.error('Error reviewing workflow:', error)
       throw new Error('Fehler beim Überprüfen der Arbeit')
     }
+  },
+
+  // Neue Streaming-Version für Reviews
+  async reviewWorkflowStreaming(
+    workflowType: 'pflegeplanung' | 'abedl',
+    workflowContent: string,
+    userId: string,
+    onChunk: (chunk: string) => void,
+    onComplete?: (fullText: string) => void,
+    onError?: (error: Error) => void
+  ): Promise<void> {
+    try {
+      await authService.incrementUsageCount(userId, 'care_plan')
+
+      const prompt = workflowType === 'pflegeplanung' ? AI_PROMPTS.pflegereview : AI_PROMPTS.pflegeinfo
+      const userInput = `Bitte überprüfe folgende ${workflowType === 'pflegeplanung' ? 'Pflegeplanung' : 'ABEDL-Zuordnung'}:\n\n${workflowContent}`
+
+      await generateStreamingAIResponse(
+        prompt,
+        userInput,
+        onChunk,
+        async (fullText) => {
+          // Speichere das vollständige Review in der Datenbank
+          try {
+            const caseData = {
+              title: `Review - ${workflowType === 'pflegeplanung' ? 'Pflegeplanung' : 'ABEDL-Zuordnung'}`,
+              content: userInput,
+              case_type: 'pflegeinfo' as const,
+              ai_response: fullText,
+              user_id: userId
+            }
+
+            await useCaseStore.getState().createCase(caseData)
+            onComplete?.(fullText)
+          } catch (error) {
+            console.error('Error saving review:', error)
+            onError?.(new Error('Review generiert, aber Speichern fehlgeschlagen'))
+          }
+        },
+        onError
+      )
+    } catch (error) {
+      console.error('Error streaming review:', error)
+      onError?.(new Error('Fehler beim Überprüfen der Arbeit'))
+    }
   }
 }

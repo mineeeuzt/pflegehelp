@@ -84,31 +84,45 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
   return (
     <div className="space-y-6">
       {/* Overall Score with Circle Chart */}
-      <Card className="border-2 border-gray-200">
-        <CardHeader>
+      <Card 
+        className="border border-gray-200/60 shadow-xl overflow-hidden"
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+        }}
+      >
+        <CardHeader className="border-b border-gray-200/60 bg-gray-50/50">
           <CardTitle className="flex items-center justify-between">
-            <span>Gesamtbewertung</span>
+            <span className="text-gray-900 font-medium">Gesamtbewertung</span>
             <div className="flex items-center space-x-4">
               <CircleChart score={overallScore} size={100} />
-              <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg border ${getScoreColor(overallScore)}`}>
+              <div className={`flex items-center space-x-2 px-4 py-2 rounded-xl border backdrop-blur-sm ${getScoreColor(overallScore)}`}>
                 {getScoreIcon(overallScore)}
                 <span className="font-bold">{overallScore}%</span>
               </div>
             </div>
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <p className="text-gray-700 leading-relaxed">{generalFeedback}</p>
+        <CardContent className="p-6">
+          <p className="text-gray-700 leading-relaxed font-light">{generalFeedback}</p>
         </CardContent>
       </Card>
       
       {/* Section Scores Overview */}
       {reviewData.length > 1 && (
-        <Card className="border border-gray-200">
-          <CardHeader>
-            <CardTitle className="text-lg">Bewertungsübersicht</CardTitle>
+        <Card 
+          className="border border-gray-200/60 shadow-lg overflow-hidden"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+            backdropFilter: 'blur(20px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+          }}
+        >
+          <CardHeader className="border-b border-gray-200/60 bg-gray-50/50">
+            <CardTitle className="text-lg text-gray-900 font-medium">Bewertungsübersicht</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {reviewData.map((section, index) => (
                 <div key={index} className="text-center">
@@ -129,35 +143,49 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
         >
-          <Card className="border-2 border-gray-200 hover:border-gray-300 transition-all">
+          <Card 
+            className="border border-gray-200/60 hover:border-gray-300/60 transition-all shadow-lg overflow-hidden"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.85)',
+              backdropFilter: 'blur(20px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+            }}
+          >
             <CardHeader 
-              className="cursor-pointer"
+              className="cursor-pointer border-b border-gray-200/60 bg-gray-50/50 hover:bg-gray-50/70 transition-colors"
               onClick={() => setExpandedSection(expandedSection === index ? null : index)}
             >
               <CardTitle className="flex items-center justify-between">
-                <span className="text-lg">{section.title}</span>
-                <div className={`flex items-center space-x-2 px-3 py-1 rounded-lg border ${getScoreColor(section.score)}`}>
+                <span className="text-lg text-gray-900 font-medium">{section.title}</span>
+                <div className={`flex items-center space-x-2 px-3 py-1 rounded-xl border backdrop-blur-sm ${getScoreColor(section.score)}`}>
                   {getScoreIcon(section.score)}
                   <span className="font-bold text-sm">{section.score}%</span>
                 </div>
               </CardTitle>
             </CardHeader>
             
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 p-6">
               {/* User Text Quote */}
-              <div className="bg-gray-50 border-l-4 border-gray-400 p-4 rounded-r-lg">
+              <div 
+                className="border-l-4 border-gray-400/60 p-4 rounded-r-xl"
+                style={{
+                  backgroundColor: 'rgba(249, 250, 251, 0.8)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                }}
+              >
                 <div className="flex items-start space-x-2">
                   <Quote className="h-4 w-4 text-gray-500 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Ihr Text:</p>
-                    <p className="text-gray-800 italic leading-relaxed">{section.userText}</p>
+                    <p className="text-sm text-gray-600 mb-1 font-medium">Ihr Text:</p>
+                    <p className="text-gray-800 italic leading-relaxed font-light">{section.userText}</p>
                   </div>
                 </div>
               </div>
 
               {/* Feedback */}
               <div className="space-y-3">
-                <p className="text-gray-700 leading-relaxed">{section.feedback}</p>
+                <p className="text-gray-700 leading-relaxed font-light">{section.feedback}</p>
               </div>
 
               {/* Expandable Details */}
@@ -166,18 +194,25 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="space-y-4 border-t border-gray-200 pt-4"
+                  className="space-y-4 border-t border-gray-200/60 pt-4"
                 >
                   {/* Positives */}
                   {section.positives.length > 0 && (
-                    <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
+                    <div 
+                      className="border border-green-200/60 p-4 rounded-xl"
+                      style={{
+                        backgroundColor: 'rgba(240, 253, 244, 0.8)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                      }}
+                    >
                       <div className="flex items-center space-x-2 mb-3">
                         <ThumbsUp className="h-4 w-4 text-green-600" />
                         <h4 className="font-medium text-green-800">Das war gut:</h4>
                       </div>
                       <ul className="space-y-1">
                         {section.positives.map((positive, idx) => (
-                          <li key={idx} className="text-sm text-green-700 flex items-start space-x-2">
+                          <li key={idx} className="text-sm text-green-700 flex items-start space-x-2 font-light">
                             <span className="text-green-500 mt-1">•</span>
                             <span>{positive}</span>
                           </li>
@@ -188,14 +223,21 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
 
                   {/* Improvements */}
                   {section.improvements.length > 0 && (
-                    <div className="bg-gray-50 border border-gray-300 p-4 rounded-lg">
+                    <div 
+                      className="border border-gray-300/60 p-4 rounded-xl"
+                      style={{
+                        backgroundColor: 'rgba(249, 250, 251, 0.8)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                      }}
+                    >
                       <div className="flex items-center space-x-2 mb-3">
                         <Lightbulb className="h-4 w-4 text-gray-700" />
                         <h4 className="font-medium text-gray-800">Verbesserungsvorschläge:</h4>
                       </div>
                       <ul className="space-y-2">
                         {section.improvements.map((improvement, idx) => (
-                          <li key={idx} className="text-sm text-gray-700 flex items-start space-x-2">
+                          <li key={idx} className="text-sm text-gray-700 flex items-start space-x-2 font-light">
                             <Edit3 className="h-3 w-3 text-gray-600 mt-1 flex-shrink-0" />
                             <span>{improvement}</span>
                           </li>
@@ -206,7 +248,7 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
                 </motion.div>
               )}
               
-              <div className="text-xs text-gray-500 text-center">
+              <div className="text-xs text-gray-500 text-center font-light">
                 Klicken Sie auf den Titel für Details
               </div>
             </CardContent>
