@@ -3059,6 +3059,224 @@ export const medicalBasicsCategories: Category[] = [
                 ]
               }
             ]
+          },
+          {
+            id: 'water-electrolyte-balance',
+            name: 'Wasser-Elektrolyt-Haushalt',
+            description: 'Regulation des Wasser- und Elektrolythaushalts',
+            icon: '⚖️',
+            difficulty: 'hard',
+            parentId: 'renal-system',
+            children: [
+              {
+                id: 'water-balance',
+                name: 'Wasserhaushalt',
+                description: 'Regulation der Wasserbilanz',
+                icon: '💧',
+                difficulty: 'medium',
+                parentId: 'water-electrolyte-balance',
+                children: [
+                  {
+                    id: 'water-balance-equation',
+                    name: 'Wasserbilanz (Ein-/Ausfuhr)',
+                    description: 'Wasseraufnahme und -verlust',
+                    icon: '⚖️',
+                    difficulty: 'medium',
+                    parentId: 'water-balance'
+                  },
+                  {
+                    id: 'water-distribution',
+                    name: 'Wasserverteilung (IZR 2/3, EZR 1/3)',
+                    description: 'Verteilung zwischen Intra- und Extrazellularraum',
+                    icon: '🎯',
+                    difficulty: 'medium',
+                    parentId: 'water-balance'
+                  },
+                  {
+                    id: 'osmolality-osmolarity',
+                    name: 'Osmolalität & Osmolarität',
+                    description: 'Osmotische Konzentrationsmessungen',
+                    icon: '🧪',
+                    difficulty: 'hard',
+                    parentId: 'water-balance'
+                  },
+                  {
+                    id: 'thirst-regulation',
+                    name: 'Durst-Regulation (Osmoreceptoren)',
+                    description: 'Zentrale Regulation der Wasseraufnahme',
+                    icon: '🧠',
+                    difficulty: 'medium',
+                    parentId: 'water-balance'
+                  },
+                  {
+                    id: 'water-excretion',
+                    name: 'Wasserausscheidung',
+                    description: 'Renale und extrarenale Wasserverluste',
+                    icon: '🚿',
+                    difficulty: 'medium',
+                    parentId: 'water-balance'
+                  },
+                  {
+                    id: 'dehydration-hyperhydration',
+                    name: 'Dehydratation/Hyperhydratation',
+                    description: 'Störungen des Wasserhaushalts',
+                    icon: '⚠️',
+                    difficulty: 'medium',
+                    parentId: 'water-balance'
+                  }
+                ]
+              },
+              {
+                id: 'sodium-balance',
+                name: 'Natriumhaushalt',
+                description: 'Regulation des Natriumhaushalts',
+                icon: '🧂',
+                difficulty: 'medium',
+                parentId: 'water-electrolyte-balance',
+                children: [
+                  {
+                    id: 'sodium-distribution',
+                    name: 'Natriumverteilung (hauptsächlich EZR)',
+                    description: 'Natriumverteilung in Körperkompartimenten',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'sodium-balance'
+                  },
+                  {
+                    id: 'sodium-excretion',
+                    name: 'Natriumausscheidung',
+                    description: 'Renale Natriumelimination',
+                    icon: '🚿',
+                    difficulty: 'medium',
+                    parentId: 'sodium-balance'
+                  },
+                  {
+                    id: 'dysnatremias',
+                    name: 'Hyper-/Hyponatriämie',
+                    description: 'Natrium-Entgleisungen und Folgen',
+                    icon: '📈',
+                    difficulty: 'hard',
+                    parentId: 'sodium-balance'
+                  },
+                  {
+                    id: 'siadh-diabetes-insipidus',
+                    name: 'SIADH/Diabetes insipidus',
+                    description: 'ADH-Störungen und Wasserhaushalt',
+                    icon: '🧪',
+                    difficulty: 'hard',
+                    parentId: 'sodium-balance'
+                  },
+                  {
+                    id: 'edema-formation',
+                    name: 'Ödementstehung',
+                    description: 'Mechanismen der Wassereinlagerung',
+                    icon: '🫧',
+                    difficulty: 'medium',
+                    parentId: 'sodium-balance'
+                  }
+                ]
+              },
+              {
+                id: 'potassium-balance',
+                name: 'Kaliumhaushalt',
+                description: 'Regulation des Kaliumhaushalts',
+                icon: '🔋',
+                difficulty: 'medium',
+                parentId: 'water-electrolyte-balance',
+                children: [
+                  {
+                    id: 'potassium-distribution',
+                    name: 'Kaliumverteilung (90% intrazellulär)',
+                    description: 'Kaliumverteilung in Körperkompartimenten',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'potassium-balance'
+                  },
+                  {
+                    id: 'potassium-excretion',
+                    name: 'Kaliumausscheidung',
+                    description: 'Renale und extrarenale Kaliumelimination',
+                    icon: '🚿',
+                    difficulty: 'medium',
+                    parentId: 'potassium-balance'
+                  },
+                  {
+                    id: 'dyskalemias',
+                    name: 'Hyper-/Hypokaliämie',
+                    description: 'Kalium-Entgleisungen und Folgen',
+                    icon: '📈',
+                    difficulty: 'hard',
+                    parentId: 'potassium-balance'
+                  },
+                  {
+                    id: 'ecg-changes',
+                    name: 'EKG-Veränderungen',
+                    description: 'Kardiale Manifestation von Kaliumstörungen',
+                    icon: '📈',
+                    difficulty: 'medium',
+                    parentId: 'potassium-balance'
+                  },
+                  {
+                    id: 'arrhythmias',
+                    name: 'Herzrhythmusstörungen',
+                    description: 'Kaliumbedingte Rhythmusstörungen',
+                    icon: '💓',
+                    difficulty: 'hard',
+                    parentId: 'potassium-balance'
+                  }
+                ]
+              },
+              {
+                id: 'other-electrolytes',
+                name: 'Weitere Elektrolyte',
+                description: 'Regulation anderer wichtiger Elektrolyte',
+                icon: '⚗️',
+                difficulty: 'medium',
+                parentId: 'water-electrolyte-balance',
+                children: [
+                  {
+                    id: 'calcium-phosphate',
+                    name: 'Kalzium & Phosphat',
+                    description: 'Kalzium-Phosphat-Haushalt',
+                    icon: '🦴',
+                    difficulty: 'medium',
+                    parentId: 'other-electrolytes'
+                  },
+                  {
+                    id: 'magnesium',
+                    name: 'Magnesium',
+                    description: 'Magnesiumhaushalt und -störungen',
+                    icon: '✨',
+                    difficulty: 'medium',
+                    parentId: 'other-electrolytes'
+                  },
+                  {
+                    id: 'chloride',
+                    name: 'Chlorid',
+                    description: 'Chloridhaushalt und Säure-Basen-Balance',
+                    icon: '🟢',
+                    difficulty: 'medium',
+                    parentId: 'other-electrolytes'
+                  },
+                  {
+                    id: 'bicarbonate',
+                    name: 'Bikarbonat',
+                    description: 'Bikarbonat als Puffersystem',
+                    icon: '🔵',
+                    difficulty: 'medium',
+                    parentId: 'other-electrolytes'
+                  },
+                  {
+                    id: 'trace-elements',
+                    name: 'Spurenelemente',
+                    description: 'Zink, Eisen, Kupfer und andere Spurenelemente',
+                    icon: '🔬',
+                    difficulty: 'medium',
+                    parentId: 'other-electrolytes'
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
