@@ -492,11 +492,11 @@ const MedikamentenTraining = () => {
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center relative overflow-hidden">
-        {/* Floating Medical Elements */}
+        {/* Floating Medical Elements Behind Logo */}
         {floatingElements.map((element, index) => (
           <motion.div
             key={index}
-            className="absolute text-2xl"
+            className="absolute text-2xl z-0"
             initial={{ opacity: 0 }}
             animate={{ 
               opacity: [0, 0.6, 0.3, 0.8, 0.4],
@@ -578,38 +578,9 @@ const MedikamentenTraining = () => {
           ))}
         </motion.div>
 
-        {/* Central Content */}
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-center relative z-10"
-        >
-          {/* Main Rotating Logo */}
-          <motion.div
-            className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white/90 backdrop-blur-sm shadow-xl mb-6 mx-auto"
-            animate={{ 
-              rotate: [0, 360],
-              scale: [1, 1.1, 1]
-            }}
-            transition={{ 
-              rotate: {
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear"
-              },
-              scale: {
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }
-            }}
-          >
-            <Plus className="h-16 w-16 text-slate-600" strokeWidth={1.5} />
-          </motion.div>
-
+        {/* Floating Elements Behind Logo */}
+        <div className="absolute inset-0 z-0">
           {/* Floating Vital Signs */}
-          <div className="absolute inset-0">
             {/* Heart Rate - Floating */}
             <motion.div
               className="absolute"
@@ -756,7 +727,37 @@ const MedikamentenTraining = () => {
                 </motion.span>
               </motion.div>
             </motion.div>
-          </div>
+        </div>
+
+        {/* Central Content Above Everything */}
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center relative z-20"
+        >
+          {/* Main Rotating Logo - Opaque */}
+          <motion.div
+            className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white shadow-xl mb-6 mx-auto relative z-30"
+            animate={{ 
+              rotate: [0, 360],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ 
+              rotate: {
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear"
+              },
+              scale: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }
+            }}
+          >
+            <Plus className="h-16 w-16 text-slate-600" strokeWidth={1.5} />
+          </motion.div>
 
           <motion.h2 
             className="text-2xl font-light text-gray-900 mb-2"
