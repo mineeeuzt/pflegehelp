@@ -2315,6 +2315,306 @@ export const medicalBasicsCategories: Category[] = [
                 ]
               }
             ]
+          },
+          {
+            id: 'spine-system',
+            name: 'Wirbelsäule',
+            description: 'Anatomie und Funktionen der Wirbelsäule',
+            icon: '🦴',
+            difficulty: 'medium',
+            parentId: 'musculoskeletal-system',
+            children: [
+              {
+                id: 'spine-structure',
+                name: 'Aufbau & Abschnitte',
+                description: 'Anatomische Gliederung der Wirbelsäule',
+                icon: '📏',
+                difficulty: 'medium',
+                parentId: 'spine-system',
+                children: [
+                  {
+                    id: 'cervical-spine',
+                    name: 'Halswirbelsäule (C1-C7, Atlas/Axis)',
+                    description: '7 Halswirbel mit Atlas und Axis',
+                    icon: '🦒',
+                    difficulty: 'medium',
+                    parentId: 'spine-structure'
+                  },
+                  {
+                    id: 'thoracic-spine',
+                    name: 'Brustwirbelsäule (Th1-Th12)',
+                    description: '12 Brustwirbel mit Rippenansätzen',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'spine-structure'
+                  },
+                  {
+                    id: 'lumbar-spine',
+                    name: 'Lendenwirbelsäule (L1-L5)',
+                    description: '5 Lendenwirbel, größte Belastung',
+                    icon: '💪',
+                    difficulty: 'medium',
+                    parentId: 'spine-structure'
+                  },
+                  {
+                    id: 'sacrum',
+                    name: 'Kreuzbein (S1-S5)',
+                    description: '5 verwachsene Kreuzwirbel',
+                    icon: '🔺',
+                    difficulty: 'medium',
+                    parentId: 'spine-structure'
+                  },
+                  {
+                    id: 'coccyx',
+                    name: 'Steißbein (Co1-Co4)',
+                    description: '3-4 rudimentäre Steißwirbel',
+                    icon: '🔻',
+                    difficulty: 'easy',
+                    parentId: 'spine-structure'
+                  },
+                  {
+                    id: 'spinal-curvatures',
+                    name: 'Physiologische Krümmungen (Lordose/Kyphose)',
+                    description: 'S-förmige Krümmung zur Stoßdämpfung',
+                    icon: '〰️',
+                    difficulty: 'medium',
+                    parentId: 'spine-structure'
+                  }
+                ]
+              },
+              {
+                id: 'vertebral-anatomy',
+                name: 'Wirbelaufbau',
+                description: 'Anatomie einzelner Wirbel',
+                icon: '🦴',
+                difficulty: 'medium',
+                parentId: 'spine-system',
+                children: [
+                  {
+                    id: 'vertebral-body',
+                    name: 'Wirbelkörper',
+                    description: 'Tragender Teil des Wirbels',
+                    icon: '🧱',
+                    difficulty: 'medium',
+                    parentId: 'vertebral-anatomy'
+                  },
+                  {
+                    id: 'vertebral-arch',
+                    name: 'Wirbelbogen',
+                    description: 'Bogenförmiger Abschnitt um Wirbelkanal',
+                    icon: '🌉',
+                    difficulty: 'medium',
+                    parentId: 'vertebral-anatomy'
+                  },
+                  {
+                    id: 'vertebral-processes',
+                    name: 'Dorn-/Querfortsätze',
+                    description: 'Muskel- und Bandansätze',
+                    icon: '🔱',
+                    difficulty: 'medium',
+                    parentId: 'vertebral-anatomy'
+                  },
+                  {
+                    id: 'articular-processes',
+                    name: 'Gelenkfortsätze',
+                    description: 'Wirbelgelenke zwischen benachbarten Wirbeln',
+                    icon: '🔗',
+                    difficulty: 'medium',
+                    parentId: 'vertebral-anatomy'
+                  },
+                  {
+                    id: 'vertebral-canal',
+                    name: 'Wirbelkanal',
+                    description: 'Schutzraum für das Rückenmark',
+                    icon: '🕳️',
+                    difficulty: 'medium',
+                    parentId: 'vertebral-anatomy'
+                  },
+                  {
+                    id: 'intervertebral-discs-anatomy',
+                    name: 'Zwischenwirbelscheiben',
+                    description: 'Elastische Verbindung zwischen Wirbelkörpern',
+                    icon: '💿',
+                    difficulty: 'medium',
+                    parentId: 'vertebral-anatomy'
+                  }
+                ]
+              },
+              {
+                id: 'intervertebral-discs',
+                name: 'Bandscheiben',
+                description: 'Aufbau und Pathologie der Bandscheiben',
+                icon: '💿',
+                difficulty: 'medium',
+                parentId: 'spine-system',
+                children: [
+                  {
+                    id: 'annulus-fibrosus',
+                    name: 'Anulus fibrosus (Faserring)',
+                    description: 'Äußerer Faserring der Bandscheibe',
+                    icon: '🎯',
+                    difficulty: 'medium',
+                    parentId: 'intervertebral-discs'
+                  },
+                  {
+                    id: 'nucleus-pulposus',
+                    name: 'Nucleus pulposus (Gallertkern)',
+                    description: 'Gallertiger Kern der Bandscheibe',
+                    icon: '🫧',
+                    difficulty: 'medium',
+                    parentId: 'intervertebral-discs'
+                  },
+                  {
+                    id: 'disc-nutrition',
+                    name: 'Nährstoffversorgung (Diffusion)',
+                    description: 'Diffusionsabhängige Ernährung der Bandscheibe',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'intervertebral-discs'
+                  },
+                  {
+                    id: 'disc-aging',
+                    name: 'Alterungsprozesse',
+                    description: 'Degenerative Veränderungen der Bandscheiben',
+                    icon: '⏳',
+                    difficulty: 'medium',
+                    parentId: 'intervertebral-discs'
+                  },
+                  {
+                    id: 'disc-herniation',
+                    name: 'Bandscheibenvorfall (Prolaps/Protrusion)',
+                    description: 'Vorwölbung oder Austritt von Bandscheibengewebe',
+                    icon: '💥',
+                    difficulty: 'hard',
+                    parentId: 'intervertebral-discs'
+                  },
+                  {
+                    id: 'discopathy',
+                    name: 'Diskopathie',
+                    description: 'Degenerative Bandscheibenerkrankung',
+                    icon: '🩹',
+                    difficulty: 'medium',
+                    parentId: 'intervertebral-discs'
+                  }
+                ]
+              },
+              {
+                id: 'spinal-cord-nerves',
+                name: 'Rückenmark & Spinalnerven',
+                description: 'Neuroanatomie der Wirbelsäule',
+                icon: '🧠',
+                difficulty: 'hard',
+                parentId: 'spine-system',
+                children: [
+                  {
+                    id: 'spinal-segments',
+                    name: 'Rückenmarkssegmente',
+                    description: 'Segmentale Gliederung des Rückenmarks',
+                    icon: '📊',
+                    difficulty: 'hard',
+                    parentId: 'spinal-cord-nerves'
+                  },
+                  {
+                    id: 'spinal-nerve-exit',
+                    name: 'Spinalnerven-Austritt',
+                    description: 'Nervenwurzeln und Foramen intervertebrale',
+                    icon: '🚪',
+                    difficulty: 'medium',
+                    parentId: 'spinal-cord-nerves'
+                  },
+                  {
+                    id: 'dermatomes-myotomes',
+                    name: 'Dermatome & Myotome',
+                    description: 'Hautareale und Muskelgruppen der Segmente',
+                    icon: '🗺️',
+                    difficulty: 'hard',
+                    parentId: 'spinal-cord-nerves'
+                  },
+                  {
+                    id: 'reflex-testing',
+                    name: 'Reflexprüfung (PSR, ASR, BSR)',
+                    description: 'Eigenreflexe zur neurologischen Diagnostik',
+                    icon: '🔨',
+                    difficulty: 'medium',
+                    parentId: 'spinal-cord-nerves'
+                  },
+                  {
+                    id: 'spinal-cord-syndromes',
+                    name: 'Querschnittssyndrome',
+                    description: 'Komplette und inkomplette Rückenmarksverletzungen',
+                    icon: '🚫',
+                    difficulty: 'hard',
+                    parentId: 'spinal-cord-nerves'
+                  },
+                  {
+                    id: 'cauda-equina',
+                    name: 'Cauda equina',
+                    description: 'Nervenwurzeln unterhalb des Conus medullaris',
+                    icon: '🐎',
+                    difficulty: 'medium',
+                    parentId: 'spinal-cord-nerves'
+                  }
+                ]
+              },
+              {
+                id: 'back-muscles',
+                name: 'Rückenmuskulatur',
+                description: 'Muskuläre Stabilisierung der Wirbelsäule',
+                icon: '💪',
+                difficulty: 'medium',
+                parentId: 'spine-system',
+                children: [
+                  {
+                    id: 'autochthonous-muscles',
+                    name: 'Autochthone Rückenmuskulatur (M. erector spinae)',
+                    description: 'Tiefe, wirbelsäulennahe Muskulatur',
+                    icon: '🏗️',
+                    difficulty: 'medium',
+                    parentId: 'back-muscles'
+                  },
+                  {
+                    id: 'superficial-back-muscles',
+                    name: 'Oberflächliche Rückenmuskeln',
+                    description: 'Oberflächliche Schicht der Rückenmuskulatur',
+                    icon: '🎭',
+                    difficulty: 'medium',
+                    parentId: 'back-muscles'
+                  },
+                  {
+                    id: 'abdominal-muscles',
+                    name: 'Bauchmuskulatur (Antagonist)',
+                    description: 'Gegenspieler der Rückenmuskulatur',
+                    icon: '🤰',
+                    difficulty: 'medium',
+                    parentId: 'back-muscles'
+                  },
+                  {
+                    id: 'postural-movement-muscles',
+                    name: 'Haltungs-/Bewegungsmuskulatur',
+                    description: 'Unterscheidung zwischen tonischen und phasischen Muskeln',
+                    icon: '⚖️',
+                    difficulty: 'medium',
+                    parentId: 'back-muscles'
+                  },
+                  {
+                    id: 'muscular-imbalances',
+                    name: 'Muskuläre Dysbalancen',
+                    description: 'Ungleichgewicht zwischen Muskelgruppen',
+                    icon: '⚖️',
+                    difficulty: 'medium',
+                    parentId: 'back-muscles'
+                  },
+                  {
+                    id: 'core-stability',
+                    name: 'Core-Stabilität',
+                    description: 'Rumpfstabilisierende Muskulatur',
+                    icon: '🎯',
+                    difficulty: 'medium',
+                    parentId: 'back-muscles'
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
