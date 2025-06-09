@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Mail, Lock, ArrowRight, Plus } from 'lucide-react'
@@ -11,8 +11,16 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   
-  const { signIn } = useAuthStore()
+  const { signIn, user } = useAuthStore()
   const navigate = useNavigate()
+
+  // Redirect to dashboard if user is already logged in
+  useEffect(() => {
+    if (user) {
+      setIsLoading(false)
+      navigate('/dashboard', { replace: true })
+    }
+  }, [user, navigate])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -20,17 +28,19 @@ const Login = () => {
     setError('')
 
     try {
+      console.log('Starting login process...')
       const result = await signIn(email, password)
+      console.log('Login result:', result)
       
-      if (result.success) {
-        // Navigate immediately after successful login
-        navigate('/dashboard', { replace: true })
-      } else {
+      if (!result.success) {
         setError(result.error || 'Anmeldung fehlgeschlagen')
+        setIsLoading(false)
       }
+      // Don't navigate here - let the useEffect handle it when user state changes
+      // setIsLoading(false) will be called by useEffect when navigation happens
     } catch (error) {
+      console.error('Login error:', error)
       setError('Ein unbekannter Fehler ist aufgetreten')
-    } finally {
       setIsLoading(false)
     }
   }

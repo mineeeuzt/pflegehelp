@@ -17,6 +17,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   signIn: async (email: string, password: string) => {
     try {
+      console.log('AuthStore: Starting signIn process')
       set({ isLoading: true })
       
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -25,25 +26,30 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       })
 
       if (error) {
+        console.log('AuthStore: SignIn error:', error.message)
         set({ isLoading: false })
         return { success: false, error: error.message }
       }
 
       if (data.user) {
+        console.log('AuthStore: Auth successful, loading user profile...')
         // Load user profile immediately after successful auth and wait for completion
         await get().loadUser()
         
         // Ensure we have a user loaded before considering success
         const currentState = get()
+        console.log('AuthStore: User loaded:', !!currentState.user)
         if (!currentState.user) {
           set({ isLoading: false })
           return { success: false, error: 'Benutzerprofil konnte nicht geladen werden' }
         }
       }
 
+      console.log('AuthStore: SignIn successful')
       set({ isLoading: false })
       return { success: true }
     } catch (error) {
+      console.error('AuthStore: SignIn exception:', error)
       set({ isLoading: false })
       return { 
         success: false, 
@@ -128,13 +134,16 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   loadUser: async () => {
     try {
+      console.log('AuthStore: Loading user...')
       const { data: { user: authUser } } = await supabase.auth.getUser()
       
       if (!authUser) {
+        console.log('AuthStore: No auth user found')
         set({ user: null, isLoading: false })
         return
       }
 
+      console.log('AuthStore: Auth user found, loading profile for:', authUser.id)
       const { data: userData, error } = await supabase
         .from('users')
         .select('*')
@@ -142,10 +151,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         .single()
 
       if (error) {
-        console.error('Error loading user profile:', error)
+        console.error('AuthStore: Error loading user profile:', error)
         
         // If user profile doesn't exist, try to create it
         if (error.code === 'PGRST116') {
+          console.log('AuthStore: Profile not found, creating new profile...')
           const userName = authUser.user_metadata?.name || 'User'
           const createResult = await get().createUserProfile(authUser.id, authUser.email!, userName)
           
@@ -158,9 +168,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         return
       }
 
+      console.log('AuthStore: User profile loaded successfully:', userData.id)
       set({ user: userData, isLoading: false })
     } catch (error) {
-      console.error('Error loading user:', error)
+      console.error('AuthStore: Error loading user:', error)
       set({ user: null, isLoading: false })
     }
   },
