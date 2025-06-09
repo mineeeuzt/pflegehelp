@@ -917,12 +917,234 @@ export const quizCategories: QuizCategory[] = [
     color: 'bg-cyan-700',
     icon: '🛡️'
   },
+  // BEWEGUNGSAPPARAT - MUSKULOSKELETTALES SYSTEM
   {
     id: 'musculoskeletal-system',
-    name: 'Bewegungsapparat',
+    name: 'BEWEGUNGSAPPARAT',
     description: 'Knochen, Gelenke, Muskeln und Bewegung',
-    color: 'bg-blue-300',
+    color: 'bg-orange-600',
     icon: '🦴'
+  },
+  {
+    id: 'bone-system',
+    name: 'Knochensystem',
+    description: 'Anatomie und Physiologie der Knochen',
+    color: 'bg-orange-500',
+    icon: '🦴'
+  },
+  // Knochenaufbau & -struktur
+  {
+    id: 'bone-structure',
+    name: 'Knochenaufbau & -struktur',
+    description: 'Histologie und Anatomie der Knochen',
+    color: 'bg-orange-400',
+    icon: '🔬'
+  },
+  {
+    id: 'compact-spongy',
+    name: 'Kompakta & Spongiosa',
+    description: 'Kompakte und schwammartige Knochensubstanz',
+    color: 'bg-orange-300',
+    icon: '🧱'
+  },
+  {
+    id: 'periost-endost',
+    name: 'Periost & Endost',
+    description: 'Knochenhaut und Endosteum',
+    color: 'bg-orange-200',
+    icon: '🛡️'
+  },
+  {
+    id: 'bone-cells',
+    name: 'Osteozyten, Osteoblasten, Osteoklasten',
+    description: 'Knochenzellen und ihre Funktionen',
+    color: 'bg-orange-700',
+    icon: '🔬'
+  },
+  {
+    id: 'bone-marrow',
+    name: 'Knochenmark (rot/gelb)',
+    description: 'Hämatopoetisches und Fettmark',
+    color: 'bg-orange-800',
+    icon: '🩸'
+  },
+  {
+    id: 'bone-blood-supply',
+    name: 'Blutversorgung des Knochens',
+    description: 'Gefäßversorgung der Knochen',
+    color: 'bg-orange-900',
+    icon: '🩸'
+  },
+  {
+    id: 'haversian-system',
+    name: 'Havers-System (Osteone)',
+    description: 'Strukturelle Einheiten der Kompakta',
+    color: 'bg-orange-100',
+    icon: '🎯'
+  },
+  // Knochenentwicklung & -wachstum
+  {
+    id: 'bone-development',
+    name: 'Knochenentwicklung & -wachstum',
+    description: 'Ossifikation und Wachstumsprozesse',
+    color: 'bg-amber-500',
+    icon: '📈'
+  },
+  {
+    id: 'ossification',
+    name: 'Desmale/chondrale Ossifikation',
+    description: 'Direkte und indirekte Knochenbildung',
+    color: 'bg-amber-400',
+    icon: '🏗️'
+  },
+  {
+    id: 'growth-plates',
+    name: 'Epiphysenfugen',
+    description: 'Wachstumszonen der Röhrenknochen',
+    color: 'bg-amber-300',
+    icon: '📏'
+  },
+  {
+    id: 'growth-hormones',
+    name: 'Wachstumshormone (GH, IGF-1)',
+    description: 'Hormonelle Regulation des Knochenwachstums',
+    color: 'bg-amber-600',
+    icon: '🧪'
+  },
+  {
+    id: 'bone-remodeling',
+    name: 'Knochenumbau (Remodeling)',
+    description: 'Kontinuierlicher Knochenumbau',
+    color: 'bg-amber-700',
+    icon: '🔄'
+  },
+  {
+    id: 'wolffs-law',
+    name: 'Wolff\'sches Gesetz',
+    description: 'Anpassung der Knochen an Belastung',
+    color: 'bg-amber-800',
+    icon: '💪'
+  },
+  {
+    id: 'peak-bone-mass',
+    name: 'Peak Bone Mass',
+    description: 'Maximale Knochenmasse im jungen Erwachsenenalter',
+    color: 'bg-amber-900',
+    icon: '🏔️'
+  },
+  // Gelenksystem
+  {
+    id: 'joint-system',
+    name: 'Gelenksystem',
+    description: 'Anatomie und Biomechanik der Gelenke',
+    color: 'bg-yellow-500',
+    icon: '🔗'
+  },
+  {
+    id: 'joint-types',
+    name: 'Gelenktypen',
+    description: 'Klassifikation der Gelenke',
+    color: 'bg-yellow-400',
+    icon: '🔗'
+  },
+  {
+    id: 'synarthroses',
+    name: 'Synarthrosen (unbeweglich)',
+    description: 'Unbewegliche Verbindungen',
+    color: 'bg-yellow-300',
+    icon: '🧱'
+  },
+  {
+    id: 'amphiarthroses',
+    name: 'Amphiarthrosen (wenig beweglich)',
+    description: 'Straffe Gelenke',
+    color: 'bg-yellow-200',
+    icon: '⚖️'
+  },
+  {
+    id: 'diarthroses',
+    name: 'Diarthrosen (frei beweglich)',
+    description: 'Echte Gelenke',
+    color: 'bg-yellow-600',
+    icon: '🔄'
+  },
+  {
+    id: 'ball-socket',
+    name: 'Kugelgelenk (Schulter, Hüfte)',
+    description: 'Dreiachsige Gelenke',
+    color: 'bg-yellow-700',
+    icon: '⚽'
+  },
+  {
+    id: 'hinge-joint',
+    name: 'Scharniergelenk (Ellenbogen, Knie)',
+    description: 'Einachsige Gelenke',
+    color: 'bg-yellow-800',
+    icon: '🚪'
+  },
+  {
+    id: 'saddle-joint',
+    name: 'Sattelgelenk (Daumen)',
+    description: 'Zweiachsiges Gelenk des Daumens',
+    color: 'bg-yellow-900',
+    icon: '🏇'
+  },
+  {
+    id: 'pivot-joint',
+    name: 'Drehgelenk (Atlantoaxial)',
+    description: 'Rotationsgelenk der Halswirbelsäule',
+    color: 'bg-yellow-100',
+    icon: '🔄'
+  },
+  {
+    id: 'ellipsoid-joint',
+    name: 'Eigelenk (Handgelenk)',
+    description: 'Zweiachsiges ellipsoides Gelenk',
+    color: 'bg-yellow-50',
+    icon: '🥚'
+  },
+  // Muskelsystem
+  {
+    id: 'muscle-system',
+    name: 'Muskelsystem',
+    description: 'Anatomie und Physiologie der Muskulatur',
+    color: 'bg-red-500',
+    icon: '💪'
+  },
+  {
+    id: 'muscle-types',
+    name: 'Muskeltypen',
+    description: 'Klassifikation der Muskulatur',
+    color: 'bg-red-400',
+    icon: '🔬'
+  },
+  {
+    id: 'skeletal-muscle',
+    name: 'Skelettmuskel (quergestreift, willkürlich)',
+    description: 'Willkürliche Muskulatur',
+    color: 'bg-red-300',
+    icon: '💪'
+  },
+  {
+    id: 'cardiac-muscle',
+    name: 'Herzmuskel (quergestreift, unwillkürlich)',
+    description: 'Myokard',
+    color: 'bg-red-600',
+    icon: '❤️'
+  },
+  {
+    id: 'smooth-muscle',
+    name: 'Glatte Muskulatur (unwillkürlich)',
+    description: 'Eingeweidemuskulatur',
+    color: 'bg-red-700',
+    icon: '🌊'
+  },
+  {
+    id: 'muscle-transitions',
+    name: 'Mischformen & Übergänge',
+    description: 'Intermediäre Muskeltypen',
+    color: 'bg-red-800',
+    icon: '🔄'
   },
   {
     id: 'renal-system',
@@ -1233,7 +1455,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Blutreinigung', 'Atmung', 'Verdauung', 'Immunabwehr'],
     correctAnswer: 1,
     explanation: 'Das Zwerchfell ist der wichtigste Atemmuskel und ermöglicht durch seine Kontraktion die Einatmung.',
-    category: quizCategories[108], // respiratory-muscles (jetzt verschoben durch neue Kategorien)
+    category: quizCategories[131], // respiratory-muscles (jetzt verschoben durch neue Kategorien)
     difficulty: 'mittel',
     tags: ['atmung', 'muskel', 'physiologie']
   },
@@ -1245,7 +1467,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Trachea und Bronchien', 'Nase, Rachen und Kehlkopf', 'Alveolen und Kapillaren', 'Bronchiolen und Lungenbläschen'],
     correctAnswer: 1,
     explanation: 'Die oberen Atemwege umfassen Nase, Rachen (Pharynx) und Kehlkopf (Larynx). Sie dienen der Lufterwärmung, -befeuchtung und -filterung.',
-    category: quizCategories[102], // upper-airways
+    category: quizCategories[125], // upper-airways
     difficulty: 'leicht',
     tags: ['obere-atemwege', 'anatomie', 'nase', 'rachen', 'kehlkopf']
   },
@@ -1255,7 +1477,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Ein Atemmuskel', 'Ein oberflächenaktiver Stoff in den Alveolen', 'Ein Blutgefäß in der Lunge', 'Ein Nervensystem'],
     correctAnswer: 1,
     explanation: 'Surfactant ist eine oberflächenaktive Substanz, die die Oberflächenspannung in den Alveolen reduziert und damit das Kollabieren der Lungenbläschen verhindert.',
-    category: quizCategories[106], // surfactant
+    category: quizCategories[129], // surfactant
     difficulty: 'schwer',
     tags: ['surfactant', 'alveolen', 'oberflächenspannung']
   },
@@ -1265,7 +1487,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['In den Bronchien', 'In der Trachea', 'In den Alveolen', 'Im Kehlkopf'],
     correctAnswer: 2,
     explanation: 'Der Gasaustausch zwischen Luft und Blut findet in den Alveolen (Lungenbläschen) statt, wo Sauerstoff ins Blut aufgenommen und Kohlendioxid abgegeben wird.',
-    category: quizCategories[104], // alveoli
+    category: quizCategories[127], // alveoli
     difficulty: 'leicht',
     tags: ['gasaustausch', 'alveolen', 'sauerstoff', 'kohlendioxid']
   },
@@ -1275,7 +1497,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Verhältnis von Ein- zu Ausatmung', 'Verhältnis von Belüftung zu Durchblutung', 'Verhältnis von Sauerstoff zu Kohlendioxid', 'Verhältnis von Totraum zu Alveolarraum'],
     correctAnswer: 1,
     explanation: 'Das V/Q-Verhältnis beschreibt das Verhältnis von Ventilation (Belüftung) zu Perfusion (Durchblutung) in der Lunge. Ein optimales V/Q-Verhältnis ist für einen effizienten Gasaustausch wichtig.',
-    category: quizCategories[111], // vq-ratio
+    category: quizCategories[134], // vq-ratio
     difficulty: 'schwer',
     tags: ['v/q-verhältnis', 'ventilation', 'perfusion', 'gasaustausch']
   },
@@ -1285,7 +1507,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Nur das Zwerchfell', 'Zwerchfell und Zwischenrippenmuskeln', 'Atemhilfsmuskeln', 'Bauchmuskeln'],
     correctAnswer: 1,
     explanation: 'Bei der normalen Inspiration werden das Zwerchfell (Hauptatemmuskel) und die äußeren Zwischenrippenmuskeln (Mm. intercostales externi) verwendet.',
-    category: quizCategories[108], // respiratory-muscles
+    category: quizCategories[131], // respiratory-muscles
     difficulty: 'mittel',
     tags: ['atemmuskulatur', 'inspiration', 'zwerchfell', 'intercostalmuskeln']
   },
@@ -1295,7 +1517,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Bereich ohne Alveolen', 'Bereich der nicht am Gasaustausch beteiligt ist', 'Kollabierte Lungenbereiche', 'Entzündete Lungenbereiche'],
     correctAnswer: 1,
     explanation: 'Der Totraum umfasst alle Bereiche der Atemwege, die nicht am Gasaustausch beteiligt sind, wie Trachea, Bronchien und Bronchiolen (anatomischer Totraum).',
-    category: quizCategories[112], // dead-space
+    category: quizCategories[135], // dead-space
     difficulty: 'mittel',
     tags: ['totraum', 'gasaustausch', 'anatomisch', 'funktionell']
   },
@@ -1307,7 +1529,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Residualvolumen (RV)', 'Atemzugvolumen (AZV)', 'Inspiratorisches Reservevolumen (IRV)', 'Exspiratorisches Reservevolumen (ERV)'],
     correctAnswer: 1,
     explanation: 'Das Atemzugvolumen (AZV oder auch TV = Tidal Volume) beträgt bei ruhiger Atmung etwa 500 ml und ist das Volumen, das bei jedem normalen Atemzug ein- und ausgeatmet wird.',
-    category: quizCategories[109], // lung-volumes
+    category: quizCategories[132], // lung-volumes
     difficulty: 'leicht',
     tags: ['lungenfunktion', 'atemvolumen', 'azv', 'spirometrie']
   },
@@ -1317,7 +1539,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Verhältnis von Vitalkapazität zu Totalkapazität', 'Verhältnis von forciertem exspiratorischem Volumen in 1s zur forcierten Vitalkapazität', 'Verhältnis von Residualvolumen zur Funktionellen Residualkapazität', 'Verhältnis von Inspirations- zur Exspirationszeit'],
     correctAnswer: 1,
     explanation: 'Der Tiffeneau-Index ist das Verhältnis von FEV1 (Forciertes exspiratorisches Volumen in 1 Sekunde) zur FVC (Forcierte Vitalkapazität). Normal ist ein Wert >70%. Bei obstruktiven Erkrankungen ist er erniedrigt.',
-    category: quizCategories[113], // fev1-fvc
+    category: quizCategories[136], // fev1-fvc
     difficulty: 'schwer',
     tags: ['tiffeneau', 'fev1', 'fvc', 'obstruktion', 'spirometrie']
   },
@@ -1327,7 +1549,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Die Elastizität der Lunge', 'Den Widerstand der Atemwege', 'Die Gasaustauschfähigkeit der Lunge', 'Das maximale Atemvolumen'],
     correctAnswer: 2,
     explanation: 'Die DLCO (Diffusion capacity for carbon monoxide) misst die Fähigkeit der Lunge, Gase von den Alveolen ins Blut zu transportieren. Sie ist ein Maß für die Gasaustauschfähigkeit.',
-    category: quizCategories[115], // dlco
+    category: quizCategories[138], // dlco
     difficulty: 'schwer',
     tags: ['dlco', 'diffusion', 'gasaustausch', 'kohlenmonoxid']
   },
@@ -1339,7 +1561,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Erhöhte O2-Affinität des Hämoglobins', 'Verminderte O2-Affinität des Hämoglobins', 'Keine Veränderung der O2-Bindung', 'Erhöhte CO2-Bindung'],
     correctAnswer: 1,
     explanation: 'Eine Rechtsverschiebung der O2-Bindungskurve bedeutet verminderte O2-Affinität. Ursachen: ↑pH, ↑CO2, ↑Temperatur, ↑2,3-DPG. Dies erleichtert die O2-Abgabe im Gewebe.',
-    category: quizCategories[118], // o2-saturation-curve
+    category: quizCategories[141], // o2-saturation-curve
     difficulty: 'schwer',
     tags: ['sauerstoffbindungskurve', 'rechtsverschiebung', 'hämoglobin', 'bohr-effekt']
   },
@@ -1349,7 +1571,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Als freies CO2 im Plasma', 'Als Carboxyhämoglobin', 'Als Bikarbonat (HCO3-)', 'Als Carbaminoverbindungen'],
     correctAnswer: 2,
     explanation: 'Etwa 70% des CO2 wird als Bikarbonat (HCO3-) transportiert, 23% als Carbaminoverbindungen am Hämoglobin und nur 7% physikalisch gelöst im Plasma.',
-    category: quizCategories[120], // co2-transport
+    category: quizCategories[143], // co2-transport
     difficulty: 'mittel',
     tags: ['co2-transport', 'bikarbonat', 'carbamino', 'säure-basen']
   },
@@ -1359,7 +1581,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['CO2 gebunden an Hämoglobin', 'CO gebunden an Hämoglobin', 'O2 gebunden an Methämoglobin', 'HCO3- gebunden an Hämoglobin'],
     correctAnswer: 1,
     explanation: 'Carboxyhämoglobin ist Kohlenmonoxid (CO) gebunden an Hämoglobin. CO hat eine 200-300x höhere Affinität als O2 und führt zur CO-Vergiftung durch blockierte O2-Bindungsstellen.',
-    category: quizCategories[123], // methemoglobin-carboxyhemoglobin
+    category: quizCategories[146], // methemoglobin-carboxyhemoglobin
     difficulty: 'mittel',
     tags: ['carboxyhämoglobin', 'kohlenmonoxid', 'vergiftung', 'co']
   },
@@ -1371,7 +1593,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Im Kleinhirn', 'In der Medulla oblongata', 'Im Thalamus', 'Im Großhirn'],
     correctAnswer: 1,
     explanation: 'Das primäre Atemzentrum liegt in der Medulla oblongata (verlängertes Mark). Es steuert den automatischen Atemrhythmus und reagiert auf CO2- und pH-Änderungen.',
-    category: quizCategories[125], // respiratory-centers
+    category: quizCategories[148], // respiratory-centers
     difficulty: 'mittel',
     tags: ['atemzentrum', 'medulla', 'hirnstamm', 'atemregulation']
   },
@@ -1381,7 +1603,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['O2-Mangel', 'CO2-Erhöhung', 'pH-Erniedrigung', 'Blutdruckänderung'],
     correctAnswer: 1,
     explanation: 'Der Hauptstimulus für die normale Atmung ist die CO2-Erhöhung im Blut. Zentrale Chemorezeptoren in der Medulla reagieren auf pH-Änderungen durch CO2.',
-    category: quizCategories[128], // co2-o2-control
+    category: quizCategories[151], // co2-o2-control
     difficulty: 'mittel',
     tags: ['atemregulation', 'co2', 'chemorezeptoren', 'hypercapnie']
   },
@@ -1391,7 +1613,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Atemstillstand bei hohem CO2', 'Inspirationshemmung bei Lungendehnung', 'Atemfrequenzsteigerung bei O2-Mangel', 'Hustenstimulus bei Reizung'],
     correctAnswer: 1,
     explanation: 'Der Hering-Breuer-Reflex führt zur Inspirationshemmung bei starker Lungendehnung. Dehnungsrezeptoren in den Atemwegen verhindern eine Überblähung der Lunge.',
-    category: quizCategories[132], // hering-breuer-reflex
+    category: quizCategories[155], // hering-breuer-reflex
     difficulty: 'schwer',
     tags: ['hering-breuer', 'dehnungsrezeptoren', 'inspirationshemmung', 'reflex']
   },
@@ -1403,7 +1625,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Frontallappen', 'Parietallappen', 'Temporallappen', 'Okzipitallappen'],
     correctAnswer: 0,
     explanation: 'Der Frontallappen enthält den primären motorischen Kortex und ist für willkürliche Bewegungen verantwortlich. Hier liegt auch das Broca-Areal für die Sprachproduktion.',
-    category: quizCategories[95], // frontal-lobe
+    category: quizCategories[664], // frontal-lobe
     difficulty: 'leicht',
     tags: ['großhirn', 'motorik', 'frontallappen']
   },
@@ -1413,7 +1635,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Frontallappen', 'Parietallappen', 'Temporallappen', 'Okzipitallappen'],
     correctAnswer: 2,
     explanation: 'Das Wernicke-Areal liegt im Temporallappen und ist für das Sprachverständnis zuständig. Schädigungen führen zur sensorischen Aphasie.',
-    category: quizCategories[97], // temporal-lobe
+    category: quizCategories[678], // temporal-lobe
     difficulty: 'mittel',
     tags: ['temporallappen', 'sprache', 'wernicke-areal']
   },
@@ -1423,7 +1645,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Bewusstsein', 'Koordination und Gleichgewicht', 'Hormonregulation', 'Gedächtnisbildung'],
     correctAnswer: 1,
     explanation: 'Das Kleinhirn (Cerebellum) ist hauptverantwortlich für die Koordination von Bewegungen, das Gleichgewicht und das Erlernen motorischer Fähigkeiten.',
-    category: quizCategories[103], // cerebellum
+    category: quizCategories[721], // cerebellum
     difficulty: 'leicht',
     tags: ['kleinhirn', 'koordination', 'gleichgewicht']
   },
@@ -1433,7 +1655,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Hypothalamus', 'Thalamus', 'Hippocampus', 'Corpus callosum'],
     correctAnswer: 1,
     explanation: 'Der Thalamus fungiert als Relaisstation für sensorische Informationen zum Kortex und wird daher als "Tor zum Bewusstsein" bezeichnet.',
-    category: quizCategories[114], // thalamus
+    category: quizCategories[800], // thalamus
     difficulty: 'mittel',
     tags: ['thalamus', 'bewusstsein', 'sensorik']
   },
@@ -1443,7 +1665,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Pons', 'Medulla oblongata', 'Mesenzephalon', 'Thalamus'],
     correctAnswer: 1,
     explanation: 'Das Atemzentrum befindet sich in der Medulla oblongata (verlängertes Mark) und steuert die automatische Atmung.',
-    category: quizCategories[109], // medulla-oblongata
+    category: quizCategories[764], // medulla-oblongata
     difficulty: 'mittel',
     tags: ['hirnstamm', 'atemzentrum', 'medulla']
   },
@@ -1453,7 +1675,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Groß- und Kleinhirn', 'Die beiden Großhirnhemisphären', 'Hirnstamm und Großhirn', 'Rückenmark und Gehirn'],
     correctAnswer: 1,
     explanation: 'Das Corpus callosum ist die größte Kommissurenbahn und verbindet die beiden Großhirnhemisphären miteinander.',
-    category: quizCategories[102], // corpus-callosum
+    category: quizCategories[713], // corpus-callosum
     difficulty: 'mittel',
     tags: ['corpus-callosum', 'hemisphären', 'kommissuren']
   },
@@ -1463,7 +1685,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Arachnoidea', 'Plexus choroideus', 'Ependym', 'Dura mater'],
     correctAnswer: 1,
     explanation: 'Der Plexus choroideus in den Hirnventrikeln produziert den Liquor cerebrospinalis (Hirnwasser).',
-    category: quizCategories[124], // csf-production
+    category: quizCategories[893], // csf-production
     difficulty: 'mittel',
     tags: ['liquor', 'plexus-choroideus', 'hirnwasser']
   },
@@ -1473,7 +1695,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Eine physische Barriere um das Gehirn', 'Eine selektive Membranbarriere', 'Eine Knochenstruktur', 'Ein Liquorraum'],
     correctAnswer: 1,
     explanation: 'Die Blut-Hirn-Schranke ist eine selektive Barriere aus tight junctions zwischen Blutgefäßen und Gehirn, die das Gehirn vor schädlichen Substanzen schützt.',
-    category: quizCategories[127], // blood-brain-barrier
+    category: quizCategories[914], // blood-brain-barrier
     difficulty: 'schwer',
     tags: ['blut-hirn-schranke', 'schutz', 'selektiv']
   },
@@ -1483,7 +1705,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Aufsteigende Bahnen', 'Absteigende Bahnen', 'Kommissurenbahnen', 'Assoziationsbahnen'],
     correctAnswer: 1,
     explanation: 'Absteigende Bahnen (wie die Pyramidenbahn) leiten motorische Befehle vom Gehirn zum Rückenmark und zu den Muskeln.',
-    category: quizCategories[121], // descending-tracts
+    category: quizCategories[864], // descending-tracts
     difficulty: 'mittel',
     tags: ['motorische-bahnen', 'pyramidenbahn', 'rückenmark']
   },
@@ -1493,9 +1715,91 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Bewusste Bewegungen', 'Automatische Antworten ohne Gehirnbeteiligung', 'Lernprozesse', 'Gedächtnisspeicher'],
     correctAnswer: 1,
     explanation: 'Reflexbögen sind automatische, schnelle Antworten des Nervensystems auf Reize, die oft ohne direkte Beteiligung des Gehirns ablaufen.',
-    category: quizCategories[122], // reflexes
+    category: quizCategories[871], // reflexes
     difficulty: 'leicht',
     tags: ['reflexe', 'automatisch', 'spinal']
+  },
+
+  // Bewegungsapparat - Fragen
+  {
+    id: 'musculo_001',
+    question: 'Aus welchen zwei Hauptbestandteilen besteht Knochengewebe?',
+    options: ['Kompakta und Spongiosa', 'Periost und Endost', 'Osteozyten und Osteoblasten', 'Mark und Kortex'],
+    correctAnswer: 0,
+    explanation: 'Knochengewebe besteht aus Kompakta (kompakte, dichte Knochensubstanz) und Spongiosa (schwammartige, poröse Knochensubstanz).',
+    category: quizCategories[932], // compact-spongy
+    difficulty: 'leicht',
+    tags: ['knochen', 'histologie', 'kompakta', 'spongiosa']
+  },
+  {
+    id: 'musculo_002',
+    question: 'Welche Zellen sind für den Knochenabbau verantwortlich?',
+    options: ['Osteoblasten', 'Osteozyten', 'Osteoklasten', 'Chondrozyten'],
+    correctAnswer: 2,
+    explanation: 'Osteoklasten sind die Zellen, die für den Knochenabbau (Resorption) verantwortlich sind. Osteoblasten bauen Knochen auf, Osteozyten sind reife Knochenzellen.',
+    category: quizCategories[935], // bone-cells
+    difficulty: 'mittel',
+    tags: ['osteoklasten', 'knochenabbau', 'remodeling']
+  },
+  {
+    id: 'musculo_003',
+    question: 'Was besagt das Wolff\'sche Gesetz?',
+    options: ['Knochen wachsen nur bis zum 25. Lebensjahr', 'Knochen passen sich der Belastung an', 'Alle Knochen haben die gleiche Dichte', 'Knochenbruch heilt immer vollständig'],
+    correctAnswer: 1,
+    explanation: 'Das Wolff\'sche Gesetz besagt, dass sich Knochen an die mechanische Belastung anpassen: Bei höherer Belastung werden sie stärker, bei fehlender Belastung schwächer.',
+    category: quizCategories[952], // wolffs-law
+    difficulty: 'mittel',
+    tags: ['wolff-gesetz', 'anpassung', 'belastung']
+  },
+  {
+    id: 'musculo_004',
+    question: 'Welcher Gelenktyp erlaubt Bewegung in drei Achsen?',
+    options: ['Scharniergelenk', 'Kugelgelenk', 'Sattelgelenk', 'Drehgelenk'],
+    correctAnswer: 1,
+    explanation: 'Das Kugelgelenk (z.B. Schulter- und Hüftgelenk) ist ein dreiachsiges Gelenk, das Bewegungen in allen drei Raumachsen ermöglicht.',
+    category: quizCategories[960], // ball-socket
+    difficulty: 'leicht',
+    tags: ['kugelgelenk', 'bewegungsachsen', 'schulter', 'hüfte']
+  },
+  {
+    id: 'musculo_005',
+    question: 'Was unterscheidet Skelettmuskel von glattem Muskel?',
+    options: ['Skelettmuskel ist unwillkürlich', 'Glatter Muskel ist quergestreift', 'Skelettmuskel ist willkürlich steuerbar', 'Beide sind identisch'],
+    correctAnswer: 2,
+    explanation: 'Skelettmuskel ist quergestreift und willkürlich steuerbar, während glatter Muskel nicht quergestreift und unwillkürlich (autonom) gesteuert wird.',
+    category: quizCategories[967], // skeletal-muscle
+    difficulty: 'leicht',
+    tags: ['skelettmuskel', 'willkürlich', 'quergestreift']
+  },
+  {
+    id: 'musculo_006',
+    question: 'Welche Struktur verbindet Muskeln mit Knochen?',
+    options: ['Bänder', 'Sehnen', 'Knorpel', 'Faszien'],
+    correctAnswer: 1,
+    explanation: 'Sehnen (Tendines) verbinden Muskeln mit Knochen und übertragen die Muskelkraft auf das Skelett. Bänder verbinden Knochen mit Knochen.',
+    category: quizCategories[967], // skeletal-muscle
+    difficulty: 'leicht',
+    tags: ['sehnen', 'muskeln', 'knochen', 'kraftübertragung']
+  },
+  {
+    id: 'musculo_007',
+    question: 'Was ist das Havers-System?',
+    options: ['Ein Muskeltyp', 'Strukturelle Einheit der Kompakta', 'Ein Gelenktyp', 'Eine Knochenerkrankung'],
+    correctAnswer: 1,
+    explanation: 'Das Havers-System (Osteon) ist die strukturelle und funktionelle Grundeinheit der Kompakta, bestehend aus konzentrisch angeordneten Knochenlamellen um einen Zentralkanal.',
+    category: quizCategories[940], // haversian-system
+    difficulty: 'schwer',
+    tags: ['havers-system', 'osteon', 'kompakta', 'histologie']
+  },
+  {
+    id: 'musculo_008',
+    question: 'Welches ist das beweglichste Gelenk im menschlichen Körper?',
+    options: ['Kniegelenk', 'Ellenbogengelenk', 'Schultergelenk', 'Handgelenk'],
+    correctAnswer: 2,
+    explanation: 'Das Schultergelenk ist als Kugelgelenk das beweglichste Gelenk des Körpers, allerdings auf Kosten der Stabilität.',
+    category: quizCategories[960], // ball-socket
+    difficulty: 'leicht',
+    tags: ['schultergelenk', 'beweglichkeit', 'kugelgelenk']
   },
 
   // Medikamentenlehre
@@ -1505,7 +1809,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['per os (oral)', 'per injectionem', 'per rectum', 'per inhalation'],
     correctAnswer: 0,
     explanation: '"p.o." steht für "per os" und bedeutet orale Medikamentengabe über den Mund.',
-    category: quizCategories[115], // medikamente
+    category: quizCategories[138], // medikamente
     difficulty: 'leicht',
     tags: ['medikamente', 'verabreichung', 'abkürzung']
   },
@@ -1515,7 +1819,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Gewichtszunahme', 'Trockener Husten', 'Haarausfall', 'Sehstörungen'],
     correctAnswer: 1,
     explanation: 'ACE-Hemmer können als typische Nebenwirkung einen trockenen Reizhusten verursachen.',
-    category: quizCategories[115], // medikamente
+    category: quizCategories[138], // medikamente
     difficulty: 'mittel',
     tags: ['ace-hemmer', 'nebenwirkungen', 'herz-kreislauf']
   },
@@ -1527,7 +1831,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['10 Sekunden', '15 Sekunden', '30 Sekunden', '60 Sekunden'],
     correctAnswer: 2,
     explanation: 'Eine hygienische Händedesinfektion sollte mindestens 30 Sekunden dauern, um wirksam zu sein.',
-    category: quizCategories[116], // hygiene
+    category: quizCategories[139], // hygiene
     difficulty: 'leicht',
     tags: ['händehygiene', 'desinfektion', 'infektionsschutz']
   },
@@ -1539,7 +1843,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['80-90/min', '100-120/min', '130-140/min', '150-160/min'],
     correctAnswer: 1,
     explanation: 'Die empfohlene Frequenz für die Herzdruckmassage liegt bei 100-120 Kompressionen pro Minute.',
-    category: quizCategories[117], // notfall
+    category: quizCategories[140], // notfall
     difficulty: 'mittel',
     tags: ['reanimation', 'herzdruckmassage', 'erste-hilfe']
   },
@@ -1551,7 +1855,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Mehrere Ärzte', 'Mehrere Krankheiten', 'Mehrere Medikamente', 'Mehrere Therapien'],
     correctAnswer: 2,
     explanation: 'Polypharmazie bezeichnet die gleichzeitige Einnahme von 5 oder mehr Medikamenten, häufig bei älteren Menschen.',
-    category: quizCategories[122], // gerontologie
+    category: quizCategories[145], // gerontologie
     difficulty: 'mittel',
     tags: ['polypharmazie', 'alter', 'medikamente']
   },
@@ -1563,7 +1867,7 @@ export const sampleQuestions: QuizQuestion[] = [
     options: ['Laut sprechen', 'Kurze, einfache Sätze', 'Viele Informationen geben', 'Schnell sprechen'],
     correctAnswer: 1,
     explanation: 'Bei dementen Patienten sind kurze, einfache Sätze und ruhige Kommunikation besonders wichtig.',
-    category: quizCategories[128], // kommunikation
+    category: quizCategories[151], // kommunikation
     difficulty: 'leicht',
     tags: ['demenz', 'kommunikation', 'patientengespräch']
   }
@@ -1658,7 +1962,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_resp_002',
     front: 'Surfactant-System',
     back: '**Definition:**\nOberflächenaktive Substanz in den Alveolen\n\n**Zusammensetzung:**\n• 90% Phospholipide (v.a. Dipalmitoyl-Phosphatidylcholin)\n• 10% Proteine (SP-A, SP-B, SP-C, SP-D)\n\n**Funktionen:**\n• ↓ Oberflächenspannung in Alveolen\n• Verhindert Kollaps der Lungenbläschen\n• Stabilisiert unterschiedlich große Alveolen\n\n**Klinik:**\n• Mangel → Atemnotsyndrom (ARDS)',
-    category: quizCategories[106], // surfactant
+    category: quizCategories[129], // surfactant
     difficulty: 'schwer',
     tags: ['surfactant', 'alveolen', 'oberflächenspannung', 'phospholipide'],
     reviewCount: 0,
@@ -1668,7 +1972,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_resp_003',
     front: 'Atemmuskulatur - Inspiration & Expiration',
     back: '**Inspiration (Einatmung):**\n• **Hauptmuskeln:** Zwerchfell, äußere Intercostalmuskeln\n• **Hilfsmuskeln:** Mm. scaleni, M. sternocleidomastoideus\n\n**Expiration (Ausatmung):**\n• **Ruhig:** Passiv durch elastische Rückstellkraft\n• **Forciert:** Innere Intercostalmuskeln, Bauchmuskeln\n\n**Zwerchfell:**\n• Wichtigster Atemmuskel\n• Kontraktion → Thoraxerweiterung\n• Innervation: N. phrenicus (C3-C5)',
-    category: quizCategories[108], // respiratory-muscles
+    category: quizCategories[131], // respiratory-muscles
     difficulty: 'mittel',
     tags: ['atemmuskulatur', 'zwerchfell', 'inspiration', 'expiration'],
     reviewCount: 0,
@@ -1678,7 +1982,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_resp_004',
     front: 'Ventilations-Perfusions-Verhältnis (V/Q)',
     back: '**Definition:**\nVerhältnis von Ventilation zu Perfusion\n\n**Normalwerte:**\n• Gesamt-V/Q: ≈ 0,8\n• Lungenspitze: V/Q > 1 (mehr Ventilation)\n• Lungenbasis: V/Q < 1 (mehr Perfusion)\n\n**Störungen:**\n• **V/Q = 0:** Shunt (keine Ventilation)\n• **V/Q = ∞:** Totraum (keine Perfusion)\n\n**Regulation:**\n• Hypoxische pulmonale Vasokonstriktion\n• Bronchiale CO₂-Regulation',
-    category: quizCategories[111], // vq-ratio
+    category: quizCategories[134], // vq-ratio
     difficulty: 'schwer',
     tags: ['v/q-verhältnis', 'ventilation', 'perfusion', 'shunt', 'totraum'],
     reviewCount: 0,
@@ -1688,7 +1992,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_resp_005',
     front: 'Totraum (anatomisch vs. funktionell)',
     back: '**Anatomischer Totraum:**\n• Leitende Atemwege ohne Gasaustausch\n• Trachea, Bronchien, Bronchiolen\n• ≈ 150 ml beim Erwachsenen\n\n**Funktioneller Totraum:**\n• Anatomischer + Alveolar-Totraum\n• Bereiche mit V/Q-Mismatch\n• Erhöht bei Lungenerkrankungen\n\n**Klinische Bedeutung:**\n• ↑ Totraum → ineffiziente Ventilation\n• Kompensation durch ↑ Atemfrequenz',
-    category: quizCategories[112], // dead-space
+    category: quizCategories[135], // dead-space
     difficulty: 'mittel',
     tags: ['totraum', 'anatomisch', 'funktionell', 'ventilation'],
     reviewCount: 0,
@@ -1700,7 +2004,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_lung_001',
     front: 'Atemvolumina & Lungenkapazitäten',
     back: '**Atemvolumina:**\n• **AZV** (Atemzugvolumen): 500 ml\n• **IRV** (Inspirat. Reservevol.): 3000 ml\n• **ERV** (Exspirat. Reservevol.): 1100 ml\n• **RV** (Residualvolumen): 1200 ml\n\n**Lungenkapazitäten:**\n• **IC** (Inspirat. Kapazität): AZV + IRV = 3500 ml\n• **FRC** (Funktionelle Residualkapazität): ERV + RV = 2300 ml\n• **VC** (Vitalkapazität): IRV + AZV + ERV = 4600 ml\n• **TLC** (Totale Lungenkapazität): VC + RV = 5800 ml',
-    category: quizCategories[109], // lung-volumes
+    category: quizCategories[132], // lung-volumes
     difficulty: 'schwer',
     tags: ['lungenfunktion', 'spirometrie', 'atemvolumen', 'kapazitäten'],
     reviewCount: 0,
@@ -1710,7 +2014,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_lung_002',
     front: 'Tiffeneau-Index (FEV1/FVC) & Peak Flow',
     back: '**Tiffeneau-Index (FEV1/FVC):**\n• Normal: >70% (>0,7)\n• Obstruktion: <70%\n• Restriktion: Normal oder ↑\n\n**FEV1:** Forciertes exspir. Volumen in 1s\n**FVC:** Forcierte Vitalkapazität\n\n**Peak Flow:**\n• Maximaler exspiratorischer Fluss\n• Normal: 400-600 L/min\n• Einfache Verlaufskontrolle\n• Besonders bei Asthma wichtig\n\n**Klinische Bedeutung:**\n• Differenzierung Obstruktion/Restriktion\n• Verlaufskontrolle bei Lungenerkrankungen',
-    category: quizCategories[113], // fev1-fvc
+    category: quizCategories[136], // fev1-fvc
     difficulty: 'schwer',
     tags: ['tiffeneau', 'peak-flow', 'obstruktion', 'spirometrie'],
     reviewCount: 0,
@@ -1732,7 +2036,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_gas_001',
     front: 'Sauerstoff-Bindungskurve & Verschiebungen',
     back: '**Normale O₂-Bindungskurve:**\n• Sigmoide Form\n• P50 = 26 mmHg (50% Sättigung)\n• Plateau ab 60 mmHg\n\n**Rechtsverschiebung** (↓ O₂-Affinität):\n• ↑ CO₂, ↑ H⁺ (↓ pH), ↑ Temperatur\n• ↑ 2,3-DPG\n• → Erleichterte O₂-Abgabe im Gewebe\n\n**Linksverschiebung** (↑ O₂-Affinität):\n• ↓ CO₂, ↓ H⁺ (↑ pH), ↓ Temperatur\n• → Erschwerte O₂-Abgabe\n• Fetales Hb, CO-Hb\n\n**Klinische Bedeutung:**\n• Anpassung an Gewebebedarf',
-    category: quizCategories[118], // o2-saturation-curve
+    category: quizCategories[141], // o2-saturation-curve
     difficulty: 'schwer',
     tags: ['sauerstoffbindung', 'bohr-effekt', 'hämoglobin', 'o2-transport'],
     reviewCount: 0,
@@ -1742,7 +2046,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_gas_002',
     front: 'CO₂-Transport & Haldane-Effekt',
     back: '**CO₂-Transport im Blut:**\n• 70% als HCO₃⁻ (Bikarbonat)\n• 23% als Carbamino-Hb\n• 7% physikalisch gelöst\n\n**Chlorid-Shift:**\n• CO₂ + H₂O → HCO₃⁻ + H⁺\n• HCO₃⁻ raus, Cl⁻ rein\n• Puffert pH-Änderungen\n\n**Haldane-Effekt:**\n• Desoxygeniertes Hb bindet mehr CO₂\n• In Lunge: O₂-Bindung → CO₂-Abgabe\n• Im Gewebe: O₂-Abgabe → CO₂-Aufnahme\n\n**Bohr-Effekt:**\n• ↑ CO₂/H⁺ → ↓ O₂-Affinität',
-    category: quizCategories[120], // co2-transport
+    category: quizCategories[143], // co2-transport
     difficulty: 'schwer',
     tags: ['co2-transport', 'haldane-effekt', 'bikarbonat', 'chlorid-shift'],
     reviewCount: 0,
@@ -1752,7 +2056,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_gas_003',
     front: 'Pathologische Hämoglobinformen',
     back: '**Methämoglobin (MetHb):**\n• Fe³⁺ statt Fe²⁺\n• Kann kein O₂ binden\n• Normal: <1%\n• Ursachen: Nitrite, Sulfonamide\n• Therapie: Methylenblau\n\n**Carboxyhämoglobin (COHb):**\n• CO-Vergiftung\n• 200-300x höhere Affinität als O₂\n• Normal: <5% (Raucher <10%)\n• Therapie: 100% O₂, hyperbarer O₂\n\n**Sulfhämoglobin:**\n• Irreversibel\n• Medikamente (Phenacetin)\n\n**Klinische Zeichen:**\n• Zyanose trotz normaler pO₂\n• Pulsoximetrie unzuverlässig',
-    category: quizCategories[123], // methemoglobin-carboxyhemoglobin
+    category: quizCategories[146], // methemoglobin-carboxyhemoglobin
     difficulty: 'schwer',
     tags: ['methämoglobin', 'carboxyhämoglobin', 'co-vergiftung', 'zyanose'],
     reviewCount: 0,
@@ -1764,7 +2068,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_control_001',
     front: 'Atemzentrum & zentrale Regulation',
     back: '**Atemzentrum (Medulla oblongata):**\n• **Inspiratorisches Zentrum:** Rhythmusgenerator\n• **Exspiratorisches Zentrum:** Bei forcierter Ausatmung\n• **Pneumotaxisches Zentrum (Pons):** Feinregulation\n\n**Zentrale Chemorezeptoren:**\n• In Medulla oblongata\n• Reagieren auf pH im Liquor\n• CO₂ passiert Blut-Hirn-Schranke → pH ↓\n• Hauptregulator der Atmung (80%)\n\n**Automatismus:**\n• Grundrhythmus unabhängig von Bewusstsein\n• Modulation durch übergeordnete Zentren\n• Bei Hirnstammschäden → Atemstillstand',
-    category: quizCategories[125], // respiratory-centers
+    category: quizCategories[148], // respiratory-centers
     difficulty: 'schwer',
     tags: ['atemzentrum', 'medulla', 'chemorezeptoren', 'automatismus'],
     reviewCount: 0,
@@ -1774,7 +2078,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_control_002',
     front: 'Periphere Chemorezeptoren & O₂-Regulation',
     back: '**Periphere Chemorezeptoren:**\n• Glomus caroticum & aorticum\n• Reagieren auf:\n  - ↓ pO₂ (<60 mmHg)\n  - ↑ pCO₂\n  - ↓ pH\n\n**Hypoxischer Atemantrieb:**\n• Bei pO₂ <60 mmHg\n• Wichtig bei COPD-Patienten\n• Vorsicht mit O₂-Gabe!\n\n**CO₂-Atemantrieb:**\n• Primärer Stimulus (80%)\n• Reagiert auf pCO₂ ↑\n• Bei COPD oft abgestumpft\n\n**Klinische Bedeutung:**\n• COPD: Hypoxischer Atemantrieb dominant\n• Gesunde: CO₂-Atemantrieb dominant',
-    category: quizCategories[126], // chemoreceptors
+    category: quizCategories[599], // chemoreceptors
     difficulty: 'schwer',
     tags: ['chemorezeptoren', 'hypoxie', 'atemantrieb', 'copd'],
     reviewCount: 0,
@@ -1784,7 +2088,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_control_003',
     front: 'Atemreflexe & Störungen',
     back: '**Hering-Breuer-Reflex:**\n• Dehnungsrezeptoren in Atemwegen\n• Inspiration ↑ → Inspirationshemmung\n• Verhindert Lungenüberblähung\n• Bei Erwachsenen schwach ausgeprägt\n\n**Atemrhythmus-Störungen:**\n• **Cheyne-Stokes:** Periodische Atmung\n• **Biot-Atmung:** Unregelmäßige Gruppen\n• **Kussmaul-Atmung:** Tiefe, regelmäßige Atmung\n• **Schnappatmung:** Agonale Atmung\n\n**J-Rezeptoren:**\n• In Alveolarwand\n• Reagieren auf Ödem, Embolie\n• → Tachypnoe, Dyspnoe',
-    category: quizCategories[132], // hering-breuer-reflex
+    category: quizCategories[155], // hering-breuer-reflex
     difficulty: 'mittel',
     tags: ['atemreflexe', 'hering-breuer', 'atemstörungen', 'cheyne-stokes'],
     reviewCount: 0,
@@ -1795,7 +2099,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_003',
     front: 'Die 5-R-Regel bei der Medikamentengabe',
     back: '1. Richtiger Patient\n2. Richtiges Medikament\n3. Richtige Dosis\n4. Richtige Zeit\n5. Richtige Applikationsart\n\n+ Zusätzlich:\n• Richtige Dokumentation\n• Richtige Aufklärung',
-    category: quizCategories[115], // medikamente
+    category: quizCategories[138], // medikamente
     difficulty: 'leicht',
     tags: ['medikamentengabe', 'sicherheit'],
     reviewCount: 0,
@@ -1805,7 +2109,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_004',
     front: 'Händehygiene - Die 5 Momente der WHO',
     back: '1. VOR Patientenkontakt\n2. VOR aseptischen Tätigkeiten\n3. NACH Kontakt mit potenziell infektiösen Materialien\n4. NACH Patientenkontakt\n5. NACH Kontakt mit der Patientenumgebung',
-    category: quizCategories[116], // hygiene
+    category: quizCategories[139], // hygiene
     difficulty: 'mittel',
     tags: ['händehygiene', 'who', 'infektionsschutz'],
     reviewCount: 0,
@@ -1815,7 +2119,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_005',
     front: 'Glasgow Coma Scale (GCS) - Bewertungskriterien',
     back: 'Augen öffnen (E):\n• Spontan: 4\n• Auf Ansprache: 3\n• Auf Schmerzreiz: 2\n• Kein: 1\n\nVerbale Reaktion (V):\n• Orientiert: 5\n• Verwirrt: 4\n• Unpassende Worte: 3\n• Unverständliche Laute: 2\n• Keine: 1\n\nMotorische Reaktion (M):\n• Befolgt Aufforderungen: 6\n• Lokalisation: 5\n• Beugeabwehr: 4\n• Beugesynergismen: 3\n• Strecksynergismen: 2\n• Keine: 1\n\nGesamt: 3-15 Punkte',
-    category: quizCategories[117], // notfall
+    category: quizCategories[140], // notfall
     difficulty: 'schwer',
     tags: ['gcs', 'bewusstsein', 'neurologie'],
     reviewCount: 0,
@@ -1837,7 +2141,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_cns_002',
     front: 'Hirnstamm - Aufbau und Funktionen',
     back: '**Medulla oblongata:**\n• Atemzentrum\n• Kreislaufzentrum\n• Schluck- und Brechzentrum\n• Pyramidenkreuzung\n\n**Pons:**\n• Schlaf-Wach-Regulation\n• Bruiẗcke zwischen Groß- und Kleinhirn\n• Trigeminus-, Facialis-, Vestibulocochleariskerne\n\n**Mesenzephalon:**\n• Augenbewegungssteuerung\n• Pupillenreflexzentrum\n• Substantia nigra (Dopamin)\n• Formatio reticularis (ARAS)',
-    category: quizCategories[108], // brainstem
+    category: quizCategories[757], // brainstem
     difficulty: 'schwer',
     tags: ['hirnstamm', 'medulla', 'pons', 'mesenzephalon'],
     reviewCount: 0,
@@ -1847,7 +2151,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_cns_003',
     front: 'Dienzephalon - Strukturen und Funktionen',
     back: '**Thalamus:**\n• "Tor zum Bewusstsein"\n• Relaisstation für sensorische Bahnen\n• Verschaltung zum Kortex\n\n**Hypothalamus:**\n• Hormonales Kontrollzentrum\n• Temperaturregulation\n• Hunger/Durst, Tag-Nacht-Rhythmus\n• Verbindung zur Hypophyse\n\n**Hypophyse:**\n• Adenohypophyse: Trophine Hormone\n• Neurohypophyse: ADH, Oxytocin\n\n**Epiphyse:**\n• Melatoninproduktion\n• Circadianrhythmus',
-    category: quizCategories[113], // diencephalon
+    category: quizCategories[793], // diencephalon
     difficulty: 'schwer',
     tags: ['dienzephalon', 'thalamus', 'hypothalamus', 'hormone'],
     reviewCount: 0,
@@ -1857,7 +2161,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_cns_004',
     front: 'Liquorsystem - Produktion, Zirkulation, Resorption',
     back: '**Liquorproduktion:**\n• Plexus choroideus in den Ventrikeln\n• Ca. 500 ml/Tag\n• Gesamtvolumen: 150 ml\n\n**Zirkulation:**\n• Seitenventrikel → III. Ventrikel\n• Aquaeductus sylvii → IV. Ventrikel\n• Subarachnoidalraum\n\n**Resorption:**\n• Pacchioni-Granulationen\n• In den Sinus sagittalis superior\n\n**Funktion:**\n• Mechanischer Schutz\n• Nährstofftransport\n• Druckregulation',
-    category: quizCategories[123], // csf-system
+    category: quizCategories[886], // csf-system
     difficulty: 'schwer',
     tags: ['liquor', 'hirnwasser', 'ventrikelsystem', 'schutz'],
     reviewCount: 0,
@@ -1867,7 +2171,7 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_cns_005',
     front: 'Rückenmark - Aufbau und Leitungsbahnen',
     back: '**Histologischer Aufbau:**\n• Graue Substanz: Nervenzellkörper (innen)\n• Weiße Substanz: Myelinisierte Axone (außen)\n\n**Aufsteigende Bahnen (sensorisch):**\n• Hinterstrangbahn: Tiefensensibilität\n• Vorderseitenstrangbahn: Schmerz, Temperatur\n\n**Absteigende Bahnen (motorisch):**\n• Pyramidenbahn: Willkürliche Motorik\n• Extrapyramidalbahn: Unwillkürliche Motorik\n\n**Segmente:**\n• 8 zervikal, 12 thorakal\n• 5 lumbal, 5 sakral, 1 kokzygeal',
-    category: quizCategories[117], // spinal-cord
+    category: quizCategories[836], // spinal-cord
     difficulty: 'schwer',
     tags: ['rückenmark', 'leitungsbahnen', 'segmente', 'reflexe'],
     reviewCount: 0,
@@ -1877,9 +2181,61 @@ export const sampleFlashcards: Flashcard[] = [
     id: 'fc_cns_006',
     front: 'Blut-Hirn-Schranke - Aufbau und Funktion',
     back: '**Anatomische Grundlage:**\n• Tight Junctions zwischen Endothelzellen\n• Astrozyten-Endfüße\n• Kontinuierliche Basalmembran\n\n**Funktionen:**\n• Schutz vor Toxinen\n• Kontrolle des Stoffaustauschs\n• Aufrechterhaltung des Hirnmilieus\n\n**Durchlässigkeit:**\n• Gut: Wasser, O₂, CO₂, Glukose\n• Schlecht: Proteine, viele Medikamente\n• Aktiver Transport: Glukose, Aminosäuren\n\n**Klinische Bedeutung:**\n• Medikamentenentwicklung\n• Bei Entzündungen durchlässiger',
-    category: quizCategories[127], // blood-brain-barrier
+    category: quizCategories[914], // blood-brain-barrier
     difficulty: 'schwer',
     tags: ['blut-hirn-schranke', 'endothel', 'schutz', 'transport'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  
+  // Neue Bewegungsapparat-Lernkarten
+  {
+    id: 'fc_musculo_001',
+    front: 'Knochenaufbau - Kompakta vs. Spongiosa',
+    back: '**Kompakta (Corticalis):**\n• Dichte, kompakte Knochensubstanz\n• Außenschicht der Röhrenknochen\n• Hohe mechanische Festigkeit\n• Havers-Systeme (Osteone)\n\n**Spongiosa (Trabeculae):**\n• Schwammartige, poröse Struktur\n• Innenschicht, Epiphysen\n• Gerüstartige Knochenbälkchen\n• Enthält rotes Knochenmark\n\n**Funktionale Bedeutung:**\n• Kompakta: Stabilität, Biegefestigkeit\n• Spongiosa: Gewichtsreduktion, Hämatopoese',
+    category: quizCategories[932], // compact-spongy
+    difficulty: 'mittel',
+    tags: ['kompakta', 'spongiosa', 'knochenaufbau', 'histologie'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_musculo_002',
+    front: 'Knochenzellen - Funktionen und Bedeutung',
+    back: '**Osteoblasten:**\n• Knochenaufbauende Zellen\n• Produzieren Osteoid (Knochenmatrix)\n• Werden zu Osteozyten\n\n**Osteozyten:**\n• Reife Knochenzellen\n• In Lakunen eingeschlossen\n• Mechanosensoren für Belastung\n• Regulation des Knochenumbaus\n\n**Osteoklasten:**\n• Knochenabbauende Riesenzellen\n• Resorption alter Knochensubstanz\n• Schaffen Platz für Neubau\n\n**Klinische Bedeutung:**\n• Balance bestimmt Knochenstabilität\n• Störungen → Osteoporose/Osteosklerose',
+    category: quizCategories[935], // bone-cells
+    difficulty: 'schwer',
+    tags: ['osteoblasten', 'osteozyten', 'osteoklasten', 'knochenumbau'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_musculo_003',
+    front: 'Gelenktypen nach Beweglichkeit und Achsen',
+    back: '**Nach Beweglichkeit:**\n• **Synarthrosen:** Unbeweglich (Schädelnähte)\n• **Amphiarthrosen:** Wenig beweglich (Symphysen)\n• **Diarthrosen:** Frei beweglich (echte Gelenke)\n\n**Nach Bewegungsachsen:**\n• **Einachsig:** Scharniergelenk (Ellenbogen)\n• **Zweiachsig:** Eigelenk (Handgelenk), Sattelgelenk (Daumen)\n• **Dreiachsig:** Kugelgelenk (Schulter, Hüfte)\n• **Rotationsgelenk:** Drehgelenk (Atlas-Axis)\n\n**Bewegungsarten:**\n• Flexion/Extension, Abduktion/Adduktion\n• Innen-/Außenrotation, Zirkumduktion',
+    category: quizCategories[955], // joint-types
+    difficulty: 'schwer',
+    tags: ['gelenktypen', 'bewegungsachsen', 'diarthrosen', 'biomechanik'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_musculo_004',
+    front: 'Muskeltypen - Eigenschaften und Funktionen',
+    back: '**Skelettmuskel:**\n• Quergestreift, multinukleär\n• Willkürlich steuerbar\n• Kraftvolle, schnelle Kontraktionen\n• Ermüdet schnell\n\n**Herzmuskel:**\n• Quergestreift, aber unwillkürlich\n• Glanzstreifen (Intercalated discs)\n• Autorhythmisch, ermüdungsresistent\n• Spezielle Leitungssystem\n\n**Glatte Muskulatur:**\n• Nicht quergestreift, einkernig\n• Unwillkürlich (autonom)\n• Langsame, anhaltende Kontraktionen\n• In Organen, Gefäßen, Verdauungstrakt\n\n**Neuromuskuläre Übertragung:**\n• Motorische Endplatte (Skelettmuskel)\n• Autonome Innervation (glatt)',
+    category: quizCategories[967], // skeletal-muscle
+    difficulty: 'schwer',
+    tags: ['skelettmuskel', 'herzmuskel', 'glatte-muskulatur', 'kontraktion'],
+    reviewCount: 0,
+    easeFactor: 2.5
+  },
+  {
+    id: 'fc_musculo_005',
+    front: 'Wolff\'sches Gesetz und Knochenanpassung',
+    back: '**Definition:**\n"Die Knochen passen sich in ihrer Struktur den mechanischen Anforderungen an"\n\n**Mechanismus:**\n• Belastung aktiviert Osteozyten\n• Mechanosignale triggern Remodeling\n• Erhöhte Belastung → Stärkung\n• Fehlende Belastung → Abbau\n\n**Klinische Beispiele:**\n• **Immobilisation:** Knochenabbau\n• **Sport:** Knochenverdichtung\n• **Schwerelosigkeit:** Osteoporose\n• **Frakturbeilung:** Anpassung an neue Belastung\n\n**Therapeutische Bedeutung:**\n• Kraft-/Widerstandstraining\n• Frühe Mobilisation\n• Prävention von Osteoporose',
+    category: quizCategories[952], // wolffs-law
+    difficulty: 'mittel',
+    tags: ['wolff-gesetz', 'knochenanpassung', 'belastung', 'remodeling'],
     reviewCount: 0,
     easeFactor: 2.5
   }
