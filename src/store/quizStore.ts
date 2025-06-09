@@ -229,6 +229,10 @@ export const useQuizStore = create<QuizState & QuizActions>()(
         }
         
         set({ stats: newStats })
+      },
+
+      resetStats: () => {
+        set({ stats: initialStats })
       }
     }),
     {

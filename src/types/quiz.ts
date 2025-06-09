@@ -85,4 +85,5 @@ export type QuizActions = {
   rateFlashcard: (rating: 'easy' | 'good' | 'hard' | 'again') => void
   resetSession: () => void
   updateStats: (session: QuizSession) => void
+  resetStats: () => void
 }

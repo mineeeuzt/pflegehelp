@@ -44,7 +44,8 @@ const QuizLernkarten = () => {
     startFlashcards,
     nextFlashcard,
     rateFlashcard,
-    resetSession
+    resetSession,
+    resetStats
   } = useQuizStore()
 
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
@@ -115,35 +116,49 @@ const QuizLernkarten = () => {
 
   // Statistics Display
   const StatsDisplay = () => (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-      <Card>
-        <CardContent className="p-4 text-center">
-          <Trophy className="w-8 h-8 mx-auto mb-2 text-yellow-500" />
-          <div className="text-2xl font-bold">{stats.totalQuizzes}</div>
-          <div className="text-sm text-gray-600">Abgeschlossene Quiz</div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent className="p-4 text-center">
-          <Target className="w-8 h-8 mx-auto mb-2 text-green-500" />
-          <div className="text-2xl font-bold">{Math.round(stats.averageScore)}%</div>
-          <div className="text-sm text-gray-600">Durchschnitt</div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent className="p-4 text-center">
-          <CheckCircle className="w-8 h-8 mx-auto mb-2 text-blue-500" />
-          <div className="text-2xl font-bold">{stats.totalCorrectAnswers}</div>
-          <div className="text-sm text-gray-600">Richtige Antworten</div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent className="p-4 text-center">
-          <BarChart3 className="w-8 h-8 mx-auto mb-2 text-purple-500" />
-          <div className="text-2xl font-bold">{stats.streak}</div>
-          <div className="text-sm text-gray-600">Aktuelle Serie</div>
-        </CardContent>
-      </Card>
+    <div className="mb-8">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-semibold">Lernfortschritt</h2>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={resetStats}
+          className="text-gray-500 hover:text-red-600"
+        >
+          <RotateCcw className="w-4 h-4 mr-2" />
+          Zurücksetzen
+        </Button>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="p-4 text-center">
+            <Trophy className="w-8 h-8 mx-auto mb-2 text-yellow-500" />
+            <div className="text-2xl font-bold">{stats.totalQuizzes}</div>
+            <div className="text-sm text-gray-600">Abgeschlossene Quiz</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 text-center">
+            <Target className="w-8 h-8 mx-auto mb-2 text-green-500" />
+            <div className="text-2xl font-bold">{Math.round(stats.averageScore)}%</div>
+            <div className="text-sm text-gray-600">Durchschnitt</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 text-center">
+            <CheckCircle className="w-8 h-8 mx-auto mb-2 text-blue-500" />
+            <div className="text-2xl font-bold">{stats.totalCorrectAnswers}</div>
+            <div className="text-sm text-gray-600">Richtige Antworten</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 text-center">
+            <BarChart3 className="w-8 h-8 mx-auto mb-2 text-purple-500" />
+            <div className="text-2xl font-bold">{stats.streak}</div>
+            <div className="text-sm text-gray-600">Aktuelle Serie</div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 
