@@ -3841,23 +3841,23 @@ export const medicalBasicsCategories: Category[] = [
                 parentId: 'blood-components',
                 children: [
                   {
-                    id: 'thrombocyte-structure',
-                    name: 'Struktur (Zellmembran, Granula)',
-                    description: 'Aufbau der Blutplättchen',
-                    icon: '🔬',
-                    difficulty: 'medium',
-                    parentId: 'thrombocytes'
-                  },
-                  {
-                    id: 'thrombopoiesis',
-                    name: 'Thrombopoese',
-                    description: 'Bildung der Thrombozyten',
+                    id: 'thrombocytogenesis',
+                    name: 'Thrombozytogenese',
+                    description: 'Bildung der Thrombozyten aus Megakaryozyten',
                     icon: '🏭',
                     difficulty: 'medium',
                     parentId: 'thrombocytes'
                   },
                   {
-                    id: 'platelet-aggregation',
+                    id: 'primary-hemostasis-thrombocytes',
+                    name: 'Primäre Hämostase',
+                    description: 'Thrombozytäre Blutstillung',
+                    icon: '🔴',
+                    difficulty: 'medium',
+                    parentId: 'thrombocytes'
+                  },
+                  {
+                    id: 'thrombocyte-aggregation',
                     name: 'Thrombozytenaggregation',
                     description: 'Verklumpung der Blutplättchen',
                     icon: '🤝',
@@ -3865,27 +3865,11 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'thrombocytes'
                   },
                   {
-                    id: 'platelet-adhesion',
-                    name: 'Thrombozytenadhäsion',
-                    description: 'Anheftung an Gefäßwand',
-                    icon: '📎',
-                    difficulty: 'medium',
-                    parentId: 'thrombocytes'
-                  },
-                  {
-                    id: 'platelet-granules',
-                    name: 'Granula (α-Granula, dichte Granula)',
-                    description: 'Speicherorganellen der Thrombozyten',
-                    icon: '📦',
+                    id: 'von-willebrand-factor-thrombocytes',
+                    name: 'Von-Willebrand-Faktor',
+                    description: 'Bindungsprotein für Thrombozyten',
+                    icon: '🔗',
                     difficulty: 'hard',
-                    parentId: 'thrombocytes'
-                  },
-                  {
-                    id: 'platelet-count',
-                    name: 'Thrombozytenzahl (150-400/nl)',
-                    description: 'Normale Plättchenzahl',
-                    icon: '📊',
-                    difficulty: 'easy',
                     parentId: 'thrombocytes'
                   }
                 ]
@@ -3900,7 +3884,7 @@ export const medicalBasicsCategories: Category[] = [
                 children: [
                   {
                     id: 'plasma-proteins',
-                    name: 'Plasmaproteine',
+                    name: 'Plasmaproteine (Albumin, Globuline)',
                     description: 'Proteine im Blutplasma',
                     icon: '🧬',
                     difficulty: 'medium',
@@ -3921,40 +3905,84 @@ export const medicalBasicsCategories: Category[] = [
                         icon: '🚛',
                         difficulty: 'medium',
                         parentId: 'plasma-proteins'
-                      },
+                      }
+                    ]
+                  },
+                  {
+                    id: 'coagulation-factors-plasma',
+                    name: 'Gerinnungsfaktoren',
+                    description: 'Plasmatische Gerinnungsproteine (I-XIII)',
+                    icon: '🔢',
+                    difficulty: 'hard',
+                    parentId: 'blood-plasma',
+                    children: [
                       {
-                        id: 'fibrinogen',
-                        name: 'Fibrinogen',
-                        description: 'Gerinnungsprotein',
+                        id: 'fibrinogen-plasma',
+                        name: 'Fibrinogen (Faktor I)',
+                        description: 'Vorstufe des Fibrins',
                         icon: '🕸️',
                         difficulty: 'medium',
-                        parentId: 'plasma-proteins'
+                        parentId: 'coagulation-factors-plasma'
+                      },
+                      {
+                        id: 'prothrombin',
+                        name: 'Prothrombin (Faktor II)',
+                        description: 'Vorstufe des Thrombins',
+                        icon: '⚡',
+                        difficulty: 'medium',
+                        parentId: 'coagulation-factors-plasma'
+                      },
+                      {
+                        id: 'vitamin-k-factors',
+                        name: 'Vitamin K-abhängige Faktoren (II, VII, IX, X)',
+                        description: 'Gerinnungsfaktoren mit Vitamin K-Abhängigkeit',
+                        icon: '🟢',
+                        difficulty: 'hard',
+                        parentId: 'coagulation-factors-plasma'
                       }
                     ]
                   },
                   {
                     id: 'electrolytes',
-                    name: 'Elektrolyte (Na+, K+, Cl-, HCO3-)',
-                    description: 'Ionen im Blutplasma',
+                    name: 'Elektrolyte',
+                    description: 'Ionen im Blutplasma (Na+, K+, Cl-, HCO3-)',
                     icon: '⚡',
                     difficulty: 'medium',
                     parentId: 'blood-plasma'
                   },
                   {
-                    id: 'plasma-volume',
-                    name: 'Plasmavolumen (55% des Blutes)',
-                    description: 'Anteil des Plasmas am Gesamtblut',
-                    icon: '📏',
-                    difficulty: 'easy',
-                    parentId: 'blood-plasma'
-                  },
-                  {
-                    id: 'serum-vs-plasma',
-                    name: 'Serum vs. Plasma',
-                    description: 'Unterschied zwischen Serum und Plasma',
-                    icon: '🔄',
+                    id: 'hormones-enzymes',
+                    name: 'Hormone & Enzyme',
+                    description: 'Hormonelle und enzymatische Plasmabestandteile',
+                    icon: '🧪',
                     difficulty: 'medium',
-                    parentId: 'blood-plasma'
+                    parentId: 'blood-plasma',
+                    children: [
+                      {
+                        id: 'plasma-hormones',
+                        name: 'Plasmahormone',
+                        description: 'Im Plasma transportierte Hormone',
+                        icon: '📡',
+                        difficulty: 'medium',
+                        parentId: 'hormones-enzymes'
+                      },
+                      {
+                        id: 'plasma-enzymes',
+                        name: 'Plasmaenzyme',
+                        description: 'Enzymatische Aktivität im Plasma',
+                        icon: '⚗️',
+                        difficulty: 'medium',
+                        parentId: 'hormones-enzymes'
+                      },
+                      {
+                        id: 'transport-proteins',
+                        name: 'Transportproteine',
+                        description: 'Trägerproteine für Hormone und Substrate',
+                        icon: '🚛',
+                        difficulty: 'medium',
+                        parentId: 'hormones-enzymes'
+                      }
+                    ]
                   }
                 ]
               }
@@ -3993,11 +4021,11 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'primary-hemostasis'
                   },
                   {
-                    id: 'von-willebrand-factor',
-                    name: 'Von-Willebrand-Faktor',
-                    description: 'Bindungsprotein für Thrombozyten',
+                    id: 'endothelial-function',
+                    name: 'Endothelfunktion',
+                    description: 'Rolle des Endothels bei der Hämostase',
                     icon: '🔗',
-                    difficulty: 'hard',
+                    difficulty: 'medium',
                     parentId: 'primary-hemostasis'
                   }
                 ]
@@ -4035,10 +4063,10 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'secondary-hemostasis'
                   },
                   {
-                    id: 'coagulation-factors',
-                    name: 'Gerinnungsfaktoren (I-XIII)',
-                    description: 'Plasmatische Gerinnungsproteine',
-                    icon: '🔢',
+                    id: 'fibrin-formation',
+                    name: 'Fibrinbildung',
+                    description: 'Umwandlung von Fibrinogen zu Fibrin',
+                    icon: '🕸️',
                     difficulty: 'hard',
                     parentId: 'secondary-hemostasis'
                   }
