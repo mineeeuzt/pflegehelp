@@ -1,4 +1,4 @@
-import { generateAIResponse, AI_PROMPTS } from '../lib/openai'
+import { generateAIResponse, generateStreamingAIResponse, AI_PROMPTS } from '../lib/openai'
 import { useCaseStore } from '../store/caseStore'
 import { authService } from './authService'
 
@@ -62,6 +62,54 @@ Spezielle Anforderungen: ${params.anforderungen || 'Keine besonderen Anforderung
     } catch (error) {
       console.error('Error generating Fallbeispiel:', error)
       throw new Error('Fehler beim Generieren des Fallbeispiels')
+    }
+  },
+
+  // Neue Streaming-Version für Fallbeispiele
+  async generateFallbeispielStreaming(
+    params: CaseGenerationParams,
+    userId: string,
+    onChunk: (chunk: string) => void,
+    onComplete?: (fullText: string) => void,
+    onError?: (error: Error) => void,
+    promptVersion: 'fallbeispiel' | 'fallbeispielProfi' = 'fallbeispielProfi'
+  ): Promise<void> {
+    try {
+      await authService.incrementUsageCount(userId, 'case_generation')
+
+      const userInput = `
+Bereich: ${params.bereich || 'Allgemeine Pflege'}
+Schwierigkeitsgrad: ${params.schwierigkeitsgrad || 'Mittel'}
+Spezielle Anforderungen: ${params.anforderungen || 'Keine besonderen Anforderungen'}
+      `.trim()
+
+      await generateStreamingAIResponse(
+        AI_PROMPTS[promptVersion], 
+        userInput,
+        onChunk,
+        async (fullText) => {
+          // Speichere das vollständige Fallbeispiel in der Datenbank
+          try {
+            const caseData = {
+              title: `Fallbeispiel - ${params.bereich || 'Allgemeine Pflege'}`,
+              content: userInput,
+              case_type: 'fallbeispiel' as const,
+              ai_response: fullText,
+              user_id: userId
+            }
+
+            await useCaseStore.getState().createCase(caseData)
+            onComplete?.(fullText)
+          } catch (error) {
+            console.error('Error saving case:', error)
+            onError?.(new Error('Fallbeispiel generiert, aber Speichern fehlgeschlagen'))
+          }
+        },
+        onError
+      )
+    } catch (error) {
+      console.error('Error generating streaming Fallbeispiel:', error)
+      onError?.(new Error('Fehler beim Generieren des Fallbeispiels'))
     }
   },
 

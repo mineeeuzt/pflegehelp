@@ -42,6 +42,8 @@ const FallbeispielGenerator = () => {
   })
   const [result, setResult] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isStreaming, setIsStreaming] = useState(false)
+  const [streamingText, setStreamingText] = useState('')
   const [error, setError] = useState('')
   const [showWorkflowOptions, setShowWorkflowOptions] = useState(false)
   const [selectedWorkflow, setSelectedWorkflow] = useState<'pflegeplanung' | 'pflegeinfo' | null>(null)
@@ -172,7 +174,10 @@ const FallbeispielGenerator = () => {
     if (!user) return
 
     setIsLoading(true)
+    setIsStreaming(true)
     setError('')
+    setStreamingText('')
+    setResult('')
 
     try {
       // Get display names for better context
@@ -186,11 +191,44 @@ const FallbeispielGenerator = () => {
         anforderungen: `Alter: ${alterLabel}, Setting: ${settingLabel}${params.zusatzinfo ? `, Zusatzinfo: ${params.zusatzinfo}` : ''}`
       }
       
-      console.log('Generating case with params:', generationParams)
+      console.log('Generating case with streaming params:', generationParams)
       
-      const response = await caseService.generateFallbeispiel(generationParams, user.id, promptVersion)
-      setResult(response)
-      setShowWorkflowOptions(true)
+      await caseService.generateFallbeispielStreaming(
+        generationParams,
+        user.id,
+        // onChunk - wird bei jedem neuen Text-Chunk aufgerufen
+        (chunk: string) => {
+          setStreamingText(prev => prev + chunk)
+        },
+        // onComplete - wird aufgerufen wenn das Streaming komplett ist
+        (fullText: string) => {
+          setResult(fullText)
+          setStreamingText('')
+          setIsStreaming(false)
+          setIsLoading(false)
+          setShowWorkflowOptions(true)
+        },
+        // onError - wird bei Fehlern aufgerufen
+        (error: Error) => {
+          console.error('Streaming generation error:', error)
+          let errorMessage = error.message || 'Ein unbekannter Fehler ist aufgetreten'
+          
+          // Check for specific error types
+          if (errorMessage.includes('API key')) {
+            errorMessage = 'OpenAI API-Schlüssel fehlt oder ist ungültig. Bitte kontaktieren Sie den Support.'
+          } else if (errorMessage.includes('quota') || errorMessage.includes('rate limit')) {
+            errorMessage = 'API-Limit erreicht. Bitte versuchen Sie es später erneut.'
+          } else if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
+            errorMessage = 'Netzwerkfehler. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.'
+          }
+          
+          setError(errorMessage)
+          setIsStreaming(false)
+          setIsLoading(false)
+          setStreamingText('')
+        },
+        promptVersion
+      )
     } catch (error) {
       console.error('Generation error:', error)
       let errorMessage = 'Ein unbekannter Fehler ist aufgetreten'
@@ -201,18 +239,10 @@ const FallbeispielGenerator = () => {
         errorMessage = error
       }
       
-      // Check for specific error types
-      if (errorMessage.includes('API key')) {
-        errorMessage = 'OpenAI API-Schlüssel fehlt oder ist ungültig. Bitte kontaktieren Sie den Support.'
-      } else if (errorMessage.includes('quota') || errorMessage.includes('rate limit')) {
-        errorMessage = 'API-Limit erreicht. Bitte versuchen Sie es später erneut.'
-      } else if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
-        errorMessage = 'Netzwerkfehler. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.'
-      }
-      
       setError(errorMessage)
-    } finally {
+      setIsStreaming(false)
       setIsLoading(false)
+      setStreamingText('')
     }
   }
 
@@ -361,6 +391,25 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
       abedl: '',
       begruendung: ''
     })
+  }
+
+  const resetAll = () => {
+    setResult('')
+    setStreamingText('')
+    setIsLoading(false)
+    setIsStreaming(false)
+    setError('')
+    setCurrentStep(1)
+    setParams({
+      alter: '',
+      bereich: '',
+      setting: '',
+      schwierigkeitsgrad: 'Leicht',
+      anforderungen: '',
+      zusatzinfo: ''
+    })
+    setShowWorkflowOptions(false)
+    resetWorkflow()
   }
 
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 6))
@@ -603,51 +652,83 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
             )}
 
             {isLoading && (
-              <div className="py-16 text-center">
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-center"
-                >
-                  <motion.div
-                    className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white shadow-lg mb-6 mx-auto"
-                    animate={{ 
-                      rotate: [0, 360],
-                      scale: [1, 1.1, 1]
-                    }}
-                    transition={{ 
-                      rotate: {
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear"
-                      },
-                      scale: {
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }
-                    }}
-                  >
-                    <Plus className="h-16 w-16 text-slate-600" strokeWidth={1.5} />
-                  </motion.div>
-                  <motion.h2 
-                    className="text-2xl font-light text-gray-900 mb-2"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    Fallbeispiel Generator
-                  </motion.h2>
-                  <motion.p 
-                    className="text-gray-600 font-light"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    Fallbeispiel wird generiert...
-                  </motion.p>
-                </motion.div>
+              <div className="py-16">
+                {!isStreaming ? (
+                  // Loading Animation vor dem Streaming
+                  <div className="text-center">
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                      className="text-center"
+                    >
+                      <motion.div
+                        className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white shadow-lg mb-6 mx-auto"
+                        animate={{ 
+                          rotate: [0, 360],
+                          scale: [1, 1.1, 1]
+                        }}
+                        transition={{ 
+                          rotate: {
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "linear"
+                          },
+                          scale: {
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }
+                        }}
+                      >
+                        <Plus className="h-16 w-16 text-slate-600" strokeWidth={1.5} />
+                      </motion.div>
+                      <motion.h2 
+                        className="text-2xl font-light text-gray-900 mb-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        Fallbeispiel Generator
+                      </motion.h2>
+                      <motion.p 
+                        className="text-gray-600 font-light"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.4 }}
+                      >
+                        Fallbeispiel wird vorbereitet...
+                      </motion.p>
+                    </motion.div>
+                  </div>
+                ) : (
+                  // Streaming Display
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-2xl font-light text-gray-900">Ihr Fallbeispiel wird erstellt</h2>
+                      <div className="flex items-center space-x-2">
+                        <motion.div
+                          className="w-2 h-2 bg-green-500 rounded-full"
+                          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                          transition={{ repeat: Infinity, duration: 1.5 }}
+                        />
+                        <span className="text-sm text-gray-600 font-light">Live generiert</span>
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 border border-gray-200 rounded-xl p-8">
+                      <div className="prose max-w-none">
+                        <p className="text-gray-800 font-light leading-relaxed whitespace-pre-wrap">
+                          {streamingText}
+                          <motion.span
+                            className="inline-block w-2 h-5 bg-gray-600 ml-1"
+                            animate={{ opacity: [1, 0, 1] }}
+                            transition={{ repeat: Infinity, duration: 1 }}
+                          />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -667,20 +748,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                     </Button>
                     <Button
                       size="sm"
-                      onClick={() => {
-                        setResult('')
-                        setCurrentStep(1)
-                        setParams({
-                          alter: '',
-                          bereich: '',
-                          setting: '',
-                          schwierigkeitsgrad: 'Leicht',
-                          anforderungen: '',
-                          zusatzinfo: ''
-                        })
-                        setShowWorkflowOptions(false)
-                        resetWorkflow()
-                      }}
+                      onClick={resetAll}
                       className="bg-slate-800 hover:bg-slate-900 text-white"
                     >
                       Neues Fallbeispiel
@@ -1094,12 +1162,26 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl font-light text-gray-900 mb-4">
+          <h1 className="text-5xl font-light text-gray-900 mb-4">
             Fallbeispiel Generator
           </h1>
-          <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 font-light max-w-2xl mx-auto">
             Erstellen Sie maßgeschneiderte Fallbeispiele für die Pflegeausbildung
           </p>
+          {isStreaming && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mt-6 inline-flex items-center space-x-2 bg-green-50 border border-green-200 px-4 py-2 rounded-full"
+            >
+              <motion.div
+                className="w-2 h-2 bg-green-500 rounded-full"
+                animate={{ scale: [1, 1.3, 1], opacity: [0.7, 1, 0.7] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+              />
+              <span className="text-sm text-green-700 font-medium">Live Generierung aktiv</span>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Progress Steps */}

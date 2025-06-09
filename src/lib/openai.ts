@@ -640,6 +640,105 @@ export async function generateAIResponse(
   }
 }
 
+// Neue Streaming-Funktion für den Fallbeispiel Generator
+export async function generateStreamingAIResponse(
+  prompt: string,
+  userInput: string,
+  onChunk: (chunk: string) => void,
+  onComplete?: (fullText: string) => void,
+  onError?: (error: Error) => void
+): Promise<void> {
+  // Model-Optimierung: Intelligente Auswahl basierend auf Komplexität
+  const isSimpleTask = (
+    prompt.includes('pesr') ||
+    prompt.includes('medikamentenszenario') ||
+    (userInput.length < 50 && !prompt.includes('fallbeispielProfi')) ||
+    (userInput.length < 100 && !prompt.includes('pflegeplanung'))
+  )
+  
+  const model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
+  
+  // Dynamische Token-Optimierung basierend auf Task-Typ
+  let maxTokens: number
+  if (prompt.includes('pesr')) maxTokens = 400
+  else if (prompt.includes('medikamentenszenario')) maxTokens = 800
+  else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
+  else if (isSimpleTask) maxTokens = 800
+  else maxTokens = 2000
+  
+  // Erweiterte Caching-Strategie - bei Streaming nicht verwenden für bessere UX
+  const cacheableTask = (
+    prompt.includes('pesr') || 
+    (prompt.includes('medikamentenszenario') && userInput.length < 80) ||
+    (isSimpleTask && userInput.length < 60)
+  )
+  
+  // Für sehr einfache Tasks könnte man Cache verwenden, aber für Fallbeispiele ist Streaming besser
+  if (cacheableTask && !prompt.includes('fallbeispiel')) {
+    const cached = simpleCache.get(userInput)
+    if (cached) {
+      console.log(`⚡ Cache HIT: ${model} | Tokens: ${maxTokens} | Simulating stream`)
+      // Simulate streaming for cached content
+      let index = 0
+      const words = cached.split(' ')
+      const streamWords = () => {
+        if (index < words.length) {
+          const chunk = words[index] + (index < words.length - 1 ? ' ' : '')
+          onChunk(chunk)
+          index++
+          setTimeout(streamWords, 50) // Simulate typing speed
+        } else {
+          onComplete?.(cached)
+        }
+      }
+      streamWords()
+      return
+    }
+  }
+  
+  console.log(`🤖 STREAMING: ${model} | Tokens: ${maxTokens}`)
+  
+  try {
+    const stream = await openai.chat.completions.create({
+      model,
+      messages: [
+        {
+          role: 'system',
+          content: prompt,
+        },
+        {
+          role: 'user',
+          content: userInput,
+        },
+      ],
+      max_tokens: maxTokens,
+      temperature: 0.7,
+      stream: true,
+    })
+
+    let fullText = ''
+    
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content || ''
+      if (content) {
+        fullText += content
+        onChunk(content)
+      }
+    }
+    
+    // Cache erfolgreiche Antworten für cacheable Tasks
+    if (cacheableTask && fullText.length > 0) {
+      simpleCache.set(userInput, fullText)
+    }
+    
+    onComplete?.(fullText)
+  } catch (error) {
+    console.error('AI Streaming Error:', error)
+    const err = new Error('Fehler bei der KI-Generierung. Bitte versuchen Sie es erneut.')
+    onError?.(err)
+  }
+}
+
 // Spezielle Funktion nur für Medikamenten-Szenarien
 export async function generateMedicationScenario(
   prompt: string,
