@@ -1631,6 +1631,130 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'bone-development'
                   }
                 ]
+              },
+              {
+                id: 'fracture-healing',
+                name: 'Frakturheilung',
+                description: 'Phasen und Prozesse der Knochenbruchheilung',
+                icon: '🔨',
+                difficulty: 'medium',
+                parentId: 'bone-system',
+                children: [
+                  {
+                    id: 'hematoma-inflammation-phase',
+                    name: 'Hämatom- & Entzündungsphase',
+                    description: 'Initiale Reaktion nach Fraktur (0-7 Tage)',
+                    icon: '🩸',
+                    difficulty: 'medium',
+                    parentId: 'fracture-healing'
+                  },
+                  {
+                    id: 'soft-callus-phase',
+                    name: 'Reparationsphase - weicher Kallus',
+                    description: 'Bildung von Granulationsgewebe und Knorpel (1-4 Wochen)',
+                    icon: '🧽',
+                    difficulty: 'medium',
+                    parentId: 'fracture-healing'
+                  },
+                  {
+                    id: 'hard-callus-phase',
+                    name: 'Reparationsphase - harter Kallus',
+                    description: 'Verknöcherung des weichen Kallus (4-16 Wochen)',
+                    icon: '🧱',
+                    difficulty: 'medium',
+                    parentId: 'fracture-healing'
+                  },
+                  {
+                    id: 'remodeling-phase',
+                    name: 'Umbauphase (Remodeling)',
+                    description: 'Wiederherstellung der ursprünglichen Knochenstruktur (Monate-Jahre)',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'fracture-healing'
+                  },
+                  {
+                    id: 'fracture-classification',
+                    name: 'Frakturtypen (AO-Klassifikation)',
+                    description: 'Systematische Einteilung von Knochenbrüchen',
+                    icon: '📊',
+                    difficulty: 'hard',
+                    parentId: 'fracture-healing'
+                  },
+                  {
+                    id: 'fracture-complications',
+                    name: 'Komplikationen (Pseudarthrose, Osteomyelitis)',
+                    description: 'Heilungsstörungen und Infektionen',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'fracture-healing'
+                  },
+                  {
+                    id: 'healing-disorders',
+                    name: 'Heilungsstörungen',
+                    description: 'Verzögerte Heilung, Nonunion, Malunion',
+                    icon: '🚫',
+                    difficulty: 'hard',
+                    parentId: 'fracture-healing'
+                  }
+                ]
+              },
+              {
+                id: 'bone-metabolism',
+                name: 'Knochenstoffwechsel',
+                description: 'Regulation des Knochen- und Mineralstoffwechsels',
+                icon: '⚗️',
+                difficulty: 'hard',
+                parentId: 'bone-system',
+                children: [
+                  {
+                    id: 'calcium-phosphate-homeostasis',
+                    name: 'Kalzium-Phosphat-Haushalt',
+                    description: 'Regulation der Mineralstoffkonzentrationen',
+                    icon: '⚖️',
+                    difficulty: 'hard',
+                    parentId: 'bone-metabolism'
+                  },
+                  {
+                    id: 'vitamin-d-metabolism',
+                    name: 'Vitamin D (Cholecalciferol → Calcitriol)',
+                    description: 'Synthese und Aktivierung von Vitamin D',
+                    icon: '☀️',
+                    difficulty: 'hard',
+                    parentId: 'bone-metabolism'
+                  },
+                  {
+                    id: 'parathyroid-hormone',
+                    name: 'Parathormon (PTH)',
+                    description: 'Regulation der Kalziumhomöostase',
+                    icon: '🦋',
+                    difficulty: 'hard',
+                    parentId: 'bone-metabolism'
+                  },
+                  {
+                    id: 'calcitonin',
+                    name: 'Calcitonin',
+                    description: 'Kalziumsenkende Wirkung der Schilddrüse',
+                    icon: '🔽',
+                    difficulty: 'medium',
+                    parentId: 'bone-metabolism'
+                  },
+                  {
+                    id: 'osteoporosis-pathophysiology',
+                    name: 'Osteoporose-Pathophysiologie',
+                    description: 'Mechanismen des Knochenmasseverlusts',
+                    icon: '🕳️',
+                    difficulty: 'hard',
+                    parentId: 'bone-metabolism'
+                  },
+                  {
+                    id: 'rank-rankl-opg-system',
+                    name: 'RANK/RANKL/OPG-System',
+                    description: 'Molekulare Regulation der Osteoklastenaktivität',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'bone-metabolism'
+                  }
+                ]
               }
             ]
           },
