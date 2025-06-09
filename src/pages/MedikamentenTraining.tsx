@@ -628,27 +628,12 @@ const MedikamentenTraining = () => {
               transform: 'translate(-50%, -50%)',
             }}
           >
-            <motion.div
-              animate={{ 
-                scale: [1, 1.25, 1.1, 1.3, 1],
-                rotate: [0, 5, -3, 8, 0]
-              }}
-              transition={{ 
-                duration: 1.5, 
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-red-200/60"
-            >
+            <div className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-red-200/60">
               <Heart className="h-4 w-4 text-red-500 mr-2" />
-              <motion.span 
-                className="text-sm font-mono text-gray-700 font-medium"
-                animate={{ opacity: [0.8, 1, 0.8] }}
-                transition={{ duration: 1, repeat: Infinity }}
-              >
+              <span className="text-sm font-mono text-gray-700 font-medium">
                 72 bpm
-              </motion.span>
-            </motion.div>
+              </span>
+            </div>
           </motion.div>
 
           {/* Blood Pressure - Smooth Floating */}
@@ -673,28 +658,12 @@ const MedikamentenTraining = () => {
               transform: 'translate(-50%, -50%)',
             }}
           >
-            <motion.div
-              animate={{ 
-                scale: [1, 1.15, 1.05, 1.2, 1],
-                rotate: [0, -4, 6, -2, 0]
-              }}
-              transition={{ 
-                duration: 1.8, 
-                repeat: Infinity, 
-                delay: 0.3,
-                ease: "easeInOut"
-              }}
-              className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-blue-200/60"
-            >
+            <div className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-blue-200/60">
               <Activity className="h-4 w-4 text-blue-500 mr-2" />
-              <motion.span 
-                className="text-sm font-mono text-gray-700 font-medium"
-                animate={{ opacity: [0.8, 1, 0.8] }}
-                transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}
-              >
+              <span className="text-sm font-mono text-gray-700 font-medium">
                 120/80
-              </motion.span>
-            </motion.div>
+              </span>
+            </div>
           </motion.div>
 
           {/* Temperature - Smooth Floating */}
@@ -719,28 +688,12 @@ const MedikamentenTraining = () => {
               transform: 'translate(-50%, -50%)',
             }}
           >
-            <motion.div
-              animate={{ 
-                scale: [1, 1.1, 1.15, 1.05, 1],
-                rotate: [0, 3, -5, 7, 0]
-              }}
-              transition={{ 
-                duration: 2.1, 
-                repeat: Infinity, 
-                delay: 0.6,
-                ease: "easeInOut"
-              }}
-              className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-green-200/60"
-            >
+            <div className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-green-200/60">
               <Thermometer className="h-4 w-4 text-green-500 mr-2" />
-              <motion.span 
-                className="text-sm font-mono text-gray-700 font-medium"
-                animate={{ opacity: [0.8, 1, 0.8] }}
-                transition={{ duration: 1.4, repeat: Infinity, delay: 0.4 }}
-              >
+              <span className="text-sm font-mono text-gray-700 font-medium">
                 36.5°C
-              </motion.span>
-            </motion.div>
+              </span>
+            </div>
           </motion.div>
         </div>
 
