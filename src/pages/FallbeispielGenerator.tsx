@@ -145,6 +145,7 @@ const FallbeispielGenerator = () => {
   const [reviewLoading, setReviewLoading] = useState(false)
   const [isReviewStreaming, setIsReviewStreaming] = useState(false)
   const [streamingReviewText, setStreamingReviewText] = useState('')
+  const [partialReviewData, setPartialReviewData] = useState<{sections: any[], overallScore?: number, generalFeedback?: string} | null>(null)
   const [showHelpTooltip, setShowHelpTooltip] = useState<number | null>(null)
 
   const altersgruppen = [
@@ -477,6 +478,69 @@ const FallbeispielGenerator = () => {
     setPflegeInfos(pflegeInfos.filter(info => info.id !== id))
   }
 
+  // Intelligentes Parsing von Streaming JSON für Live-Updates
+  const parseStreamingJSON = (text: string) => {
+    try {
+      // Versuche, vollständiges JSON zu parsen
+      const parsed = JSON.parse(text)
+      return parsed
+    } catch (error) {
+      // Falls das JSON noch nicht vollständig ist, versuche Teil-Parsing
+      try {
+        // Extrahiere verfügbare Teile
+        const result: any = {
+          sections: [],
+          overallScore: undefined,
+          generalFeedback: undefined
+        }
+
+        // Parse overallScore
+        const scoreMatch = text.match(/"overallScore":\s*(\d+)/)
+        if (scoreMatch) {
+          result.overallScore = parseInt(scoreMatch[1])
+        }
+
+        // Parse generalFeedback
+        const feedbackMatch = text.match(/"generalFeedback":\s*"([^"]*)"/)
+        if (feedbackMatch) {
+          result.generalFeedback = feedbackMatch[1]
+        }
+
+        // Parse sections array
+        const sectionsMatch = text.match(/"sections":\s*\[(.*?)\](?:\s*}?\s*$)?/s)
+        if (sectionsMatch) {
+          const sectionsText = sectionsMatch[1]
+          
+          // Parse einzelne Sektionen
+          const sectionPattern = /\{[^}]*"title":\s*"([^"]*)"[^}]*"userText":\s*"([^"]*)"[^}]*"score":\s*(\d+)[^}]*"feedback":\s*"([^"]*)"[^}]*(?:"positives":\s*\[([^\]]*)\])?[^}]*(?:"improvements":\s*\[([^\]]*)\])?[^}]*\}/g
+          
+          let sectionMatch
+          while ((sectionMatch = sectionPattern.exec(sectionsText)) !== null) {
+            const [, title, userText, score, feedback, positivesStr, improvementsStr] = sectionMatch
+            
+            const parseStringArray = (str: string) => {
+              if (!str) return []
+              return str.split(',').map(s => s.trim().replace(/^"|"$/g, '')).filter(s => s.length > 0)
+            }
+
+            result.sections.push({
+              title: title,
+              userText: userText,
+              score: parseInt(score),
+              feedback: feedback,
+              positives: parseStringArray(positivesStr || ''),
+              improvements: parseStringArray(improvementsStr || '')
+            })
+          }
+        }
+
+        return result.sections.length > 0 || result.overallScore !== undefined || result.generalFeedback ? result : null
+      } catch (partialError) {
+        return null
+      }
+    }
+  }
+
   const handlePflegeplanungReview = async () => {
     if (!user) return
 
@@ -517,19 +581,28 @@ ${pflegeplanungData.evaluation}
         user.id,
         // onChunk - wird bei jedem neuen Text-Chunk aufgerufen
         (chunk: string) => {
-          setStreamingReviewText(prev => prev + chunk)
+          const newText = streamingReviewText + chunk
+          setStreamingReviewText(newText)
+          
+          // Versuche, partielles JSON zu parsen und live zu updaten
+          const partialData = parseStreamingJSON(newText)
+          if (partialData) {
+            setPartialReviewData(partialData)
+          }
         },
         // onComplete - wird aufgerufen wenn das Streaming komplett ist
         (fullText: string) => {
           try {
             const parsedData = JSON.parse(fullText)
             setReviewData(parsedData)
+            setPartialReviewData(null)
             setStreamingReviewText('')
             setIsReviewStreaming(false)
             setReviewLoading(false)
           } catch (parseError) {
             console.error('Failed to parse JSON response:', parseError)
             setReviewResult(fullText)
+            setPartialReviewData(null)
             setStreamingReviewText('')
             setIsReviewStreaming(false)
             setReviewLoading(false)
@@ -538,6 +611,7 @@ ${pflegeplanungData.evaluation}
         // onError - wird bei Fehlern aufgerufen
         (error: Error) => {
           console.error('Review streaming error:', error)
+          setPartialReviewData(null)
           setStreamingReviewText('')
           setIsReviewStreaming(false)
           setReviewLoading(false)
@@ -580,19 +654,28 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
         user.id,
         // onChunk - wird bei jedem neuen Text-Chunk aufgerufen
         (chunk: string) => {
-          setStreamingReviewText(prev => prev + chunk)
+          const newText = streamingReviewText + chunk
+          setStreamingReviewText(newText)
+          
+          // Versuche, partielles JSON zu parsen und live zu updaten
+          const partialData = parseStreamingJSON(newText)
+          if (partialData) {
+            setPartialReviewData(partialData)
+          }
         },
         // onComplete - wird aufgerufen wenn das Streaming komplett ist
         (fullText: string) => {
           try {
             const parsedData = JSON.parse(fullText)
             setReviewData(parsedData)
+            setPartialReviewData(null)
             setStreamingReviewText('')
             setIsReviewStreaming(false)
             setReviewLoading(false)
           } catch (parseError) {
             console.error('Failed to parse JSON response:', parseError)
             setReviewResult(fullText)
+            setPartialReviewData(null)
             setStreamingReviewText('')
             setIsReviewStreaming(false)
             setReviewLoading(false)
@@ -601,6 +684,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
         // onError - wird bei Fehlern aufgerufen
         (error: Error) => {
           console.error('Review streaming error:', error)
+          setPartialReviewData(null)
           setStreamingReviewText('')
           setIsReviewStreaming(false)
           setReviewLoading(false)
@@ -620,6 +704,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
     setShowReview(false)
     setReviewResult('')
     setReviewData(null)
+    setPartialReviewData(null)
     setReviewLoading(false)
     setIsReviewStreaming(false)
     setStreamingReviewText('')
@@ -1547,7 +1632,20 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   </Button>
                 </div>
                 
-                {isReviewStreaming ? (
+                {isReviewStreaming && partialReviewData ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-6"
+                  >
+                    <ReviewDisplay 
+                      reviewData={partialReviewData.sections}
+                      overallScore={partialReviewData.overallScore || 0}
+                      generalFeedback={partialReviewData.generalFeedback || 'Analyse läuft...'}
+                      isStreaming={true}
+                    />
+                  </motion.div>
+                ) : isReviewStreaming ? (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -1564,14 +1662,14 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       <CardHeader className="border-b border-gray-200/60 bg-gray-50/50">
                         <CardTitle className="flex items-center text-gray-900 font-medium">
                           <Brain className="h-5 w-5 mr-3 text-blue-600" />
-                          Analyse wird erstellt
+                          Analyse wird vorbereitet
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-8">
                         <div className="bg-white/60 backdrop-blur-sm border border-gray-200/60 rounded-xl p-6">
                           <div className="prose max-w-none">
-                            <div className="text-gray-800 font-light leading-relaxed whitespace-pre-wrap">
-                              {streamingReviewText}
+                            <div className="text-gray-800 font-light leading-relaxed">
+                              Kästchen werden erstellt
                               <motion.span
                                 className="inline-block w-2 h-5 bg-blue-600 ml-1"
                                 animate={{ opacity: [1, 0, 1] }}
