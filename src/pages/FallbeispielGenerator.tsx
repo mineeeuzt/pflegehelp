@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Brain, Wand2, Copy, ArrowRight, ArrowLeft, Users, Building2, Stethoscope, FileText, Target, Heart, ClipboardList, Search, Play, Plus, Trash2 } from 'lucide-react'
+import { Brain, Wand2, Copy, ArrowRight, ArrowLeft, Users, Building2, Stethoscope, FileText, Target, Heart, ClipboardList, Search, Play, Plus, Trash2, HelpCircle, X } from 'lucide-react'
 import { Button, Input, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
 import { caseService, type CaseGenerationParams, type WorkflowInput } from '../services/caseService'
@@ -27,6 +27,64 @@ interface PflegeInfo {
   beschreibung: string
   abedl: string
   begruendung: string
+}
+
+// Helper Component für Hilfe-Tooltips
+const HelpTooltip = ({ content, onClose }: { content: { title: string; content: string }, onClose: () => void }) => {
+  // Einfache Markdown-Formatierung
+  const formatContent = (text: string) => {
+    return text
+      .split('\n')
+      .map((line, index) => {
+        // Bold formatting
+        let formattedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        
+        // Emoji und Bullets erhalten
+        if (line.trim().startsWith('•') || line.trim().startsWith('✅') || 
+            line.trim().startsWith('❌') || line.trim().startsWith('📌') ||
+            line.trim().startsWith('🔹') || line.trim().startsWith('🎯') ||
+            line.trim().startsWith('📋') || line.trim().startsWith('🔬') ||
+            line.trim().startsWith('✔️') || line.trim().startsWith('📊') ||
+            line.trim().match(/^[0-9]️⃣/)) {
+          return (
+            <div key={index} className="ml-4 mb-1" dangerouslySetInnerHTML={{ __html: formattedLine }} />
+          )
+        }
+        
+        // Headers (lines starting with emojis and bold text)
+        if (line.match(/^[🔹🎯📋🔬✔️📊]/)) {
+          return (
+            <div key={index} className="font-semibold mt-3 mb-2" dangerouslySetInnerHTML={{ __html: formattedLine }} />
+          )
+        }
+        
+        return formattedLine ? (
+          <div key={index} className="mb-1" dangerouslySetInnerHTML={{ __html: formattedLine }} />
+        ) : (
+          <br key={index} />
+        )
+      })
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className="mb-4 p-5 bg-blue-50 border border-blue-200 rounded-lg relative max-h-96 overflow-y-auto"
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-3 right-3 p-1.5 hover:bg-blue-100 rounded-lg transition-colors"
+      >
+        <X className="h-4 w-4 text-blue-600" />
+      </button>
+      <h4 className="font-semibold text-blue-900 text-lg mb-3 pr-8">{content.title}</h4>
+      <div className="text-sm text-blue-800 space-y-1">
+        {formatContent(content.content)}
+      </div>
+    </motion.div>
+  )
 }
 
 const FallbeispielGenerator = () => {
@@ -74,6 +132,7 @@ const FallbeispielGenerator = () => {
   const [reviewResult, setReviewResult] = useState('')
   const [reviewData, setReviewData] = useState<{sections: any[], overallScore: number, generalFeedback: string} | null>(null)
   const [reviewLoading, setReviewLoading] = useState(false)
+  const [showHelpTooltip, setShowHelpTooltip] = useState<number | null>(null)
 
   const altersgruppen = [
     { value: 'neugeborene', label: 'Neugeborene', sublabel: '0-28 Tage' },
@@ -160,6 +219,121 @@ const FallbeispielGenerator = () => {
     { value: 'sozial', title: 'Soziale Bereiche des Lebens sichern können' },
     { value: 'existenziell', title: 'Mit existenziellen Erfahrungen des Lebens umgehen können' }
   ]
+
+  // Pflegeplanung Hilfe-Texte
+  const pflegeplanungHilfe = {
+    1: {
+      title: 'Pflegeproblem nach PESR-Schema',
+      content: `
+🔹 **PESR-Reihenfolge einhalten:**
+• **P** (Problem): Das Hauptproblem des Patienten
+• **E** (Einflussfaktor/Ursache): Warum besteht das Problem?
+• **S** (Symptome): Woran zeigt sich das Problem?
+• **R** (Ressourcen): Was kann der Patient noch?
+
+✅ **Beispiel:**
+"Herr M. hat ein erhöhtes Risiko für einen Dekubitus **(P)**, weil er sich aufgrund einer Hemiparese nicht selbstständig umlagern kann **(E)**, was sich daran zeigt, dass er seit drei Tagen in Rückenlage liegt und erste Hautrötungen im Sakralbereich sichtbar sind **(S)**. Unterstützend wirkt, dass er Druckstellen verbal äußern kann und kooperationsfähig ist **(R)**."
+
+❌ **Häufige Fehler:**
+• Medizinische Diagnosen statt Pflegeprobleme
+• Reihenfolge vertauscht oder unvollständig
+• Vage Aussagen wie "hat Probleme mit..."
+• Ressourcen vergessen oder negativ formuliert`
+    },
+    2: {
+      title: 'Nahziele nach SMART-Kriterien',
+      content: `
+🎯 **SMART-Kriterien:**
+• **S**pezifisch: Was genau soll erreicht werden?
+• **M**essbar: Woran erkenne ich die Zielerreichung?
+• **A**kzeptiert/Erreichbar: Ist es realistisch?
+• **R**elevant: Warum ist dieses Ziel wichtig?
+• **T**erminiert: Bis wann? (Nahziel: 1-3 Tage)
+
+✅ **Beispiel Nahziel:**
+"Herr M. zeigt innerhalb der nächsten 3 Tage keine Hautrötung im Sakralbereich und die Haut ist intakt."
+
+📌 **Wichtige Regeln:**
+• Positive Formulierung (Zustand beschreiben, nicht Vermeidung)
+• Gegenwartsform verwenden ("Die Haut ist intakt")
+• Patientenbezogen ("Der Patient..." nicht "Es soll...")
+• Konkrete, messbare Parameter definieren`
+    },
+    3: {
+      title: 'Fernziele nach SMART-Kriterien',
+      content: `
+🎯 **Fernziele (mehrere Wochen/Monate):**
+• Langfristige, übergeordnete Ziele
+• Gleiche SMART-Kriterien wie Nahziele
+• Zeitrahmen: mehrere Wochen bis Monate
+
+✅ **Beispiel Fernziel:**
+"Herr M. ist während des gesamten Klinikaufenthalts (ca. 14 Tage) dekubitusfrei und die Haut ist an allen druckgefährdeten Stellen intakt."
+
+📌 **Unterschied zu Nahzielen:**
+• Umfassendere Zielsetzung
+• Längerer Zeitrahmen
+• Nachhaltigkeit und Stabilität
+• Oft präventiver Charakter`
+    },
+    4: {
+      title: 'Pflegemaßnahmen nach 5-W-Regel',
+      content: `
+📋 **Alle 5 W-Fragen müssen beantwortet sein:**
+• **Wer?** Pflegefachkraft, Pflegehilfskraft
+• **Was?** Konkrete Handlung beschreiben
+• **Wann?** Tageszeit, Zeitpunkt
+• **Wie oft?** Täglich, 3x täglich, alle 2 Stunden
+• **Wie?** Methode, Technik, Hilfsmittel
+
+✅ **Beispiele:**
+1️⃣ "Die Pflegefachkraft kontrolliert **täglich morgens und abends** beim Waschen die Haut im Sakral-, Fersen- und Trochanterbereich **durch systematische Sichtkontrolle** auf Rötungen."
+
+2️⃣ "Die Pflegefachkraft lagert Herrn M. **alle 2 Stunden** um (Rücken-, Seiten-, 30°-Lagerung) **mit Hilfe von Lagerungskissen** zur Druckentlastung."
+
+📌 **Mindestens 3 vollständige Maßnahmen pro Problem!**`
+    },
+    5: {
+      title: 'Begründung der Maßnahmen',
+      content: `
+🔬 **Jede Maßnahme einzeln begründen:**
+• Warum ist die Maßnahme notwendig? (Pathophysiologie)
+• Welcher Standard/Leitlinie? (Expertenstandards)
+• Wie trägt sie zur Zielerreichung bei?
+
+✅ **Beispiel Begründung:**
+"Durch die systematische tägliche Hautkontrolle können erste Anzeichen für druckbedingte Hautveränderungen (Kategorie 1 Dekubitus) frühzeitig erkannt werden. Dies entspricht dem Expertenstandard zur Dekubitusprophylaxe (2017) und ermöglicht rechtzeitige Interventionen."
+
+📌 **Elemente einer guten Begründung:**
+• Fachliche Tiefe zeigen
+• Evidenzbasierung nennen
+• Direkter Bezug zum Ziel
+• Pathophysiologie erklären`
+    },
+    6: {
+      title: 'Evaluation der Zielerreichung',
+      content: `
+✔️ **Evaluationskriterien:**
+• Zeitlich terminiert und messbar
+• Muss zum jeweiligen Ziel passen
+• Klare Ja/Nein-Antwort ermöglichen
+• Objektive Kriterien definieren
+
+📊 **Evaluationsmethoden:**
+• Sichtkontrolle (Haut, Wunden)
+• Befragung (Schmerzskala, Wohlbefinden)
+• Messungen (Vitalzeichen, Gewicht)
+• Beobachtung (Verhalten, Fähigkeiten)
+• Assessment-Tools (Braden-Skala, Barthel-Index)
+
+✅ **Beispiele:**
+**Nahziel-Evaluation:**
+"Das Nahziel ist erreicht, wenn Herr M. am dritten Tag bei der Hautinspektion keine Hautrötungen zeigt (Kategorie 0) und auf der Schmerzskala 0-2 beim Lagern angibt."
+
+**Fernziel-Evaluation:**
+"Das Fernziel ist erreicht, wenn Herr M. am Entlassungstag eine intakte Haut ohne Dekubitalgeschwüre aufweist, auf der Braden-Skala mindestens 15 Punkte erreicht."`
+    }
+  }
 
   const steps = [
     { number: 1, title: 'Alter', icon: Users, description: 'Altersgruppe auswählen' },
@@ -263,12 +437,14 @@ const FallbeispielGenerator = () => {
   const handlePflegeplanungNext = () => {
     if (pflegeplanungStep < 6) {
       setPflegeplanungStep(pflegeplanungStep + 1)
+      setShowHelpTooltip(null) // Hilfe-Tooltip schließen
     }
   }
 
   const handlePflegeplanungBack = () => {
     if (pflegeplanungStep > 1) {
       setPflegeplanungStep(pflegeplanungStep - 1)
+      setShowHelpTooltip(null) // Hilfe-Tooltip schließen
     }
   }
 
@@ -857,10 +1033,30 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                     <CardContent className="p-6">
                       {pflegeplanungStep === 1 && (
                         <div>
-                          <h3 className="font-semibold mb-3">Pflegeprobleme formulieren</h3>
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-semibold">Pflegeprobleme formulieren</h3>
+                            <button
+                              onClick={() => setShowHelpTooltip(showHelpTooltip === 1 ? null : 1)}
+                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
+                              title="Hilfe anzeigen"
+                            >
+                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                            </button>
+                          </div>
                           <p className="text-sm text-gray-600 mb-4">
                             Identifizieren und formulieren Sie die Pflegeprobleme basierend auf dem Fallbeispiel.
                           </p>
+                          
+                          {/* Hilfe-Tooltip */}
+                          <AnimatePresence>
+                            {showHelpTooltip === 1 && (
+                              <HelpTooltip 
+                                content={pflegeplanungHilfe[1]} 
+                                onClose={() => setShowHelpTooltip(null)}
+                              />
+                            )}
+                          </AnimatePresence>
+
                           <textarea
                             className="w-full p-3 border rounded-md min-h-[200px]"
                             placeholder="Beschreiben Sie die identifizierten Pflegeprobleme..."
@@ -872,10 +1068,29 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
                       {pflegeplanungStep === 2 && (
                         <div>
-                          <h3 className="font-semibold mb-3">Nahziele formulieren</h3>
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-semibold">Nahziele formulieren</h3>
+                            <button
+                              onClick={() => setShowHelpTooltip(showHelpTooltip === 2 ? null : 2)}
+                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
+                              title="Hilfe anzeigen"
+                            >
+                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                            </button>
+                          </div>
                           <p className="text-sm text-gray-600 mb-4">
                             Formulieren Sie kurzfristige, erreichbare Ziele (1-2 Wochen).
                           </p>
+                          
+                          <AnimatePresence>
+                            {showHelpTooltip === 2 && (
+                              <HelpTooltip 
+                                content={pflegeplanungHilfe[2]} 
+                                onClose={() => setShowHelpTooltip(null)}
+                              />
+                            )}
+                          </AnimatePresence>
+                          
                           <textarea
                             className="w-full p-3 border rounded-md min-h-[200px]"
                             placeholder="Formulieren Sie die Nahziele..."
@@ -887,10 +1102,29 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
                       {pflegeplanungStep === 3 && (
                         <div>
-                          <h3 className="font-semibold mb-3">Fernziele formulieren</h3>
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-semibold">Fernziele formulieren</h3>
+                            <button
+                              onClick={() => setShowHelpTooltip(showHelpTooltip === 3 ? null : 3)}
+                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
+                              title="Hilfe anzeigen"
+                            >
+                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                            </button>
+                          </div>
                           <p className="text-sm text-gray-600 mb-4">
                             Formulieren Sie langfristige Ziele (mehrere Wochen/Monate).
                           </p>
+                          
+                          <AnimatePresence>
+                            {showHelpTooltip === 3 && (
+                              <HelpTooltip 
+                                content={pflegeplanungHilfe[3]} 
+                                onClose={() => setShowHelpTooltip(null)}
+                              />
+                            )}
+                          </AnimatePresence>
+                          
                           <textarea
                             className="w-full p-3 border rounded-md min-h-[200px]"
                             placeholder="Formulieren Sie die Fernziele..."
@@ -902,10 +1136,29 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
                       {pflegeplanungStep === 4 && (
                         <div>
-                          <h3 className="font-semibold mb-3">Konkrete Maßnahmen</h3>
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-semibold">Konkrete Maßnahmen</h3>
+                            <button
+                              onClick={() => setShowHelpTooltip(showHelpTooltip === 4 ? null : 4)}
+                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
+                              title="Hilfe anzeigen"
+                            >
+                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                            </button>
+                          </div>
                           <p className="text-sm text-gray-600 mb-4">
                             Beschreiben Sie konkrete Pflegemaßnahmen zur Zielerreichung.
                           </p>
+                          
+                          <AnimatePresence>
+                            {showHelpTooltip === 4 && (
+                              <HelpTooltip 
+                                content={pflegeplanungHilfe[4]} 
+                                onClose={() => setShowHelpTooltip(null)}
+                              />
+                            )}
+                          </AnimatePresence>
+                          
                           <textarea
                             className="w-full p-3 border rounded-md min-h-[200px]"
                             placeholder="Beschreiben Sie die konkreten Pflegemaßnahmen..."
@@ -917,10 +1170,29 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
                       {pflegeplanungStep === 5 && (
                         <div>
-                          <h3 className="font-semibold mb-3">Begründung der Maßnahmen</h3>
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-semibold">Begründung der Maßnahmen</h3>
+                            <button
+                              onClick={() => setShowHelpTooltip(showHelpTooltip === 5 ? null : 5)}
+                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
+                              title="Hilfe anzeigen"
+                            >
+                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                            </button>
+                          </div>
                           <p className="text-sm text-gray-600 mb-4">
                             Begründen Sie fachlich, warum Sie diese Maßnahmen gewählt haben.
                           </p>
+                          
+                          <AnimatePresence>
+                            {showHelpTooltip === 5 && (
+                              <HelpTooltip 
+                                content={pflegeplanungHilfe[5]} 
+                                onClose={() => setShowHelpTooltip(null)}
+                              />
+                            )}
+                          </AnimatePresence>
+                          
                           <textarea
                             className="w-full p-3 border rounded-md min-h-[200px]"
                             placeholder="Begründen Sie Ihre Maßnahmenauswahl..."
@@ -932,10 +1204,29 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
                       {pflegeplanungStep === 6 && (
                         <div>
-                          <h3 className="font-semibold mb-3">Evaluationsmöglichkeiten</h3>
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-semibold">Evaluationsmöglichkeiten</h3>
+                            <button
+                              onClick={() => setShowHelpTooltip(showHelpTooltip === 6 ? null : 6)}
+                              className="p-2 rounded-lg hover:bg-gray-100 transition-colors group"
+                              title="Hilfe anzeigen"
+                            >
+                              <HelpCircle className="h-5 w-5 text-gray-500 group-hover:text-gray-700" />
+                            </button>
+                          </div>
                           <p className="text-sm text-gray-600 mb-4">
                             Wie werden Sie den Erfolg Ihrer Pflegeplanung überprüfen?
                           </p>
+                          
+                          <AnimatePresence>
+                            {showHelpTooltip === 6 && (
+                              <HelpTooltip 
+                                content={pflegeplanungHilfe[6]} 
+                                onClose={() => setShowHelpTooltip(null)}
+                              />
+                            )}
+                          </AnimatePresence>
+                          
                           <textarea
                             className="w-full p-3 border rounded-md min-h-[200px]"
                             placeholder="Beschreiben Sie die Evaluationsmöglichkeiten..."
