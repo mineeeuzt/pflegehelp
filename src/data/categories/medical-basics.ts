@@ -2081,6 +2081,238 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'muscle-types'
                   }
                 ]
+              },
+              {
+                id: 'muscle-contraction',
+                name: 'Muskelkontraktion',
+                description: 'Mechanismen und Regulation der Muskelkontraktion',
+                icon: '⚡',
+                difficulty: 'hard',
+                parentId: 'muscle-system',
+                children: [
+                  {
+                    id: 'sliding-filament-theory',
+                    name: 'Gleitfilament-Theorie (Aktin/Myosin)',
+                    description: 'Molekulare Grundlagen der Kontraktion',
+                    icon: '🧬',
+                    difficulty: 'hard',
+                    parentId: 'muscle-contraction'
+                  },
+                  {
+                    id: 'electromechanical-coupling',
+                    name: 'Elektromechanische Kopplung',
+                    description: 'Übertragung elektrischer Signale in mechanische Kraft',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'muscle-contraction'
+                  },
+                  {
+                    id: 'calcium-regulation',
+                    name: 'Kalzium-Regulation (Troponin/Tropomyosin)',
+                    description: 'Regulation durch Kalzium und regulatorische Proteine',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'muscle-contraction'
+                  },
+                  {
+                    id: 'energy-supply',
+                    name: 'Energiebereitstellung (ATP, Kreatinphosphat)',
+                    description: 'Energiequellen für die Muskelkontraktion',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'muscle-contraction'
+                  },
+                  {
+                    id: 'isometric-isotonic',
+                    name: 'Isometrisch/isotonisch',
+                    description: 'Kontraktionsformen ohne/mit Längenänderung',
+                    icon: '📏',
+                    difficulty: 'medium',
+                    parentId: 'muscle-contraction'
+                  },
+                  {
+                    id: 'concentric-eccentric',
+                    name: 'Konzentrisch/exzentrisch',
+                    description: 'Verkürzende und verlängernde Kontraktion',
+                    icon: '↕️',
+                    difficulty: 'medium',
+                    parentId: 'muscle-contraction'
+                  },
+                  {
+                    id: 'muscle-tone',
+                    name: 'Muskeltonus',
+                    description: 'Grundspannung der Muskulatur',
+                    icon: '🎵',
+                    difficulty: 'medium',
+                    parentId: 'muscle-contraction'
+                  }
+                ]
+              },
+              {
+                id: 'muscle-metabolism',
+                name: 'Muskelstoffwechsel',
+                description: 'Energiestoffwechsel und metabolische Prozesse',
+                icon: '🔥',
+                difficulty: 'hard',
+                parentId: 'muscle-system',
+                children: [
+                  {
+                    id: 'aerobic-anaerobic',
+                    name: 'Aerober/anaerober Stoffwechsel',
+                    description: 'Sauerstoffabhängige und -unabhängige Energiegewinnung',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'muscle-metabolism'
+                  },
+                  {
+                    id: 'lactate-formation',
+                    name: 'Laktatbildung & -abbau',
+                    description: 'Milchsäureproduktion und -verwertung',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'muscle-metabolism'
+                  },
+                  {
+                    id: 'oxygen-debt',
+                    name: 'Sauerstoffschuld',
+                    description: 'Nachholbedarf an Sauerstoff nach Belastung',
+                    icon: '💨',
+                    difficulty: 'medium',
+                    parentId: 'muscle-metabolism'
+                  },
+                  {
+                    id: 'muscle-fatigue',
+                    name: 'Muskelermüdung',
+                    description: 'Mechanismen der Leistungsabnahme',
+                    icon: '😴',
+                    difficulty: 'medium',
+                    parentId: 'muscle-metabolism'
+                  },
+                  {
+                    id: 'training-adaptations',
+                    name: 'Trainingsanpassungen',
+                    description: 'Strukturelle und funktionelle Anpassungen',
+                    icon: '📈',
+                    difficulty: 'medium',
+                    parentId: 'muscle-metabolism'
+                  },
+                  {
+                    id: 'mitochondrial-biogenesis',
+                    name: 'Mitochondriale Biogenese',
+                    description: 'Neubildung von Mitochondrien',
+                    icon: '🧬',
+                    difficulty: 'hard',
+                    parentId: 'muscle-metabolism'
+                  }
+                ]
+              },
+              {
+                id: 'muscle-fibers',
+                name: 'Muskelfasern',
+                description: 'Fasertypen und ihre Eigenschaften',
+                icon: '🧵',
+                difficulty: 'medium',
+                parentId: 'muscle-system',
+                children: [
+                  {
+                    id: 'type-1-fibers',
+                    name: 'Typ I (slow twitch, ausdauernd)',
+                    description: 'Langsame, oxidative Fasern',
+                    icon: '🐌',
+                    difficulty: 'medium',
+                    parentId: 'muscle-fibers'
+                  },
+                  {
+                    id: 'type-2a-fibers',
+                    name: 'Typ IIa (fast twitch, oxidativ)',
+                    description: 'Schnelle, oxidative Fasern',
+                    icon: '🏃',
+                    difficulty: 'medium',
+                    parentId: 'muscle-fibers'
+                  },
+                  {
+                    id: 'type-2x-fibers',
+                    name: 'Typ IIx (fast twitch, glykolytisch)',
+                    description: 'Schnelle, glykolytische Fasern',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'muscle-fibers'
+                  },
+                  {
+                    id: 'fiber-distribution',
+                    name: 'Fasertypverteilung',
+                    description: 'Muskeltypische Faserkomposition',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'muscle-fibers'
+                  },
+                  {
+                    id: 'fiber-transformation',
+                    name: 'Fasertyp-Umwandlung',
+                    description: 'Plastizität der Fasertypen',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'muscle-fibers'
+                  }
+                ]
+              },
+              {
+                id: 'muscle-innervation',
+                name: 'Muskelinnervation',
+                description: 'Nervale Steuerung der Muskulatur',
+                icon: '🧠',
+                difficulty: 'hard',
+                parentId: 'muscle-system',
+                children: [
+                  {
+                    id: 'motor-endplate',
+                    name: 'Motorische Endplatte',
+                    description: 'Neuromuskuläre Synapse',
+                    icon: '🔌',
+                    difficulty: 'hard',
+                    parentId: 'muscle-innervation'
+                  },
+                  {
+                    id: 'motor-unit',
+                    name: 'Motorische Einheit',
+                    description: 'Motoneuron und innervierte Muskelfasern',
+                    icon: '🔗',
+                    difficulty: 'medium',
+                    parentId: 'muscle-innervation'
+                  },
+                  {
+                    id: 'recruitment-frequency',
+                    name: 'Rekrutierung & Frequenzierung',
+                    description: 'Kraftregulation durch Einheitenaktivierung',
+                    icon: '📶',
+                    difficulty: 'hard',
+                    parentId: 'muscle-innervation'
+                  },
+                  {
+                    id: 'neuromuscular-transmission',
+                    name: 'Neuromuskuläre Übertragung',
+                    description: 'Signalübertragung an der motorischen Endplatte',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'muscle-innervation'
+                  },
+                  {
+                    id: 'muscle-relaxants',
+                    name: 'Muskelrelaxanzien',
+                    description: 'Pharmakologische Muskelentspannung',
+                    icon: '💊',
+                    difficulty: 'medium',
+                    parentId: 'muscle-innervation'
+                  },
+                  {
+                    id: 'myasthenia-gravis',
+                    name: 'Myasthenia gravis',
+                    description: 'Autoimmune Muskelschwäche',
+                    icon: '🛡️',
+                    difficulty: 'hard',
+                    parentId: 'muscle-innervation'
+                  }
+                ]
               }
             ]
           }
