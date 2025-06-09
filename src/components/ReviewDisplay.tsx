@@ -64,10 +64,9 @@ interface ReviewDisplayProps {
   reviewData: ReviewSection[]
   overallScore: number
   generalFeedback: string
-  isStreaming?: boolean
 }
 
-const ReviewDisplay = ({ reviewData, overallScore, generalFeedback, isStreaming = false }: ReviewDisplayProps) => {
+const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisplayProps) => {
   const [expandedSection, setExpandedSection] = useState<number | null>(null)
 
   const getScoreColor = (score: number) => {
@@ -95,19 +94,7 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback, isStreaming 
       >
         <CardHeader className="border-b border-gray-200/60 bg-gray-50/50">
           <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <span className="text-gray-900 font-medium">Gesamtbewertung</span>
-              {isStreaming && (
-                <div className="flex items-center space-x-2">
-                  <motion.div
-                    className="w-2 h-2 bg-blue-500 rounded-full"
-                    animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-                    transition={{ repeat: Infinity, duration: 1.5 }}
-                  />
-                  <span className="text-xs text-blue-600 font-medium">Live Update</span>
-                </div>
-              )}
-            </div>
+            <span className="text-gray-900 font-medium">Gesamtbewertung</span>
             <div className="flex items-center space-x-4">
               <CircleChart score={overallScore} size={100} />
               <div className={`flex items-center space-x-2 px-4 py-2 rounded-xl border backdrop-blur-sm ${getScoreColor(overallScore)}`}>
@@ -169,16 +156,7 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback, isStreaming 
               onClick={() => setExpandedSection(expandedSection === index ? null : index)}
             >
               <CardTitle className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <span className="text-lg text-gray-900 font-medium">{section.title}</span>
-                  {isStreaming && (
-                    <motion.div
-                      className="w-1.5 h-1.5 bg-blue-500 rounded-full"
-                      animate={{ scale: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }}
-                      transition={{ repeat: Infinity, duration: 2, delay: index * 0.2 }}
-                    />
-                  )}
-                </div>
+                <span className="text-lg text-gray-900 font-medium">{section.title}</span>
                 <div className={`flex items-center space-x-2 px-3 py-1 rounded-xl border backdrop-blur-sm ${getScoreColor(section.score)}`}>
                   {getScoreIcon(section.score)}
                   <span className="font-bold text-sm">{section.score}%</span>

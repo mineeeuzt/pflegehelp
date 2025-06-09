@@ -143,9 +143,6 @@ const FallbeispielGenerator = () => {
   const [reviewResult, setReviewResult] = useState('')
   const [reviewData, setReviewData] = useState<{sections: any[], overallScore: number, generalFeedback: string} | null>(null)
   const [reviewLoading, setReviewLoading] = useState(false)
-  const [isReviewStreaming, setIsReviewStreaming] = useState(false)
-  const [streamingReviewText, setStreamingReviewText] = useState('')
-  const [partialReviewData, setPartialReviewData] = useState<{sections: any[], overallScore?: number, generalFeedback?: string} | null>(null)
   const [showHelpTooltip, setShowHelpTooltip] = useState<number | null>(null)
 
   const altersgruppen = [
@@ -478,79 +475,11 @@ const FallbeispielGenerator = () => {
     setPflegeInfos(pflegeInfos.filter(info => info.id !== id))
   }
 
-  // Intelligentes Parsing von Streaming JSON für Live-Updates
-  const parseStreamingJSON = (text: string) => {
-    try {
-      // Versuche, vollständiges JSON zu parsen
-      const parsed = JSON.parse(text)
-      return parsed
-    } catch (error) {
-      // Falls das JSON noch nicht vollständig ist, versuche Teil-Parsing
-      try {
-        // Extrahiere verfügbare Teile
-        const result: any = {
-          sections: [],
-          overallScore: undefined,
-          generalFeedback: undefined
-        }
-
-        // Parse overallScore
-        const scoreMatch = text.match(/"overallScore":\s*(\d+)/)
-        if (scoreMatch) {
-          result.overallScore = parseInt(scoreMatch[1])
-        }
-
-        // Parse generalFeedback
-        const feedbackMatch = text.match(/"generalFeedback":\s*"([^"]*)"/)
-        if (feedbackMatch) {
-          result.generalFeedback = feedbackMatch[1]
-        }
-
-        // Parse sections array
-        const sectionsMatch = text.match(/"sections":\s*\[(.*?)\](?:\s*}?\s*$)?/s)
-        if (sectionsMatch) {
-          const sectionsText = sectionsMatch[1]
-          
-          // Parse einzelne Sektionen
-          const sectionPattern = /\{[^}]*"title":\s*"([^"]*)"[^}]*"userText":\s*"([^"]*)"[^}]*"score":\s*(\d+)[^}]*"feedback":\s*"([^"]*)"[^}]*(?:"positives":\s*\[([^\]]*)\])?[^}]*(?:"improvements":\s*\[([^\]]*)\])?[^}]*\}/g
-          
-          let sectionMatch
-          while ((sectionMatch = sectionPattern.exec(sectionsText)) !== null) {
-            const [, title, userText, score, feedback, positivesStr, improvementsStr] = sectionMatch
-            
-            const parseStringArray = (str: string) => {
-              if (!str) return []
-              return str.split(',').map(s => s.trim().replace(/^"|"$/g, '')).filter(s => s.length > 0)
-            }
-
-            result.sections.push({
-              title: title,
-              userText: userText,
-              score: parseInt(score),
-              feedback: feedback,
-              positives: parseStringArray(positivesStr || ''),
-              improvements: parseStringArray(improvementsStr || '')
-            })
-          }
-        }
-
-        return result.sections.length > 0 || result.overallScore !== undefined || result.generalFeedback ? result : null
-      } catch (partialError) {
-        return null
-      }
-    }
-  }
 
   const handlePflegeplanungReview = async () => {
     if (!user) return
 
     setReviewLoading(true)
-    setIsReviewStreaming(true)
-    setStreamingReviewText('')
-    setReviewData(null)
-    setReviewResult('')
-    setShowReview(true)
-
     try {
       const pflegeplanungText = `
 Fallbeispiel:
@@ -575,52 +504,20 @@ Evaluation:
 ${pflegeplanungData.evaluation}
       `.trim()
 
-      await caseService.reviewWorkflowStreaming(
-        'pflegeplanung',
-        pflegeplanungText,
-        user.id,
-        // onChunk - wird bei jedem neuen Text-Chunk aufgerufen
-        (chunk: string) => {
-          const newText = streamingReviewText + chunk
-          setStreamingReviewText(newText)
-          
-          // Versuche, partielles JSON zu parsen und live zu updaten
-          const partialData = parseStreamingJSON(newText)
-          if (partialData) {
-            setPartialReviewData(partialData)
-          }
-        },
-        // onComplete - wird aufgerufen wenn das Streaming komplett ist
-        (fullText: string) => {
-          try {
-            const parsedData = JSON.parse(fullText)
-            setReviewData(parsedData)
-            setPartialReviewData(null)
-            setStreamingReviewText('')
-            setIsReviewStreaming(false)
-            setReviewLoading(false)
-          } catch (parseError) {
-            console.error('Failed to parse JSON response:', parseError)
-            setReviewResult(fullText)
-            setPartialReviewData(null)
-            setStreamingReviewText('')
-            setIsReviewStreaming(false)
-            setReviewLoading(false)
-          }
-        },
-        // onError - wird bei Fehlern aufgerufen
-        (error: Error) => {
-          console.error('Review streaming error:', error)
-          setPartialReviewData(null)
-          setStreamingReviewText('')
-          setIsReviewStreaming(false)
-          setReviewLoading(false)
-        }
-      )
+      const response = await caseService.reviewWorkflow('pflegeplanung', pflegeplanungText, user.id)
+      
+      try {
+        const parsedData = JSON.parse(response)
+        setReviewData(parsedData)
+        setShowReview(true)
+      } catch (parseError) {
+        console.error('Failed to parse JSON response:', parseError)
+        setReviewResult(response)
+        setShowReview(true)
+      }
     } catch (error) {
       console.error('Review error:', error)
-      setStreamingReviewText('')
-      setIsReviewStreaming(false)
+    } finally {
       setReviewLoading(false)
     }
   }
@@ -629,12 +526,6 @@ ${pflegeplanungData.evaluation}
     if (!user || pflegeInfos.length === 0) return
 
     setReviewLoading(true)
-    setIsReviewStreaming(true)
-    setStreamingReviewText('')
-    setReviewData(null)
-    setReviewResult('')
-    setShowReview(true)
-
     try {
       const pflegeInfoText = `
 Fallbeispiel:
@@ -648,52 +539,20 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 `).join('\n')}
       `.trim()
 
-      await caseService.reviewWorkflowStreaming(
-        'abedl',
-        pflegeInfoText,
-        user.id,
-        // onChunk - wird bei jedem neuen Text-Chunk aufgerufen
-        (chunk: string) => {
-          const newText = streamingReviewText + chunk
-          setStreamingReviewText(newText)
-          
-          // Versuche, partielles JSON zu parsen und live zu updaten
-          const partialData = parseStreamingJSON(newText)
-          if (partialData) {
-            setPartialReviewData(partialData)
-          }
-        },
-        // onComplete - wird aufgerufen wenn das Streaming komplett ist
-        (fullText: string) => {
-          try {
-            const parsedData = JSON.parse(fullText)
-            setReviewData(parsedData)
-            setPartialReviewData(null)
-            setStreamingReviewText('')
-            setIsReviewStreaming(false)
-            setReviewLoading(false)
-          } catch (parseError) {
-            console.error('Failed to parse JSON response:', parseError)
-            setReviewResult(fullText)
-            setPartialReviewData(null)
-            setStreamingReviewText('')
-            setIsReviewStreaming(false)
-            setReviewLoading(false)
-          }
-        },
-        // onError - wird bei Fehlern aufgerufen
-        (error: Error) => {
-          console.error('Review streaming error:', error)
-          setPartialReviewData(null)
-          setStreamingReviewText('')
-          setIsReviewStreaming(false)
-          setReviewLoading(false)
-        }
-      )
+      const response = await caseService.reviewWorkflow('abedl', pflegeInfoText, user.id)
+      
+      try {
+        const parsedData = JSON.parse(response)
+        setReviewData(parsedData)
+        setShowReview(true)
+      } catch (parseError) {
+        console.error('Failed to parse JSON response:', parseError)
+        setReviewResult(response)
+        setShowReview(true)
+      }
     } catch (error) {
       console.error('Review error:', error)
-      setStreamingReviewText('')
-      setIsReviewStreaming(false)
+    } finally {
       setReviewLoading(false)
     }
   }
@@ -704,10 +563,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
     setShowReview(false)
     setReviewResult('')
     setReviewData(null)
-    setPartialReviewData(null)
     setReviewLoading(false)
-    setIsReviewStreaming(false)
-    setStreamingReviewText('')
     setPflegeplanungStep(1)
     setPflegeplanungData({
       pflegeprobleme: '',
@@ -1609,19 +1465,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
             {showReview && (
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center space-x-4">
-                    <h2 className="text-2xl font-light text-gray-900">KI-Bewertung</h2>
-                    {isReviewStreaming && (
-                      <div className="flex items-center space-x-2">
-                        <motion.div
-                          className="w-2 h-2 bg-blue-500 rounded-full"
-                          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-                          transition={{ repeat: Infinity, duration: 1.5 }}
-                        />
-                        <span className="text-sm text-gray-600 font-light">Live analysiert</span>
-                      </div>
-                    )}
-                  </div>
+                  <h2 className="text-2xl font-light text-gray-900">KI-Bewertung</h2>
                   <Button
                     variant="outline"
                     onClick={() => setShowReview(false)}
@@ -1632,56 +1476,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                   </Button>
                 </div>
                 
-                {isReviewStreaming && partialReviewData ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="space-y-6"
-                  >
-                    <ReviewDisplay 
-                      reviewData={partialReviewData.sections}
-                      overallScore={partialReviewData.overallScore || 0}
-                      generalFeedback={partialReviewData.generalFeedback || 'Analyse läuft...'}
-                      isStreaming={true}
-                    />
-                  </motion.div>
-                ) : isReviewStreaming ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="space-y-6"
-                  >
-                    <Card 
-                      className="border border-gray-200 overflow-hidden"
-                      style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                        backdropFilter: 'blur(20px) saturate(180%)',
-                        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                      }}
-                    >
-                      <CardHeader className="border-b border-gray-200/60 bg-gray-50/50">
-                        <CardTitle className="flex items-center text-gray-900 font-medium">
-                          <Brain className="h-5 w-5 mr-3 text-blue-600" />
-                          Analyse wird vorbereitet
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-8">
-                        <div className="bg-white/60 backdrop-blur-sm border border-gray-200/60 rounded-xl p-6">
-                          <div className="prose max-w-none">
-                            <div className="text-gray-800 font-light leading-relaxed">
-                              Kästchen werden erstellt
-                              <motion.span
-                                className="inline-block w-2 h-5 bg-blue-600 ml-1"
-                                animate={{ opacity: [1, 0, 1] }}
-                                transition={{ repeat: Infinity, duration: 1 }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ) : reviewData ? (
+                {reviewData ? (
                   <ReviewDisplay 
                     reviewData={reviewData.sections}
                     overallScore={reviewData.overallScore}
