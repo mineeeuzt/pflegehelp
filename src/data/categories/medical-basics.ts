@@ -1839,6 +1839,196 @@ export const medicalBasicsCategories: Category[] = [
                     parentId: 'joint-types'
                   }
                 ]
+              },
+              {
+                id: 'joint-structure',
+                name: 'Gelenkaufbau',
+                description: 'Anatomie und Histologie der Gelenke',
+                icon: '🏗️',
+                difficulty: 'medium',
+                parentId: 'joint-system',
+                children: [
+                  {
+                    id: 'articular-cartilage',
+                    name: 'Gelenkknorpel (hyaliner Knorpel)',
+                    description: 'Knorpelüberzug der Gelenkflächen',
+                    icon: '🦴',
+                    difficulty: 'medium',
+                    parentId: 'joint-structure'
+                  },
+                  {
+                    id: 'joint-capsule',
+                    name: 'Gelenkkapsel (Stratum fibrosum/synoviale)',
+                    description: 'Äußere und innere Kapselschicht',
+                    icon: '🫖',
+                    difficulty: 'medium',
+                    parentId: 'joint-structure'
+                  },
+                  {
+                    id: 'synovial-fluid',
+                    name: 'Synovialflüssigkeit (Hyaluronsäure)',
+                    description: 'Gelenkschmiere und Nährstoffversorgung',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'joint-structure'
+                  },
+                  {
+                    id: 'ligaments-tendons',
+                    name: 'Bänder & Sehnen',
+                    description: 'Stabilisierende Strukturen',
+                    icon: '🪢',
+                    difficulty: 'medium',
+                    parentId: 'joint-structure'
+                  },
+                  {
+                    id: 'menisci-discs',
+                    name: 'Menisken & Disci',
+                    description: 'Gelenkzwischenscheiben',
+                    icon: '🌙',
+                    difficulty: 'medium',
+                    parentId: 'joint-structure'
+                  },
+                  {
+                    id: 'bursae',
+                    name: 'Schleimbeutel (Bursae)',
+                    description: 'Reibungsreduzierende Strukturen',
+                    icon: '🛍️',
+                    difficulty: 'medium',
+                    parentId: 'joint-structure'
+                  },
+                  {
+                    id: 'joint-innervation',
+                    name: 'Gelenkinnervation',
+                    description: 'Nervale Versorgung der Gelenke',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'joint-structure'
+                  }
+                ]
+              },
+              {
+                id: 'joint-movement',
+                name: 'Bewegungslehre',
+                description: 'Biomechanik und Bewegungsformen der Gelenke',
+                icon: '🏃',
+                difficulty: 'medium',
+                parentId: 'joint-system',
+                children: [
+                  {
+                    id: 'flexion-extension',
+                    name: 'Flexion/Extension',
+                    description: 'Beugung und Streckung',
+                    icon: '↕️',
+                    difficulty: 'easy',
+                    parentId: 'joint-movement'
+                  },
+                  {
+                    id: 'abduction-adduction',
+                    name: 'Abduktion/Adduktion',
+                    description: 'Abspreizung und Heranführung',
+                    icon: '↔️',
+                    difficulty: 'easy',
+                    parentId: 'joint-movement'
+                  },
+                  {
+                    id: 'rotation',
+                    name: 'Innen-/Außenrotation',
+                    description: 'Drehbewegungen um die Längsachse',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'joint-movement'
+                  },
+                  {
+                    id: 'circumduction',
+                    name: 'Zirkumduktion',
+                    description: 'Kreisförmige Bewegung',
+                    icon: '🌀',
+                    difficulty: 'medium',
+                    parentId: 'joint-movement'
+                  },
+                  {
+                    id: 'pronation-supination',
+                    name: 'Pro-/Supination',
+                    description: 'Drehung des Unterarms',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'joint-movement'
+                  },
+                  {
+                    id: 'dorsiflexion-plantarflexion',
+                    name: 'Dorsalflexion/Plantarflexion',
+                    description: 'Fuß heben und senken',
+                    icon: '🦶',
+                    difficulty: 'medium',
+                    parentId: 'joint-movement'
+                  },
+                  {
+                    id: 'neutral-zero-method',
+                    name: 'Neutral-Null-Methode',
+                    description: 'Standardisierte Bewegungsmessung',
+                    icon: '📐',
+                    difficulty: 'hard',
+                    parentId: 'joint-movement'
+                  }
+                ]
+              },
+              {
+                id: 'joint-pathology',
+                name: 'Gelenkpathologie',
+                description: 'Erkrankungen und Störungen der Gelenke',
+                icon: '🩹',
+                difficulty: 'hard',
+                parentId: 'joint-system',
+                children: [
+                  {
+                    id: 'osteoarthritis-joint',
+                    name: 'Arthrose (degenerativ)',
+                    description: 'Verschleißbedingte Gelenkerkrankung',
+                    icon: '⚙️',
+                    difficulty: 'medium',
+                    parentId: 'joint-pathology'
+                  },
+                  {
+                    id: 'arthritis-joint',
+                    name: 'Arthritis (entzündlich)',
+                    description: 'Entzündliche Gelenkerkrankung',
+                    icon: '🔥',
+                    difficulty: 'medium',
+                    parentId: 'joint-pathology'
+                  },
+                  {
+                    id: 'joint-effusion',
+                    name: 'Gelenkerguss',
+                    description: 'Flüssigkeitsansammlung im Gelenk',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'joint-pathology'
+                  },
+                  {
+                    id: 'dislocation-subluxation',
+                    name: 'Luxation/Subluxation',
+                    description: 'Gelenkverrenkung und Teilverrenkung',
+                    icon: '💥',
+                    difficulty: 'medium',
+                    parentId: 'joint-pathology'
+                  },
+                  {
+                    id: 'joint-stiffness',
+                    name: 'Gelenksteife/Ankylose',
+                    description: 'Bewegungseinschränkung und Versteifung',
+                    icon: '🔒',
+                    difficulty: 'medium',
+                    parentId: 'joint-pathology'
+                  },
+                  {
+                    id: 'joint-instability',
+                    name: 'Gelenkinstabilität',
+                    description: 'Mangelnde Gelenkstabilität',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'joint-pathology'
+                  }
+                ]
               }
             ]
           },
