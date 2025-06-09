@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Brain, Wand2, Copy, ArrowRight, ArrowLeft, Users, Building2, Stethoscope, FileText, Target, Heart, ClipboardList, Search, Play, Plus, Trash2, HelpCircle, X, Info } from 'lucide-react'
+import { Brain, Wand2, Copy, ArrowRight, ArrowLeft, Users, Building2, Stethoscope, FileText, Target, Heart, ClipboardList, Search, Play, Plus, Trash2, HelpCircle, X, Info, XCircle } from 'lucide-react'
 import { Button, Input, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
 import { caseService, type CaseGenerationParams, type WorkflowInput } from '../services/caseService'
@@ -791,53 +791,158 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
         return (
           <div className="space-y-6">
             {!result && !isLoading && (
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Fallbeispiel generieren</h2>
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      <h3 className="font-semibold text-lg">Ihre Auswahl:</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <span className="font-medium">Altersgruppe:</span> {altersgruppen.find(a => a.value === params.alter)?.label}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-2xl font-light text-gray-900 mb-6">Fallbeispiel generieren</h2>
+                <Card 
+                  className="border border-gray-200/60 shadow-xl overflow-hidden"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                    backdropFilter: 'blur(20px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                  }}
+                >
+                  <CardHeader className="border-b border-gray-200/60 bg-gray-50/50">
+                    <CardTitle className="text-gray-900 font-medium flex items-center">
+                      <Wand2 className="h-5 w-5 mr-3 text-gray-600" />
+                      Ihre Auswahl
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div 
+                        className="p-4 rounded-xl border border-gray-200/60"
+                        style={{
+                          backgroundColor: 'rgba(249, 250, 251, 0.8)',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)',
+                        }}
+                      >
+                        <div className="flex items-center mb-2">
+                          <Users className="h-4 w-4 text-gray-500 mr-2" />
+                          <span className="text-sm font-medium text-gray-600">Altersgruppe</span>
                         </div>
-                        <div>
-                          <span className="font-medium">Krankheitsbereich:</span> {krankheitsbereiche.find(b => b.value === params.bereich)?.label}
-                        </div>
-                        <div>
-                          <span className="font-medium">Setting:</span> {settings.find(s => s.value === params.setting)?.label}
-                        </div>
-                        <div>
-                          <span className="font-medium">Schwierigkeit:</span> {schwierigkeitsgrade.find(g => g.value === params.schwierigkeitsgrad)?.label}
-                        </div>
-                        {params.zusatzinfo && (
-                          <div className="md:col-span-2">
-                            <span className="font-medium">Zusatzinfo:</span> {params.zusatzinfo}
-                          </div>
-                        )}
+                        <p className="text-gray-900 font-medium">{altersgruppen.find(a => a.value === params.alter)?.label}</p>
+                        <p className="text-xs text-gray-500">{altersgruppen.find(a => a.value === params.alter)?.sublabel}</p>
                       </div>
+
+                      <div 
+                        className="p-4 rounded-xl border border-gray-200/60"
+                        style={{
+                          backgroundColor: 'rgba(249, 250, 251, 0.8)',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)',
+                        }}
+                      >
+                        <div className="flex items-center mb-2">
+                          <Stethoscope className="h-4 w-4 text-gray-500 mr-2" />
+                          <span className="text-sm font-medium text-gray-600">Krankheitsbereich</span>
+                        </div>
+                        <p className="text-gray-900 font-medium">{krankheitsbereiche.find(b => b.value === params.bereich)?.label}</p>
+                        <p className="text-xs text-gray-500">{krankheitsbereiche.find(b => b.value === params.bereich)?.description}</p>
+                      </div>
+
+                      <div 
+                        className="p-4 rounded-xl border border-gray-200/60"
+                        style={{
+                          backgroundColor: 'rgba(249, 250, 251, 0.8)',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)',
+                        }}
+                      >
+                        <div className="flex items-center mb-2">
+                          <Building2 className="h-4 w-4 text-gray-500 mr-2" />
+                          <span className="text-sm font-medium text-gray-600">Setting</span>
+                        </div>
+                        <p className="text-gray-900 font-medium">{settings.find(s => s.value === params.setting)?.label}</p>
+                        <p className="text-xs text-gray-500">{settings.find(s => s.value === params.setting)?.description}</p>
+                      </div>
+
+                      <div 
+                        className="p-4 rounded-xl border border-gray-200/60"
+                        style={{
+                          backgroundColor: 'rgba(249, 250, 251, 0.8)',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)',
+                        }}
+                      >
+                        <div className="flex items-center mb-2">
+                          <Target className="h-4 w-4 text-gray-500 mr-2" />
+                          <span className="text-sm font-medium text-gray-600">Schwierigkeit</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${schwierigkeitsgrade.find(g => g.value === params.schwierigkeitsgrad)?.color}`}>
+                            {schwierigkeitsgrade.find(g => g.value === params.schwierigkeitsgrad)?.label}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-1">{schwierigkeitsgrade.find(g => g.value === params.schwierigkeitsgrad)?.jahr}</p>
+                      </div>
+
+                      {params.zusatzinfo && (
+                        <div 
+                          className="md:col-span-2 p-4 rounded-xl border border-gray-200/60"
+                          style={{
+                            backgroundColor: 'rgba(249, 250, 251, 0.8)',
+                            backdropFilter: 'blur(10px)',
+                            WebkitBackdropFilter: 'blur(10px)',
+                          }}
+                        >
+                          <div className="flex items-center mb-2">
+                            <FileText className="h-4 w-4 text-gray-500 mr-2" />
+                            <span className="text-sm font-medium text-gray-600">Zusatzinformationen</span>
+                          </div>
+                          <p className="text-gray-900 font-light">{params.zusatzinfo}</p>
+                        </div>
+                      )}
                     </div>
 
-                    
                     {error && (
-                      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mt-4">
-                        {error}
-                      </div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-6 p-4 rounded-xl border border-red-200/60"
+                        style={{
+                          backgroundColor: 'rgba(254, 242, 242, 0.8)',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)',
+                        }}
+                      >
+                        <div className="flex items-start">
+                          <XCircle className="h-5 w-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <h4 className="text-red-800 font-medium text-sm mb-1">Fehler beim Generieren</h4>
+                            <p className="text-red-700 text-sm font-light">{error}</p>
+                          </div>
+                        </div>
+                      </motion.div>
                     )}
                     
-                    <Button
-                      onClick={handleGenerate}
-                      disabled={isLoading}
-                      loading={isLoading}
-                      className="w-full mt-6 bg-slate-800 hover:bg-slate-900 text-white"
-                      size="lg"
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="mt-8"
                     >
-                      <Wand2 className="mr-2 h-5 w-5" />
-                      Jetzt Fallbeispiel generieren
-                    </Button>
+                      <Button
+                        onClick={handleGenerate}
+                        disabled={isLoading}
+                        loading={isLoading}
+                        className="w-full bg-slate-800 hover:bg-slate-900 text-white border-0 h-14 text-base font-medium shadow-lg"
+                        style={{
+                          background: isLoading ? 'rgba(71, 85, 105, 0.7)' : 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)',
+                        }}
+                      >
+                        <Wand2 className="mr-3 h-5 w-5" />
+                        Jetzt Fallbeispiel generieren
+                      </Button>
+                    </motion.div>
                   </CardContent>
                 </Card>
-              </div>
+              </motion.div>
             )}
 
             {isLoading && (
