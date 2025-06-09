@@ -478,16 +478,116 @@ const MedikamentenTraining = () => {
 
   // Show loading animation during initial load or when generating any scenario
   if (isInitialLoading || isGeneratingScenario) {
+    // Floating medical elements data
+    const floatingElements = [
+      { Icon: Heart, label: '❤️', delay: 0, radius: 200, speed: 8 },
+      { Icon: Activity, label: '📊', delay: 1, radius: 180, speed: 10 },
+      { Icon: Thermometer, label: '🌡️', delay: 2, radius: 220, speed: 7 },
+      { Icon: Plus, label: '💊', delay: 3, radius: 160, speed: 9 },
+      { Icon: Activity, label: '🩺', delay: 4, radius: 240, speed: 6 },
+      { Icon: Heart, label: '💉', delay: 5, radius: 190, speed: 11 },
+      { Icon: Thermometer, label: '🔬', delay: 6, radius: 210, speed: 8 },
+      { Icon: Plus, label: '⚕️', delay: 7, radius: 170, speed: 9 }
+    ]
+
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center relative overflow-hidden">
+        {/* Floating Medical Elements */}
+        {floatingElements.map((element, index) => (
+          <motion.div
+            key={index}
+            className="absolute text-2xl"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: [0, 0.6, 0.3, 0.8, 0.4],
+              x: [
+                Math.cos(0) * element.radius,
+                Math.cos(Math.PI * 2 * 0.25) * element.radius,
+                Math.cos(Math.PI * 2 * 0.5) * element.radius,
+                Math.cos(Math.PI * 2 * 0.75) * element.radius,
+                Math.cos(Math.PI * 2) * element.radius
+              ],
+              y: [
+                Math.sin(0) * element.radius,
+                Math.sin(Math.PI * 2 * 0.25) * element.radius,
+                Math.sin(Math.PI * 2 * 0.5) * element.radius,
+                Math.sin(Math.PI * 2 * 0.75) * element.radius,
+                Math.sin(Math.PI * 2) * element.radius
+              ],
+              rotate: [0, 360]
+            }}
+            transition={{
+              delay: element.delay * 0.5,
+              duration: element.speed,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            style={{
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          >
+            <motion.div
+              animate={{ 
+                scale: [1, 1.2, 1],
+                rotate: [0, -360]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: element.delay * 0.3
+              }}
+              className="w-12 h-12 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg flex items-center justify-center border border-gray-200/50"
+            >
+              <span className="text-lg">{element.label}</span>
+            </motion.div>
+          </motion.div>
+        ))}
+
+        {/* Pulsing Background Circles */}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full border border-gray-200/30"
+              style={{
+                width: 300 + i * 100,
+                height: 300 + i * 100,
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.1, 0.3, 0.1]
+              }}
+              transition={{
+                duration: 4 + i,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.7
+              }}
+            />
+          ))}
+        </motion.div>
+
+        {/* Central Content */}
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-center"
+          className="text-center relative z-10"
         >
+          {/* Main Rotating Logo */}
           <motion.div
-            className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white shadow-lg mb-6 mx-auto"
+            className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white/90 backdrop-blur-sm shadow-xl mb-6 mx-auto relative"
             animate={{ 
               rotate: [0, 360],
               scale: [1, 1.1, 1]
@@ -506,7 +606,72 @@ const MedikamentenTraining = () => {
             }}
           >
             <Plus className="h-16 w-16 text-slate-600" strokeWidth={1.5} />
+            
+            {/* Inner rotating decoration */}
+            <motion.div
+              className="absolute inset-2 border border-gray-300/50 rounded-md"
+              animate={{ rotate: [360, 0] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
           </motion.div>
+
+          {/* Vital Signs Display */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="mb-4 flex justify-center space-x-6"
+          >
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-200/50"
+            >
+              <Heart className="h-4 w-4 text-red-500 mr-2" />
+              <motion.span 
+                className="text-sm font-mono text-gray-700"
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 1, repeat: Infinity }}
+              >
+                72 bpm
+              </motion.span>
+            </motion.div>
+            
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, delay: 0.3 }}
+              className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-200/50"
+            >
+              <Activity className="h-4 w-4 text-blue-500 mr-2" />
+              <motion.span 
+                className="text-sm font-mono text-gray-700"
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}
+              >
+                120/80
+              </motion.span>
+            </motion.div>
+            
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2.1, repeat: Infinity, delay: 0.6 }}
+              className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-200/50"
+            >
+              <Thermometer className="h-4 w-4 text-green-500 mr-2" />
+              <motion.span 
+                className="text-sm font-mono text-gray-700"
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 1.4, repeat: Infinity, delay: 0.4 }}
+              >
+                36.5°C
+              </motion.span>
+            </motion.div>
+          </motion.div>
+
           <motion.h2 
             className="text-2xl font-light text-gray-900 mb-2"
             initial={{ opacity: 0 }}
@@ -515,14 +680,39 @@ const MedikamentenTraining = () => {
           >
             Medikamenten-Training
           </motion.h2>
+          
           <motion.p 
-            className="text-gray-600 font-light"
+            className="text-gray-600 font-light mb-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
             {isInitialLoading ? 'Lade Trainingsumgebung...' : 'Erstelle neues Szenario...'}
           </motion.p>
+
+          {/* Loading Progress Dots */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="flex justify-center space-x-2"
+          >
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="w-2 h-2 bg-slate-400 rounded-full"
+                animate={{ 
+                  scale: [1, 1.3, 1],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  delay: i * 0.2
+                }}
+              />
+            ))}
+          </motion.div>
         </motion.div>
       </div>
     )
