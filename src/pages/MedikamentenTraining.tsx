@@ -478,73 +478,99 @@ const MedikamentenTraining = () => {
 
   // Show loading animation during initial load or when generating any scenario
   if (isInitialLoading || isGeneratingScenario) {
-    // Floating medical elements data
+    // Floating medical elements with bouncing physics
     const floatingElements = [
-      { Icon: Heart, label: '❤️', delay: 0, radius: 200, speed: 8 },
-      { Icon: Activity, label: '📊', delay: 1, radius: 180, speed: 10 },
-      { Icon: Thermometer, label: '🌡️', delay: 2, radius: 220, speed: 7 },
-      { Icon: Plus, label: '💊', delay: 3, radius: 160, speed: 9 },
-      { Icon: Activity, label: '🩺', delay: 4, radius: 240, speed: 6 },
-      { Icon: Heart, label: '💉', delay: 5, radius: 190, speed: 11 },
-      { Icon: Thermometer, label: '🔬', delay: 6, radius: 210, speed: 8 },
-      { Icon: Plus, label: '⚕️', delay: 7, radius: 170, speed: 9 }
+      { Icon: Heart, label: '❤️', delay: 0, initialX: -150, initialY: -100, velocityX: 1.2, velocityY: 0.8, speed: 4 },
+      { Icon: Activity, label: '📊', delay: 1, initialX: 120, initialY: -80, velocityX: -0.9, velocityY: 1.1, speed: 4.5 },
+      { Icon: Thermometer, label: '🌡️', delay: 2, initialX: -80, initialY: 130, velocityX: 1.4, velocityY: -0.7, speed: 3.8 },
+      { Icon: Plus, label: '💊', delay: 3, initialX: 180, initialY: 50, velocityX: -1.1, velocityY: -1.3, speed: 4.2 },
+      { Icon: Activity, label: '🩺', delay: 4, initialX: -200, initialY: 20, velocityX: 1.0, velocityY: 1.5, speed: 3.5 },
+      { Icon: Heart, label: '💉', delay: 5, initialX: 100, initialY: 150, velocityX: -1.3, velocityY: -0.9, speed: 4.8 },
+      { Icon: Thermometer, label: '🔬', delay: 6, initialX: -120, initialY: -150, velocityX: 0.8, velocityY: 1.2, speed: 4.1 },
+      { Icon: Plus, label: '⚕️', delay: 7, initialX: 160, initialY: -50, velocityX: -1.5, velocityY: 0.6, speed: 3.9 }
     ]
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center relative overflow-hidden">
-        {/* Floating Medical Elements Behind Logo */}
-        {floatingElements.map((element, index) => (
-          <motion.div
-            key={index}
-            className="absolute text-2xl z-0"
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: [0, 0.6, 0.3, 0.8, 0.4],
-              x: [
-                Math.cos(0) * element.radius,
-                Math.cos(Math.PI * 2 * 0.25) * element.radius,
-                Math.cos(Math.PI * 2 * 0.5) * element.radius,
-                Math.cos(Math.PI * 2 * 0.75) * element.radius,
-                Math.cos(Math.PI * 2) * element.radius
-              ],
-              y: [
-                Math.sin(0) * element.radius,
-                Math.sin(Math.PI * 2 * 0.25) * element.radius,
-                Math.sin(Math.PI * 2 * 0.5) * element.radius,
-                Math.sin(Math.PI * 2 * 0.75) * element.radius,
-                Math.sin(Math.PI * 2) * element.radius
-              ],
-              rotate: [0, 360]
-            }}
-            transition={{
-              delay: element.delay * 0.5,
-              duration: element.speed,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            style={{
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
+        {/* Floating Medical Elements with Bouncing Physics */}
+        {floatingElements.map((element, index) => {
+          // Define invisible boundaries (viewport bounds minus element size)
+          const boundaryX = 300  // ±300px from center
+          const boundaryY = 200  // ±200px from center
+          
+          // Calculate bouncing keyframes
+          const duration = element.speed
+          const steps = 20 // Number of animation steps for smooth bouncing
+          const keyframesX = []
+          const keyframesY = []
+          
+          let currentX = element.initialX
+          let currentY = element.initialY
+          let velX = element.velocityX * 25 // Scale velocity
+          let velY = element.velocityY * 25
+          
+          for (let i = 0; i <= steps; i++) {
+            // Add current position
+            keyframesX.push(currentX)
+            keyframesY.push(currentY)
+            
+            // Update position
+            currentX += velX
+            currentY += velY
+            
+            // Bounce off boundaries with slight randomness
+            if (currentX > boundaryX || currentX < -boundaryX) {
+              velX = -velX * (0.85 + Math.random() * 0.3) // Energy loss + randomness
+              currentX = currentX > boundaryX ? boundaryX : -boundaryX
+            }
+            if (currentY > boundaryY || currentY < -boundaryY) {
+              velY = -velY * (0.85 + Math.random() * 0.3) // Energy loss + randomness
+              currentY = currentY > boundaryY ? boundaryY : -boundaryY
+            }
+          }
+          
+          return (
             <motion.div
+              key={index}
+              className="absolute text-2xl z-0"
+              initial={{ opacity: 0, x: element.initialX, y: element.initialY }}
               animate={{ 
-                scale: [1, 1.2, 1],
-                rotate: [0, -360]
+                opacity: [0, 0.7, 0.9, 0.6, 0.8, 1, 0.7],
+                x: keyframesX,
+                y: keyframesY,
+                rotate: [0, 360 * (duration / 4)]
               }}
               transition={{
-                duration: 3,
+                delay: element.delay * 0.8,
+                duration: duration,
                 repeat: Infinity,
-                ease: "easeInOut",
-                delay: element.delay * 0.3
+                ease: "linear",
+                times: Array.from({ length: steps + 1 }, (_, i) => i / steps)
               }}
-              className="w-12 h-12 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg flex items-center justify-center border border-gray-200/50"
+              style={{
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
             >
-              <span className="text-lg">{element.label}</span>
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.15, 0.95, 1.1, 1],
+                  rotate: [0, -180, -360]
+                }}
+                transition={{
+                  duration: 2.5 + Math.random() * 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: element.delay * 0.4
+                }}
+                className="w-12 h-12 bg-white/85 backdrop-blur-sm rounded-lg shadow-lg flex items-center justify-center border border-gray-200/50 hover:shadow-xl transition-shadow"
+              >
+                <span className="text-lg">{element.label}</span>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ))}
+          )
+        })}
 
         {/* Pulsing Background Circles */}
         <motion.div
@@ -578,155 +604,144 @@ const MedikamentenTraining = () => {
           ))}
         </motion.div>
 
-        {/* Floating Elements Behind Logo */}
+        {/* Floating Vital Signs with Smooth Movement */}
         <div className="absolute inset-0 z-0">
-          {/* Floating Vital Signs */}
-            {/* Heart Rate - Floating */}
+          {/* Heart Rate - Smooth Floating */}
+          <motion.div
+            className="absolute"
+            initial={{ opacity: 0, x: -80, y: -60 }}
+            animate={{ 
+              opacity: [0, 1, 0.8, 1, 0.9, 1],
+              x: [-80, 150, 200, -100, -150, 80, -80],
+              y: [-60, -80, 120, 140, -40, 100, -60]
+            }}
+            transition={{
+              delay: 1,
+              duration: 16,
+              repeat: Infinity,
+              ease: "easeInOut",
+              times: [0, 0.15, 0.3, 0.5, 0.7, 0.85, 1]
+            }}
+            style={{
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          >
             <motion.div
-              className="absolute"
-              initial={{ opacity: 0 }}
               animate={{ 
-                opacity: [0, 1, 0.8, 1, 0.9],
-                x: [
-                  Math.cos(0) * 120,
-                  Math.cos(Math.PI * 2 * 0.25) * 120,
-                  Math.cos(Math.PI * 2 * 0.5) * 120,
-                  Math.cos(Math.PI * 2 * 0.75) * 120,
-                  Math.cos(Math.PI * 2) * 120
-                ],
-                y: [
-                  Math.sin(0) * 120,
-                  Math.sin(Math.PI * 2 * 0.25) * 120,
-                  Math.sin(Math.PI * 2 * 0.5) * 120,
-                  Math.sin(Math.PI * 2 * 0.75) * 120,
-                  Math.sin(Math.PI * 2) * 120
-                ]
+                scale: [1, 1.25, 1.1, 1.3, 1],
+                rotate: [0, 5, -3, 8, 0]
               }}
-              transition={{
-                delay: 1,
-                duration: 12,
+              transition={{ 
+                duration: 1.5, 
                 repeat: Infinity,
-                ease: "linear"
+                ease: "easeInOut"
               }}
-              style={{
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
+              className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-red-200/60"
             >
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="flex items-center bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg border border-red-200/50"
+              <Heart className="h-4 w-4 text-red-500 mr-2" />
+              <motion.span 
+                className="text-sm font-mono text-gray-700 font-medium"
+                animate={{ opacity: [0.8, 1, 0.8] }}
+                transition={{ duration: 1, repeat: Infinity }}
               >
-                <Heart className="h-4 w-4 text-red-500 mr-2" />
-                <motion.span 
-                  className="text-sm font-mono text-gray-700 font-medium"
-                  animate={{ opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                >
-                  72 bpm
-                </motion.span>
-              </motion.div>
+                72 bpm
+              </motion.span>
             </motion.div>
+          </motion.div>
 
-            {/* Blood Pressure - Floating */}
+          {/* Blood Pressure - Smooth Floating */}
+          <motion.div
+            className="absolute"
+            initial={{ opacity: 0, x: 120, y: 80 }}
+            animate={{ 
+              opacity: [0, 0.9, 1, 0.8, 1, 0.9],
+              x: [120, -180, -120, 160, 200, -80, 120],
+              y: [80, 100, -140, -60, 120, -100, 80]
+            }}
+            transition={{
+              delay: 1.8,
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+              times: [0, 0.18, 0.35, 0.52, 0.68, 0.85, 1]
+            }}
+            style={{
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          >
             <motion.div
-              className="absolute"
-              initial={{ opacity: 0 }}
               animate={{ 
-                opacity: [0, 0.9, 1, 0.8, 1],
-                x: [
-                  Math.cos(Math.PI * 2 / 3) * 130,
-                  Math.cos(Math.PI * 2 / 3 + Math.PI * 2 * 0.25) * 130,
-                  Math.cos(Math.PI * 2 / 3 + Math.PI * 2 * 0.5) * 130,
-                  Math.cos(Math.PI * 2 / 3 + Math.PI * 2 * 0.75) * 130,
-                  Math.cos(Math.PI * 2 / 3 + Math.PI * 2) * 130
-                ],
-                y: [
-                  Math.sin(Math.PI * 2 / 3) * 130,
-                  Math.sin(Math.PI * 2 / 3 + Math.PI * 2 * 0.25) * 130,
-                  Math.sin(Math.PI * 2 / 3 + Math.PI * 2 * 0.5) * 130,
-                  Math.sin(Math.PI * 2 / 3 + Math.PI * 2 * 0.75) * 130,
-                  Math.sin(Math.PI * 2 / 3 + Math.PI * 2) * 130
-                ]
+                scale: [1, 1.15, 1.05, 1.2, 1],
+                rotate: [0, -4, 6, -2, 0]
               }}
-              transition={{
-                delay: 1.5,
-                duration: 15,
-                repeat: Infinity,
-                ease: "linear"
+              transition={{ 
+                duration: 1.8, 
+                repeat: Infinity, 
+                delay: 0.3,
+                ease: "easeInOut"
               }}
-              style={{
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
+              className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-blue-200/60"
             >
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 1.8, repeat: Infinity, delay: 0.3 }}
-                className="flex items-center bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg border border-blue-200/50"
+              <Activity className="h-4 w-4 text-blue-500 mr-2" />
+              <motion.span 
+                className="text-sm font-mono text-gray-700 font-medium"
+                animate={{ opacity: [0.8, 1, 0.8] }}
+                transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}
               >
-                <Activity className="h-4 w-4 text-blue-500 mr-2" />
-                <motion.span 
-                  className="text-sm font-mono text-gray-700 font-medium"
-                  animate={{ opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}
-                >
-                  120/80
-                </motion.span>
-              </motion.div>
+                120/80
+              </motion.span>
             </motion.div>
+          </motion.div>
 
-            {/* Temperature - Floating */}
+          {/* Temperature - Smooth Floating */}
+          <motion.div
+            className="absolute"
+            initial={{ opacity: 0, x: -100, y: 120 }}
+            animate={{ 
+              opacity: [0, 1, 0.9, 1, 0.8, 1],
+              x: [-100, 90, 180, -160, -80, 140, -100],
+              y: [120, -90, 40, 160, -120, 80, 120]
+            }}
+            transition={{
+              delay: 2.5,
+              duration: 22,
+              repeat: Infinity,
+              ease: "easeInOut",
+              times: [0, 0.16, 0.32, 0.48, 0.64, 0.8, 1]
+            }}
+            style={{
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          >
             <motion.div
-              className="absolute"
-              initial={{ opacity: 0 }}
               animate={{ 
-                opacity: [0, 1, 0.9, 1, 0.8],
-                x: [
-                  Math.cos(Math.PI * 4 / 3) * 125,
-                  Math.cos(Math.PI * 4 / 3 + Math.PI * 2 * 0.25) * 125,
-                  Math.cos(Math.PI * 4 / 3 + Math.PI * 2 * 0.5) * 125,
-                  Math.cos(Math.PI * 4 / 3 + Math.PI * 2 * 0.75) * 125,
-                  Math.cos(Math.PI * 4 / 3 + Math.PI * 2) * 125
-                ],
-                y: [
-                  Math.sin(Math.PI * 4 / 3) * 125,
-                  Math.sin(Math.PI * 4 / 3 + Math.PI * 2 * 0.25) * 125,
-                  Math.sin(Math.PI * 4 / 3 + Math.PI * 2 * 0.5) * 125,
-                  Math.sin(Math.PI * 4 / 3 + Math.PI * 2 * 0.75) * 125,
-                  Math.sin(Math.PI * 4 / 3 + Math.PI * 2) * 125
-                ]
+                scale: [1, 1.1, 1.15, 1.05, 1],
+                rotate: [0, 3, -5, 7, 0]
               }}
-              transition={{
-                delay: 2,
-                duration: 18,
-                repeat: Infinity,
-                ease: "linear"
+              transition={{ 
+                duration: 2.1, 
+                repeat: Infinity, 
+                delay: 0.6,
+                ease: "easeInOut"
               }}
-              style={{
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
+              className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-green-200/60"
             >
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2.1, repeat: Infinity, delay: 0.6 }}
-                className="flex items-center bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg border border-green-200/50"
+              <Thermometer className="h-4 w-4 text-green-500 mr-2" />
+              <motion.span 
+                className="text-sm font-mono text-gray-700 font-medium"
+                animate={{ opacity: [0.8, 1, 0.8] }}
+                transition={{ duration: 1.4, repeat: Infinity, delay: 0.4 }}
               >
-                <Thermometer className="h-4 w-4 text-green-500 mr-2" />
-                <motion.span 
-                  className="text-sm font-mono text-gray-700 font-medium"
-                  animate={{ opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 1.4, repeat: Infinity, delay: 0.4 }}
-                >
-                  36.5°C
-                </motion.span>
-              </motion.div>
+                36.5°C
+              </motion.span>
             </motion.div>
+          </motion.div>
         </div>
 
         {/* Central Content Above Everything */}
