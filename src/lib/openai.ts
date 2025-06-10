@@ -1,22 +1,41 @@
-import OpenAI from 'openai'
+// WICHTIG: Dies ist eine temporäre Lösung. 
+// OpenAI sollte NIEMALS direkt aus dem Frontend aufgerufen werden!
+// TODO: Migriere zu Backend-Funktionen (Supabase Edge Functions oder Netlify Functions)
+
 import { simpleCache } from './simpleCache'
 
-// Alter API-Key für Fallbeispiel-Generator  
+// Temporäre Lösung: Wir deaktivieren OpenAI komplett wenn kein Key vorhanden ist
 const apiKey = import.meta.env.VITE_OPENAI_API_KEY || ''
-
-// Create OpenAI instance only if API key exists
-const openai = apiKey ? new OpenAI({
-  apiKey,
-  dangerouslyAllowBrowser: true,
-}) : null
-
-// Neuer API-Key nur für Medikamenten-Training
 const medicationApiKey = import.meta.env.VITE_OPENAI_MEDICATION_API_KEY || ''
 
-const medicationOpenai = medicationApiKey ? new OpenAI({
-  apiKey: medicationApiKey,
-  dangerouslyAllowBrowser: true,
-}) : null
+// Mock OpenAI wenn kein API Key vorhanden
+let openai: any = null
+let medicationOpenai: any = null
+
+// Initialisierung wird in den Funktionen durchgeführt, um top-level await zu vermeiden
+async function initializeOpenAI() {
+  if ((apiKey || medicationApiKey) && !openai && !medicationOpenai) {
+    try {
+      const OpenAI = (await import('openai')).default
+      
+      if (apiKey && !openai) {
+        openai = new OpenAI({
+          apiKey,
+          dangerouslyAllowBrowser: true, // WARNUNG: Nur für Entwicklung!
+        })
+      }
+      
+      if (medicationApiKey && !medicationOpenai) {
+        medicationOpenai = new OpenAI({
+          apiKey: medicationApiKey,
+          dangerouslyAllowBrowser: true, // WARNUNG: Nur für Entwicklung!
+        })
+      }
+    } catch (error) {
+      console.warn('OpenAI konnte nicht geladen werden:', error)
+    }
+  }
+}
 
 export const AI_PROMPTS = {
   fallbeispiel: `Du bist ein erfahrener Pflegepädagoge und erstellst realistische Fallbeispiele für Pflegeazubis.
@@ -570,6 +589,8 @@ export async function generateAIResponse(
   prompt: string,
   userInput: string
 ): Promise<string> {
+  await initializeOpenAI()
+  
   if (!openai) {
     throw new Error('OpenAI API ist nicht konfiguriert. Bitte fügen Sie einen API-Schlüssel in den Umgebungsvariablen hinzu.')
   }
@@ -649,6 +670,8 @@ export async function generateStreamingAIResponse(
   onComplete?: (fullText: string) => void,
   onError?: (error: Error) => void
 ): Promise<void> {
+  await initializeOpenAI()
+  
   if (!openai) {
     const err = new Error('OpenAI API ist nicht konfiguriert. Bitte fügen Sie einen API-Schlüssel in den Umgebungsvariablen hinzu.')
     onError?.(err)
@@ -751,6 +774,8 @@ export async function generateMedicationScenario(
   prompt: string,
   userInput: string
 ): Promise<string> {
+  await initializeOpenAI()
+  
   // Nur für Medikamenten-Spiel verwenden
   if (!prompt.includes('medikamentenszenario') && !userInput.includes('Medikamenten')) {
     throw new Error('Diese Funktion ist nur für das Medikamenten-Training verfügbar.')
