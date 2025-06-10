@@ -478,295 +478,233 @@ const MedikamentenTraining = () => {
 
   // Show loading animation during initial load or when generating any scenario
   if (isInitialLoading || isGeneratingScenario) {
-    // Floating medical elements with bouncing physics
-    const floatingElements = [
-      { Icon: Heart, label: '❤️', delay: 0, initialX: -150, initialY: -100, velocityX: 1.2, velocityY: 0.8, speed: 4 },
-      { Icon: Activity, label: '📊', delay: 1, initialX: 120, initialY: -80, velocityX: -0.9, velocityY: 1.1, speed: 4.5 },
-      { Icon: Thermometer, label: '🌡️', delay: 2, initialX: -80, initialY: 130, velocityX: 1.4, velocityY: -0.7, speed: 3.8 },
-      { Icon: Plus, label: '💊', delay: 3, initialX: 180, initialY: 50, velocityX: -1.1, velocityY: -1.3, speed: 4.2 },
-      { Icon: Activity, label: '🩺', delay: 4, initialX: -200, initialY: 20, velocityX: 1.0, velocityY: 1.5, speed: 3.5 },
-      { Icon: Heart, label: '💉', delay: 5, initialX: 100, initialY: 150, velocityX: -1.3, velocityY: -0.9, speed: 4.8 },
-      { Icon: Thermometer, label: '🔬', delay: 6, initialX: -120, initialY: -150, velocityX: 0.8, velocityY: 1.2, speed: 4.1 },
-      { Icon: Plus, label: '⚕️', delay: 7, initialX: 160, initialY: -50, velocityX: -1.5, velocityY: 0.6, speed: 3.9 }
-    ]
-
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center relative overflow-hidden">
-        {/* Floating Medical Elements with Bouncing Physics */}
-        {floatingElements.map((element, index) => {
-          // Define invisible boundaries (viewport bounds minus element size)
-          const boundaryX = 300  // ±300px from center
-          const boundaryY = 200  // ±200px from center
-          
-          // Calculate bouncing keyframes
-          const duration = element.speed
-          const steps = 20 // Number of animation steps for smooth bouncing
-          const keyframesX = []
-          const keyframesY = []
-          
-          let currentX = element.initialX
-          let currentY = element.initialY
-          let velX = element.velocityX * 25 // Scale velocity
-          let velY = element.velocityY * 25
-          
-          for (let i = 0; i <= steps; i++) {
-            // Add current position
-            keyframesX.push(currentX)
-            keyframesY.push(currentY)
-            
-            // Update position
-            currentX += velX
-            currentY += velY
-            
-            // Bounce off boundaries with slight randomness
-            if (currentX > boundaryX || currentX < -boundaryX) {
-              velX = -velX * (0.85 + Math.random() * 0.3) // Energy loss + randomness
-              currentX = currentX > boundaryX ? boundaryX : -boundaryX
-            }
-            if (currentY > boundaryY || currentY < -boundaryY) {
-              velY = -velY * (0.85 + Math.random() * 0.3) // Energy loss + randomness
-              currentY = currentY > boundaryY ? boundaryY : -boundaryY
-            }
-          }
-          
-          return (
-            <motion.div
-              key={index}
-              className="absolute text-2xl z-0"
-              initial={{ opacity: 0, x: element.initialX, y: element.initialY }}
-              animate={{ 
-                opacity: [0, 0.7, 0.9, 0.6, 0.8, 1, 0.7],
-                x: keyframesX,
-                y: keyframesY,
-                rotate: [0, 360 * (duration / 4)]
-              }}
-              transition={{
-                delay: element.delay * 0.8,
-                duration: duration,
-                repeat: Infinity,
-                ease: "linear",
-                times: Array.from({ length: steps + 1 }, (_, i) => i / steps)
-              }}
-              style={{
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.15, 0.95, 1.1, 1],
-                  rotate: [0, -180, -360]
-                }}
-                transition={{
-                  duration: 2.5 + Math.random() * 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: element.delay * 0.4
-                }}
-                className="w-12 h-12 bg-white/85 backdrop-blur-sm rounded-lg shadow-lg flex items-center justify-center border border-gray-200/50 hover:shadow-xl transition-shadow"
-              >
-                <span className="text-lg">{element.label}</span>
-              </motion.div>
-            </motion.div>
-          )
-        })}
-
-        {/* Pulsing Background Circles */}
+        {/* Subtle Background Pattern */}
         <motion.div
           className="absolute inset-0"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          animate={{ opacity: 0.15 }}
+          transition={{ duration: 1 }}
         >
-          {[...Array(3)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full border border-gray-200/30"
-              style={{
-                width: 300 + i * 100,
-                height: 300 + i * 100,
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.1, 0.3, 0.1]
-              }}
-              transition={{
-                duration: 4 + i,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.7
-              }}
-            />
-          ))}
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, #e5e7eb 1px, transparent 1px),
+                              radial-gradient(circle at 80% 50%, #e5e7eb 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }} />
         </motion.div>
 
-        {/* Floating Vital Signs with Smooth Movement */}
-        <div className="absolute inset-0 z-0">
-          {/* Heart Rate - Smooth Floating */}
+        {/* Soft Gradient Orbs */}
+        <motion.div className="absolute inset-0 z-0">
           <motion.div
-            className="absolute"
-            initial={{ opacity: 0, x: -80, y: -60 }}
-            animate={{ 
-              opacity: [0, 1, 0.8, 1, 0.9, 1],
-              x: [-80, 150, 200, -100, -150, 80, -80],
-              y: [-60, -80, 120, 140, -40, 100, -60]
+            className="absolute w-96 h-96 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
+              left: '20%',
+              top: '10%',
+              filter: 'blur(60px)',
+            }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.6, 0.3],
             }}
             transition={{
-              delay: 1,
-              duration: 16,
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute w-96 h-96 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%)',
+              right: '15%',
+              bottom: '20%',
+              filter: 'blur(60px)',
+            }}
+            animate={{
+              scale: [1.2, 1, 1.2],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: 10,
               repeat: Infinity,
               ease: "easeInOut",
-              times: [0, 0.15, 0.3, 0.5, 0.7, 0.85, 1]
+              delay: 1
             }}
-            style={{
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <div className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-red-200/60">
-              <Heart className="h-4 w-4 text-red-500 mr-2" />
-              <span className="text-sm font-mono text-gray-700 font-medium">
-                72 bpm
-              </span>
-            </div>
-          </motion.div>
+          />
+        </motion.div>
 
-          {/* Blood Pressure - Smooth Floating */}
+        {/* Floating Vital Signs - Subtle and Professional */}
+        <div className="absolute inset-0 z-0">
+          {/* Heart Rate */}
           <motion.div
             className="absolute"
-            initial={{ opacity: 0, x: 120, y: 80 }}
+            initial={{ opacity: 0 }}
             animate={{ 
-              opacity: [0, 0.9, 1, 0.8, 1, 0.9],
-              x: [120, -180, -120, 160, 200, -80, 120],
-              y: [80, 100, -140, -60, 120, -100, 80]
+              opacity: 0.7,
+              x: [-50, 50, -50],
+              y: [-30, 30, -30],
             }}
             transition={{
-              delay: 1.8,
               duration: 20,
               repeat: Infinity,
               ease: "easeInOut",
-              times: [0, 0.18, 0.35, 0.52, 0.68, 0.85, 1]
             }}
             style={{
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
+              left: '25%',
+              top: '30%',
             }}
           >
-            <div className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-blue-200/60">
-              <Activity className="h-4 w-4 text-blue-500 mr-2" />
-              <span className="text-sm font-mono text-gray-700 font-medium">
-                120/80
-              </span>
+            <div className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-100">
+              <Heart className="h-3.5 w-3.5 text-red-400 mr-2" />
+              <span className="text-xs font-mono text-gray-600">72 bpm</span>
             </div>
           </motion.div>
 
-          {/* Temperature - Smooth Floating */}
+          {/* Blood Pressure */}
           <motion.div
             className="absolute"
-            initial={{ opacity: 0, x: -100, y: 120 }}
+            initial={{ opacity: 0 }}
             animate={{ 
-              opacity: [0, 1, 0.9, 1, 0.8, 1],
-              x: [-100, 90, 180, -160, -80, 140, -100],
-              y: [120, -90, 40, 160, -120, 80, 120]
+              opacity: 0.7,
+              x: [40, -40, 40],
+              y: [20, -20, 20],
             }}
             transition={{
-              delay: 2.5,
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            style={{
+              right: '20%',
+              top: '25%',
+            }}
+          >
+            <div className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-100">
+              <Activity className="h-3.5 w-3.5 text-blue-400 mr-2" />
+              <span className="text-xs font-mono text-gray-600">120/80</span>
+            </div>
+          </motion.div>
+
+          {/* Temperature */}
+          <motion.div
+            className="absolute"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: 0.7,
+              x: [-30, 30, -30],
+              y: [40, -40, 40],
+            }}
+            transition={{
               duration: 22,
               repeat: Infinity,
               ease: "easeInOut",
-              times: [0, 0.16, 0.32, 0.48, 0.64, 0.8, 1]
+              delay: 1
             }}
             style={{
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
+              left: '30%',
+              bottom: '35%',
             }}
           >
-            <div className="flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-xl border border-green-200/60">
-              <Thermometer className="h-4 w-4 text-green-500 mr-2" />
-              <span className="text-sm font-mono text-gray-700 font-medium">
-                36.5°C
-              </span>
+            <div className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-100">
+              <Thermometer className="h-3.5 w-3.5 text-green-400 mr-2" />
+              <span className="text-xs font-mono text-gray-600">36.5°C</span>
+            </div>
+          </motion.div>
+
+          {/* SpO2 */}
+          <motion.div
+            className="absolute"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: 0.7,
+              x: [30, -30, 30],
+              y: [-25, 25, -25],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 3
+            }}
+            style={{
+              right: '25%',
+              bottom: '30%',
+            }}
+          >
+            <div className="flex items-center bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md border border-gray-100">
+              <div className="w-3.5 h-3.5 rounded-full bg-cyan-400 mr-2" />
+              <span className="text-xs font-mono text-gray-600">98%</span>
             </div>
           </motion.div>
         </div>
 
-        {/* Central Content Above Everything */}
+        {/* Central Loading Content */}
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
+          initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
           className="text-center relative z-20"
         >
-          {/* Main Rotating Logo - Opaque */}
+          {/* Medical Cross Icon - Subtle Animation */}
           <motion.div
-            className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white shadow-xl mb-6 mx-auto relative z-30"
+            className="w-24 h-24 border border-gray-200 rounded-2xl flex items-center justify-center bg-white shadow-sm mb-6 mx-auto"
             animate={{ 
-              rotate: [0, 360],
-              scale: [1, 1.1, 1]
+              rotate: [0, 180, 360],
             }}
             transition={{ 
-              rotate: {
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear"
-              },
-              scale: {
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear"
             }}
           >
-            <Plus className="h-16 w-16 text-slate-600" strokeWidth={1.5} />
+            <Plus className="h-12 w-12 text-gray-400" strokeWidth={1} />
           </motion.div>
 
           <motion.h2 
-            className="text-2xl font-light text-gray-900 mb-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            className="text-xl font-light text-gray-800 mb-2"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
             Medikamenten-Training
           </motion.h2>
           
           <motion.p 
-            className="text-gray-600 font-light mb-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            className="text-sm text-gray-500 font-light mb-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            {isInitialLoading ? 'Lade Trainingsumgebung...' : 'Erstelle neues Szenario...'}
+            {isInitialLoading ? 'Bereite Szenario vor...' : 'Generiere neues Szenario...'}
           </motion.p>
 
-          {/* Loading Progress Dots */}
+          {/* Minimal Loading Indicator */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="flex justify-center space-x-2"
+            transition={{ delay: 0.6 }}
+            className="flex justify-center"
           >
-            {[...Array(3)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="w-2 h-2 bg-slate-400 rounded-full"
-                animate={{ 
-                  scale: [1, 1.3, 1],
-                  opacity: [0.5, 1, 0.5]
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  delay: i * 0.2
-                }}
-              />
-            ))}
+            <div className="flex space-x-1">
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="w-1.5 h-1.5 bg-gray-300 rounded-full"
+                  animate={{ 
+                    backgroundColor: ['#d1d5db', '#6b7280', '#d1d5db'],
+                  }}
+                  transition={{
+                    duration: 1.2,
+                    repeat: Infinity,
+                    delay: i * 0.15,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+            </div>
           </motion.div>
         </motion.div>
       </div>
@@ -829,71 +767,111 @@ const MedikamentenTraining = () => {
                 {/* Vitaldaten */}
                 <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl font-mono mb-8">
                   <div className="grid grid-cols-3 gap-6 text-center mb-6">
-                    <div className="bg-white/80 rounded-lg p-4 border border-gray-200/40 backdrop-blur-sm">
+                    <motion.div 
+                      className="bg-white rounded-lg p-4 border border-gray-200/50 transition-all hover:border-gray-300 hover:shadow-sm"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 }}
+                    >
                       <Heart className="h-5 w-5 mx-auto mb-2 text-gray-600" />
                       <div className="text-xs text-gray-500 font-normal mb-1">Herzfrequenz</div>
                       <div className={`text-lg font-semibold ${getVitalColor('heartRate', currentScenario.vitals.heartRate)}`}>
                         {currentScenario.vitals.heartRate} bpm
                       </div>
-                    </div>
-                    <div className="bg-white/80 rounded-lg p-4 border border-gray-200/40 backdrop-blur-sm">
+                    </motion.div>
+                    <motion.div 
+                      className="bg-white rounded-lg p-4 border border-gray-200/50 transition-all hover:border-gray-300 hover:shadow-sm"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
                       <Activity className="h-5 w-5 mx-auto mb-2 text-gray-600" />
                       <div className="text-xs text-gray-500 font-normal mb-1">Blutdruck</div>
                       <div className={`text-lg font-semibold ${getVitalColor('bloodPressure', currentScenario.vitals.bloodPressure)}`}>
                         {currentScenario.vitals.bloodPressure}
                       </div>
-                    </div>
-                    <div className="bg-white/80 rounded-lg p-4 border border-gray-200/40 backdrop-blur-sm">
+                    </motion.div>
+                    <motion.div 
+                      className="bg-white rounded-lg p-4 border border-gray-200/50 transition-all hover:border-gray-300 hover:shadow-sm"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
                       <Thermometer className="h-5 w-5 mx-auto mb-2 text-gray-600" />
                       <div className="text-xs text-gray-500 font-normal mb-1">Temperatur</div>
                       <div className={`text-lg font-semibold ${getVitalColor('temperature', currentScenario.vitals.temperature)}`}>
                         {currentScenario.vitals.temperature}°C
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                   
                   {/* Zusätzliche Vitalwerte */}
                   {(currentScenario.vitals.oxygenSaturation || currentScenario.vitals.bloodSugar || currentScenario.vitals.respiratoryRate || currentScenario.vitals.painLevel || currentScenario.vitals.consciousness) && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-sm border-t border-gray-200 pt-4">
                       {currentScenario.vitals.oxygenSaturation && (
-                        <div className="bg-white rounded-lg p-3">
+                        <motion.div 
+                          className="bg-white rounded-lg p-3 border border-gray-200/50 transition-all hover:border-gray-300 hover:shadow-sm"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.4 }}
+                        >
                           <div className="text-xs text-gray-500 font-normal mb-1">SpO2</div>
                           <div className={`font-semibold ${getVitalColor('oxygenSaturation', currentScenario.vitals.oxygenSaturation)}`}>
                             {currentScenario.vitals.oxygenSaturation}%
                           </div>
-                        </div>
+                        </motion.div>
                       )}
                       {currentScenario.vitals.bloodSugar && (
-                        <div className="bg-white rounded-lg p-3">
+                        <motion.div 
+                          className="bg-white rounded-lg p-3 border border-gray-200/50 transition-all hover:border-gray-300 hover:shadow-sm"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 }}
+                        >
                           <div className="text-xs text-gray-500 font-normal mb-1">Blutzucker</div>
                           <div className={`font-semibold ${getVitalColor('bloodSugar', currentScenario.vitals.bloodSugar)}`}>
                             {currentScenario.vitals.bloodSugar} mg/dl
                           </div>
-                        </div>
+                        </motion.div>
                       )}
                       {currentScenario.vitals.respiratoryRate && (
-                        <div className="bg-white rounded-lg p-3">
+                        <motion.div 
+                          className="bg-white rounded-lg p-3 border border-gray-200/50 transition-all hover:border-gray-300 hover:shadow-sm"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.6 }}
+                        >
                           <div className="text-xs text-gray-500 font-normal mb-1">Atemfreq.</div>
                           <div className={`font-semibold ${getVitalColor('respiratoryRate', currentScenario.vitals.respiratoryRate)}`}>
                             {currentScenario.vitals.respiratoryRate}/min
                           </div>
-                        </div>
+                        </motion.div>
                       )}
                       {currentScenario.vitals.painLevel !== undefined && (
-                        <div className="bg-white rounded-lg p-3">
+                        <motion.div 
+                          className="bg-white rounded-lg p-3 border border-gray-200/50 transition-all hover:border-gray-300 hover:shadow-sm"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.7 }}
+                        >
                           <div className="text-xs text-gray-500 font-normal mb-1">Schmerz</div>
                           <div className={`font-semibold ${getVitalColor('painLevel', currentScenario.vitals.painLevel)}`}>
                             {currentScenario.vitals.painLevel}/10
                           </div>
-                        </div>
+                        </motion.div>
                       )}
                       {currentScenario.vitals.consciousness && (
-                        <div className="bg-white rounded-lg p-3 col-span-2">
+                        <motion.div 
+                          className="bg-white rounded-lg p-3 col-span-2 border border-gray-200/50 transition-all hover:border-gray-300 hover:shadow-sm"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.8 }}
+                        >
                           <div className="text-xs text-gray-500 font-normal mb-1">Bewusstsein</div>
                           <div className="font-semibold text-gray-700">
                             {currentScenario.vitals.consciousness}
                           </div>
-                        </div>
+                        </motion.div>
                       )}
                     </div>
                   )}
