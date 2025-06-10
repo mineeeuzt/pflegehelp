@@ -21,7 +21,6 @@ import { useQuizStore } from '../store/quizStore'
 import { quizCategories } from '../data/quizData'
 import { medicalBasicsCategories } from '../data/categories/medical-basics'
 import { pathologyCategories } from '../data/categories/pathology'
-import { StudyMode } from '../types/quiz'
 
 const QuizLernkarten = () => {
   const {
@@ -50,26 +49,6 @@ const QuizLernkarten = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState<any>(null)
   const [navigationPath, setNavigationPath] = useState<string[]>([])
 
-  const studyModes: StudyMode[] = [
-    {
-      id: 'quiz',
-      name: 'Quiz-Modus',
-      description: 'Multiple-Choice Fragen beantworten',
-      icon: '🧠'
-    },
-    {
-      id: 'flashcards',
-      name: 'Lernkarten',
-      description: 'Karteikarten durchgehen und bewerten',
-      icon: '📚'
-    },
-    {
-      id: 'mixed',
-      name: 'Gemischt',
-      description: 'Quiz und Lernkarten abwechselnd',
-      icon: '🎯'
-    }
-  ]
 
   const handleStartQuiz = () => {
     if (selectedCategories.length === 0) {
@@ -234,47 +213,144 @@ const QuizLernkarten = () => {
     )
   }
 
-  // Main Category Selection View - Clean Two-Button Interface
+  // Main Category Selection View - Extended Grid Interface
   const MainCategorySelection = () => (
     <div className="mb-12">
       <h2 className="text-2xl font-light text-gray-900 mb-8 text-center">Lernbereiche</h2>
       <p className="text-gray-600 font-light text-center mb-8">Wähle einen Fachbereich aus, um mit dem Lernen zu beginnen.</p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         {/* Anatomie & Physiologie */}
         <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0 * 0.1 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => navigateToMain('anatomy')}
-          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg"
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32"
         >
-          <span className="text-4xl">🏥</span>
-          <div className="text-left flex-1">
-            <div className="text-xl font-medium text-gray-900 mb-1">Anatomie & Physiologie</div>
-            <div className="text-gray-600 text-sm font-light">Körperaufbau und Funktionen</div>
-            <div className="text-xs text-gray-500 mt-2">9 Organsysteme • 287 Lernkategorien</div>
+          <span className="text-4xl flex-shrink-0">🏥</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-lg font-medium text-gray-900 mb-1">Anatomie & Physiologie</div>
+            <div className="text-gray-600 text-sm font-light mb-2">Körperaufbau und Funktionen</div>
+            <div className="text-xs text-gray-500">9 Organsysteme • 287 Lernkategorien</div>
           </div>
-          <ChevronRight className="w-6 h-6 text-gray-400 group-hover:translate-x-1 transition-transform" />
+          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
         </motion.button>
         
         {/* Krankheitslehre */}
         <motion.button
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 * 0.1 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => navigateToMain('pathology')}
-          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg"
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32"
         >
-          <span className="text-4xl">🦠</span>
-          <div className="text-left flex-1">
-            <div className="text-xl font-medium text-gray-900 mb-1">Krankheitslehre</div>
-            <div className="text-gray-600 text-sm font-light">Pathologie und Erkrankungen</div>
-            <div className="text-xs text-gray-500 mt-2">8 Fachbereiche • 84 Krankheitsbilder</div>
+          <span className="text-4xl flex-shrink-0">🦠</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-lg font-medium text-gray-900 mb-1">Krankheitslehre</div>
+            <div className="text-gray-600 text-sm font-light mb-2">Pathologie und Erkrankungen</div>
+            <div className="text-xs text-gray-500">8 Fachbereiche • 84 Krankheitsbilder</div>
           </div>
-          <ChevronRight className="w-6 h-6 text-gray-400 group-hover:translate-x-1 transition-transform" />
+          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+        </motion.button>
+
+        {/* Pharmakologie */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2 * 0.1 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigateToMain('pharmacology')}
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32"
+        >
+          <span className="text-4xl flex-shrink-0">💊</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-lg font-medium text-gray-900 mb-1">Pharmakologie</div>
+            <div className="text-gray-600 text-sm font-light mb-2">Medikamente und Wirkweisen</div>
+            <div className="text-xs text-gray-500">Bald verfügbar</div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+        </motion.button>
+
+        {/* Pflegetheorien & -modelle */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 3 * 0.1 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigateToMain('nursing-theories')}
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32"
+        >
+          <span className="text-4xl flex-shrink-0">📚</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-lg font-medium text-gray-900 mb-1">Pflegetheorien & -modelle</div>
+            <div className="text-gray-600 text-sm font-light mb-2">Theoretische Grundlagen</div>
+            <div className="text-xs text-gray-500">Bald verfügbar</div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+        </motion.button>
+
+        {/* Pflegetechniken & Interventionen */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 4 * 0.1 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigateToMain('nursing-techniques')}
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32"
+        >
+          <span className="text-4xl flex-shrink-0">🩺</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-lg font-medium text-gray-900 mb-1">Pflegetechniken & Interventionen</div>
+            <div className="text-gray-600 text-sm font-light mb-2">Praktische Fertigkeiten</div>
+            <div className="text-xs text-gray-500">Bald verfügbar</div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+        </motion.button>
+
+        {/* Assessment & Diagnostik */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 5 * 0.1 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigateToMain('assessment')}
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32"
+        >
+          <span className="text-4xl flex-shrink-0">🔍</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-lg font-medium text-gray-900 mb-1">Assessment & Diagnostik</div>
+            <div className="text-gray-600 text-sm font-light mb-2">Einschätzung und Bewertung</div>
+            <div className="text-xs text-gray-500">Bald verfügbar</div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+        </motion.button>
+
+        {/* Pflegeorganisation & Management */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 6 * 0.1 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigateToMain('nursing-management')}
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32 md:col-span-2 md:max-w-lg md:mx-auto"
+        >
+          <span className="text-4xl flex-shrink-0">📋</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-lg font-medium text-gray-900 mb-1">Pflegeorganisation & Management</div>
+            <div className="text-gray-600 text-sm font-light mb-2">Organisation und Führung</div>
+            <div className="text-xs text-gray-500">Bald verfügbar</div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
         </motion.button>
       </div>
     </div>
@@ -325,6 +401,324 @@ const QuizLernkarten = () => {
         </div>
       )
     }
+
+    // Pharmakologie - Grundstruktur
+    if (selectedMainCategory === 'pharmacology') {
+      const pharmacologyCategories = [
+        {
+          id: 'cardiovascular-drugs',
+          name: 'Herz-Kreislauf-Medikamente',
+          description: 'Antihypertensiva, Antiarrhythmika, Lipidsenker',
+          icon: '❤️'
+        },
+        {
+          id: 'respiratory-drugs',
+          name: 'Respiratorische Medikamente',
+          description: 'Bronchodilatatoren, Kortikosteroide',
+          icon: '🫁'
+        },
+        {
+          id: 'cns-drugs',
+          name: 'ZNS-Medikamente',
+          description: 'Analgetika, Psychopharmaka, Antiepileptika',
+          icon: '🧠'
+        },
+        {
+          id: 'antibiotics',
+          name: 'Antiinfektiva',
+          description: 'Antibiotika, Antimykotika, Virustatika',
+          icon: '🦠'
+        },
+        {
+          id: 'gi-drugs',
+          name: 'Gastrointestinale Medikamente',
+          description: 'PPI, Antiemetika, Laxanzien',
+          icon: '🏥'
+        },
+        {
+          id: 'hormones-metabolism',
+          name: 'Hormone & Stoffwechsel',
+          description: 'Antidiabetika, Schilddrüsenhormone',
+          icon: '⚕️'
+        }
+      ]
+
+      return (
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <BreadcrumbNav />
+              <h2 className="text-2xl font-light text-gray-900 mb-2">💊 Pharmakologie</h2>
+              <p className="text-gray-600 font-light">Medikamente und Wirkweisen</p>
+            </div>
+            <Button variant="outline" onClick={navigateBack} className="shrink-0">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Zurück
+            </Button>
+          </div>
+          <CategoryGrid 
+            categories={pharmacologyCategories}
+            color="purple"
+          />
+        </div>
+      )
+    }
+
+    if (selectedMainCategory === 'nursing-theories') {
+      const nursingTheoriesCategories = [
+        {
+          id: 'needs-theories',
+          name: 'Bedürfnisorientierte Theorien',
+          description: 'Henderson, Maslow, Orem',
+          icon: '🎯'
+        },
+        {
+          id: 'interaction-theories',
+          name: 'Interaktionstheorien',
+          description: 'Peplau, Travelbee, Orlando',
+          icon: '🤝'
+        },
+        {
+          id: 'outcome-theories',
+          name: 'Ergebnisorientierte Theorien',
+          description: 'Rogers, King, Neuman',
+          icon: '📈'
+        },
+        {
+          id: 'humanistic-theories',
+          name: 'Humanistische Theorien',
+          description: 'Watson, Leininger, Benner',
+          icon: '💚'
+        },
+        {
+          id: 'process-models',
+          name: 'Pflegeprozessmodelle',
+          description: '6-Schritt, NANDA-I, Clinical Reasoning',
+          icon: '🔄'
+        },
+        {
+          id: 'structure-models',
+          name: 'Strukturmodelle',
+          description: 'ATL, ABEDL, SIS',
+          icon: '🏗️'
+        },
+        {
+          id: 'concept-models',
+          name: 'Konzeptmodelle',
+          description: 'Primary Nursing, Kinästhetik, Basale Stimulation',
+          icon: '💡'
+        },
+        {
+          id: 'assessment-models',
+          name: 'Assessmentmodelle',
+          description: 'Barthel-Index, RAI, Pflegegrad',
+          icon: '📋'
+        }
+      ]
+
+      return (
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <BreadcrumbNav />
+              <h2 className="text-2xl font-light text-gray-900 mb-2">📚 Pflegetheorien & -modelle</h2>
+              <p className="text-gray-600 font-light">Theoretische Grundlagen der Pflege</p>
+            </div>
+            <Button variant="outline" onClick={navigateBack} className="shrink-0">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Zurück
+            </Button>
+          </div>
+          <CategoryGrid 
+            categories={nursingTheoriesCategories}
+            color="green"
+          />
+        </div>
+      )
+    }
+
+    if (selectedMainCategory === 'nursing-techniques') {
+      const nursingTechniquesCategories = [
+        {
+          id: 'basic-care',
+          name: 'Grundpflege',
+          description: 'Körperpflege, Mobilisation, Ernährung, Ausscheidung',
+          icon: '🛁'
+        },
+        {
+          id: 'treatment-care',
+          name: 'Behandlungspflege',
+          description: 'Medikamente, Injektionen, Wundversorgung',
+          icon: '💊'
+        },
+        {
+          id: 'emergency-care',
+          name: 'Notfallpflege',
+          description: 'Reanimation, Erste Hilfe, ABCDE-Schema',
+          icon: '🚨'
+        },
+        {
+          id: 'intensive-care',
+          name: 'Intensivpflege',
+          description: 'Monitoring, Beatmung, Nierenersatz',
+          icon: '🏥'
+        },
+        {
+          id: 'palliative-care',
+          name: 'Palliativpflege',
+          description: 'Symptomkontrolle, Sterbebegleitung',
+          icon: '🕊️'
+        },
+        {
+          id: 'psychiatric-care',
+          name: 'Psychiatrische Pflege',
+          description: 'Milieugestaltung, Krisenintervention',
+          icon: '🧠'
+        },
+        {
+          id: 'pediatric-care',
+          name: 'Pädiatrische Pflege',
+          description: 'Entwicklungsorientiert, familienorientiert',
+          icon: '👶'
+        },
+        {
+          id: 'prophylaxis',
+          name: 'Prophylaxen',
+          description: 'Dekubitus, Sturz, Thrombose, Pneumonie',
+          icon: '🛡️'
+        }
+      ]
+
+      return (
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <BreadcrumbNav />
+              <h2 className="text-2xl font-light text-gray-900 mb-2">🩺 Pflegetechniken & Interventionen</h2>
+              <p className="text-gray-600 font-light">Praktische Fertigkeiten in der Pflege</p>
+            </div>
+            <Button variant="outline" onClick={navigateBack} className="shrink-0">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Zurück
+            </Button>
+          </div>
+          <CategoryGrid 
+            categories={nursingTechniquesCategories}
+            color="blue"
+          />
+        </div>
+      )
+    }
+
+    if (selectedMainCategory === 'assessment') {
+      const assessmentCategories = [
+        {
+          id: 'nursing-assessment',
+          name: 'Pflegeassessment',
+          description: 'Erstassessment, SIS, Risikoscreening',
+          icon: '🔍'
+        },
+        {
+          id: 'functional-assessment',
+          name: 'Funktionsassessment',
+          description: 'ADL, Mobilität, Kognition, Kommunikation',
+          icon: '🏃'
+        },
+        {
+          id: 'special-assessments',
+          name: 'Spezielle Assessments',
+          description: 'Schmerz, Ernährung, Wund-, Dekubitus-, Sturzassessment',
+          icon: '📊'
+        },
+        {
+          id: 'psychosocial-assessment',
+          name: 'Psychosoziales Assessment',
+          description: 'Depression, Angst, Lebensqualität, soziale Situation',
+          icon: '🧠'
+        },
+        {
+          id: 'care-grade-assessment',
+          name: 'Pflegegradassessment (NBA)',
+          description: 'Module, Bewertung, Pflegegrade 1-5',
+          icon: '📋'
+        },
+        {
+          id: 'nursing-diagnostics',
+          name: 'Pflegediagnostik',
+          description: 'NANDA-I, NOC, NIC, Evaluation',
+          icon: '🩺'
+        }
+      ]
+
+      return (
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <BreadcrumbNav />
+              <h2 className="text-2xl font-light text-gray-900 mb-2">🔍 Assessment & Diagnostik</h2>
+              <p className="text-gray-600 font-light">Einschätzung und Bewertung</p>
+            </div>
+            <Button variant="outline" onClick={navigateBack} className="shrink-0">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Zurück
+            </Button>
+          </div>
+          <CategoryGrid 
+            categories={assessmentCategories}
+            color="orange"
+          />
+        </div>
+      )
+    }
+
+    if (selectedMainCategory === 'nursing-management') {
+      const nursingManagementCategories = [
+        {
+          id: 'quality-management',
+          name: 'Qualitätsmanagement',
+          description: 'Qualitätsdimensionen, QM-Systeme, Standards, Audits',
+          icon: '📋'
+        },
+        {
+          id: 'hygiene-infection-control',
+          name: 'Hygiene & Infektionsschutz',
+          description: 'Basishygiene, Isolation, nosokomiale Infektionen',
+          icon: '🧼'
+        },
+        {
+          id: 'personnel-management',
+          name: 'Personalmanagement',
+          description: 'Personalplanung, -entwicklung, Führung, BGM',
+          icon: '👥'
+        },
+        {
+          id: 'nursing-organization',
+          name: 'Pflegeorganisation',
+          description: 'Organisationsformen, Schnittstellen, Prozesse, Digitalisierung',
+          icon: '🏢'
+        }
+      ]
+
+      return (
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <BreadcrumbNav />
+              <h2 className="text-2xl font-light text-gray-900 mb-2">📋 Pflegeorganisation & Management</h2>
+              <p className="text-gray-600 font-light">Organisation und Führung in der Pflege</p>
+            </div>
+            <Button variant="outline" onClick={navigateBack} className="shrink-0">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Zurück
+            </Button>
+          </div>
+          <CategoryGrid 
+            categories={nursingManagementCategories}
+            color="gray"
+          />
+        </div>
+      )
+    }
     
     return null
   }
@@ -365,34 +759,6 @@ const QuizLernkarten = () => {
     return <MainCategorySelection />
   }
 
-  // Study Mode Selection
-  const StudyModeSelection = () => (
-    <div className="mb-12">
-      <h2 className="text-2xl font-light text-gray-900 mb-8 text-center">Lernmodus wählen</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {studyModes.map((mode, index) => (
-          <motion.button
-            key={mode.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setStudyMode(mode.id)}
-            className={`group p-6 rounded-lg border-2 text-left transition-all ${
-              studyMode === mode.id
-                ? 'border-black bg-gray-50'
-                : 'border-gray-200 hover:border-gray-300 bg-white'
-            }`}
-          >
-            <div className="text-3xl mb-4">{mode.icon}</div>
-            <div className="font-medium mb-2 text-gray-900">{mode.name}</div>
-            <div className="text-sm text-gray-600 font-light leading-relaxed">{mode.description}</div>
-          </motion.button>
-        ))}
-      </div>
-    </div>
-  )
 
   // Quiz Interface
   const QuizInterface = () => {
@@ -694,7 +1060,7 @@ const QuizLernkarten = () => {
     )
   }
 
-  if (currentSession && studyMode === 'quiz') {
+  if (currentSession) {
     return (
       <div className="container mx-auto px-4 py-8">
         <QuizInterface />
@@ -702,7 +1068,7 @@ const QuizLernkarten = () => {
     )
   }
 
-  if (flashcards.length > 0 && studyMode === 'flashcards' && selectedCategories.length > 0) {
+  if (flashcards.length > 0 && selectedCategories.length > 0) {
     return (
       <div className="container mx-auto px-4 py-8">
         <FlashcardInterface />
@@ -727,11 +1093,10 @@ const QuizLernkarten = () => {
           </p>
         </motion.div>
 
-        <StudyModeSelection />
         <CategorySelection />
 
         <div className="text-center mt-12">
-          {studyMode === 'quiz' && (
+          <div className="flex gap-4 justify-center">
             <Button
               size="lg"
               onClick={handleStartQuiz}
@@ -741,11 +1106,9 @@ const QuizLernkarten = () => {
               <Play className="w-5 h-5 mr-2" />
               Quiz starten
             </Button>
-          )}
-          
-          {studyMode === 'flashcards' && (
             <Button
               size="lg"
+              variant="outline"
               onClick={handleStartFlashcards}
               disabled={selectedCategories.length === 0}
               className="px-8 py-3 text-base"
@@ -753,31 +1116,7 @@ const QuizLernkarten = () => {
               <BookOpen className="w-5 h-5 mr-2" />
               Lernkarten starten
             </Button>
-          )}
-
-          {studyMode === 'mixed' && (
-            <div className="flex gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={handleStartQuiz}
-                disabled={selectedCategories.length === 0}
-                className="px-8 py-3 text-base"
-              >
-                <Play className="w-5 h-5 mr-2" />
-                Quiz starten
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={handleStartFlashcards}
-                disabled={selectedCategories.length === 0}
-                className="px-8 py-3 text-base"
-              >
-                <BookOpen className="w-5 h-5 mr-2" />
-                Lernkarten starten
-              </Button>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

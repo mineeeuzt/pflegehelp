@@ -197,6 +197,700 @@ export const pathologyCategories: Category[] = [
                     parentId: 'acute-coronary-syndrome'
                   }
                 ]
+              },
+              {
+                id: 'myocardial-infarction',
+                name: 'Myokardinfarkt',
+                description: 'Herzmuskelschädigung und -nekrose',
+                icon: '💔',
+                difficulty: 'hard',
+                parentId: 'coronary-heart-disease',
+                children: [
+                  {
+                    id: 'mi-pathophysiology',
+                    name: 'Pathophysiologie',
+                    description: 'Entstehung und Mechanismen des Myokardinfarkts',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'myocardial-infarction',
+                    children: [
+                      {
+                        id: 'ischemia-cascade',
+                        name: 'Ischämie-Kaskade',
+                        description: 'Zeitliche Abfolge der Myokardschädigung',
+                        icon: '⏰',
+                        difficulty: 'hard',
+                        parentId: 'mi-pathophysiology'
+                      },
+                      {
+                        id: 'myocyte-death',
+                        name: 'Myozytentod (Nekrose vs. Apoptose)',
+                        description: 'Zelltodmechanismen im Myokard',
+                        icon: '💀',
+                        difficulty: 'hard',
+                        parentId: 'mi-pathophysiology'
+                      },
+                      {
+                        id: 'stunning-hibernation',
+                        name: 'Stunning & Hibernation',
+                        description: 'Reversible Myokarddysfunktion',
+                        icon: '🔄',
+                        difficulty: 'hard',
+                        parentId: 'mi-pathophysiology'
+                      },
+                      {
+                        id: 'reperfusion-injury',
+                        name: 'Reperfusionsschäden',
+                        description: 'Schäden durch Wiederherstellung der Durchblutung',
+                        icon: '💥',
+                        difficulty: 'hard',
+                        parentId: 'mi-pathophysiology'
+                      },
+                      {
+                        id: 'no-reflow-phenomenon',
+                        name: 'No-Reflow-Phänomen',
+                        description: 'Mikrozirkulationsstörung trotz Rekanalisierung',
+                        icon: '🚫',
+                        difficulty: 'hard',
+                        parentId: 'mi-pathophysiology'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'mi-symptoms-diagnosis',
+                    name: 'Symptomatik & Diagnostik',
+                    description: 'Klinische Präsentation und Diagnoseverfahren',
+                    icon: '🩺',
+                    difficulty: 'medium',
+                    parentId: 'myocardial-infarction',
+                    children: [
+                      {
+                        id: 'chest-pain-characteristics',
+                        name: 'Brustschmerz-Charakteristika',
+                        description: 'Typische und atypische Schmerzcharakteristika',
+                        icon: '💔',
+                        difficulty: 'medium',
+                        parentId: 'mi-symptoms-diagnosis'
+                      },
+                      {
+                        id: 'levine-sign',
+                        name: 'Levine-Zeichen',
+                        description: 'Charakteristische Handhaltung bei Angina',
+                        icon: '✋',
+                        difficulty: 'easy',
+                        parentId: 'mi-symptoms-diagnosis'
+                      },
+                      {
+                        id: 'silent-mi',
+                        name: 'Stummer Myokardinfarkt',
+                        description: 'Myokardinfarkt ohne typische Symptome',
+                        icon: '🤫',
+                        difficulty: 'medium',
+                        parentId: 'mi-symptoms-diagnosis'
+                      },
+                      {
+                        id: 'ekg-changes-temporal',
+                        name: 'EKG-Veränderungen (zeitlicher Verlauf)',
+                        description: 'Entwicklung der EKG-Befunde über die Zeit',
+                        icon: '📈',
+                        difficulty: 'hard',
+                        parentId: 'mi-symptoms-diagnosis'
+                      },
+                      {
+                        id: 'stemi-localization',
+                        name: 'STEMI-Lokalisation (Vorderwand/Hinterwand/Seitenwand)',
+                        description: 'Anatomische Zuordnung der Infarktregionen',
+                        icon: '🗺️',
+                        difficulty: 'medium',
+                        parentId: 'mi-symptoms-diagnosis'
+                      },
+                      {
+                        id: 'reciprocal-changes',
+                        name: 'Reziproke Veränderungen',
+                        description: 'ST-Senkungen in nicht-betroffenen Ableitungen',
+                        icon: '↔️',
+                        difficulty: 'medium',
+                        parentId: 'mi-symptoms-diagnosis'
+                      },
+                      {
+                        id: 'posterior-mi',
+                        name: 'Posteriorer Myokardinfarkt',
+                        description: 'Schwer erkennbarer Hinterwandinfarkt',
+                        icon: '🔍',
+                        difficulty: 'hard',
+                        parentId: 'mi-symptoms-diagnosis'
+                      },
+                      {
+                        id: 'lab-diagnostics-mi',
+                        name: 'Labordiagnostik',
+                        description: 'Biomarker und zeitlicher Verlauf',
+                        icon: '🧪',
+                        difficulty: 'medium',
+                        parentId: 'mi-symptoms-diagnosis'
+                      },
+                      {
+                        id: 'imaging-mi',
+                        name: 'Bildgebung (Echo, MRT)',
+                        description: 'Nicht-invasive Diagnostik bei MI',
+                        icon: '📷',
+                        difficulty: 'medium',
+                        parentId: 'mi-symptoms-diagnosis'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'mi-complications',
+                    name: 'Komplikationen',
+                    description: 'Akute und chronische Komplikationen des MI',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'myocardial-infarction',
+                    children: [
+                      {
+                        id: 'mechanical-complications',
+                        name: 'Mechanische Komplikationen',
+                        description: 'Strukturelle Defekte nach MI',
+                        icon: '🔧',
+                        difficulty: 'hard',
+                        parentId: 'mi-complications',
+                        children: [
+                          {
+                            id: 'papillary-muscle-rupture',
+                            name: 'Papillarmuskelruptur',
+                            description: 'Akute Mitralklappeninsuffizienz',
+                            icon: '💥',
+                            difficulty: 'hard',
+                            parentId: 'mechanical-complications'
+                          },
+                          {
+                            id: 'ventricular-septal-defect',
+                            name: 'Ventrikelseptumdefekt (VSD)',
+                            description: 'Septumruptur nach MI',
+                            icon: '🕳️',
+                            difficulty: 'hard',
+                            parentId: 'mechanical-complications'
+                          },
+                          {
+                            id: 'free-wall-rupture',
+                            name: 'Freie Wandruptur',
+                            description: 'Myokardruptur mit Perikardtamponade',
+                            icon: '💔',
+                            difficulty: 'hard',
+                            parentId: 'mechanical-complications'
+                          },
+                          {
+                            id: 'pseudoaneurysm',
+                            name: 'Pseudoaneurysma',
+                            description: 'Falsche Wandausstülpung',
+                            icon: '🫧',
+                            difficulty: 'hard',
+                            parentId: 'mechanical-complications'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'arrhythmic-complications',
+                        name: 'Rhythmusstörungen',
+                        description: 'Herzrhythmusstörungen nach MI',
+                        icon: '⚡',
+                        difficulty: 'medium',
+                        parentId: 'mi-complications',
+                        children: [
+                          {
+                            id: 'ventricular-arrhythmias',
+                            name: 'Ventrikuläre Arrhythmien (VT, VF)',
+                            description: 'Lebensbedrohliche Rhythmusstörungen',
+                            icon: '💓',
+                            difficulty: 'hard',
+                            parentId: 'arrhythmic-complications'
+                          },
+                          {
+                            id: 'atrial-fibrillation-mi',
+                            name: 'Vorhofflimmern',
+                            description: 'Häufige supraventrikuläre Arrhythmie',
+                            icon: '🌀',
+                            difficulty: 'medium',
+                            parentId: 'arrhythmic-complications'
+                          },
+                          {
+                            id: 'av-blocks',
+                            name: 'AV-Blöcke',
+                            description: 'Überleitungsstörungen nach MI',
+                            icon: '🚫',
+                            difficulty: 'medium',
+                            parentId: 'arrhythmic-complications'
+                          },
+                          {
+                            id: 'sinus-node-dysfunction',
+                            name: 'Sinusknotendysfunktion',
+                            description: 'Schrittmacherfunktionsstörung',
+                            icon: '⏰',
+                            difficulty: 'medium',
+                            parentId: 'arrhythmic-complications'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'pericardial-complications',
+                        name: 'Perikardbeteiligung',
+                        description: 'Entzündung und Ergüsse des Herzbeutels',
+                        icon: '🛡️',
+                        difficulty: 'medium',
+                        parentId: 'mi-complications',
+                        children: [
+                          {
+                            id: 'acute-pericarditis',
+                            name: 'Akute Perikarditis (1-4 Tage)',
+                            description: 'Frühe Perikardentzündung',
+                            icon: '🔥',
+                            difficulty: 'medium',
+                            parentId: 'pericardial-complications'
+                          },
+                          {
+                            id: 'dressler-syndrome',
+                            name: 'Dressler-Syndrom (2-8 Wochen)',
+                            description: 'Autoimmune Perikarditis',
+                            icon: '⚡',
+                            difficulty: 'medium',
+                            parentId: 'pericardial-complications'
+                          },
+                          {
+                            id: 'pericardial-effusion',
+                            name: 'Perikarderguss',
+                            description: 'Flüssigkeitsansammlung im Herzbeutel',
+                            icon: '💧',
+                            difficulty: 'medium',
+                            parentId: 'pericardial-complications'
+                          },
+                          {
+                            id: 'cardiac-tamponade',
+                            name: 'Perikardtamponade',
+                            description: 'Lebensbedrohliche Kompression des Herzens',
+                            icon: '🚨',
+                            difficulty: 'hard',
+                            parentId: 'pericardial-complications'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'cardiogenic-shock',
+                        name: 'Kardiogener Schock',
+                        description: 'Kritische Kreislaufinsuffizienz',
+                        icon: '💀',
+                        difficulty: 'hard',
+                        parentId: 'mi-complications',
+                        children: [
+                          {
+                            id: 'shock-hemodynamics',
+                            name: 'Hämodynamik & Pathophysiologie',
+                            description: 'Kreislaufversagen nach MI',
+                            icon: '📉',
+                            difficulty: 'hard',
+                            parentId: 'cardiogenic-shock'
+                          },
+                          {
+                            id: 'iabp-support',
+                            name: 'IABP (Intraaortale Ballonpumpe)',
+                            description: 'Mechanische Kreislaufunterstützung',
+                            icon: '🎈',
+                            difficulty: 'hard',
+                            parentId: 'cardiogenic-shock'
+                          },
+                          {
+                            id: 'ecmo-impella',
+                            name: 'ECMO & Impella',
+                            description: 'Erweiterte mechanische Unterstützung',
+                            icon: '🔄',
+                            difficulty: 'hard',
+                            parentId: 'cardiogenic-shock'
+                          },
+                          {
+                            id: 'vasopressor-therapy',
+                            name: 'Vasopressor-Therapie',
+                            description: 'Medikamentöse Kreislaufstützung',
+                            icon: '💉',
+                            difficulty: 'medium',
+                            parentId: 'cardiogenic-shock'
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                id: 'therapy-prognosis',
+                name: 'Therapie & Prognose',
+                description: 'Behandlungsstrategien und Langzeitprognose',
+                icon: '🩺',
+                difficulty: 'hard',
+                parentId: 'coronary-heart-disease',
+                children: [
+                  {
+                    id: 'acute-therapy',
+                    name: 'Akuttherapie',
+                    description: 'Sofortmaßnahmen bei akutem Koronarsyndrom',
+                    icon: '🚨',
+                    difficulty: 'hard',
+                    parentId: 'therapy-prognosis',
+                    children: [
+                      {
+                        id: 'reperfusion-therapy',
+                        name: 'Reperfusionstherapie',
+                        description: 'Wiederherstellung der Koronarperfusion',
+                        icon: '🔄',
+                        difficulty: 'hard',
+                        parentId: 'acute-therapy',
+                        children: [
+                          {
+                            id: 'primary-pci',
+                            name: 'Primäre PCI (< 120 min)',
+                            description: 'Notfall-Katheterintervention',
+                            icon: '⏱️',
+                            difficulty: 'hard',
+                            parentId: 'reperfusion-therapy'
+                          },
+                          {
+                            id: 'thrombolysis',
+                            name: 'Thrombolyse (< 30 min)',
+                            description: 'Medikamentöse Gerinnselauflösung',
+                            icon: '💊',
+                            difficulty: 'medium',
+                            parentId: 'reperfusion-therapy'
+                          },
+                          {
+                            id: 'rescue-pci',
+                            name: 'Rescue-PCI',
+                            description: 'Katheterintervention nach fehlgeschlagener Lyse',
+                            icon: '🆘',
+                            difficulty: 'hard',
+                            parentId: 'reperfusion-therapy'
+                          },
+                          {
+                            id: 'facilitated-pci',
+                            name: 'Facilitated PCI',
+                            description: 'Geplante PCI nach pharmakologischer Vorbereitung',
+                            icon: '🔗',
+                            difficulty: 'hard',
+                            parentId: 'reperfusion-therapy'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'dual-antiplatelet-therapy',
+                        name: 'Duale Thrombozytenaggregationshemmung',
+                        description: 'ASS + P2Y12-Inhibitor',
+                        icon: '🩸',
+                        difficulty: 'medium',
+                        parentId: 'acute-therapy',
+                        children: [
+                          {
+                            id: 'aspirin-loading',
+                            name: 'ASS (Acetylsalicylsäure)',
+                            description: 'Cyclooxygenase-Hemmung',
+                            icon: '💊',
+                            difficulty: 'easy',
+                            parentId: 'dual-antiplatelet-therapy'
+                          },
+                          {
+                            id: 'p2y12-inhibitors',
+                            name: 'P2Y12-Inhibitoren (Clopidogrel, Prasugrel, Ticagrelor)',
+                            description: 'ADP-Rezeptor-Antagonisten',
+                            icon: '🔗',
+                            difficulty: 'medium',
+                            parentId: 'dual-antiplatelet-therapy'
+                          },
+                          {
+                            id: 'dapt-duration',
+                            name: 'DAPT-Dauer (6-12 Monate)',
+                            description: 'Optimale Behandlungsdauer',
+                            icon: '📅',
+                            difficulty: 'medium',
+                            parentId: 'dual-antiplatelet-therapy'
+                          },
+                          {
+                            id: 'bleeding-risk-assessment',
+                            name: 'Blutungsrisiko-Assessment',
+                            description: 'Abwägung Thrombose vs. Blutung',
+                            icon: '⚖️',
+                            difficulty: 'medium',
+                            parentId: 'dual-antiplatelet-therapy'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'anticoagulation',
+                        name: 'Antikoagulation',
+                        description: 'Gerinnungshemmung bei ACS',
+                        icon: '🧪',
+                        difficulty: 'medium',
+                        parentId: 'acute-therapy',
+                        children: [
+                          {
+                            id: 'heparin-therapy',
+                            name: 'Heparin (UFH, LMWH)',
+                            description: 'Unfraktioniertes und niedermolekulares Heparin',
+                            icon: '💉',
+                            difficulty: 'medium',
+                            parentId: 'anticoagulation'
+                          },
+                          {
+                            id: 'bivalirudin',
+                            name: 'Bivalirudin',
+                            description: 'Direkter Thrombin-Inhibitor',
+                            icon: '🎯',
+                            difficulty: 'hard',
+                            parentId: 'anticoagulation'
+                          },
+                          {
+                            id: 'fondaparinux',
+                            name: 'Fondaparinux',
+                            description: 'Selektiver Faktor-Xa-Inhibitor',
+                            icon: '🔬',
+                            difficulty: 'medium',
+                            parentId: 'anticoagulation'
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    id: 'longterm-therapy',
+                    name: 'Langzeittherapie',
+                    description: 'Sekundärprävention und chronische Behandlung',
+                    icon: '📅',
+                    difficulty: 'medium',
+                    parentId: 'therapy-prognosis',
+                    children: [
+                      {
+                        id: 'ace-inhibitors-arb',
+                        name: 'ACE-Hemmer/ARB',
+                        description: 'RAAS-Blockade zur Remodeling-Prävention',
+                        icon: '🛡️',
+                        difficulty: 'medium',
+                        parentId: 'longterm-therapy'
+                      },
+                      {
+                        id: 'beta-blockers-mi',
+                        name: 'Betablocker',
+                        description: 'Sympathikusblockade post-MI',
+                        icon: '🚫',
+                        difficulty: 'medium',
+                        parentId: 'longterm-therapy'
+                      },
+                      {
+                        id: 'statins-high-intensity',
+                        name: 'Statine (hochdosiert)',
+                        description: 'Intensive Lipidsenkung',
+                        icon: '📉',
+                        difficulty: 'medium',
+                        parentId: 'longterm-therapy'
+                      },
+                      {
+                        id: 'mineralocorticoid-antagonists',
+                        name: 'Mineralokortikoid-Antagonisten',
+                        description: 'Aldosteron-Blockade bei Herzinsuffizienz',
+                        icon: '⚖️',
+                        difficulty: 'medium',
+                        parentId: 'longterm-therapy'
+                      },
+                      {
+                        id: 'diabetes-management-cad',
+                        name: 'Diabetesmanagement',
+                        description: 'Glukosekontrolle bei KHK',
+                        icon: '🍯',
+                        difficulty: 'medium',
+                        parentId: 'longterm-therapy'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'interventional-therapy',
+                    name: 'Interventionelle Therapie',
+                    description: 'Katheterbasierte Behandlungsverfahren',
+                    icon: '🔧',
+                    difficulty: 'hard',
+                    parentId: 'therapy-prognosis',
+                    children: [
+                      {
+                        id: 'coronary-angiography',
+                        name: 'Koronarangiographie',
+                        description: 'Invasive Koronardiagnostik',
+                        icon: '📷',
+                        difficulty: 'medium',
+                        parentId: 'interventional-therapy',
+                        children: [
+                          {
+                            id: 'access-routes',
+                            name: 'Zugangswege (radial, femoral)',
+                            description: 'Arterielle Punktionsstellen',
+                            icon: '🎯',
+                            difficulty: 'medium',
+                            parentId: 'coronary-angiography'
+                          },
+                          {
+                            id: 'contrast-nephropathy',
+                            name: 'Kontrastmittelnephropathie',
+                            description: 'Nierenschädigung durch Kontrastmittel',
+                            icon: '🫘',
+                            difficulty: 'medium',
+                            parentId: 'coronary-angiography'
+                          },
+                          {
+                            id: 'syntax-score',
+                            name: 'SYNTAX-Score',
+                            description: 'Komplexitätsbewertung der KHK',
+                            icon: '📊',
+                            difficulty: 'medium',
+                            parentId: 'coronary-angiography'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'pci-techniques',
+                        name: 'PCI-Techniken',
+                        description: 'Perkutane Koronarintervention',
+                        icon: '🔧',
+                        difficulty: 'hard',
+                        parentId: 'interventional-therapy',
+                        children: [
+                          {
+                            id: 'balloon-angioplasty',
+                            name: 'Ballondilatation (PTCA)',
+                            description: 'Mechanische Gefäßerweiterung',
+                            icon: '🎈',
+                            difficulty: 'medium',
+                            parentId: 'pci-techniques'
+                          },
+                          {
+                            id: 'stent-implantation',
+                            name: 'Stent-Implantation',
+                            description: 'Gefäßstützen zur offenhaltung',
+                            icon: '🔗',
+                            difficulty: 'medium',
+                            parentId: 'pci-techniques'
+                          },
+                          {
+                            id: 'drug-eluting-stents',
+                            name: 'Drug-eluting Stents (DES)',
+                            description: 'Medikamenten-freisetzende Stents',
+                            icon: '💊',
+                            difficulty: 'hard',
+                            parentId: 'pci-techniques'
+                          },
+                          {
+                            id: 'bioresorbable-stents',
+                            name: 'Bioresorbierbare Stents',
+                            description: 'Auflösbare Gefäßstützen',
+                            icon: '♻️',
+                            difficulty: 'hard',
+                            parentId: 'pci-techniques'
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    id: 'cardiac-rehabilitation',
+                    name: 'Kardiale Rehabilitation',
+                    description: 'Umfassende Nachsorge nach Herzinfarkt',
+                    icon: '💪',
+                    difficulty: 'medium',
+                    parentId: 'therapy-prognosis',
+                    children: [
+                      {
+                        id: 'exercise-training',
+                        name: 'Bewegungstherapie',
+                        description: 'Strukturiertes körperliches Training',
+                        icon: '🏃',
+                        difficulty: 'easy',
+                        parentId: 'cardiac-rehabilitation'
+                      },
+                      {
+                        id: 'patient-education',
+                        name: 'Patientenschulung',
+                        description: 'Aufklärung über Krankheit und Selbstmanagement',
+                        icon: '📚',
+                        difficulty: 'easy',
+                        parentId: 'cardiac-rehabilitation'
+                      },
+                      {
+                        id: 'psychological-support',
+                        name: 'Psychologische Betreuung',
+                        description: 'Depression und Angst nach MI',
+                        icon: '🧠',
+                        difficulty: 'medium',
+                        parentId: 'cardiac-rehabilitation'
+                      },
+                      {
+                        id: 'risk-factor-modification',
+                        name: 'Risikofaktor-Modifikation',
+                        description: 'Lebensstilintervention',
+                        icon: '🎯',
+                        difficulty: 'medium',
+                        parentId: 'cardiac-rehabilitation'
+                      },
+                      {
+                        id: 'return-to-work',
+                        name: 'Berufliche Wiedereingliederung',
+                        description: 'Arbeitsplatzanpassung und Belastbarkeit',
+                        icon: '💼',
+                        difficulty: 'medium',
+                        parentId: 'cardiac-rehabilitation'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'prognosis-risk-stratification',
+                    name: 'Prognose & Risikostratifizierung',
+                    description: 'Langzeitprognose und Risikoeinschätzung',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'therapy-prognosis',
+                    children: [
+                      {
+                        id: 'timi-risk-score',
+                        name: 'TIMI-Risk-Score',
+                        description: 'Kurzzeit-Risikobewertung bei ACS',
+                        icon: '🎯',
+                        difficulty: 'medium',
+                        parentId: 'prognosis-risk-stratification'
+                      },
+                      {
+                        id: 'stress-testing',
+                        name: 'Belastungsuntersuchungen',
+                        description: 'Ergometrie, Stress-Echo, Myokardszintigraphie',
+                        icon: '🏃',
+                        difficulty: 'medium',
+                        parentId: 'prognosis-risk-stratification'
+                      },
+                      {
+                        id: 'echocardiography-followup',
+                        name: 'Echokardiographie-Follow-up',
+                        description: 'Kontrolle der Herzfunktion',
+                        icon: '📸',
+                        difficulty: 'medium',
+                        parentId: 'prognosis-risk-stratification'
+                      },
+                      {
+                        id: 'biomarker-prognosis',
+                        name: 'Prognostische Biomarker',
+                        description: 'NT-proBNP, hs-CRP, hochsensitives Troponin',
+                        icon: '🧪',
+                        difficulty: 'medium',
+                        parentId: 'prognosis-risk-stratification'
+                      },
+                      {
+                        id: 'sudden-cardiac-death-risk',
+                        name: 'Plötzlicher Herztod-Risiko',
+                        description: 'ICD-Indikation und Primärprävention',
+                        icon: '⚡',
+                        difficulty: 'hard',
+                        parentId: 'prognosis-risk-stratification'
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -263,6 +957,940 @@ export const pathologyCategories: Category[] = [
                     icon: '⏰',
                     difficulty: 'easy',
                     parentId: 'hf-classification'
+                  }
+                ]
+              },
+              {
+                id: 'hf-etiology',
+                name: 'Ätiologie',
+                description: 'Ursachen der Herzinsuffizienz',
+                icon: '🔍',
+                difficulty: 'medium',
+                parentId: 'heart-failure',
+                children: [
+                  {
+                    id: 'ischemic-cardiomyopathy',
+                    name: 'Ischämische Kardiomyopathie (KHK)',
+                    description: 'Herzinsuffizienz durch koronare Herzkrankheit',
+                    icon: '🫀',
+                    difficulty: 'medium',
+                    parentId: 'hf-etiology'
+                  },
+                  {
+                    id: 'dilated-cardiomyopathy',
+                    name: 'Dilatative Kardiomyopathie',
+                    description: 'Erweiterte und schwache Herzkammern',
+                    icon: '🫧',
+                    difficulty: 'medium',
+                    parentId: 'hf-etiology'
+                  },
+                  {
+                    id: 'hypertensive-heart-disease',
+                    name: 'Hypertensive Herzerkrankung',
+                    description: 'Herzinsuffizienz durch Bluthochdruck',
+                    icon: '📈',
+                    difficulty: 'medium',
+                    parentId: 'hf-etiology'
+                  },
+                  {
+                    id: 'valvular-heart-disease',
+                    name: 'Klappenvitien',
+                    description: 'Herzklappenfehler als Ursache',
+                    icon: '🚪',
+                    difficulty: 'medium',
+                    parentId: 'hf-etiology'
+                  },
+                  {
+                    id: 'alcohol-toxic-cardiomyopathy',
+                    name: 'Alkohol-/toxische Kardiomyopathie',
+                    description: 'Herzschädigung durch Toxine',
+                    icon: '🍷',
+                    difficulty: 'medium',
+                    parentId: 'hf-etiology'
+                  },
+                  {
+                    id: 'infectious-cardiomyopathy',
+                    name: 'Infektiöse Kardiomyopathie',
+                    description: 'Myokarditis und infektionsbedingte Schädigungen',
+                    icon: '🦠',
+                    difficulty: 'medium',
+                    parentId: 'hf-etiology'
+                  },
+                  {
+                    id: 'peripartum-cardiomyopathy',
+                    name: 'Peripartum-Kardiomyopathie',
+                    description: 'Schwangerschaftsassoziierte Herzinsuffizienz',
+                    icon: '🤰',
+                    difficulty: 'hard',
+                    parentId: 'hf-etiology'
+                  }
+                ]
+              },
+              {
+                id: 'hf-pathophysiology',
+                name: 'Pathophysiologie',
+                description: 'Entstehungsmechanismen der Herzinsuffizienz',
+                icon: '🔬',
+                difficulty: 'hard',
+                parentId: 'heart-failure',
+                children: [
+                  {
+                    id: 'frank-starling-mechanism',
+                    name: 'Frank-Starling-Mechanismus',
+                    description: 'Beziehung zwischen Vorlast und Kontraktilität',
+                    icon: '📊',
+                    difficulty: 'hard',
+                    parentId: 'hf-pathophysiology'
+                  },
+                  {
+                    id: 'neurohormonal-activation',
+                    name: 'Neurohumorale Aktivierung',
+                    description: 'Hormonelle Kompensationsmechanismen',
+                    icon: '🧪',
+                    difficulty: 'hard',
+                    parentId: 'hf-pathophysiology'
+                  },
+                  {
+                    id: 'sympathetic-activation',
+                    name: 'Sympathikus-Aktivierung',
+                    description: 'Stresshormon-Aktivierung bei Herzinsuffizienz',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'hf-pathophysiology'
+                  },
+                  {
+                    id: 'raas-activation',
+                    name: 'RAAS-Aktivierung',
+                    description: 'Renin-Angiotensin-Aldosteron-System',
+                    icon: '🫘',
+                    difficulty: 'hard',
+                    parentId: 'hf-pathophysiology'
+                  },
+                  {
+                    id: 'ventricular-remodeling',
+                    name: 'Ventricular Remodeling',
+                    description: 'Strukturelle Herzveränderungen',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'hf-pathophysiology'
+                  },
+                  {
+                    id: 'myocardial-hypertrophy',
+                    name: 'Myokardhypertrophie',
+                    description: 'Verdickung der Herzmuskulatur',
+                    icon: '💪',
+                    difficulty: 'medium',
+                    parentId: 'hf-pathophysiology'
+                  }
+                ]
+              },
+              {
+                id: 'hf-symptoms',
+                name: 'Symptomatik',
+                description: 'Klinische Zeichen der Herzinsuffizienz',
+                icon: '🩺',
+                difficulty: 'easy',
+                parentId: 'heart-failure',
+                children: [
+                  {
+                    id: 'dyspnea',
+                    name: 'Dyspnoe (Belastungs-/Ruhedyspnoe)',
+                    description: 'Atemnot bei Belastung oder in Ruhe',
+                    icon: '💨',
+                    difficulty: 'easy',
+                    parentId: 'hf-symptoms'
+                  },
+                  {
+                    id: 'orthopnea-pnd',
+                    name: 'Orthopnoe & paroxysmale nächtliche Dyspnoe',
+                    description: 'Atemnot im Liegen und nächtliche Anfälle',
+                    icon: '🛏️',
+                    difficulty: 'medium',
+                    parentId: 'hf-symptoms'
+                  },
+                  {
+                    id: 'fatigue-reduced-performance',
+                    name: 'Müdigkeit & Leistungsminderung',
+                    description: 'Erschöpfung und reduzierte Belastbarkeit',
+                    icon: '😴',
+                    difficulty: 'easy',
+                    parentId: 'hf-symptoms'
+                  },
+                  {
+                    id: 'edema',
+                    name: 'Ödeme (Beine, Aszites, Pleuraerguss)',
+                    description: 'Flüssigkeitsansammlungen im Körper',
+                    icon: '💧',
+                    difficulty: 'easy',
+                    parentId: 'hf-symptoms'
+                  },
+                  {
+                    id: 'nocturia',
+                    name: 'Nykturie',
+                    description: 'Nächtliches häufiges Wasserlassen',
+                    icon: '🌙',
+                    difficulty: 'easy',
+                    parentId: 'hf-symptoms'
+                  },
+                  {
+                    id: 'bendopnea',
+                    name: 'Bendopnoe',
+                    description: 'Atemnot beim Bücken',
+                    icon: '🤸',
+                    difficulty: 'medium',
+                    parentId: 'hf-symptoms'
+                  }
+                ]
+              },
+              {
+                id: 'hf-diagnostics',
+                name: 'Diagnostik',
+                description: 'Untersuchungsmethoden bei Herzinsuffizienz',
+                icon: '🔬',
+                difficulty: 'medium',
+                parentId: 'heart-failure',
+                children: [
+                  {
+                    id: 'bnp-nt-probnp',
+                    name: 'BNP/NT-proBNP',
+                    description: 'Natriuretische Peptide als Biomarker',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'hf-diagnostics'
+                  },
+                  {
+                    id: 'echocardiography-hf',
+                    name: 'Echokardiographie (EF, Wandbewegung, Diastologie)',
+                    description: 'Ultraschalluntersuchung des Herzens',
+                    icon: '📸',
+                    difficulty: 'medium',
+                    parentId: 'hf-diagnostics'
+                  },
+                  {
+                    id: 'ekg-hf',
+                    name: 'EKG (Rhythmus, Hypertrophie, Ischämie)',
+                    description: 'Elektrokardiogramm bei Herzinsuffizienz',
+                    icon: '📈',
+                    difficulty: 'easy',
+                    parentId: 'hf-diagnostics'
+                  },
+                  {
+                    id: 'chest-xray',
+                    name: 'Röntgen-Thorax (Kardiomegalie, Stauung)',
+                    description: 'Röntgenuntersuchung der Brust',
+                    icon: '📷',
+                    difficulty: 'easy',
+                    parentId: 'hf-diagnostics'
+                  },
+                  {
+                    id: 'cardiac-catheterization-hf',
+                    name: 'Herzkatheter',
+                    description: 'Invasive Herzdiagnostik',
+                    icon: '🔍',
+                    difficulty: 'hard',
+                    parentId: 'hf-diagnostics'
+                  },
+                  {
+                    id: 'cardiac-mri',
+                    name: 'Kardio-MRT',
+                    description: 'Magnetresonanztomographie des Herzens',
+                    icon: '🧲',
+                    difficulty: 'medium',
+                    parentId: 'hf-diagnostics'
+                  }
+                ]
+              },
+              {
+                id: 'hf-therapy',
+                name: 'Therapie',
+                description: 'Behandlung der Herzinsuffizienz',
+                icon: '💊',
+                difficulty: 'medium',
+                parentId: 'heart-failure',
+                children: [
+                  {
+                    id: 'ace-arb-arni',
+                    name: 'ACE-Hemmer/ARB/ARNI',
+                    description: 'RAAS-Blockade und Angiotensin-Rezeptor-Neprilysin-Inhibitor',
+                    icon: '🛡️',
+                    difficulty: 'medium',
+                    parentId: 'hf-therapy'
+                  },
+                  {
+                    id: 'beta-blockers-hf',
+                    name: 'Betablocker',
+                    description: 'Sympathikus-Blockade bei Herzinsuffizienz',
+                    icon: '🚫',
+                    difficulty: 'medium',
+                    parentId: 'hf-therapy'
+                  },
+                  {
+                    id: 'diuretics',
+                    name: 'Diuretika (Schleife/Thiazid/K+-sparend)',
+                    description: 'Entwässernde Medikamente',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'hf-therapy'
+                  },
+                  {
+                    id: 'aldosterone-antagonists',
+                    name: 'Aldosteron-Antagonisten',
+                    description: 'Mineralokortikoid-Rezeptor-Antagonisten',
+                    icon: '⚖️',
+                    difficulty: 'medium',
+                    parentId: 'hf-therapy'
+                  },
+                  {
+                    id: 'sglt2-inhibitors',
+                    name: 'SGLT2-Inhibitoren',
+                    description: 'Natrium-Glukose-Cotransporter-2-Hemmer',
+                    icon: '🍯',
+                    difficulty: 'hard',
+                    parentId: 'hf-therapy'
+                  },
+                  {
+                    id: 'device-therapy',
+                    name: 'Device-Therapie (CRT, ICD, VAD)',
+                    description: 'Implantattherapie bei Herzinsuffizienz',
+                    icon: '🔋',
+                    difficulty: 'hard',
+                    parentId: 'hf-therapy'
+                  },
+                  {
+                    id: 'heart-transplantation',
+                    name: 'Herztransplantation',
+                    description: 'Herzersatz bei terminaler Herzinsuffizienz',
+                    icon: '🫀',
+                    difficulty: 'hard',
+                    parentId: 'hf-therapy'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'valvular-heart-diseases',
+            name: 'Klappenvitien',
+            description: 'Herzklappenfehler und -erkrankungen',
+            icon: '🚪',
+            difficulty: 'hard',
+            parentId: 'cardiovascular-diseases',
+            children: [
+              {
+                id: 'aortic-stenosis',
+                name: 'Aortenklappenstenose',
+                description: 'Verengung der Aortenklappe',
+                icon: '🔒',
+                difficulty: 'hard',
+                parentId: 'valvular-heart-diseases',
+                children: [
+                  {
+                    id: 'as-etiology',
+                    name: 'Ätiologie (degenerativ, rheumatisch, bikuspid)',
+                    description: 'Ursachen der Aortenklappenstenose',
+                    icon: '🔍',
+                    difficulty: 'medium',
+                    parentId: 'aortic-stenosis'
+                  },
+                  {
+                    id: 'as-pathophysiology',
+                    name: 'Pathophysiologie (Druckbelastung LV)',
+                    description: 'Druckbelastung des linken Ventrikels',
+                    icon: '📈',
+                    difficulty: 'hard',
+                    parentId: 'aortic-stenosis'
+                  },
+                  {
+                    id: 'as-symptoms',
+                    name: 'Symptomatik (Angina, Dyspnoe, Synkope)',
+                    description: 'Klassische Trias der Aortenklappenstenose',
+                    icon: '💔',
+                    difficulty: 'medium',
+                    parentId: 'aortic-stenosis'
+                  },
+                  {
+                    id: 'as-echocardiography',
+                    name: 'Echokardiographie (Öffnungsfläche, Gradient)',
+                    description: 'Echokardiographische Beurteilung',
+                    icon: '📸',
+                    difficulty: 'medium',
+                    parentId: 'aortic-stenosis'
+                  },
+                  {
+                    id: 'as-severity',
+                    name: 'Schweregrad (leicht/mittel/schwer)',
+                    description: 'Einteilung nach Schweregrad',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'aortic-stenosis'
+                  },
+                  {
+                    id: 'as-therapy',
+                    name: 'Therapie (TAVI, Aortenklappenersatz)',
+                    description: 'Operative und interventionelle Behandlung',
+                    icon: '🔧',
+                    difficulty: 'hard',
+                    parentId: 'aortic-stenosis'
+                  }
+                ]
+              },
+              {
+                id: 'aortic-regurgitation',
+                name: 'Aortenklappeninsuffizienz',
+                description: 'Undichtigkeit der Aortenklappe',
+                icon: '💧',
+                difficulty: 'hard',
+                parentId: 'valvular-heart-diseases',
+                children: [
+                  {
+                    id: 'ar-etiology',
+                    name: 'Ätiologie (Klappenerkrankung, Aortenwurzel)',
+                    description: 'Klappen- vs. Aortenwurzelerkrankung',
+                    icon: '🔍',
+                    difficulty: 'medium',
+                    parentId: 'aortic-regurgitation'
+                  },
+                  {
+                    id: 'ar-pathophysiology',
+                    name: 'Pathophysiologie (Volumenbelastung LV)',
+                    description: 'Volumenbelastung des linken Ventrikels',
+                    icon: '🫧',
+                    difficulty: 'hard',
+                    parentId: 'aortic-regurgitation'
+                  },
+                  {
+                    id: 'acute-chronic-ar',
+                    name: 'Akute vs. chronische AI',
+                    description: 'Unterschiede in Verlauf und Kompensation',
+                    icon: '⏰',
+                    difficulty: 'medium',
+                    parentId: 'aortic-regurgitation'
+                  },
+                  {
+                    id: 'ar-clinical-signs',
+                    name: 'Klinische Zeichen (Wasserhammer-Puls)',
+                    description: 'Charakteristische körperliche Befunde',
+                    icon: '👨‍⚕️',
+                    difficulty: 'medium',
+                    parentId: 'aortic-regurgitation'
+                  },
+                  {
+                    id: 'ar-therapy-indications',
+                    name: 'Therapie-Indikationen',
+                    description: 'Operative Indikationen bei AI',
+                    icon: '⚕️',
+                    difficulty: 'hard',
+                    parentId: 'aortic-regurgitation'
+                  }
+                ]
+              },
+              {
+                id: 'mitral-regurgitation',
+                name: 'Mitralklappeninsuffizienz',
+                description: 'Undichtigkeit der Mitralklappe',
+                icon: '💧',
+                difficulty: 'hard',
+                parentId: 'valvular-heart-diseases',
+                children: [
+                  {
+                    id: 'mr-etiology',
+                    name: 'Ätiologie (degenerativ, funktionell, rheumatisch)',
+                    description: 'Ursachen der Mitralklappeninsuffizienz',
+                    icon: '🔍',
+                    difficulty: 'medium',
+                    parentId: 'mitral-regurgitation'
+                  },
+                  {
+                    id: 'mr-pathophysiology',
+                    name: 'Pathophysiologie (Volumenbelastung LA/LV)',
+                    description: 'Hämodynamische Auswirkungen',
+                    icon: '🫧',
+                    difficulty: 'hard',
+                    parentId: 'mitral-regurgitation'
+                  },
+                  {
+                    id: 'mr-severity-assessment',
+                    name: 'Schweregrad-Beurteilung (EROA, Regurgitationsvolumen)',
+                    description: 'Quantifizierung der Mitralklappeninsuffizienz',
+                    icon: '📏',
+                    difficulty: 'hard',
+                    parentId: 'mitral-regurgitation'
+                  },
+                  {
+                    id: 'carpentier-classification',
+                    name: 'Carpentier-Klassifikation',
+                    description: 'Funktionelle Klassifikation der MI',
+                    icon: '📋',
+                    difficulty: 'hard',
+                    parentId: 'mitral-regurgitation'
+                  },
+                  {
+                    id: 'mr-therapy',
+                    name: 'Therapie (Repair vs. Ersatz, MitraClip)',
+                    description: 'Operative und interventionelle Optionen',
+                    icon: '🔧',
+                    difficulty: 'hard',
+                    parentId: 'mitral-regurgitation'
+                  }
+                ]
+              },
+              {
+                id: 'mitral-stenosis',
+                name: 'Mitralklappenstenose',
+                description: 'Verengung der Mitralklappe',
+                icon: '🔒',
+                difficulty: 'hard',
+                parentId: 'valvular-heart-diseases',
+                children: [
+                  {
+                    id: 'ms-etiology',
+                    name: 'Ätiologie (meist rheumatisch)',
+                    description: 'Rheumatische Genese der Mitralklappenstenose',
+                    icon: '🔥',
+                    difficulty: 'medium',
+                    parentId: 'mitral-stenosis'
+                  },
+                  {
+                    id: 'ms-pathophysiology',
+                    name: 'Pathophysiologie (Druckbelastung LA)',
+                    description: 'Druckerhöhung im linken Vorhof',
+                    icon: '📈',
+                    difficulty: 'hard',
+                    parentId: 'mitral-stenosis'
+                  },
+                  {
+                    id: 'wilkins-score',
+                    name: 'Wilkins-Score',
+                    description: 'Echokardiographische Bewertung der Klappenqualität',
+                    icon: '📊',
+                    difficulty: 'hard',
+                    parentId: 'mitral-stenosis'
+                  },
+                  {
+                    id: 'ms-symptoms',
+                    name: 'Symptomatik (Dyspnoe, Hämoptoe)',
+                    description: 'Klinische Präsentation der Mitralklappenstenose',
+                    icon: '💨',
+                    difficulty: 'medium',
+                    parentId: 'mitral-stenosis'
+                  },
+                  {
+                    id: 'ms-therapy',
+                    name: 'Therapie (Valvuloplastie, Ersatz)',
+                    description: 'Operative und interventionelle Behandlung',
+                    icon: '🔧',
+                    difficulty: 'hard',
+                    parentId: 'mitral-stenosis'
+                  }
+                ]
+              },
+              {
+                id: 'tricuspid-pulmonary-valves',
+                name: 'Trikuspidal-/Pulmonalklappenvitien',
+                description: 'Erkrankungen der rechtsseitigen Herzklappen',
+                icon: '↔️',
+                difficulty: 'hard',
+                parentId: 'valvular-heart-diseases',
+                children: [
+                  {
+                    id: 'tricuspid-regurgitation',
+                    name: 'Trikuspidalinsuffizienz (funktionell/organisch)',
+                    description: 'Undichtigkeit der Trikuspidalklappe',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'tricuspid-pulmonary-valves'
+                  },
+                  {
+                    id: 'tricuspid-stenosis',
+                    name: 'Tricuspidalstenose (selten)',
+                    description: 'Seltene Verengung der Trikuspidalklappe',
+                    icon: '🔒',
+                    difficulty: 'hard',
+                    parentId: 'tricuspid-pulmonary-valves'
+                  },
+                  {
+                    id: 'pulmonary-stenosis',
+                    name: 'Pulmonalklappenstenose',
+                    description: 'Verengung der Pulmonalklappe',
+                    icon: '🔒',
+                    difficulty: 'medium',
+                    parentId: 'tricuspid-pulmonary-valves'
+                  },
+                  {
+                    id: 'pulmonary-regurgitation',
+                    name: 'Pulmonalklappeninsuffizienz',
+                    description: 'Undichtigkeit der Pulmonalklappe',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'tricuspid-pulmonary-valves'
+                  },
+                  {
+                    id: 'right-sided-valve-therapy',
+                    name: 'Therapieoptionen',
+                    description: 'Behandlungsmöglichkeiten rechtsseitiger Klappenvitien',
+                    icon: '⚕️',
+                    difficulty: 'hard',
+                    parentId: 'tricuspid-pulmonary-valves'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'other-cardiovascular-diseases',
+            name: 'Weitere Herz-Kreislauf-Erkrankungen',
+            description: 'Zusätzliche kardiovaskuläre Pathologien',
+            icon: '🫀',
+            difficulty: 'hard',
+            parentId: 'cardiovascular-diseases',
+            children: [
+              {
+                id: 'arterial-hypertension',
+                name: 'Arterielle Hypertonie',
+                description: 'Bluthochdruck und seine Folgen',
+                icon: '📈',
+                difficulty: 'medium',
+                parentId: 'other-cardiovascular-diseases',
+                children: [
+                  {
+                    id: 'primary-hypertension',
+                    name: 'Primäre/essenzielle Hypertonie (90%)',
+                    description: 'Bluthochdruck unbekannter Ursache',
+                    icon: '❓',
+                    difficulty: 'medium',
+                    parentId: 'arterial-hypertension'
+                  },
+                  {
+                    id: 'secondary-hypertension',
+                    name: 'Sekundäre Hypertonie (10%)',
+                    description: 'Bluthochdruck mit bekannter Ursache',
+                    icon: '🔍',
+                    difficulty: 'hard',
+                    parentId: 'arterial-hypertension',
+                    children: [
+                      {
+                        id: 'renal-hypertension',
+                        name: 'Renal (Nierenarterienstenose)',
+                        description: 'Nierenbedingte Hypertonie',
+                        icon: '🫘',
+                        difficulty: 'hard',
+                        parentId: 'secondary-hypertension'
+                      },
+                      {
+                        id: 'endocrine-hypertension',
+                        name: 'Endokrin (Conn, Cushing, Phäo)',
+                        description: 'Hormonell bedingte Hypertonie',
+                        icon: '🧪',
+                        difficulty: 'hard',
+                        parentId: 'secondary-hypertension'
+                      },
+                      {
+                        id: 'vascular-hypertension',
+                        name: 'Vaskulär (Aortenisthmusstenose)',
+                        description: 'Gefäßbedingte Hypertonie',
+                        icon: '🩸',
+                        difficulty: 'hard',
+                        parentId: 'secondary-hypertension'
+                      },
+                      {
+                        id: 'drug-induced-hypertension',
+                        name: 'Medikamentös',
+                        description: 'Medikamenten-induzierte Hypertonie',
+                        icon: '💊',
+                        difficulty: 'medium',
+                        parentId: 'secondary-hypertension'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'esc-esh-guidelines',
+                    name: 'ESC/ESH-Leitlinien (Zielwerte)',
+                    description: 'Europäische Hypertonieleitlinien',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'arterial-hypertension'
+                  },
+                  {
+                    id: 'target-organ-damage',
+                    name: 'Organschäden (Herz, Niere, Auge, Gehirn)',
+                    description: 'Endorganschäden durch Hypertonie',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'arterial-hypertension'
+                  },
+                  {
+                    id: 'hypertensive-crisis',
+                    name: 'Hypertensive Krise/Notfall',
+                    description: 'Akute schwere Blutdruckentgleisung',
+                    icon: '🚨',
+                    difficulty: 'hard',
+                    parentId: 'arterial-hypertension'
+                  },
+                  {
+                    id: 'stepped-care-therapy',
+                    name: 'Stufentherapie',
+                    description: 'Medikamentöse Behandlungsstrategie',
+                    icon: '📶',
+                    difficulty: 'medium',
+                    parentId: 'arterial-hypertension'
+                  }
+                ]
+              },
+              {
+                id: 'peripheral-arterial-disease',
+                name: 'Periphere arterielle Verschlusskrankheit (pAVK)',
+                description: 'Durchblutungsstörungen der Extremitäten',
+                icon: '🦵',
+                difficulty: 'hard',
+                parentId: 'other-cardiovascular-diseases',
+                children: [
+                  {
+                    id: 'claudication',
+                    name: 'Claudicatio intermittens',
+                    description: 'Belastungsabhängige Beinschmerzen',
+                    icon: '🚶',
+                    difficulty: 'medium',
+                    parentId: 'peripheral-arterial-disease'
+                  },
+                  {
+                    id: 'fontaine-classification',
+                    name: 'Fontaine-Klassifikation (I-IV)',
+                    description: 'Schweregrad-Einteilung der pAVK',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'peripheral-arterial-disease'
+                  },
+                  {
+                    id: 'rutherford-classification',
+                    name: 'Rutherford-Klassifikation',
+                    description: 'Alternative Klassifikation der pAVK',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'peripheral-arterial-disease'
+                  },
+                  {
+                    id: 'abi-index',
+                    name: 'ABI (Ankle-Brachial-Index)',
+                    description: 'Knöchel-Arm-Index zur Diagnostik',
+                    icon: '📏',
+                    difficulty: 'medium',
+                    parentId: 'peripheral-arterial-disease'
+                  },
+                  {
+                    id: 'critical-limb-ischemia',
+                    name: 'Critical Limb Ischemia',
+                    description: 'Kritische Extremitätenischämie',
+                    icon: '🚨',
+                    difficulty: 'hard',
+                    parentId: 'peripheral-arterial-disease'
+                  },
+                  {
+                    id: 'revascularization',
+                    name: 'Revaskularisation (PTA, Bypass)',
+                    description: 'Operative und interventionelle Therapie',
+                    icon: '🔧',
+                    difficulty: 'hard',
+                    parentId: 'peripheral-arterial-disease'
+                  }
+                ]
+              },
+              {
+                id: 'acute-aortic-syndrome',
+                name: 'Akutes Aortensyndrom',
+                description: 'Akute Aortenerkrankungen',
+                icon: '💥',
+                difficulty: 'hard',
+                parentId: 'other-cardiovascular-diseases',
+                children: [
+                  {
+                    id: 'aortic-dissection',
+                    name: 'Aortendissektion (Stanford A/B, DeBakey I-III)',
+                    description: 'Einriss der Aortenwand',
+                    icon: '💔',
+                    difficulty: 'hard',
+                    parentId: 'acute-aortic-syndrome'
+                  },
+                  {
+                    id: 'intramural-hematoma',
+                    name: 'Intramurales Hämatom',
+                    description: 'Blutung in die Aortenwand',
+                    icon: '🩸',
+                    difficulty: 'hard',
+                    parentId: 'acute-aortic-syndrome'
+                  },
+                  {
+                    id: 'penetrating-ulcer',
+                    name: 'Penetrierendes Ulkus',
+                    description: 'Durchbrechendes Aortengeschwür',
+                    icon: '🕳️',
+                    difficulty: 'hard',
+                    parentId: 'acute-aortic-syndrome'
+                  },
+                  {
+                    id: 'aortic-rupture',
+                    name: 'Aortenruptur',
+                    description: 'Kompletter Aortenriss',
+                    icon: '💥',
+                    difficulty: 'hard',
+                    parentId: 'acute-aortic-syndrome'
+                  },
+                  {
+                    id: 'endovascular-therapy',
+                    name: 'Endovaskuläre Therapie (TEVAR, EVAR)',
+                    description: 'Minimal-invasive Aortentherapie',
+                    icon: '🔧',
+                    difficulty: 'hard',
+                    parentId: 'acute-aortic-syndrome'
+                  }
+                ]
+              },
+              {
+                id: 'venous-thromboembolism',
+                name: 'Venöse Thromboembolie',
+                description: 'Thrombosen und Embolien im Venensystem',
+                icon: '🩸',
+                difficulty: 'hard',
+                parentId: 'other-cardiovascular-diseases',
+                children: [
+                  {
+                    id: 'deep-vein-thrombosis',
+                    name: 'Tiefe Beinvenenthrombose (TVT)',
+                    description: 'Thrombose der tiefen Beinvenen',
+                    icon: '🦵',
+                    difficulty: 'medium',
+                    parentId: 'venous-thromboembolism'
+                  },
+                  {
+                    id: 'pulmonary-embolism',
+                    name: 'Lungenembolie',
+                    description: 'Verschluss von Lungenarterien',
+                    icon: '🫁',
+                    difficulty: 'hard',
+                    parentId: 'venous-thromboembolism'
+                  },
+                  {
+                    id: 'wells-score',
+                    name: 'Wells-Score',
+                    description: 'Klinische Wahrscheinlichkeitsbewertung',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'venous-thromboembolism'
+                  },
+                  {
+                    id: 'd-dimer',
+                    name: 'D-Dimere',
+                    description: 'Labormarker für Thrombose',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'venous-thromboembolism'
+                  },
+                  {
+                    id: 'anticoagulation-vte',
+                    name: 'Antikoagulation',
+                    description: 'Gerinnungshemmende Therapie',
+                    icon: '💊',
+                    difficulty: 'medium',
+                    parentId: 'venous-thromboembolism'
+                  }
+                ]
+              },
+              {
+                id: 'cardiomyopathies',
+                name: 'Kardiomyopathien',
+                description: 'Erkrankungen des Herzmuskels',
+                icon: '💔',
+                difficulty: 'hard',
+                parentId: 'other-cardiovascular-diseases',
+                children: [
+                  {
+                    id: 'dilated-cardiomyopathy-dcm',
+                    name: 'Dilatative Kardiomyopathie (DCM)',
+                    description: 'Erweiterte und schwache Herzkammern',
+                    icon: '🫧',
+                    difficulty: 'hard',
+                    parentId: 'cardiomyopathies'
+                  },
+                  {
+                    id: 'hypertrophic-cardiomyopathy',
+                    name: 'Hypertrophe Kardiomyopathie (HCM/HOCM)',
+                    description: 'Verdickte Herzmuskulatur',
+                    icon: '💪',
+                    difficulty: 'hard',
+                    parentId: 'cardiomyopathies'
+                  },
+                  {
+                    id: 'restrictive-cardiomyopathy',
+                    name: 'Restriktive Kardiomyopathie',
+                    description: 'Eingeschränkte Herzfüllung',
+                    icon: '🔒',
+                    difficulty: 'hard',
+                    parentId: 'cardiomyopathies'
+                  },
+                  {
+                    id: 'arrhythmogenic-rv-cardiomyopathy',
+                    name: 'Arrhythmogene rechtsventrikuläre Kardiomyopathie',
+                    description: 'ARVC mit Rhythmusstörungen',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'cardiomyopathies'
+                  },
+                  {
+                    id: 'takotsubo-cardiomyopathy',
+                    name: 'Tako-Tsubo-Kardiomyopathie',
+                    description: 'Stress-induzierte Kardiomyopathie',
+                    icon: '💔',
+                    difficulty: 'medium',
+                    parentId: 'cardiomyopathies'
+                  }
+                ]
+              },
+              {
+                id: 'shock-forms',
+                name: 'Schock-Formen',
+                description: 'Verschiedene Arten des Kreislaufschocks',
+                icon: '🚨',
+                difficulty: 'hard',
+                parentId: 'other-cardiovascular-diseases',
+                children: [
+                  {
+                    id: 'cardiogenic-shock-forms',
+                    name: 'Kardiogener Schock',
+                    description: 'Schock durch Herzversagen',
+                    icon: '💔',
+                    difficulty: 'hard',
+                    parentId: 'shock-forms'
+                  },
+                  {
+                    id: 'hypovolemic-shock',
+                    name: 'Hypovolämischer Schock',
+                    description: 'Schock durch Volumenmangel',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'shock-forms'
+                  },
+                  {
+                    id: 'distributive-shock',
+                    name: 'Distributiver Schock (septisch, anaphylaktisch)',
+                    description: 'Schock durch Gefäßweitstellung',
+                    icon: '🌡️',
+                    difficulty: 'hard',
+                    parentId: 'shock-forms'
+                  },
+                  {
+                    id: 'obstructive-shock',
+                    name: 'Obstruktiver Schock',
+                    description: 'Schock durch mechanische Obstruktion',
+                    icon: '🚫',
+                    difficulty: 'hard',
+                    parentId: 'shock-forms'
+                  },
+                  {
+                    id: 'shock-therapy',
+                    name: 'Schock-Therapie (Katecholamine, Volumen)',
+                    description: 'Behandlung verschiedener Schockformen',
+                    icon: '💉',
+                    difficulty: 'hard',
+                    parentId: 'shock-forms'
                   }
                 ]
               }

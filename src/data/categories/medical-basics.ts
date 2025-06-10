@@ -6163,83 +6163,439 @@ export const medicalBasicsCategories: Category[] = [
         parentId: 'anatomy-physiology',
         children: [
           {
-            id: 'skin-anatomy',
-            name: 'Hautaufbau',
-            description: 'Epidermis, Dermis und Subkutis',
+            id: 'skin-layers',
+            name: 'Hautschichten',
+            description: 'Dreischichtiger Aufbau der Haut',
             icon: '🧄',
             difficulty: 'medium',
             parentId: 'integumentary-system',
             children: [
               {
-                id: 'epidermis',
+                id: 'epidermis-detailed',
                 name: 'Epidermis (Oberhaut)',
                 description: 'Schutzbarriere und Keratinisierung',
                 icon: '🛡️',
                 difficulty: 'medium',
-                parentId: 'skin-anatomy'
+                parentId: 'skin-layers',
+                children: [
+                  {
+                    id: 'stratum-basale',
+                    name: 'Stratum basale',
+                    description: 'Basalzellschicht mit Stammzellen',
+                    icon: '🏗️',
+                    difficulty: 'medium',
+                    parentId: 'epidermis-detailed'
+                  },
+                  {
+                    id: 'stratum-spinosum',
+                    name: 'Stratum spinosum',
+                    description: 'Stachelzellschicht',
+                    icon: '🦔',
+                    difficulty: 'medium',
+                    parentId: 'epidermis-detailed'
+                  },
+                  {
+                    id: 'stratum-granulosum',
+                    name: 'Stratum granulosum',
+                    description: 'Körnerzellschicht mit Keratohyalin',
+                    icon: '🌾',
+                    difficulty: 'medium',
+                    parentId: 'epidermis-detailed'
+                  },
+                  {
+                    id: 'stratum-lucidum',
+                    name: 'Stratum lucidum (Leistenhaut)',
+                    description: 'Glanzschicht nur an Handflächen/Fußsohlen',
+                    icon: '✨',
+                    difficulty: 'hard',
+                    parentId: 'epidermis-detailed'
+                  },
+                  {
+                    id: 'stratum-corneum',
+                    name: 'Stratum corneum',
+                    description: 'Hornschicht aus toten Keratinozyten',
+                    icon: '🪨',
+                    difficulty: 'medium',
+                    parentId: 'epidermis-detailed'
+                  },
+                  {
+                    id: 'cell-renewal',
+                    name: 'Zellerneuerung (28 Tage)',
+                    description: 'Kontinuierliche Hauterneuerung',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'epidermis-detailed'
+                  }
+                ]
               },
               {
-                id: 'dermis',
+                id: 'dermis-detailed',
                 name: 'Dermis (Lederhaut)',
                 description: 'Kollagen, Elastin und Hautanhangsgebilde',
                 icon: '🕸️',
                 difficulty: 'medium',
-                parentId: 'skin-anatomy'
+                parentId: 'skin-layers',
+                children: [
+                  {
+                    id: 'stratum-papillare',
+                    name: 'Stratum papillare',
+                    description: 'Obere Dermisschicht mit Papillen',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'dermis-detailed'
+                  },
+                  {
+                    id: 'stratum-reticulare',
+                    name: 'Stratum reticulare',
+                    description: 'Tiefe Dermisschicht mit dichtem Bindegewebe',
+                    icon: '🕸️',
+                    difficulty: 'medium',
+                    parentId: 'dermis-detailed'
+                  },
+                  {
+                    id: 'collagen-fibers',
+                    name: 'Kollagenfasern',
+                    description: 'Zugfestigkeit und Struktur',
+                    icon: '🧵',
+                    difficulty: 'medium',
+                    parentId: 'dermis-detailed'
+                  },
+                  {
+                    id: 'elastic-fibers',
+                    name: 'Elastische Fasern',
+                    description: 'Elastizität und Rückstellkraft',
+                    icon: '🤸',
+                    difficulty: 'medium',
+                    parentId: 'dermis-detailed'
+                  },
+                  {
+                    id: 'blood-vessels-dermis',
+                    name: 'Blutgefäße',
+                    description: 'Versorgung und Thermoregulation',
+                    icon: '🩸',
+                    difficulty: 'medium',
+                    parentId: 'dermis-detailed'
+                  },
+                  {
+                    id: 'nerve-endings',
+                    name: 'Nervenendigungen',
+                    description: 'Sensible Innervation der Haut',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'dermis-detailed'
+                  }
+                ]
               },
               {
-                id: 'subcutis',
-                name: 'Subkutis (Unterhaut)',
+                id: 'subcutis-detailed',
+                name: 'Subcutis (Unterhaut)',
                 description: 'Fettgewebe und Isolation',
                 icon: '🧈',
                 difficulty: 'easy',
-                parentId: 'skin-anatomy'
+                parentId: 'skin-layers',
+                children: [
+                  {
+                    id: 'adipose-tissue',
+                    name: 'Fettgewebe',
+                    description: 'Energiespeicher und Isolation',
+                    icon: '🟡',
+                    difficulty: 'easy',
+                    parentId: 'subcutis-detailed'
+                  },
+                  {
+                    id: 'connective-septa',
+                    name: 'Bindegewebssepten',
+                    description: 'Strukturelle Unterteilung',
+                    icon: '🕸️',
+                    difficulty: 'medium',
+                    parentId: 'subcutis-detailed'
+                  },
+                  {
+                    id: 'larger-vessels',
+                    name: 'Größere Gefäße',
+                    description: 'Hauptversorgungswege',
+                    icon: '🚗',
+                    difficulty: 'easy',
+                    parentId: 'subcutis-detailed'
+                  },
+                  {
+                    id: 'pressure-cushion',
+                    name: 'Druckpolster',
+                    description: 'Mechanischer Schutz',
+                    icon: '🛡️',
+                    difficulty: 'easy',
+                    parentId: 'subcutis-detailed'
+                  }
+                ]
               }
             ]
           },
           {
-            id: 'skin-appendages',
+            id: 'skin-appendages-detailed',
             name: 'Hautanhangsgebilde',
-            description: 'Haare, Nägel und Drüsen',
+            description: 'Haare, Nägel, Drüsen und Hautflora',
             icon: '💅',
             difficulty: 'medium',
             parentId: 'integumentary-system',
             children: [
               {
-                id: 'hair-follicles',
-                name: 'Haare & Haarfollikel',
-                description: 'Haarwachstum und -zyklus',
+                id: 'hair-detailed',
+                name: 'Haare',
+                description: 'Aufbau und Wachstumszyklus',
                 icon: '🦱',
                 difficulty: 'medium',
-                parentId: 'skin-appendages'
+                parentId: 'skin-appendages-detailed',
+                children: [
+                  {
+                    id: 'hair-shaft',
+                    name: 'Haarschaft',
+                    description: 'Sichtbarer Teil des Haares',
+                    icon: '📏',
+                    difficulty: 'easy',
+                    parentId: 'hair-detailed'
+                  },
+                  {
+                    id: 'hair-root',
+                    name: 'Haarwurzel',
+                    description: 'In der Haut verborgener Teil',
+                    icon: '🌱',
+                    difficulty: 'easy',
+                    parentId: 'hair-detailed'
+                  },
+                  {
+                    id: 'hair-follicle',
+                    name: 'Haarfollikel',
+                    description: 'Haarbildende Struktur',
+                    icon: '🫘',
+                    difficulty: 'medium',
+                    parentId: 'hair-detailed'
+                  },
+                  {
+                    id: 'hair-papilla',
+                    name: 'Haarpapille',
+                    description: 'Versorgung der Haarwurzel',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'hair-detailed'
+                  },
+                  {
+                    id: 'hair-cycle',
+                    name: 'Haarzyklus',
+                    description: 'Phasenhafter Haarwuchs',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'hair-detailed',
+                    children: [
+                      {
+                        id: 'anagen-phase',
+                        name: 'Anagenphase (Wachstum)',
+                        description: 'Aktive Wachstumsphase',
+                        icon: '📈',
+                        difficulty: 'medium',
+                        parentId: 'hair-cycle'
+                      },
+                      {
+                        id: 'catagen-phase',
+                        name: 'Katagenphase (Übergang)',
+                        description: 'Übergangsphase',
+                        icon: '⏯️',
+                        difficulty: 'medium',
+                        parentId: 'hair-cycle'
+                      },
+                      {
+                        id: 'telogen-phase',
+                        name: 'Telogenphase (Ruhe)',
+                        description: 'Ruhephase vor Haarausfall',
+                        icon: '💤',
+                        difficulty: 'medium',
+                        parentId: 'hair-cycle'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'arrector-pili',
+                    name: 'Haarmuskel (M. arrector pili)',
+                    description: 'Aufrichtung der Haare (Gänsehaut)',
+                    icon: '💪',
+                    difficulty: 'medium',
+                    parentId: 'hair-detailed'
+                  }
+                ]
               },
               {
-                id: 'nails',
+                id: 'nails-detailed',
                 name: 'Nägel',
-                description: 'Nagelplatte und -matrix',
+                description: 'Aufbau und Wachstum der Nägel',
                 icon: '💅',
                 difficulty: 'easy',
-                parentId: 'skin-appendages'
+                parentId: 'skin-appendages-detailed',
+                children: [
+                  {
+                    id: 'nail-plate',
+                    name: 'Nagelplatte',
+                    description: 'Sichtbarer Nagel aus Keratin',
+                    icon: '🪟',
+                    difficulty: 'easy',
+                    parentId: 'nails-detailed'
+                  },
+                  {
+                    id: 'nail-bed',
+                    name: 'Nagelbett',
+                    description: 'Unterlage der Nagelplatte',
+                    icon: '🛏️',
+                    difficulty: 'easy',
+                    parentId: 'nails-detailed'
+                  },
+                  {
+                    id: 'nail-matrix',
+                    name: 'Nagelmatrix',
+                    description: 'Nagelwachstumszone',
+                    icon: '🏭',
+                    difficulty: 'medium',
+                    parentId: 'nails-detailed'
+                  },
+                  {
+                    id: 'nail-fold',
+                    name: 'Nagelwall',
+                    description: 'Seitliche Begrenzung',
+                    icon: '🏔️',
+                    difficulty: 'easy',
+                    parentId: 'nails-detailed'
+                  },
+                  {
+                    id: 'eponychium',
+                    name: 'Eponychium',
+                    description: 'Nagelhäutchen',
+                    icon: '🌙',
+                    difficulty: 'easy',
+                    parentId: 'nails-detailed'
+                  },
+                  {
+                    id: 'lunula',
+                    name: 'Lunula',
+                    description: 'Nagelmond (sichtbare Matrix)',
+                    icon: '🌙',
+                    difficulty: 'easy',
+                    parentId: 'nails-detailed'
+                  }
+                ]
               },
               {
-                id: 'sweat-glands',
-                name: 'Schweißdrüsen (ekkrin/apokrin)',
-                description: 'Thermoregulation und Sekretion',
+                id: 'glands-detailed',
+                name: 'Drüsen',
+                description: 'Schweiß- und Talgdrüsen',
                 icon: '💧',
                 difficulty: 'medium',
-                parentId: 'skin-appendages'
+                parentId: 'skin-appendages-detailed',
+                children: [
+                  {
+                    id: 'sweat-glands-detailed',
+                    name: 'Schweißdrüsen',
+                    description: 'Thermoregulation und Sekretion',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'glands-detailed',
+                    children: [
+                      {
+                        id: 'eccrine-glands',
+                        name: 'Ekkrine Drüsen',
+                        description: 'Thermoregulatorische Schweißdrüsen',
+                        icon: '🌡️',
+                        difficulty: 'medium',
+                        parentId: 'sweat-glands-detailed'
+                      },
+                      {
+                        id: 'apocrine-glands',
+                        name: 'Apokrine Drüsen',
+                        description: 'Duftdrüsen in Achseln/Genitalbereich',
+                        icon: '👃',
+                        difficulty: 'medium',
+                        parentId: 'sweat-glands-detailed'
+                      },
+                      {
+                        id: 'sweat-composition',
+                        name: 'Schweißzusammensetzung',
+                        description: 'Wasser, Salze, Harnstoff',
+                        icon: '🧪',
+                        difficulty: 'medium',
+                        parentId: 'sweat-glands-detailed'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'sebaceous-glands-detailed',
+                    name: 'Talgdrüsen',
+                    description: 'Sebumproduktion und Hautschutz',
+                    icon: '🛢️',
+                    difficulty: 'medium',
+                    parentId: 'glands-detailed',
+                    children: [
+                      {
+                        id: 'holocrine-secretion',
+                        name: 'Holokrine Sekretion',
+                        description: 'Vollständige Zellzerstörung bei Sekretion',
+                        icon: '💥',
+                        difficulty: 'hard',
+                        parentId: 'sebaceous-glands-detailed'
+                      },
+                      {
+                        id: 'sebum',
+                        name: 'Talg (Sebum)',
+                        description: 'Lipidreiche Schutzschicht',
+                        icon: '🛢️',
+                        difficulty: 'medium',
+                        parentId: 'sebaceous-glands-detailed'
+                      },
+                      {
+                        id: 'hormone-dependency',
+                        name: 'Hormonabhängigkeit',
+                        description: 'Regulation durch Androgene',
+                        icon: '⚖️',
+                        difficulty: 'medium',
+                        parentId: 'sebaceous-glands-detailed'
+                      }
+                    ]
+                  }
+                ]
               },
               {
-                id: 'sebaceous-glands',
-                name: 'Talgdrüsen',
-                description: 'Sebumproduktion und Hautschutz',
-                icon: '🛢️',
+                id: 'skin-flora',
+                name: 'Hautflora',
+                description: 'Mikrobielle Besiedlung der Haut',
+                icon: '🦠',
                 difficulty: 'medium',
-                parentId: 'skin-appendages'
+                parentId: 'skin-appendages-detailed',
+                children: [
+                  {
+                    id: 'resident-flora',
+                    name: 'Residente Flora',
+                    description: 'Dauerhaft ansässige Mikroorganismen',
+                    icon: '🏠',
+                    difficulty: 'medium',
+                    parentId: 'skin-flora'
+                  },
+                  {
+                    id: 'transient-flora',
+                    name: 'Transiente Flora',
+                    description: 'Vorübergehend ansässige Keime',
+                    icon: '🚶',
+                    difficulty: 'medium',
+                    parentId: 'skin-flora'
+                  },
+                  {
+                    id: 'acid-mantle',
+                    name: 'Säureschutzmantel (pH 5,5)',
+                    description: 'Natürlicher Schutz vor pathogenen Keimen',
+                    icon: '🛡️',
+                    difficulty: 'medium',
+                    parentId: 'skin-flora'
+                  }
+                ]
               }
             ]
           },
           {
-            id: 'skin-functions',
+            id: 'skin-functions-detailed',
             name: 'Hautfunktionen',
             description: 'Schutz, Thermoregulation und Sensorik',
             icon: '🌡️',
@@ -6247,36 +6603,978 @@ export const medicalBasicsCategories: Category[] = [
             parentId: 'integumentary-system',
             children: [
               {
-                id: 'barrier-function',
-                name: 'Barrierefunktion',
-                description: 'Schutz vor Umwelteinflüssen',
+                id: 'protection-function',
+                name: 'Schutzfunktion',
+                description: 'Vielfältiger Schutz vor Umwelteinflüssen',
                 icon: '🛡️',
                 difficulty: 'medium',
-                parentId: 'skin-functions'
+                parentId: 'skin-functions-detailed',
+                children: [
+                  {
+                    id: 'mechanical-protection',
+                    name: 'Mechanischer Schutz',
+                    description: 'Schutz vor Verletzungen und Druck',
+                    icon: '⚙️',
+                    difficulty: 'easy',
+                    parentId: 'protection-function'
+                  },
+                  {
+                    id: 'chemical-protection',
+                    name: 'Chemischer Schutz',
+                    description: 'Barriere gegen Chemikalien',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'protection-function'
+                  },
+                  {
+                    id: 'microbial-protection',
+                    name: 'Mikrobieller Schutz',
+                    description: 'Abwehr von Mikroorganismen',
+                    icon: '🦠',
+                    difficulty: 'medium',
+                    parentId: 'protection-function'
+                  },
+                  {
+                    id: 'uv-protection',
+                    name: 'UV-Schutz (Melanin)',
+                    description: 'Schutz vor UV-Strahlung',
+                    icon: '☀️',
+                    difficulty: 'medium',
+                    parentId: 'protection-function'
+                  },
+                  {
+                    id: 'permeability-barrier',
+                    name: 'Permeabilitätsbarriere',
+                    description: 'Kontrolle des Stoffaustauschs',
+                    icon: '🚧',
+                    difficulty: 'hard',
+                    parentId: 'protection-function'
+                  }
+                ]
               },
               {
-                id: 'thermoregulation',
-                name: 'Thermoregulation',
+                id: 'temperature-regulation',
+                name: 'Temperaturregulation',
                 description: 'Wärmehaushalt und Schweißproduktion',
                 icon: '🌡️',
                 difficulty: 'medium',
-                parentId: 'skin-functions'
+                parentId: 'skin-functions-detailed',
+                children: [
+                  {
+                    id: 'sweat-production',
+                    name: 'Schweißproduktion',
+                    description: 'Verdunstungskühlung',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'temperature-regulation'
+                  },
+                  {
+                    id: 'vasodilation-constriction',
+                    name: 'Vasodilatation/-konstriktion',
+                    description: 'Regulation der Hautdurchblutung',
+                    icon: '🩸',
+                    difficulty: 'hard',
+                    parentId: 'temperature-regulation'
+                  },
+                  {
+                    id: 'insulation',
+                    name: 'Isolation (Fettgewebe)',
+                    description: 'Wärmeisolation durch Subcutis',
+                    icon: '🧥',
+                    difficulty: 'easy',
+                    parentId: 'temperature-regulation'
+                  },
+                  {
+                    id: 'countercurrent-mechanism',
+                    name: 'Gegenstrommechanismus',
+                    description: 'Wärmeaustausch in Extremitäten',
+                    icon: '↔️',
+                    difficulty: 'hard',
+                    parentId: 'temperature-regulation'
+                  }
+                ]
               },
               {
-                id: 'sensory-function',
-                name: 'Sensorfunktion',
-                description: 'Tastrezeptoren und Schmerzwahrnehmung',
+                id: 'sensory-function-detailed',
+                name: 'Sinnesfunktion',
+                description: 'Diverse Rezeptoren für Umweltreize',
                 icon: '👋',
                 difficulty: 'medium',
-                parentId: 'skin-functions'
+                parentId: 'skin-functions-detailed',
+                children: [
+                  {
+                    id: 'touch-receptors',
+                    name: 'Tastrezeptoren',
+                    description: 'Mechanoreceptoren für Berührung',
+                    icon: '🤏',
+                    difficulty: 'medium',
+                    parentId: 'sensory-function-detailed'
+                  },
+                  {
+                    id: 'pressure-receptors',
+                    name: 'Druckrezeptoren',
+                    description: 'Wahrnehmung von Druckveränderungen',
+                    icon: '👊',
+                    difficulty: 'medium',
+                    parentId: 'sensory-function-detailed'
+                  },
+                  {
+                    id: 'temperature-receptors-skin',
+                    name: 'Temperaturrezeptoren',
+                    description: 'Kälte- und Wärmewahrnehmung',
+                    icon: '🌡️',
+                    difficulty: 'medium',
+                    parentId: 'sensory-function-detailed'
+                  },
+                  {
+                    id: 'pain-receptors-skin',
+                    name: 'Schmerzrezeptoren',
+                    description: 'Nozizeptoren für Gewebsschäden',
+                    icon: '😣',
+                    difficulty: 'medium',
+                    parentId: 'sensory-function-detailed'
+                  },
+                  {
+                    id: 'vibration-receptors',
+                    name: 'Vibrationsrezeptoren',
+                    description: 'Wahrnehmung von Schwingungen',
+                    icon: '📳',
+                    difficulty: 'hard',
+                    parentId: 'sensory-function-detailed'
+                  }
+                ]
               },
               {
-                id: 'vitamin-d-synthesis',
-                name: 'Vitamin-D-Synthese',
-                description: 'UV-induzierte Vitamin-D-Bildung',
+                id: 'metabolic-function',
+                name: 'Stoffwechselfunktion',
+                description: 'Metabolische Aufgaben der Haut',
+                icon: '⚗️',
+                difficulty: 'medium',
+                parentId: 'skin-functions-detailed',
+                children: [
+                  {
+                    id: 'vitamin-d-synthesis-detailed',
+                    name: 'Vitamin-D-Synthese',
+                    description: 'UV-induzierte Vitamin-D-Bildung',
+                    icon: '☀️',
+                    difficulty: 'medium',
+                    parentId: 'metabolic-function'
+                  },
+                  {
+                    id: 'excretion',
+                    name: 'Ausscheidung',
+                    description: 'Elimination von Stoffwechselprodukten',
+                    icon: '🚮',
+                    difficulty: 'medium',
+                    parentId: 'metabolic-function'
+                  },
+                  {
+                    id: 'resorption',
+                    name: 'Resorption',
+                    description: 'Aufnahme von Substanzen',
+                    icon: '⬇️',
+                    difficulty: 'medium',
+                    parentId: 'metabolic-function'
+                  },
+                  {
+                    id: 'energy-storage',
+                    name: 'Energiespeicher',
+                    description: 'Fettspeicherung in der Subcutis',
+                    icon: '🔋',
+                    difficulty: 'easy',
+                    parentId: 'metabolic-function'
+                  }
+                ]
+              },
+              {
+                id: 'immune-function',
+                name: 'Immunfunktion',
+                description: 'Immunologische Abwehr der Haut',
+                icon: '🛡️',
+                difficulty: 'hard',
+                parentId: 'skin-functions-detailed',
+                children: [
+                  {
+                    id: 'langerhans-cells',
+                    name: 'Langerhans-Zellen',
+                    description: 'Antigenpräsentierende Zellen',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'immune-function'
+                  },
+                  {
+                    id: 'mast-cells',
+                    name: 'Mastzellen',
+                    description: 'Entzündungsreaktion und Allergien',
+                    icon: '💥',
+                    difficulty: 'medium',
+                    parentId: 'immune-function'
+                  },
+                  {
+                    id: 'macrophages-skin',
+                    name: 'Makrophagen',
+                    description: 'Phagozytose und Immunabwehr',
+                    icon: '🦠',
+                    difficulty: 'medium',
+                    parentId: 'immune-function'
+                  },
+                  {
+                    id: 'antimicrobial-peptides',
+                    name: 'Antimikrobielle Peptide',
+                    description: 'Natürliche Antibiotika der Haut',
+                    icon: '⚔️',
+                    difficulty: 'hard',
+                    parentId: 'immune-function'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'skin-types-condition',
+            name: 'Hauttypen & Hautzustand',
+            description: 'Klassifikation und Eigenschaften verschiedener Hauttypen',
+            icon: '🌈',
+            difficulty: 'medium',
+            parentId: 'integumentary-system',
+            children: [
+              {
+                id: 'fitzpatrick-types',
+                name: 'Hauttypen nach Fitzpatrick (I-VI)',
+                description: 'UV-Empfindlichkeit und Pigmentierung',
                 icon: '☀️',
                 difficulty: 'medium',
-                parentId: 'skin-functions'
+                parentId: 'skin-types-condition'
+              },
+              {
+                id: 'normal-skin',
+                name: 'Normale Haut',
+                description: 'Ausgewogene Talg- und Feuchtigkeitsproduktion',
+                icon: '😊',
+                difficulty: 'easy',
+                parentId: 'skin-types-condition'
+              },
+              {
+                id: 'dry-skin',
+                name: 'Trockene Haut (Sebostase)',
+                description: 'Verminderte Talg- und Schweißproduktion',
+                icon: '🏜️',
+                difficulty: 'medium',
+                parentId: 'skin-types-condition'
+              },
+              {
+                id: 'oily-skin',
+                name: 'Fettige Haut (Seborrhoe)',
+                description: 'Erhöhte Talgproduktion',
+                icon: '🛢️',
+                difficulty: 'medium',
+                parentId: 'skin-types-condition'
+              },
+              {
+                id: 'combination-skin',
+                name: 'Mischhaut',
+                description: 'Unterschiedliche Hauttypen in verschiedenen Bereichen',
+                icon: '🎭',
+                difficulty: 'medium',
+                parentId: 'skin-types-condition'
+              },
+              {
+                id: 'sensitive-skin',
+                name: 'Empfindliche Haut',
+                description: 'Erhöhte Reaktivität auf äußere Reize',
+                icon: '🥺',
+                difficulty: 'medium',
+                parentId: 'skin-types-condition'
+              }
+            ]
+          },
+          {
+            id: 'sensory-organs-integumentary',
+            name: 'Sinnesorgane',
+            description: 'Sehen, Hören, Riechen, Schmecken, Tasten',
+            icon: '👁️',
+            difficulty: 'medium',
+            parentId: 'integumentary-system',
+            children: [
+              {
+                id: 'eye-vision-integumentary',
+                name: 'Auge & Sehen',
+                description: 'Visuelles System und Sehbahn',
+                icon: '👁️',
+                difficulty: 'medium',
+                parentId: 'sensory-organs-integumentary',
+                children: [
+                  {
+                    id: 'eyeball-bulbus-oculi',
+                    name: 'Augapfel (Bulbus oculi)',
+                    description: 'Anatomischer Aufbau des Augapfels',
+                    icon: '👁️',
+                    difficulty: 'medium',
+                    parentId: 'eye-vision-integumentary',
+                    children: [
+                      {
+                        id: 'outer-eye-layer',
+                        name: 'Äußere Augenhaut',
+                        description: 'Äußere Schicht des Augapfels',
+                        icon: '🛡️',
+                        difficulty: 'medium',
+                        parentId: 'eyeball-bulbus-oculi',
+                        children: [
+                          {
+                            id: 'sclera',
+                            name: 'Sklera (Lederhaut)',
+                            description: 'Weiße, derbe Außenhaut des Auges',
+                            icon: '⚪',
+                            difficulty: 'easy',
+                            parentId: 'outer-eye-layer'
+                          },
+                          {
+                            id: 'cornea',
+                            name: 'Kornea (Hornhaut)',
+                            description: 'Durchsichtige, vordere Augenhaut',
+                            icon: '🔍',
+                            difficulty: 'medium',
+                            parentId: 'outer-eye-layer'
+                          },
+                          {
+                            id: 'limbus',
+                            name: 'Limbus',
+                            description: 'Übergang zwischen Kornea und Sklera',
+                            icon: '🔗',
+                            difficulty: 'medium',
+                            parentId: 'outer-eye-layer'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'middle-eye-layer-uvea',
+                        name: 'Mittlere Augenhaut (Uvea)',
+                        description: 'Gefäßreiche mittlere Schicht',
+                        icon: '🌈',
+                        difficulty: 'medium',
+                        parentId: 'eyeball-bulbus-oculi',
+                        children: [
+                          {
+                            id: 'iris',
+                            name: 'Iris (Regenbogenhaut)',
+                            description: 'Farbige Blende mit Pupille',
+                            icon: '🌈',
+                            difficulty: 'easy',
+                            parentId: 'middle-eye-layer-uvea'
+                          },
+                          {
+                            id: 'ciliary-body',
+                            name: 'Ziliarkörper',
+                            description: 'Muskel für Akkommodation',
+                            icon: '🔧',
+                            difficulty: 'hard',
+                            parentId: 'middle-eye-layer-uvea'
+                          },
+                          {
+                            id: 'choroid',
+                            name: 'Choroidea (Aderhaut)',
+                            description: 'Gefäßschicht für Netzhautversorgung',
+                            icon: '🩸',
+                            difficulty: 'medium',
+                            parentId: 'middle-eye-layer-uvea'
+                          },
+                          {
+                            id: 'pupil',
+                            name: 'Pupille',
+                            description: 'Öffnung in der Iris',
+                            icon: '⚫',
+                            difficulty: 'easy',
+                            parentId: 'middle-eye-layer-uvea'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'inner-eye-layer',
+                        name: 'Innere Augenhaut',
+                        description: 'Netzhaut und Photorezeptoren',
+                        icon: '📸',
+                        difficulty: 'hard',
+                        parentId: 'eyeball-bulbus-oculi',
+                        children: [
+                          {
+                            id: 'retina',
+                            name: 'Retina (Netzhaut)',
+                            description: 'Lichtempfindliche Nervenschicht',
+                            icon: '📸',
+                            difficulty: 'hard',
+                            parentId: 'inner-eye-layer'
+                          },
+                          {
+                            id: 'macula',
+                            name: 'Makula (gelber Fleck)',
+                            description: 'Bereich des schärfsten Sehens',
+                            icon: '🎯',
+                            difficulty: 'medium',
+                            parentId: 'inner-eye-layer'
+                          },
+                          {
+                            id: 'optic-disc',
+                            name: 'Papille (blinder Fleck)',
+                            description: 'Austritt des Sehnervs',
+                            icon: '⚪',
+                            difficulty: 'medium',
+                            parentId: 'inner-eye-layer'
+                          },
+                          {
+                            id: 'photoreceptors',
+                            name: 'Photorezeptoren (Stäbchen, Zapfen)',
+                            description: 'Lichtempfindliche Sinneszellen',
+                            icon: '🔬',
+                            difficulty: 'hard',
+                            parentId: 'inner-eye-layer'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'eye-content',
+                        name: 'Augeninhalt',
+                        description: 'Optische Medien des Auges',
+                        icon: '💧',
+                        difficulty: 'medium',
+                        parentId: 'eyeball-bulbus-oculi',
+                        children: [
+                          {
+                            id: 'lens',
+                            name: 'Linse',
+                            description: 'Bikonvexe, elastische Linse',
+                            icon: '🔍',
+                            difficulty: 'medium',
+                            parentId: 'eye-content'
+                          },
+                          {
+                            id: 'vitreous-body',
+                            name: 'Glaskörper',
+                            description: 'Gallertartige Füllmasse',
+                            icon: '🫧',
+                            difficulty: 'easy',
+                            parentId: 'eye-content'
+                          },
+                          {
+                            id: 'aqueous-humor',
+                            name: 'Kammerwasser',
+                            description: 'Klare Flüssigkeit in den Augenkammern',
+                            icon: '💧',
+                            difficulty: 'medium',
+                            parentId: 'eye-content'
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    id: 'eye-accessory-organs',
+                    name: 'Hilfsorgane des Auges',
+                    description: 'Schutz- und Bewegungsorgane',
+                    icon: '👁️‍🗨️',
+                    difficulty: 'medium',
+                    parentId: 'eye-vision-integumentary',
+                    children: [
+                      {
+                        id: 'eyelids-lashes',
+                        name: 'Augenlider & Wimpern',
+                        description: 'Schutz vor Fremdkörpern und Licht',
+                        icon: '👁️',
+                        difficulty: 'easy',
+                        parentId: 'eye-accessory-organs'
+                      },
+                      {
+                        id: 'lacrimal-apparatus',
+                        name: 'Tränenapparat',
+                        description: 'Tränendrüse und Tränenwege',
+                        icon: '💧',
+                        difficulty: 'medium',
+                        parentId: 'eye-accessory-organs'
+                      },
+                      {
+                        id: 'conjunctiva',
+                        name: 'Bindehaut (Konjunktiva)',
+                        description: 'Schleimhaut von Lid und Augapfel',
+                        icon: '🔴',
+                        difficulty: 'medium',
+                        parentId: 'eye-accessory-organs'
+                      },
+                      {
+                        id: 'extraocular-muscles',
+                        name: 'Augenmuskeln (6 äußere)',
+                        description: 'Muskeln für Augenbewegungen',
+                        icon: '💪',
+                        difficulty: 'hard',
+                        parentId: 'eye-accessory-organs'
+                      },
+                      {
+                        id: 'orbit',
+                        name: 'Augenhöhle (Orbita)',
+                        description: 'Knöcherne Augenhöhle',
+                        icon: '🏠',
+                        difficulty: 'medium',
+                        parentId: 'eye-accessory-organs'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'visual-process',
+                    name: 'Sehvorgang',
+                    description: 'Physiologie des Sehens',
+                    icon: '👀',
+                    difficulty: 'hard',
+                    parentId: 'eye-vision-integumentary',
+                    children: [
+                      {
+                        id: 'light-refraction',
+                        name: 'Lichtbrechung (Dioptrien)',
+                        description: 'Brechung des Lichts im Auge',
+                        icon: '🔍',
+                        difficulty: 'hard',
+                        parentId: 'visual-process'
+                      },
+                      {
+                        id: 'accommodation',
+                        name: 'Akkommodation (Nah-/Fernsicht)',
+                        description: 'Anpassung der Linsenform',
+                        icon: '🔧',
+                        difficulty: 'hard',
+                        parentId: 'visual-process'
+                      },
+                      {
+                        id: 'adaptation',
+                        name: 'Adaptation (Hell/Dunkel)',
+                        description: 'Anpassung an Lichtverhältnisse',
+                        icon: '🌗',
+                        difficulty: 'medium',
+                        parentId: 'visual-process'
+                      },
+                      {
+                        id: 'color-vision',
+                        name: 'Farbsehen (Rot-, Grün-, Blau-Zapfen)',
+                        description: 'Trichromatisches Farbsehen',
+                        icon: '🌈',
+                        difficulty: 'hard',
+                        parentId: 'visual-process'
+                      },
+                      {
+                        id: 'visual-field',
+                        name: 'Gesichtsfeld',
+                        description: 'Bereich der visuellen Wahrnehmung',
+                        icon: '🎯',
+                        difficulty: 'medium',
+                        parentId: 'visual-process'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'visual-pathway',
+                    name: 'Sehbahn',
+                    description: 'Neuronale Weiterleitung der Sehinformation',
+                    icon: '🛤️',
+                    difficulty: 'hard',
+                    parentId: 'eye-vision-integumentary',
+                    children: [
+                      {
+                        id: 'optic-nerve',
+                        name: 'N. opticus (II)',
+                        description: 'Sehnerv - 2. Hirnnerv',
+                        icon: '🧠',
+                        difficulty: 'medium',
+                        parentId: 'visual-pathway'
+                      },
+                      {
+                        id: 'optic-chiasm',
+                        name: 'Chiasma opticum',
+                        description: 'Kreuzung der Sehnerven',
+                        icon: '✖️',
+                        difficulty: 'hard',
+                        parentId: 'visual-pathway'
+                      },
+                      {
+                        id: 'lateral-geniculate-body',
+                        name: 'Corpus geniculatum laterale',
+                        description: 'Umschaltstation im Thalamus',
+                        icon: '🔀',
+                        difficulty: 'hard',
+                        parentId: 'visual-pathway'
+                      },
+                      {
+                        id: 'visual-cortex',
+                        name: 'Sehrinde (Area 17)',
+                        description: 'Primärer visueller Kortex',
+                        icon: '🧠',
+                        difficulty: 'hard',
+                        parentId: 'visual-pathway'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                id: 'ear-hearing-integumentary',
+                name: 'Ohr & Hören/Gleichgewicht',
+                description: 'Auditives und vestibuläres System',
+                icon: '👂',
+                difficulty: 'medium',
+                parentId: 'sensory-organs-integumentary',
+                children: [
+                  {
+                    id: 'outer-ear-detailed',
+                    name: 'Äußeres Ohr',
+                    description: 'Schallaufnahme und -weiterleitung',
+                    icon: '👂',
+                    difficulty: 'easy',
+                    parentId: 'ear-hearing-integumentary',
+                    children: [
+                      {
+                        id: 'auricle',
+                        name: 'Ohrmuschel (Schalltrichter)',
+                        description: 'Schallsammlung und -fokussierung',
+                        icon: '📯',
+                        difficulty: 'easy',
+                        parentId: 'outer-ear-detailed'
+                      },
+                      {
+                        id: 'external-auditory-canal',
+                        name: 'Äußerer Gehörgang',
+                        description: 'Schallleitung zum Trommelfell',
+                        icon: '🕳️',
+                        difficulty: 'easy',
+                        parentId: 'outer-ear-detailed'
+                      },
+                      {
+                        id: 'cerumen',
+                        name: 'Cerumen (Ohrenschmalz)',
+                        description: 'Schutz vor Fremdkörpern und Austrocknung',
+                        icon: '🟡',
+                        difficulty: 'easy',
+                        parentId: 'outer-ear-detailed'
+                      },
+                      {
+                        id: 'tympanic-membrane',
+                        name: 'Trommelfell',
+                        description: 'Membran zwischen Außen- und Mittelohr',
+                        icon: '🥁',
+                        difficulty: 'medium',
+                        parentId: 'outer-ear-detailed'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'middle-ear-detailed',
+                    name: 'Mittelohr',
+                    description: 'Schallverstärkung und -übertragung',
+                    icon: '🥁',
+                    difficulty: 'medium',
+                    parentId: 'ear-hearing-integumentary',
+                    children: [
+                      {
+                        id: 'ossicles',
+                        name: 'Gehörknöchelchen',
+                        description: 'Kleinste Knochen des Körpers',
+                        icon: '🦴',
+                        difficulty: 'medium',
+                        parentId: 'middle-ear-detailed',
+                        children: [
+                          {
+                            id: 'malleus',
+                            name: 'Hammer (Malleus)',
+                            description: 'Erstes Gehörknöchelchen, am Trommelfell',
+                            icon: '🔨',
+                            difficulty: 'medium',
+                            parentId: 'ossicles'
+                          },
+                          {
+                            id: 'incus',
+                            name: 'Amboss (Incus)',
+                            description: 'Mittleres Gehörknöchelchen',
+                            icon: '⚒️',
+                            difficulty: 'medium',
+                            parentId: 'ossicles'
+                          },
+                          {
+                            id: 'stapes',
+                            name: 'Steigbügel (Stapes)',
+                            description: 'Kleinstes Gehörknöchelchen, am ovalen Fenster',
+                            icon: '🏇',
+                            difficulty: 'medium',
+                            parentId: 'ossicles'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'tympanic-cavity',
+                        name: 'Paukenhöhle',
+                        description: 'Luftgefüllter Raum im Mittelohr',
+                        icon: '🫧',
+                        difficulty: 'medium',
+                        parentId: 'middle-ear-detailed'
+                      },
+                      {
+                        id: 'eustachian-tube',
+                        name: 'Eustachische Röhre',
+                        description: 'Druckausgleich zwischen Mittelohr und Rachen',
+                        icon: '📏',
+                        difficulty: 'medium',
+                        parentId: 'middle-ear-detailed'
+                      },
+                      {
+                        id: 'oval-round-window',
+                        name: 'Ovales/rundes Fenster',
+                        description: 'Verbindung zwischen Mittel- und Innenohr',
+                        icon: '🪟',
+                        difficulty: 'hard',
+                        parentId: 'middle-ear-detailed'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'inner-ear-detailed',
+                    name: 'Innenohr',
+                    description: 'Schallumwandlung und Gleichgewicht',
+                    icon: '🐚',
+                    difficulty: 'hard',
+                    parentId: 'ear-hearing-integumentary',
+                    children: [
+                      {
+                        id: 'bony-labyrinth',
+                        name: 'Knöchernes Labyrinth',
+                        description: 'Knöcherne Hohlräume im Felsenbein',
+                        icon: '🦴',
+                        difficulty: 'hard',
+                        parentId: 'inner-ear-detailed'
+                      },
+                      {
+                        id: 'membranous-labyrinth',
+                        name: 'Häutiges Labyrinth',
+                        description: 'Häutige Strukturen mit Endolymphe',
+                        icon: '🫧',
+                        difficulty: 'hard',
+                        parentId: 'inner-ear-detailed'
+                      },
+                      {
+                        id: 'cochlea-detailed',
+                        name: 'Hörschnecke (Cochlea)',
+                        description: 'Spiralförmiges Hörorgan',
+                        icon: '🐚',
+                        difficulty: 'hard',
+                        parentId: 'inner-ear-detailed',
+                        children: [
+                          {
+                            id: 'organ-of-corti',
+                            name: 'Corti-Organ',
+                            description: 'Eigentliches Hörorgan mit Haarzellen',
+                            icon: '🔬',
+                            difficulty: 'hard',
+                            parentId: 'cochlea-detailed'
+                          },
+                          {
+                            id: 'basilar-membrane',
+                            name: 'Basilarmembran',
+                            description: 'Frequenzspezifische Schwingungsmembran',
+                            icon: '🎼',
+                            difficulty: 'hard',
+                            parentId: 'cochlea-detailed'
+                          },
+                          {
+                            id: 'hair-cells-hearing',
+                            name: 'Haarzellen',
+                            description: 'Mechanosensorische Rezeptorzellen',
+                            icon: '🦠',
+                            difficulty: 'hard',
+                            parentId: 'cochlea-detailed'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'vestibular-organ',
+                        name: 'Gleichgewichtsorgan',
+                        description: 'Wahrnehmung von Lage und Bewegung',
+                        icon: '⚖️',
+                        difficulty: 'hard',
+                        parentId: 'inner-ear-detailed',
+                        children: [
+                          {
+                            id: 'semicircular-canals',
+                            name: 'Bogengänge (3)',
+                            description: 'Drehbewegungen in drei Raumebenen',
+                            icon: '🔄',
+                            difficulty: 'hard',
+                            parentId: 'vestibular-organ'
+                          },
+                          {
+                            id: 'macular-organs',
+                            name: 'Makulaorgane',
+                            description: 'Utriculus und Sacculus für Linearbeschleunigung',
+                            icon: '📍',
+                            difficulty: 'hard',
+                            parentId: 'vestibular-organ'
+                          },
+                          {
+                            id: 'otoliths',
+                            name: 'Otolithen',
+                            description: 'Kleine Kristalle für Schwerkraftwahrnehmung',
+                            icon: '💎',
+                            difficulty: 'hard',
+                            parentId: 'vestibular-organ'
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    id: 'hearing-process',
+                    name: 'Hörvorgang',
+                    description: 'Von der Schallwelle zur Wahrnehmung',
+                    icon: '🔊',
+                    difficulty: 'hard',
+                    parentId: 'ear-hearing-integumentary',
+                    children: [
+                      {
+                        id: 'sound-conduction',
+                        name: 'Schallleitung',
+                        description: 'Mechanische Übertragung der Schallwellen',
+                        icon: '📡',
+                        difficulty: 'medium',
+                        parentId: 'hearing-process'
+                      },
+                      {
+                        id: 'sound-transduction',
+                        name: 'Schallumwandlung',
+                        description: 'Umwandlung in elektrische Signale',
+                        icon: '⚡',
+                        difficulty: 'hard',
+                        parentId: 'hearing-process'
+                      },
+                      {
+                        id: 'frequency-analysis',
+                        name: 'Frequenzanalyse',
+                        description: 'Tonotopische Organisation der Cochlea',
+                        icon: '🎵',
+                        difficulty: 'hard',
+                        parentId: 'hearing-process'
+                      },
+                      {
+                        id: 'auditory-pathway',
+                        name: 'Hörbahn zum Gehirn',
+                        description: 'Neuronale Weiterleitung zum Hörzentrum',
+                        icon: '🧠',
+                        difficulty: 'hard',
+                        parentId: 'hearing-process'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'balance-sense',
+                    name: 'Gleichgewichtssinn',
+                    description: 'Vestibuläres System für Raumorientierung',
+                    icon: '⚖️',
+                    difficulty: 'hard',
+                    parentId: 'ear-hearing-integumentary',
+                    children: [
+                      {
+                        id: 'rotational-movements',
+                        name: 'Drehbewegungen (Bogengänge)',
+                        description: 'Erfassung von Rotationsbeschleunigungen',
+                        icon: '🌪️',
+                        difficulty: 'hard',
+                        parentId: 'balance-sense'
+                      },
+                      {
+                        id: 'linear-acceleration',
+                        name: 'Linearbeschleunigung (Makulaorgane)',
+                        description: 'Erfassung gerader Bewegungen und Schwerkraft',
+                        icon: '📏',
+                        difficulty: 'hard',
+                        parentId: 'balance-sense'
+                      },
+                      {
+                        id: 'vestibular-pathway',
+                        name: 'Vestibularisbahn',
+                        description: 'Neuronale Verschaltung für Gleichgewicht',
+                        icon: '🧠',
+                        difficulty: 'hard',
+                        parentId: 'balance-sense'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                id: 'chemical-senses',
+                name: 'Chemische Sinne',
+                description: 'Riechen und Schmecken',
+                icon: '👃',
+                difficulty: 'medium',
+                parentId: 'sensory-organs-integumentary',
+                children: [
+                  {
+                    id: 'olfactory-system',
+                    name: 'Geruchssinn',
+                    description: 'Olfaktorisches System und Riechbahn',
+                    icon: '👃',
+                    difficulty: 'medium',
+                    parentId: 'chemical-senses'
+                  },
+                  {
+                    id: 'gustatory-system',
+                    name: 'Geschmackssinn',
+                    description: 'Geschmacksknospen und 5 Grundgeschmäcker',
+                    icon: '👅',
+                    difficulty: 'medium',
+                    parentId: 'chemical-senses'
+                  },
+                  {
+                    id: 'trigeminal-chemoreception',
+                    name: 'Trigeminale Chemorezeption',
+                    description: 'Schärfe, Kühle, Irritation',
+                    icon: '🌶️',
+                    difficulty: 'medium',
+                    parentId: 'chemical-senses'
+                  }
+                ]
+              },
+              {
+                id: 'somatosensory-system',
+                name: 'Somatosensorik',
+                description: 'Tastsinn und Propriozeption',
+                icon: '👋',
+                difficulty: 'medium',
+                parentId: 'sensory-organs-integumentary',
+                children: [
+                  {
+                    id: 'tactile-receptors',
+                    name: 'Tastrezeptoren',
+                    description: 'Mechanoreceptoren in der Haut',
+                    icon: '🤏',
+                    difficulty: 'medium',
+                    parentId: 'somatosensory-system'
+                  },
+                  {
+                    id: 'pain-receptors',
+                    name: 'Schmerzrezeptoren',
+                    description: 'Nozizeptoren und Schmerzleitung',
+                    icon: '😣',
+                    difficulty: 'medium',
+                    parentId: 'somatosensory-system'
+                  },
+                  {
+                    id: 'temperature-receptors',
+                    name: 'Thermorezeptoren',
+                    description: 'Kälte- und Wärmerezeptoren',
+                    icon: '🌡️',
+                    difficulty: 'medium',
+                    parentId: 'somatosensory-system'
+                  },
+                  {
+                    id: 'proprioception',
+                    name: 'Propriozeption',
+                    description: 'Muskel- und Gelenkrezeptoren',
+                    icon: '🧘',
+                    difficulty: 'hard',
+                    parentId: 'somatosensory-system'
+                  }
+                ]
               }
             ]
           }

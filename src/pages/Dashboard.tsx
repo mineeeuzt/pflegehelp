@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
@@ -9,33 +9,13 @@ import {
   Plus,
   Heart
 } from 'lucide-react'
-import { Button, Card, CardContent } from '../components/ui'
-import { useAuthStore } from '../store/authStore'
-import { authService } from '../services/authService'
+import { Card, CardContent } from '../components/ui'
 
 const Dashboard = () => {
-  const { user } = useAuthStore()
   const [isLoading, setIsLoading] = useState(true)
-  const [trialInfo, setTrialInfo] = useState({
-    isTrialActive: false,
-    daysLeft: 0,
-    trialEndsAt: null as string | null
-  })
 
-  useEffect(() => {
-    if (user) {
-      checkTrialStatus()
-    }
-    // Simulate loading time to show animation
-    setTimeout(() => setIsLoading(false), 1500)
-  }, [user])
-
-  const checkTrialStatus = async () => {
-    if (user) {
-      const info = await authService.checkTrialStatus(user.id)
-      setTrialInfo(info)
-    }
-  }
+  // Simulate loading time to show animation
+  setTimeout(() => setIsLoading(false), 1500)
 
   const tools = [
     {
@@ -106,35 +86,6 @@ const Dashboard = () => {
           </p>
         </motion.div>
 
-        {/* Trial Status */}
-        {trialInfo.isTrialActive && user?.subscription_status === 'trial' && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
-          >
-            <div className="bg-gray-50/50 border border-gray-100 rounded-lg p-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full opacity-60"></div>
-                  <div>
-                    <p className="text-sm text-gray-700 font-light">
-                      Testphase aktiv
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      Noch {trialInfo.daysLeft} Tag{trialInfo.daysLeft !== 1 ? 'e' : ''}
-                    </p>
-                  </div>
-                </div>
-                <Link to="/subscription">
-                  <Button variant="ghost" size="sm" className="text-xs text-gray-500 hover:text-gray-700 px-2 py-1 h-auto">
-                    Verwalten
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        )}
 
         {/* Tools Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
