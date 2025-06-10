@@ -1995,6 +1995,288 @@ export const pathologyCategories: Category[] = [
                     icon: '🏆',
                     difficulty: 'medium',
                     parentId: 'copd'
+                  },
+                  {
+                    id: 'copd-symptoms',
+                    name: 'Symptomatik',
+                    description: 'Klinische Zeichen der COPD',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'copd',
+                    children: [
+                      {
+                        id: 'aha-symptoms',
+                        name: 'AHA-Symptomatik (Auswurf, Husten, Atemnot)',
+                        description: 'Klassische COPD-Symptome',
+                        icon: '😮‍💨',
+                        difficulty: 'easy',
+                        parentId: 'copd-symptoms'
+                      },
+                      {
+                        id: 'dyspnea-progression',
+                        name: 'Belastungsatemnot → Ruheatemnot',
+                        description: 'Progression der Atemnot',
+                        icon: '📈',
+                        difficulty: 'medium',
+                        parentId: 'copd-symptoms'
+                      },
+                      {
+                        id: 'cor-pulmonale',
+                        name: 'Rechtsherzinsuffizienz (Cor pulmonale)',
+                        description: 'Herzinsuffizienz durch Lungenhochdruck',
+                        icon: '❤️‍🩹',
+                        difficulty: 'hard',
+                        parentId: 'copd-symptoms'
+                      },
+                      {
+                        id: 'barrel-chest',
+                        name: 'Barrel Chest (Fassthorax)',
+                        description: 'Thoraxdeformierung bei Emphysem',
+                        icon: '🛢️',
+                        difficulty: 'medium',
+                        parentId: 'copd-symptoms'
+                      },
+                      {
+                        id: 'pink-puffer-blue-bloater',
+                        name: 'Pink Puffer vs. Blue Bloater',
+                        description: 'COPD-Phänotypen',
+                        icon: '🎭',
+                        difficulty: 'hard',
+                        parentId: 'copd-symptoms'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'copd-diagnostics',
+                    name: 'Diagnostik',
+                    description: 'Diagnosestellung bei COPD',
+                    icon: '🔬',
+                    difficulty: 'medium',
+                    parentId: 'copd',
+                    children: [
+                      {
+                        id: 'spirometry',
+                        name: 'Spirometrie (FEV1/FVC < 0,7 post-BD)',
+                        description: 'Lungenfunktionsprüfung',
+                        icon: '📊',
+                        difficulty: 'medium',
+                        parentId: 'copd-diagnostics'
+                      },
+                      {
+                        id: 'bodyplethysmography',
+                        name: 'Bodyplethysmographie (RV, TLC)',
+                        description: 'Messung aller Lungenvolumina',
+                        icon: '📈',
+                        difficulty: 'hard',
+                        parentId: 'copd-diagnostics'
+                      },
+                      {
+                        id: 'co-diffusion',
+                        name: 'CO-Diffusion (DLCO)',
+                        description: 'Diffusionskapazität der Lunge',
+                        icon: '🔄',
+                        difficulty: 'hard',
+                        parentId: 'copd-diagnostics'
+                      },
+                      {
+                        id: 'blood-gas-analysis',
+                        name: 'Blutgasanalyse',
+                        description: 'Sauerstoff- und CO2-Werte',
+                        icon: '🩸',
+                        difficulty: 'medium',
+                        parentId: 'copd-diagnostics'
+                      },
+                      {
+                        id: 'ct-thorax',
+                        name: 'CT-Thorax (Emphysem)',
+                        description: 'Bildgebung der Lunge',
+                        icon: '🔍',
+                        difficulty: 'medium',
+                        parentId: 'copd-diagnostics'
+                      },
+                      {
+                        id: 'six-minute-walk-test',
+                        name: '6-Minuten-Gehtest',
+                        description: 'Belastungstest',
+                        icon: '🚶',
+                        difficulty: 'easy',
+                        parentId: 'copd-diagnostics'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'copd-therapy',
+                    name: 'Therapie',
+                    description: 'Behandlung der COPD',
+                    icon: '💊',
+                    difficulty: 'hard',
+                    parentId: 'copd',
+                    children: [
+                      {
+                        id: 'bronchodilators',
+                        name: 'Bronchodilatatoren (SABA, LABA, SAMA, LAMA)',
+                        description: 'Atemwegserweiternde Medikamente',
+                        icon: '🌬️',
+                        difficulty: 'hard',
+                        parentId: 'copd-therapy'
+                      },
+                      {
+                        id: 'inhaled-corticosteroids',
+                        name: 'Inhalative Kortikosteroide (ICS)',
+                        description: 'Entzündungshemmende Inhalativa',
+                        icon: '💨',
+                        difficulty: 'medium',
+                        parentId: 'copd-therapy'
+                      },
+                      {
+                        id: 'triple-therapy',
+                        name: 'Triple-Therapie (LABA/LAMA/ICS)',
+                        description: 'Dreifachkombination',
+                        icon: '🎯',
+                        difficulty: 'hard',
+                        parentId: 'copd-therapy'
+                      },
+                      {
+                        id: 'theophylline',
+                        name: 'Theophyllin',
+                        description: 'Xanthin-Derivat',
+                        icon: '☕',
+                        difficulty: 'medium',
+                        parentId: 'copd-therapy'
+                      },
+                      {
+                        id: 'oxygen-therapy',
+                        name: 'Sauerstoff-Langzeittherapie (>15h/Tag)',
+                        description: 'Domiziliäre O2-Therapie',
+                        icon: '🫧',
+                        difficulty: 'medium',
+                        parentId: 'copd-therapy'
+                      },
+                      {
+                        id: 'niv-therapy',
+                        name: 'NIV (Nicht-invasive Beatmung)',
+                        description: 'Maskenbeatmung',
+                        icon: '😷',
+                        difficulty: 'hard',
+                        parentId: 'copd-therapy'
+                      },
+                      {
+                        id: 'lung-volume-reduction',
+                        name: 'Lungenvolumenreduktion',
+                        description: 'Chirurgische/bronchoskopische Therapie',
+                        icon: '✂️',
+                        difficulty: 'hard',
+                        parentId: 'copd-therapy'
+                      },
+                      {
+                        id: 'pulmonary-rehabilitation',
+                        name: 'Rehabilitation',
+                        description: 'Pneumologische Reha',
+                        icon: '🏥',
+                        difficulty: 'medium',
+                        parentId: 'copd-therapy'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'copd-exacerbation',
+                    name: 'Exazerbation',
+                    description: 'Akute Verschlechterung der COPD',
+                    icon: '🚨',
+                    difficulty: 'hard',
+                    parentId: 'copd',
+                    children: [
+                      {
+                        id: 'exacerbation-definition',
+                        name: 'Definition & Trigger',
+                        description: 'Akute Symptomverschlechterung',
+                        icon: '📋',
+                        difficulty: 'medium',
+                        parentId: 'copd-exacerbation'
+                      },
+                      {
+                        id: 'symptom-worsening',
+                        name: 'Symptomverschlechterung',
+                        description: 'Zunahme von Atemnot, Husten, Auswurf',
+                        icon: '📈',
+                        difficulty: 'medium',
+                        parentId: 'copd-exacerbation'
+                      },
+                      {
+                        id: 'exacerbation-therapy',
+                        name: 'Therapie (Prednisolon, Antibiotika)',
+                        description: 'Akutbehandlung der Exazerbation',
+                        icon: '💉',
+                        difficulty: 'hard',
+                        parentId: 'copd-exacerbation'
+                      },
+                      {
+                        id: 'anthonisen-criteria',
+                        name: 'Anthonisen-Kriterien',
+                        description: 'Indikation für Antibiotikatherapie',
+                        icon: '✅',
+                        difficulty: 'hard',
+                        parentId: 'copd-exacerbation'
+                      },
+                      {
+                        id: 'exacerbation-prevention',
+                        name: 'Prävention',
+                        description: 'Vermeidung von Exazerbationen',
+                        icon: '🛡️',
+                        difficulty: 'medium',
+                        parentId: 'copd-exacerbation'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'copd-complications',
+                    name: 'Komplikationen',
+                    description: 'Folgeerkrankungen der COPD',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'copd',
+                    children: [
+                      {
+                        id: 'respiratory-insufficiency',
+                        name: 'Respiratorische Insuffizienz',
+                        description: 'Versagen der Lungenfunktion',
+                        icon: '🫁',
+                        difficulty: 'hard',
+                        parentId: 'copd-complications'
+                      },
+                      {
+                        id: 'right-heart-failure',
+                        name: 'Rechtsherzinsuffizienz',
+                        description: 'Cor pulmonale chronicum',
+                        icon: '💔',
+                        difficulty: 'hard',
+                        parentId: 'copd-complications'
+                      },
+                      {
+                        id: 'pneumothorax',
+                        name: 'Pneumothorax',
+                        description: 'Lungenkollaps',
+                        icon: '💨',
+                        difficulty: 'medium',
+                        parentId: 'copd-complications'
+                      },
+                      {
+                        id: 'pneumonia',
+                        name: 'Pneumonie',
+                        description: 'Lungenentzündung',
+                        icon: '🦠',
+                        difficulty: 'medium',
+                        parentId: 'copd-complications'
+                      },
+                      {
+                        id: 'pulmonary-hypertension',
+                        name: 'Pulmonale Hypertonie',
+                        description: 'Lungenhochdruck',
+                        icon: '📈',
+                        difficulty: 'hard',
+                        parentId: 'copd-complications'
+                      }
+                    ]
                   }
                 ]
               },
@@ -2069,6 +2351,314 @@ export const pathologyCategories: Category[] = [
                         icon: '🔬',
                         difficulty: 'hard',
                         parentId: 'asthma-etiology'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'asthma-pathophysiology',
+                    name: 'Pathophysiologie',
+                    description: 'Krankheitsmechanismen des Asthmas',
+                    icon: '⚙️',
+                    difficulty: 'hard',
+                    parentId: 'asthma',
+                    children: [
+                      {
+                        id: 'airway-inflammation',
+                        name: 'Atemwegsentzündung (eosinophil/neutrophil)',
+                        description: 'Entzündliche Infiltration der Bronchien',
+                        icon: '🔥',
+                        difficulty: 'hard',
+                        parentId: 'asthma-pathophysiology'
+                      },
+                      {
+                        id: 'bronchospasm',
+                        name: 'Bronchospasmus',
+                        description: 'Akute Verengung der Bronchien',
+                        icon: '🌀',
+                        difficulty: 'medium',
+                        parentId: 'asthma-pathophysiology'
+                      },
+                      {
+                        id: 'mucus-hypersecretion',
+                        name: 'Schleimhypersekretion',
+                        description: 'Vermehrte Schleimproduktion',
+                        icon: '💧',
+                        difficulty: 'medium',
+                        parentId: 'asthma-pathophysiology'
+                      },
+                      {
+                        id: 'airway-remodeling',
+                        name: 'Airway Remodeling',
+                        description: 'Strukturelle Atemwegsveränderungen',
+                        icon: '🏗️',
+                        difficulty: 'hard',
+                        parentId: 'asthma-pathophysiology'
+                      },
+                      {
+                        id: 'bronchial-hyperreactivity',
+                        name: 'Bronchiale Hyperreagibilität',
+                        description: 'Überempfindlichkeit der Atemwege',
+                        icon: '⚡',
+                        difficulty: 'hard',
+                        parentId: 'asthma-pathophysiology'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'asthma-symptoms',
+                    name: 'Symptomatik',
+                    description: 'Klinische Zeichen des Asthmas',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'asthma',
+                    children: [
+                      {
+                        id: 'paroxysmal-dyspnea',
+                        name: 'Anfallsartige Atemnot',
+                        description: 'Episodische Luftnot',
+                        icon: '😮‍💨',
+                        difficulty: 'medium',
+                        parentId: 'asthma-symptoms'
+                      },
+                      {
+                        id: 'wheezing',
+                        name: 'Giemen & Pfeifen',
+                        description: 'Charakteristische Atemgeräusche',
+                        icon: '🎵',
+                        difficulty: 'easy',
+                        parentId: 'asthma-symptoms'
+                      },
+                      {
+                        id: 'nocturnal-cough',
+                        name: 'Husten (besonders nachts)',
+                        description: 'Nächtliche Hustensymptomatik',
+                        icon: '🌙',
+                        difficulty: 'medium',
+                        parentId: 'asthma-symptoms'
+                      },
+                      {
+                        id: 'chest-tightness',
+                        name: 'Engegefühl in der Brust',
+                        description: 'Thorakales Druckgefühl',
+                        icon: '🫷',
+                        difficulty: 'medium',
+                        parentId: 'asthma-symptoms'
+                      },
+                      {
+                        id: 'variable-obstruction',
+                        name: 'Variable Obstruktion',
+                        description: 'Wechselnde Atemwegsobstruktion',
+                        icon: '📈',
+                        difficulty: 'hard',
+                        parentId: 'asthma-symptoms'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'asthma-diagnostics',
+                    name: 'Diagnostik',
+                    description: 'Diagnosestellung bei Asthma',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'asthma',
+                    children: [
+                      {
+                        id: 'spirometry-asthma',
+                        name: 'Spirometrie (reversible Obstruktion >12% + 200ml)',
+                        description: 'Nachweis der Reversibilität',
+                        icon: '📊',
+                        difficulty: 'hard',
+                        parentId: 'asthma-diagnostics'
+                      },
+                      {
+                        id: 'peak-flow',
+                        name: 'Peak-Flow-Messung (Variabilität >20%)',
+                        description: 'Verlaufskontrolle der Lungenfunktion',
+                        icon: '📈',
+                        difficulty: 'medium',
+                        parentId: 'asthma-diagnostics'
+                      },
+                      {
+                        id: 'allergy-diagnostics',
+                        name: 'Allergiediagnostik (spez. IgE, Prick-Test)',
+                        description: 'Nachweis allergischer Sensibilisierung',
+                        icon: '🧪',
+                        difficulty: 'medium',
+                        parentId: 'asthma-diagnostics'
+                      },
+                      {
+                        id: 'feno-measurement',
+                        name: 'FeNO (Fractional exhaled Nitric Oxide)',
+                        description: 'Messung der Atemwegsentzündung',
+                        icon: '🌬️',
+                        difficulty: 'hard',
+                        parentId: 'asthma-diagnostics'
+                      },
+                      {
+                        id: 'provocation-tests',
+                        name: 'Provokationstests (Methacholin)',
+                        description: 'Nachweis der Hyperreagibilität',
+                        icon: '⚗️',
+                        difficulty: 'hard',
+                        parentId: 'asthma-diagnostics'
+                      },
+                      {
+                        id: 'sputum-eosinophilia',
+                        name: 'Sputum-Eosinophilie',
+                        description: 'Zelltypisierung der Entzündung',
+                        icon: '🔬',
+                        difficulty: 'hard',
+                        parentId: 'asthma-diagnostics'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'asthma-therapy',
+                    name: 'Therapie',
+                    description: 'Stufenschema und medikamentöse Behandlung',
+                    icon: '💊',
+                    difficulty: 'hard',
+                    parentId: 'asthma-bronchiale',
+                    children: [
+                      {
+                        id: 'asthma-step-therapy',
+                        name: 'Stufenschema (GINA 1-5)',
+                        description: 'Globale Initiative für Asthma Stufenschema',
+                        icon: '📊',
+                        difficulty: 'hard',
+                        parentId: 'asthma-therapy'
+                      },
+                      {
+                        id: 'asthma-saba',
+                        name: 'SABA (Reliever)',
+                        description: 'Kurzwirksame Beta-2-Agonisten (Salbutamol)',
+                        icon: '🚀',
+                        difficulty: 'medium',
+                        parentId: 'asthma-therapy'
+                      },
+                      {
+                        id: 'asthma-ics',
+                        name: 'ICS (Controller)',
+                        description: 'Inhalative Kortikosteroide (Budesonid, Beclometason)',
+                        icon: '🌪️',
+                        difficulty: 'medium',
+                        parentId: 'asthma-therapy'
+                      },
+                      {
+                        id: 'asthma-ics-laba',
+                        name: 'ICS/LABA-Kombination',
+                        description: 'Fixkombination aus ICS und langwirksamem Beta-2-Agonist',
+                        icon: '⚡',
+                        difficulty: 'medium',
+                        parentId: 'asthma-therapy'
+                      },
+                      {
+                        id: 'asthma-ltra',
+                        name: 'LTRA (Leukotrienantagonisten)',
+                        description: 'Montelukast bei allergischem Asthma',
+                        icon: '🔒',
+                        difficulty: 'medium',
+                        parentId: 'asthma-therapy'
+                      },
+                      {
+                        id: 'asthma-lama',
+                        name: 'LAMA (Tiotropium)',
+                        description: 'Langwirksame Anticholinergika als Add-on Therapie',
+                        icon: '🎯',
+                        difficulty: 'medium',
+                        parentId: 'asthma-therapy'
+                      },
+                      {
+                        id: 'asthma-anti-ige',
+                        name: 'Anti-IgE (Omalizumab)',
+                        description: 'Biologikum bei schwerem allergischem Asthma',
+                        icon: '🧬',
+                        difficulty: 'hard',
+                        parentId: 'asthma-therapy'
+                      },
+                      {
+                        id: 'asthma-anti-il5',
+                        name: 'Anti-IL5 (Mepolizumab, Benralizumab)',
+                        description: 'Biologika bei schwerem eosinophilem Asthma',
+                        icon: '🔬',
+                        difficulty: 'hard',
+                        parentId: 'asthma-therapy'
+                      },
+                      {
+                        id: 'asthma-anti-il4-13',
+                        name: 'Anti-IL4/13 (Dupilumab)',
+                        description: 'Biologikum bei schwerem Asthma mit Typ-2-Inflammation',
+                        icon: '🧪',
+                        difficulty: 'hard',
+                        parentId: 'asthma-therapy'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'status-asthmaticus',
+                    name: 'Status asthmaticus',
+                    description: 'Lebensbedrohliche Asthmaexazerbation',
+                    icon: '🚨',
+                    difficulty: 'hard',
+                    parentId: 'asthma-bronchiale',
+                    children: [
+                      {
+                        id: 'status-asthmaticus-definition',
+                        name: 'Definition',
+                        description: 'Schwere, therapierefraktäre Bronchokonstriktion >6h',
+                        icon: '⚠️',
+                        difficulty: 'hard',
+                        parentId: 'status-asthmaticus'
+                      },
+                      {
+                        id: 'status-asthmaticus-symptoms',
+                        name: 'Symptome',
+                        description: 'Orthopnoe, Zyanose, paradoxer Puls, stumme Lunge',
+                        icon: '🫁',
+                        difficulty: 'hard',
+                        parentId: 'status-asthmaticus'
+                      },
+                      {
+                        id: 'status-asthmaticus-therapy',
+                        name: 'Notfalltherapie',
+                        description: 'O2, Salbutamol, Prednisolon, ggf. Theophyllin',
+                        icon: '🚑',
+                        difficulty: 'hard',
+                        parentId: 'status-asthmaticus'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'asthma-prevention',
+                    name: 'Prävention',
+                    description: 'Allergen- und Triggervermeidung',
+                    icon: '🛡️',
+                    difficulty: 'medium',
+                    parentId: 'asthma-bronchiale',
+                    children: [
+                      {
+                        id: 'allergen-avoidance',
+                        name: 'Allergenvermeidung',
+                        description: 'Hausstaubmilben, Pollen, Tierhaare reduzieren',
+                        icon: '🏠',
+                        difficulty: 'medium',
+                        parentId: 'asthma-prevention'
+                      },
+                      {
+                        id: 'trigger-avoidance',
+                        name: 'Triggervermeidung',
+                        description: 'Rauch, kalte Luft, Infekte, Stress vermeiden',
+                        icon: '🚫',
+                        difficulty: 'medium',
+                        parentId: 'asthma-prevention'
+                      },
+                      {
+                        id: 'asthma-education',
+                        name: 'Patientenschulung',
+                        description: 'Inhalationstechnik, Peak-Flow-Messung, Notfallplan',
+                        icon: '📚',
+                        difficulty: 'medium',
+                        parentId: 'asthma-prevention'
                       }
                     ]
                   }
