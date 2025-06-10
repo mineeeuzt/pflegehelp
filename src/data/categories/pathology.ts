@@ -2663,6 +2663,110 @@ export const pathologyCategories: Category[] = [
                     ]
                   }
                 ]
+              },
+              {
+                id: 'other-obstructive-diseases',
+                name: 'Weitere obstruktive Erkrankungen',
+                description: 'Seltene obstruktive Lungenerkrankungen',
+                icon: '🌪️',
+                difficulty: 'hard',
+                parentId: 'obstructive-lung-diseases',
+                children: [
+                  {
+                    id: 'bronchiectasis',
+                    name: 'Bronchiektasen',
+                    description: 'Irreversible Bronchialerweiterungen',
+                    icon: '🫁',
+                    difficulty: 'hard',
+                    parentId: 'other-obstructive-diseases',
+                    children: [
+                      {
+                        id: 'bronchiectasis-causes',
+                        name: 'Ursachen',
+                        description: 'Zystische Fibrose, Post-infektiös, Immundefekte',
+                        icon: '🔬',
+                        difficulty: 'hard',
+                        parentId: 'bronchiectasis'
+                      },
+                      {
+                        id: 'bronchiectasis-symptoms',
+                        name: 'Symptome',
+                        description: 'Produktiver Husten, Hämoptoe, rezidiv. Infekte',
+                        icon: '🤧',
+                        difficulty: 'medium',
+                        parentId: 'bronchiectasis'
+                      },
+                      {
+                        id: 'bronchiectasis-therapy',
+                        name: 'Therapie',
+                        description: 'Sekretmobilisation, Antibiotika, Physiotherapie',
+                        icon: '💊',
+                        difficulty: 'medium',
+                        parentId: 'bronchiectasis'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'alpha1-antitrypsin-deficiency',
+                    name: 'Alpha-1-Antitrypsin-Mangel',
+                    description: 'Genetischer Proteaseinhibitor-Mangel',
+                    icon: '🧬',
+                    difficulty: 'hard',
+                    parentId: 'other-obstructive-diseases',
+                    children: [
+                      {
+                        id: 'alpha1-genetics',
+                        name: 'Genetik',
+                        description: 'Autosomal-rezessiv, PiZZ-Genotyp',
+                        icon: '🧬',
+                        difficulty: 'hard',
+                        parentId: 'alpha1-antitrypsin-deficiency'
+                      },
+                      {
+                        id: 'alpha1-pathophysiology',
+                        name: 'Pathophysiologie',
+                        description: 'Ungehemmte Elastase → Emphysem',
+                        icon: '🔬',
+                        difficulty: 'hard',
+                        parentId: 'alpha1-antitrypsin-deficiency'
+                      },
+                      {
+                        id: 'alpha1-therapy',
+                        name: 'Substitutionstherapie',
+                        description: 'Wöchentliche i.v. Alpha-1-Antitrypsin-Gabe',
+                        icon: '💉',
+                        difficulty: 'medium',
+                        parentId: 'alpha1-antitrypsin-deficiency'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'bronchiolitis-obliterans',
+                    name: 'Bronchiolitis obliterans',
+                    description: 'Obliteration der kleinen Atemwege',
+                    icon: '🌬️',
+                    difficulty: 'hard',
+                    parentId: 'other-obstructive-diseases',
+                    children: [
+                      {
+                        id: 'bo-causes',
+                        name: 'Ursachen',
+                        description: 'Post-infektiös, Toxine, Transplantation',
+                        icon: '⚠️',
+                        difficulty: 'hard',
+                        parentId: 'bronchiolitis-obliterans'
+                      },
+                      {
+                        id: 'bo-diagnostics',
+                        name: 'Diagnostik',
+                        description: 'HRCT: Mosaikmuster, kleine Atemwege betroffen',
+                        icon: '🔍',
+                        difficulty: 'hard',
+                        parentId: 'bronchiolitis-obliterans'
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
