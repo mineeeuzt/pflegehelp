@@ -1901,16 +1901,16 @@ export const pathologyCategories: Category[] = [
       {
         id: 'respiratory-diseases',
         name: 'ATEMWEGSERKRANKUNGEN',
-        description: 'Erkrankungen der Atemwege und Lunge',
+        description: 'Erkrankungen des Atemsystems',
         icon: '🫁',
         difficulty: 'hard',
         parentId: 'pathology',
         children: [
           {
-            id: 'obstructive-diseases',
+            id: 'obstructive-lung-diseases',
             name: 'Obstruktive Lungenerkrankungen',
-            description: 'Atemwegsobstruktion und Überblähung',
-            icon: '🌪️',
+            description: 'Atemwegsobstruktion und Ventilationsstörungen',
+            icon: '🌬️',
             difficulty: 'hard',
             parentId: 'respiratory-diseases',
             children: [
@@ -1920,7 +1920,7 @@ export const pathologyCategories: Category[] = [
                 description: 'Chronisch obstruktive Lungenerkrankung',
                 icon: '🚭',
                 difficulty: 'hard',
-                parentId: 'obstructive-diseases',
+                parentId: 'obstructive-lung-diseases',
                 children: [
                   {
                     id: 'copd-definition',
