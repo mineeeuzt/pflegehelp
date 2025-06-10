@@ -2,19 +2,16 @@ import OpenAI from 'openai'
 import { simpleCache } from './simpleCache'
 
 // Alter API-Key für Fallbeispiel-Generator  
-const apiKey = import.meta.env.VITE_OPENAI_API_KEY
+const apiKey = import.meta.env.VITE_OPENAI_API_KEY || ''
 
-if (!apiKey) {
-  throw new Error('Missing OpenAI API key')
-}
-
-const openai = new OpenAI({
+// Create OpenAI instance only if API key exists
+const openai = apiKey ? new OpenAI({
   apiKey,
   dangerouslyAllowBrowser: true,
-})
+}) : null
 
 // Neuer API-Key nur für Medikamenten-Training
-const medicationApiKey = import.meta.env.VITE_OPENAI_MEDICATION_API_KEY
+const medicationApiKey = import.meta.env.VITE_OPENAI_MEDICATION_API_KEY || ''
 
 const medicationOpenai = medicationApiKey ? new OpenAI({
   apiKey: medicationApiKey,
@@ -573,6 +570,10 @@ export async function generateAIResponse(
   prompt: string,
   userInput: string
 ): Promise<string> {
+  if (!openai) {
+    throw new Error('OpenAI API ist nicht konfiguriert. Bitte fügen Sie einen API-Schlüssel in den Umgebungsvariablen hinzu.')
+  }
+  
   // Finale Model-Optimierung: Intelligente Auswahl basierend auf Komplexität
   const isSimpleTask = (
     prompt.includes('pesr') ||
@@ -648,6 +649,12 @@ export async function generateStreamingAIResponse(
   onComplete?: (fullText: string) => void,
   onError?: (error: Error) => void
 ): Promise<void> {
+  if (!openai) {
+    const err = new Error('OpenAI API ist nicht konfiguriert. Bitte fügen Sie einen API-Schlüssel in den Umgebungsvariablen hinzu.')
+    onError?.(err)
+    return
+  }
+  
   // Model-Optimierung: Intelligente Auswahl basierend auf Komplexität
   const isSimpleTask = (
     prompt.includes('pesr') ||
@@ -753,7 +760,7 @@ export async function generateMedicationScenario(
   const aiClient = medicationOpenai || openai
   
   if (!aiClient) {
-    throw new Error('Kein API-Key für Medikamenten-Training verfügbar.')
+    throw new Error('OpenAI API ist nicht konfiguriert. Bitte fügen Sie einen API-Schlüssel in den Umgebungsvariablen hinzu.')
   }
   
   try {
