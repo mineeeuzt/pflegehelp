@@ -21,6 +21,7 @@ import { useQuizStore } from '../store/quizStore'
 import { quizCategories } from '../data/quizData'
 import { medicalBasicsCategories } from '../data/categories/medical-basics'
 import { pathologyCategories } from '../data/categories/pathology'
+import { pharmacologyCategories } from '../data/categories/pharmacology'
 
 const QuizLernkarten = () => {
   const {
@@ -272,7 +273,11 @@ const QuizLernkarten = () => {
           <div className="flex-1 min-w-0">
             <div className="text-lg font-medium text-gray-900 mb-1">Pharmakologie</div>
             <div className="text-gray-600 text-sm font-light mb-2">Medikamente und Wirkweisen</div>
-            <div className="text-xs text-gray-500">Bald verfügbar</div>
+            <div className="text-xs text-gray-500">
+              {pharmacologyCategories[0]?.children?.length || 0} Medikamentengruppen • 
+              {pharmacologyCategories[0]?.children?.reduce((total, group) => 
+                total + (group.children?.length || 0), 0)} Kategorien
+            </div>
           </div>
           <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
         </motion.button>
@@ -402,46 +407,8 @@ const QuizLernkarten = () => {
       )
     }
 
-    // Pharmakologie - Grundstruktur
+    // Pharmakologie - Detaillierte Struktur aus importierten Kategorien
     if (selectedMainCategory === 'pharmacology') {
-      const pharmacologyCategories = [
-        {
-          id: 'cardiovascular-drugs',
-          name: 'Herz-Kreislauf-Medikamente',
-          description: 'Antihypertensiva, Antiarrhythmika, Lipidsenker',
-          icon: '❤️'
-        },
-        {
-          id: 'respiratory-drugs',
-          name: 'Respiratorische Medikamente',
-          description: 'Bronchodilatatoren, Kortikosteroide',
-          icon: '🫁'
-        },
-        {
-          id: 'cns-drugs',
-          name: 'ZNS-Medikamente',
-          description: 'Analgetika, Psychopharmaka, Antiepileptika',
-          icon: '🧠'
-        },
-        {
-          id: 'antibiotics',
-          name: 'Antiinfektiva',
-          description: 'Antibiotika, Antimykotika, Virustatika',
-          icon: '🦠'
-        },
-        {
-          id: 'gi-drugs',
-          name: 'Gastrointestinale Medikamente',
-          description: 'PPI, Antiemetika, Laxanzien',
-          icon: '🏥'
-        },
-        {
-          id: 'hormones-metabolism',
-          name: 'Hormone & Stoffwechsel',
-          description: 'Antidiabetika, Schilddrüsenhormone',
-          icon: '⚕️'
-        }
-      ]
 
       return (
         <div className="mb-12">
@@ -457,7 +424,7 @@ const QuizLernkarten = () => {
             </Button>
           </div>
           <CategoryGrid 
-            categories={pharmacologyCategories}
+            categories={pharmacologyCategories[0]?.children || []}
             color="purple"
           />
         </div>
