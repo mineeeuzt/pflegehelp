@@ -1549,6 +1549,864 @@ export const nursingTechniquesCategories: Category[] = [
                 ]
               }
             ]
+          },
+          {
+            id: 'wound-management',
+            name: 'Wundmanagement',
+            description: 'Professionelle Wundversorgung und -behandlung',
+            icon: '🩹',
+            difficulty: 'hard',
+            parentId: 'treatment-care',
+            children: [
+              {
+                id: 'wound-assessment',
+                name: 'Wundbeurteilung',
+                description: 'Systematische Bewertung von Wunden',
+                icon: '🔍',
+                difficulty: 'medium',
+                parentId: 'wound-management',
+                children: [
+                  {
+                    id: 'wound-type',
+                    name: 'Wundart',
+                    description: 'Klassifikation verschiedener Wundarten',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'wound-assessment'
+                  },
+                  {
+                    id: 'wound-stage',
+                    name: 'Wundstadium',
+                    description: 'Bestimmung des Heilungsstadiums',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'wound-assessment'
+                  },
+                  {
+                    id: 'wound-size-depth',
+                    name: 'Wundgröße/-tiefe',
+                    description: 'Messung von Ausdehnung und Tiefe',
+                    icon: '📏',
+                    difficulty: 'easy',
+                    parentId: 'wound-assessment'
+                  },
+                  {
+                    id: 'exudate',
+                    name: 'Exsudat',
+                    description: 'Beurteilung von Wundsekretion',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'wound-assessment'
+                  },
+                  {
+                    id: 'wound-edge-surrounding',
+                    name: 'Wundrand/-umgebung',
+                    description: 'Bewertung von Wundrand und umgebendem Gewebe',
+                    icon: '⭕',
+                    difficulty: 'medium',
+                    parentId: 'wound-assessment'
+                  },
+                  {
+                    id: 'photo-documentation',
+                    name: 'Fotodokumentation',
+                    description: 'Standardisierte fotografische Dokumentation',
+                    icon: '📸',
+                    difficulty: 'easy',
+                    parentId: 'wound-assessment'
+                  }
+                ]
+              },
+              {
+                id: 'wound-care',
+                name: 'Wundversorgung',
+                description: 'Praktische Wundbehandlung',
+                icon: '🏥',
+                difficulty: 'hard',
+                parentId: 'wound-management',
+                children: [
+                  {
+                    id: 'wound-cleaning',
+                    name: 'Wundreinigung',
+                    description: 'Reinigung und Spülung von Wunden',
+                    icon: '🚿',
+                    difficulty: 'medium',
+                    parentId: 'wound-care'
+                  },
+                  {
+                    id: 'debridement',
+                    name: 'Débridement',
+                    description: 'Entfernung von nekrotischem Gewebe',
+                    icon: '🔪',
+                    difficulty: 'hard',
+                    parentId: 'wound-care'
+                  },
+                  {
+                    id: 'modern-wound-dressings',
+                    name: 'Moderne Wundauflagen',
+                    description: 'Anwendung moderner Wundversorgungsmaterialien',
+                    icon: '🩹',
+                    difficulty: 'medium',
+                    parentId: 'wound-care'
+                  },
+                  {
+                    id: 'phase-appropriate-care',
+                    name: 'Phasengerechte Versorgung',
+                    description: 'Anpassung der Versorgung an Heilungsphase',
+                    icon: '📈',
+                    difficulty: 'hard',
+                    parentId: 'wound-care'
+                  },
+                  {
+                    id: 'dressing-change',
+                    name: 'Verbandwechsel',
+                    description: 'Durchführung aseptischer Verbandwechsel',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'wound-care'
+                  }
+                ]
+              },
+              {
+                id: 'special-wounds',
+                name: 'Spezielle Wunden',
+                description: 'Versorgung spezieller Wundarten',
+                icon: '⚕️',
+                difficulty: 'hard',
+                parentId: 'wound-management',
+                children: [
+                  {
+                    id: 'chronic-wounds',
+                    name: 'Chronische Wunden',
+                    description: 'Management langwieriger Wundheilungsstörungen',
+                    icon: '⏳',
+                    difficulty: 'hard',
+                    parentId: 'special-wounds'
+                  },
+                  {
+                    id: 'pressure-ulcer',
+                    name: 'Dekubitus',
+                    description: 'Behandlung von Druckgeschwüren',
+                    icon: '🛏️',
+                    difficulty: 'hard',
+                    parentId: 'special-wounds'
+                  },
+                  {
+                    id: 'leg-ulcer',
+                    name: 'Ulcus cruris',
+                    description: 'Versorgung von Unterschenkelgeschwüren',
+                    icon: '🦵',
+                    difficulty: 'hard',
+                    parentId: 'special-wounds'
+                  },
+                  {
+                    id: 'diabetic-foot-syndrome',
+                    name: 'Diabetisches Fußsyndrom',
+                    description: 'Spezialversorgung bei Diabetes',
+                    icon: '🦶',
+                    difficulty: 'hard',
+                    parentId: 'special-wounds'
+                  },
+                  {
+                    id: 'tumor-wounds',
+                    name: 'Tumorwunden',
+                    description: 'Palliative Wundversorgung bei Tumoren',
+                    icon: '🏥',
+                    difficulty: 'hard',
+                    parentId: 'special-wounds'
+                  }
+                ]
+              },
+              {
+                id: 'wound-healing',
+                name: 'Wundheilung',
+                description: 'Physiologie und Pathologie der Wundheilung',
+                icon: '🌱',
+                difficulty: 'medium',
+                parentId: 'wound-management',
+                children: [
+                  {
+                    id: 'primary-healing',
+                    name: 'Primäre Wundheilung',
+                    description: 'Direkte Wundheilung ohne Komplikationen',
+                    icon: '✨',
+                    difficulty: 'easy',
+                    parentId: 'wound-healing'
+                  },
+                  {
+                    id: 'secondary-healing',
+                    name: 'Sekundäre Wundheilung',
+                    description: 'Heilung mit Gewebeneubildung',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'wound-healing'
+                  },
+                  {
+                    id: 'healing-phases',
+                    name: 'Heilungsphasen',
+                    description: 'Die Phasen der Wundheilung',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'wound-healing'
+                  },
+                  {
+                    id: 'disturbing-factors',
+                    name: 'Störfaktoren',
+                    description: 'Faktoren, die Heilung beeinträchtigen',
+                    icon: '⚠️',
+                    difficulty: 'medium',
+                    parentId: 'wound-healing'
+                  },
+                  {
+                    id: 'healing-complications',
+                    name: 'Komplikationen',
+                    description: 'Wundheilungsstörungen und deren Management',
+                    icon: '🚨',
+                    difficulty: 'hard',
+                    parentId: 'wound-healing'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'vital-signs-monitoring',
+            name: 'Vitalzeichenkontrolle',
+            description: 'Überwachung lebenswichtiger Parameter',
+            icon: '📊',
+            difficulty: 'medium',
+            parentId: 'treatment-care',
+            children: [
+              {
+                id: 'blood-pressure',
+                name: 'Blutdruck',
+                description: 'Blutdruckmessung und -interpretation',
+                icon: '🩺',
+                difficulty: 'medium',
+                parentId: 'vital-signs-monitoring',
+                children: [
+                  {
+                    id: 'manual-measurement',
+                    name: 'Manuelle Messung',
+                    description: 'Messung mit Stethoskop und Manschette',
+                    icon: '👂',
+                    difficulty: 'medium',
+                    parentId: 'blood-pressure'
+                  },
+                  {
+                    id: 'automatic-measurement',
+                    name: 'Automatische Messung',
+                    description: 'Messung mit digitalen Geräten',
+                    icon: '🔌',
+                    difficulty: 'easy',
+                    parentId: 'blood-pressure'
+                  },
+                  {
+                    id: '24h-blood-pressure',
+                    name: '24h-RR',
+                    description: 'Langzeitblutdruckmessung',
+                    icon: '⏰',
+                    difficulty: 'medium',
+                    parentId: 'blood-pressure'
+                  },
+                  {
+                    id: 'orthostatic-test',
+                    name: 'Orthostase-Test',
+                    description: 'Blutdruck in verschiedenen Körperpositionen',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'blood-pressure'
+                  },
+                  {
+                    id: 'error-sources',
+                    name: 'Fehlerquellen',
+                    description: 'Häufige Messfehler und deren Vermeidung',
+                    icon: '⚠️',
+                    difficulty: 'easy',
+                    parentId: 'blood-pressure'
+                  }
+                ]
+              },
+              {
+                id: 'pulse',
+                name: 'Puls',
+                description: 'Pulsmessung und -beurteilung',
+                icon: '💓',
+                difficulty: 'easy',
+                parentId: 'vital-signs-monitoring',
+                children: [
+                  {
+                    id: 'palpation',
+                    name: 'Palpation',
+                    description: 'Tastbare Pulsmessung',
+                    icon: '👆',
+                    difficulty: 'easy',
+                    parentId: 'pulse'
+                  },
+                  {
+                    id: 'pulse-characteristics',
+                    name: 'Pulseigenschaften',
+                    description: 'Frequenz, Rhythmus, Qualität',
+                    icon: '📈',
+                    difficulty: 'medium',
+                    parentId: 'pulse'
+                  },
+                  {
+                    id: 'pulse-deficit',
+                    name: 'Pulsdefizit',
+                    description: 'Differenz zwischen Herz- und Pulsfrequenz',
+                    icon: '⚠️',
+                    difficulty: 'medium',
+                    parentId: 'pulse'
+                  },
+                  {
+                    id: 'peripheral-pulses',
+                    name: 'Periphere Pulse',
+                    description: 'Prüfung verschiedener Pulstaststellen',
+                    icon: '🔍',
+                    difficulty: 'medium',
+                    parentId: 'pulse'
+                  }
+                ]
+              },
+              {
+                id: 'respiration',
+                name: 'Atmung',
+                description: 'Atemkontrolle und -überwachung',
+                icon: '🫁',
+                difficulty: 'medium',
+                parentId: 'vital-signs-monitoring',
+                children: [
+                  {
+                    id: 'respiratory-rate',
+                    name: 'Atemfrequenz',
+                    description: 'Zählung der Atemzüge',
+                    icon: '🔢',
+                    difficulty: 'easy',
+                    parentId: 'respiration'
+                  },
+                  {
+                    id: 'breathing-quality',
+                    name: 'Atemqualität',
+                    description: 'Beurteilung von Atemtiefe und -muster',
+                    icon: '🌊',
+                    difficulty: 'medium',
+                    parentId: 'respiration'
+                  },
+                  {
+                    id: 'spo2-measurement',
+                    name: 'SpO2-Messung',
+                    description: 'Pulsoxymetrie zur Sauerstoffsättigung',
+                    icon: '📊',
+                    difficulty: 'easy',
+                    parentId: 'respiration'
+                  },
+                  {
+                    id: 'peak-flow',
+                    name: 'Peak-Flow',
+                    description: 'Messung der maximalen Ausatemgeschwindigkeit',
+                    icon: '💨',
+                    difficulty: 'medium',
+                    parentId: 'respiration'
+                  }
+                ]
+              },
+              {
+                id: 'temperature',
+                name: 'Temperatur',
+                description: 'Körpertemperaturmessung',
+                icon: '🌡️',
+                difficulty: 'easy',
+                parentId: 'vital-signs-monitoring',
+                children: [
+                  {
+                    id: 'measurement-sites',
+                    name: 'Messorte',
+                    description: 'Verschiedene Körperstellen zur Messung',
+                    icon: '📍',
+                    difficulty: 'easy',
+                    parentId: 'temperature'
+                  },
+                  {
+                    id: 'fever-progression',
+                    name: 'Fieberverlauf',
+                    description: 'Dokumentation und Interpretation',
+                    icon: '📈',
+                    difficulty: 'medium',
+                    parentId: 'temperature'
+                  },
+                  {
+                    id: 'hypothermia',
+                    name: 'Hypothermie',
+                    description: 'Erkennung und Management von Unterkühlung',
+                    icon: '❄️',
+                    difficulty: 'medium',
+                    parentId: 'temperature'
+                  },
+                  {
+                    id: 'fever-management',
+                    name: 'Fiebermanagement',
+                    description: 'Maßnahmen bei erhöhter Temperatur',
+                    icon: '🔥',
+                    difficulty: 'medium',
+                    parentId: 'temperature'
+                  }
+                ]
+              },
+              {
+                id: 'additional-parameters',
+                name: 'Weitere Parameter',
+                description: 'Zusätzliche Vitalwerte',
+                icon: '➕',
+                difficulty: 'medium',
+                parentId: 'vital-signs-monitoring',
+                children: [
+                  {
+                    id: 'blood-glucose',
+                    name: 'Blutzucker',
+                    description: 'Blutzuckermessung und -kontrolle',
+                    icon: '🩸',
+                    difficulty: 'easy',
+                    parentId: 'additional-parameters'
+                  },
+                  {
+                    id: 'weight-bmi',
+                    name: 'Gewicht/BMI',
+                    description: 'Gewichtskontrolle und Body-Mass-Index',
+                    icon: '⚖️',
+                    difficulty: 'easy',
+                    parentId: 'additional-parameters'
+                  },
+                  {
+                    id: 'pain-scale',
+                    name: 'Schmerzskala',
+                    description: 'Schmerzerfassung mit Skalen',
+                    icon: '📏',
+                    difficulty: 'easy',
+                    parentId: 'additional-parameters'
+                  },
+                  {
+                    id: 'consciousness-gcs',
+                    name: 'Bewusstsein (GCS)',
+                    description: 'Glasgow Coma Scale zur Bewusstseinsbeurteilung',
+                    icon: '🧠',
+                    difficulty: 'hard',
+                    parentId: 'additional-parameters'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'special-nursing-techniques',
+            name: 'Spezielle Pflegetechniken',
+            description: 'Fortgeschrittene pflegerische Verfahren',
+            icon: '🔧',
+            difficulty: 'hard',
+            parentId: 'treatment-care',
+            children: [
+              {
+                id: 'tubes-catheters',
+                name: 'Sonden & Katheter',
+                description: 'Management verschiedener Sonden und Katheter',
+                icon: '🔗',
+                difficulty: 'hard',
+                parentId: 'special-nursing-techniques',
+                children: [
+                  {
+                    id: 'nasogastric-tube',
+                    name: 'Magensonde',
+                    description: 'Legen und Pflege von Magensonden',
+                    icon: '📏',
+                    difficulty: 'hard',
+                    parentId: 'tubes-catheters'
+                  },
+                  {
+                    id: 'peg-care',
+                    name: 'PEG-Pflege',
+                    description: 'Pflege perkutaner endoskopischer Gastrostomie',
+                    icon: '⚙️',
+                    difficulty: 'hard',
+                    parentId: 'tubes-catheters'
+                  },
+                  {
+                    id: 'bladder-catheter-special',
+                    name: 'Blasenkatheter',
+                    description: 'Anlage und Pflege von Blasenkathetern',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'tubes-catheters'
+                  },
+                  {
+                    id: 'nephrostomy',
+                    name: 'Nephrostomie',
+                    description: 'Pflege von Nierenfisteln',
+                    icon: '🏥',
+                    difficulty: 'hard',
+                    parentId: 'tubes-catheters'
+                  },
+                  {
+                    id: 'drains',
+                    name: 'Drainagen',
+                    description: 'Management verschiedener Drainagesysteme',
+                    icon: '🚰',
+                    difficulty: 'medium',
+                    parentId: 'tubes-catheters'
+                  }
+                ]
+              },
+              {
+                id: 'stoma-care',
+                name: 'Stomapflege',
+                description: 'Versorgung künstlicher Körperöffnungen',
+                icon: '⭕',
+                difficulty: 'hard',
+                parentId: 'special-nursing-techniques',
+                children: [
+                  {
+                    id: 'colostomy',
+                    name: 'Kolostomie',
+                    description: 'Pflege eines Dickdarmausgangs',
+                    icon: '🔴',
+                    difficulty: 'hard',
+                    parentId: 'stoma-care'
+                  },
+                  {
+                    id: 'ileostomy',
+                    name: 'Ileostomie',
+                    description: 'Pflege eines Dünndarmausgangs',
+                    icon: '🟠',
+                    difficulty: 'hard',
+                    parentId: 'stoma-care'
+                  },
+                  {
+                    id: 'urostomy',
+                    name: 'Urostomie',
+                    description: 'Pflege einer Harnableitung',
+                    icon: '🟡',
+                    difficulty: 'hard',
+                    parentId: 'stoma-care'
+                  },
+                  {
+                    id: 'stoma-supplies',
+                    name: 'Stomaversorgung',
+                    description: 'Materialien und Versorgungstechniken',
+                    icon: '🩹',
+                    difficulty: 'medium',
+                    parentId: 'stoma-care'
+                  },
+                  {
+                    id: 'stoma-complications',
+                    name: 'Komplikationen',
+                    description: 'Erkennung und Management von Stomakomplikationen',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'stoma-care'
+                  }
+                ]
+              },
+              {
+                id: 'oxygen-therapy',
+                name: 'Sauerstofftherapie',
+                description: 'Verabreichung und Überwachung von Sauerstoff',
+                icon: '💨',
+                difficulty: 'medium',
+                parentId: 'special-nursing-techniques',
+                children: [
+                  {
+                    id: 'nasal-cannula',
+                    name: 'Nasenbrille',
+                    description: 'Low-Flow-Sauerstoffgabe',
+                    icon: '👃',
+                    difficulty: 'easy',
+                    parentId: 'oxygen-therapy'
+                  },
+                  {
+                    id: 'oxygen-mask',
+                    name: 'Maske',
+                    description: 'Verschiedene Maskentypen',
+                    icon: '😷',
+                    difficulty: 'medium',
+                    parentId: 'oxygen-therapy'
+                  },
+                  {
+                    id: 'high-flow',
+                    name: 'High-Flow',
+                    description: 'Hochdosierte Sauerstofftherapie',
+                    icon: '🌊',
+                    difficulty: 'hard',
+                    parentId: 'oxygen-therapy'
+                  },
+                  {
+                    id: 'humidification',
+                    name: 'Befeuchtung',
+                    description: 'Atemgasbefeuchtung',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'oxygen-therapy'
+                  },
+                  {
+                    id: 'oxygen-safety',
+                    name: 'Sicherheit',
+                    description: 'Sicherheitsaspekte bei Sauerstofftherapie',
+                    icon: '🔥',
+                    difficulty: 'medium',
+                    parentId: 'oxygen-therapy'
+                  }
+                ]
+              },
+              {
+                id: 'airway-management',
+                name: 'Atemwegsmanagement',
+                description: 'Sicherung und Pflege der Atemwege',
+                icon: '🫁',
+                difficulty: 'hard',
+                parentId: 'special-nursing-techniques',
+                children: [
+                  {
+                    id: 'inhalation-therapy',
+                    name: 'Inhalation',
+                    description: 'Verabreichung von Medikamenten per Inhalation',
+                    icon: '💨',
+                    difficulty: 'medium',
+                    parentId: 'airway-management'
+                  },
+                  {
+                    id: 'suctioning',
+                    name: 'Absaugen',
+                    description: 'Endotracheales und orales Absaugen',
+                    icon: '🔌',
+                    difficulty: 'hard',
+                    parentId: 'airway-management'
+                  },
+                  {
+                    id: 'tracheostomy-care',
+                    name: 'Tracheostomapflege',
+                    description: 'Pflege von Tracheostoma und Kanüle',
+                    icon: '⭕',
+                    difficulty: 'hard',
+                    parentId: 'airway-management'
+                  },
+                  {
+                    id: 'niv-management',
+                    name: 'NIV-Management',
+                    description: 'Nicht-invasive Beatmung',
+                    icon: '😷',
+                    difficulty: 'hard',
+                    parentId: 'airway-management'
+                  },
+                  {
+                    id: 'emergency-management',
+                    name: 'Notfallmanagement',
+                    description: 'Notfallmaßnahmen bei Atemwegsproblemen',
+                    icon: '🚨',
+                    difficulty: 'hard',
+                    parentId: 'airway-management'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'diagnostic-procedures',
+            name: 'Diagnostische Maßnahmen',
+            description: 'Durchführung diagnostischer Verfahren',
+            icon: '🔬',
+            difficulty: 'medium',
+            parentId: 'treatment-care',
+            children: [
+              {
+                id: 'blood-collection',
+                name: 'Blutentnahme',
+                description: 'Verschiedene Blutentnahmetechniken',
+                icon: '💉',
+                difficulty: 'medium',
+                parentId: 'diagnostic-procedures',
+                children: [
+                  {
+                    id: 'venous-blood-collection',
+                    name: 'Venöse Blutentnahme',
+                    description: 'Standardblutentnahme aus der Vene',
+                    icon: '🩸',
+                    difficulty: 'medium',
+                    parentId: 'blood-collection'
+                  },
+                  {
+                    id: 'capillary-blood-collection',
+                    name: 'Kapilläre Blutentnahme',
+                    description: 'Blutentnahme aus der Fingerbeere',
+                    icon: '👆',
+                    difficulty: 'easy',
+                    parentId: 'blood-collection'
+                  },
+                  {
+                    id: 'arterial-blood-collection',
+                    name: 'Arterielle Blutentnahme',
+                    description: 'Blutgasanalyse aus der Arterie',
+                    icon: '🔴',
+                    difficulty: 'hard',
+                    parentId: 'blood-collection'
+                  },
+                  {
+                    id: 'blood-culture',
+                    name: 'Blutkultur',
+                    description: 'Sterile Entnahme für Bakteriennachweis',
+                    icon: '🧫',
+                    difficulty: 'hard',
+                    parentId: 'blood-collection'
+                  },
+                  {
+                    id: 'preanalytics',
+                    name: 'Präanalytik',
+                    description: 'Vorbereitung und Handling von Proben',
+                    icon: '🧪',
+                    difficulty: 'medium',
+                    parentId: 'blood-collection'
+                  }
+                ]
+              },
+              {
+                id: 'urine-diagnostics',
+                name: 'Urindiagnostik',
+                description: 'Gewinnung und Analyse von Urinproben',
+                icon: '🧪',
+                difficulty: 'easy',
+                parentId: 'diagnostic-procedures',
+                children: [
+                  {
+                    id: 'midstream-urine',
+                    name: 'Mittelstrahlurin',
+                    description: 'Standardtechnik der Uringewinnung',
+                    icon: '💧',
+                    difficulty: 'easy',
+                    parentId: 'urine-diagnostics'
+                  },
+                  {
+                    id: 'catheter-urine',
+                    name: 'Katheterurin',
+                    description: 'Uringewinnung über Katheter',
+                    icon: '🔗',
+                    difficulty: 'medium',
+                    parentId: 'urine-diagnostics'
+                  },
+                  {
+                    id: '24h-urine-collection',
+                    name: '24h-Sammelurin',
+                    description: 'Sammlung über 24 Stunden',
+                    icon: '⏰',
+                    difficulty: 'medium',
+                    parentId: 'urine-diagnostics'
+                  },
+                  {
+                    id: 'urine-dipstick',
+                    name: 'Urin-Stix',
+                    description: 'Schnelltest mit Teststreifen',
+                    icon: '📊',
+                    difficulty: 'easy',
+                    parentId: 'urine-diagnostics'
+                  },
+                  {
+                    id: 'urine-culture',
+                    name: 'Urinkultur',
+                    description: 'Bakteriologische Untersuchung',
+                    icon: '🦠',
+                    difficulty: 'medium',
+                    parentId: 'urine-diagnostics'
+                  }
+                ]
+              },
+              {
+                id: 'stool-diagnostics',
+                name: 'Stuhldiagnostik',
+                description: 'Stuhlprobengewinnung und -analyse',
+                icon: '🔬',
+                difficulty: 'medium',
+                parentId: 'diagnostic-procedures',
+                children: [
+                  {
+                    id: 'stool-sample',
+                    name: 'Stuhlprobe',
+                    description: 'Standardgewinnung von Stuhlproben',
+                    icon: '🥄',
+                    difficulty: 'easy',
+                    parentId: 'stool-diagnostics'
+                  },
+                  {
+                    id: 'hemoccult-test',
+                    name: 'Hämoccult-Test',
+                    description: 'Test auf okkultes Blut im Stuhl',
+                    icon: '🩸',
+                    difficulty: 'easy',
+                    parentId: 'stool-diagnostics'
+                  },
+                  {
+                    id: 'stool-culture',
+                    name: 'Stuhlkultur',
+                    description: 'Bakteriologische Stuhluntersuchung',
+                    icon: '🧫',
+                    difficulty: 'medium',
+                    parentId: 'stool-diagnostics'
+                  },
+                  {
+                    id: 'calprotectin',
+                    name: 'Calprotectin',
+                    description: 'Entzündungsmarker im Stuhl',
+                    icon: '🔥',
+                    difficulty: 'medium',
+                    parentId: 'stool-diagnostics'
+                  }
+                ]
+              },
+              {
+                id: 'further-diagnostics',
+                name: 'Weitere Diagnostik',
+                description: 'Zusätzliche diagnostische Verfahren',
+                icon: '➕',
+                difficulty: 'medium',
+                parentId: 'diagnostic-procedures',
+                children: [
+                  {
+                    id: 'sputum-collection',
+                    name: 'Sputumgewinnung',
+                    description: 'Gewinnung von Auswurf zur Analyse',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'further-diagnostics'
+                  },
+                  {
+                    id: 'swabs',
+                    name: 'Abstriche',
+                    description: 'Verschiedene Abstrichtechniken',
+                    icon: '🦠',
+                    difficulty: 'easy',
+                    parentId: 'further-diagnostics'
+                  },
+                  {
+                    id: 'ecg-recording',
+                    name: 'EKG-Ableitung',
+                    description: 'Durchführung eines Elektrokardiogramms',
+                    icon: '💓',
+                    difficulty: 'medium',
+                    parentId: 'further-diagnostics'
+                  },
+                  {
+                    id: 'blood-glucose-profile',
+                    name: 'Blutzuckerprofil',
+                    description: 'Erstellung von Blutzuckertagesprofilen',
+                    icon: '📈',
+                    difficulty: 'easy',
+                    parentId: 'further-diagnostics'
+                  },
+                  {
+                    id: 'function-tests',
+                    name: 'Funktionstests',
+                    description: 'Verschiedene Funktionsprüfungen',
+                    icon: '🔍',
+                    difficulty: 'medium',
+                    parentId: 'further-diagnostics'
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
