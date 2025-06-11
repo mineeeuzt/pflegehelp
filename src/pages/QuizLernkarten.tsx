@@ -22,6 +22,7 @@ import { quizCategories } from '../data/quizData'
 import { medicalBasicsCategories } from '../data/categories/medical-basics'
 import { pathologyCategories } from '../data/categories/pathology'
 import { pharmacologyCategories } from '../data/categories/pharmacology'
+import { nursingTheoriesCategories } from '../data/categories/nursing-theories'
 
 const QuizLernkarten = () => {
   const {
@@ -296,7 +297,11 @@ const QuizLernkarten = () => {
           <div className="flex-1 min-w-0">
             <div className="text-lg font-medium text-gray-900 mb-1">Pflegetheorien & -modelle</div>
             <div className="text-gray-600 text-sm font-light mb-2">Theoretische Grundlagen</div>
-            <div className="text-xs text-gray-500">Bald verfügbar</div>
+            <div className="text-xs text-gray-500">
+              {nursingTheoriesCategories[0]?.children?.length || 0} Theoriekategorien • 
+              {nursingTheoriesCategories[0]?.children?.reduce((total, group) => 
+                total + (group.children?.length || 0), 0)} Theoretiker
+            </div>
           </div>
           <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
         </motion.button>
@@ -432,63 +437,12 @@ const QuizLernkarten = () => {
     }
 
     if (selectedMainCategory === 'nursing-theories') {
-      const nursingTheoriesCategories = [
-        {
-          id: 'needs-theories',
-          name: 'Bedürfnisorientierte Theorien',
-          description: 'Henderson, Maslow, Orem',
-          icon: '🎯'
-        },
-        {
-          id: 'interaction-theories',
-          name: 'Interaktionstheorien',
-          description: 'Peplau, Travelbee, Orlando',
-          icon: '🤝'
-        },
-        {
-          id: 'outcome-theories',
-          name: 'Ergebnisorientierte Theorien',
-          description: 'Rogers, King, Neuman',
-          icon: '📈'
-        },
-        {
-          id: 'humanistic-theories',
-          name: 'Humanistische Theorien',
-          description: 'Watson, Leininger, Benner',
-          icon: '💚'
-        },
-        {
-          id: 'process-models',
-          name: 'Pflegeprozessmodelle',
-          description: '6-Schritt, NANDA-I, Clinical Reasoning',
-          icon: '🔄'
-        },
-        {
-          id: 'structure-models',
-          name: 'Strukturmodelle',
-          description: 'ATL, ABEDL, SIS',
-          icon: '🏗️'
-        },
-        {
-          id: 'concept-models',
-          name: 'Konzeptmodelle',
-          description: 'Primary Nursing, Kinästhetik, Basale Stimulation',
-          icon: '💡'
-        },
-        {
-          id: 'assessment-models',
-          name: 'Assessmentmodelle',
-          description: 'Barthel-Index, RAI, Pflegegrad',
-          icon: '📋'
-        }
-      ]
-
       return (
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
               <BreadcrumbNav />
-              <h2 className="text-2xl font-light text-gray-900 mb-2">📚 Pflegetheorien & -modelle</h2>
+              <h2 className="text-2xl font-light text-gray-900 mb-2">🎯 Pflegetheorien & -modelle</h2>
               <p className="text-gray-600 font-light">Theoretische Grundlagen der Pflege</p>
             </div>
             <Button variant="outline" onClick={navigateBack} className="shrink-0">
@@ -497,7 +451,7 @@ const QuizLernkarten = () => {
             </Button>
           </div>
           <CategoryGrid 
-            categories={nursingTheoriesCategories}
+            categories={nursingTheoriesCategories[0]?.children || []}
             color="green"
           />
         </div>
