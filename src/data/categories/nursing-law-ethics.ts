@@ -1111,6 +1111,786 @@ export const nursingLawEthicsCategories: Category[] = [
             ]
           }
         ]
+      },
+      {
+        id: 'nursing-ethics',
+        name: 'PFLEGEETHIK',
+        description: 'Ethische Grundlagen und Herausforderungen in der Pflege',
+        icon: '🤝',
+        difficulty: 'hard',
+        parentId: 'nursing-law-ethics',
+        children: [
+          {
+            id: 'ethical-principles',
+            name: 'Ethische Grundprinzipien',
+            description: 'Fundamentale ethische Prinzipien in der Pflege',
+            icon: '⚖️',
+            difficulty: 'hard',
+            parentId: 'nursing-ethics',
+            children: [
+              {
+                id: 'principlism',
+                name: 'Prinzipienethik (Beauchamp & Childress)',
+                description: 'Die vier Grundprinzipien der biomedizinischen Ethik',
+                icon: '4️⃣',
+                difficulty: 'hard',
+                parentId: 'ethical-principles',
+                children: [
+                  {
+                    id: 'autonomy',
+                    name: 'Autonomie',
+                    description: 'Achtung der Selbstbestimmung des Patienten',
+                    icon: '🗽',
+                    difficulty: 'medium',
+                    parentId: 'principlism',
+                    children: [
+                      {
+                        id: 'self-determination',
+                        name: 'Selbstbestimmung',
+                        description: 'Recht auf eigenverantwortliche Entscheidungen',
+                        icon: '🎯',
+                        difficulty: 'easy',
+                        parentId: 'autonomy'
+                      },
+                      {
+                        id: 'informed-consent',
+                        name: 'Informierte Einwilligung',
+                        description: 'Zustimmung nach umfassender Aufklärung',
+                        icon: '📋',
+                        difficulty: 'medium',
+                        parentId: 'autonomy'
+                      },
+                      {
+                        id: 'truth-telling',
+                        name: 'Wahrheit am Krankenbett',
+                        description: 'Ehrliche und angemessene Kommunikation',
+                        icon: '💬',
+                        difficulty: 'medium',
+                        parentId: 'autonomy'
+                      },
+                      {
+                        id: 'advance-directives',
+                        name: 'Vorausverfügungen',
+                        description: 'Vorab geäußerte Behandlungswünsche',
+                        icon: '📜',
+                        difficulty: 'medium',
+                        parentId: 'autonomy'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'beneficence',
+                    name: 'Benefizienz (Fürsorge)',
+                    description: 'Verpflichtung zum Wohltun',
+                    icon: '❤️',
+                    difficulty: 'medium',
+                    parentId: 'principlism',
+                    children: [
+                      {
+                        id: 'doing-good',
+                        name: 'Wohltun',
+                        description: 'Aktive Förderung des Patientenwohls',
+                        icon: '🌟',
+                        difficulty: 'easy',
+                        parentId: 'beneficence'
+                      },
+                      {
+                        id: 'best-interests',
+                        name: 'Beste Interessen',
+                        description: 'Handeln im besten Interesse des Patienten',
+                        icon: '🎯',
+                        difficulty: 'medium',
+                        parentId: 'beneficence'
+                      },
+                      {
+                        id: 'quality-of-life',
+                        name: 'Lebensqualität',
+                        description: 'Berücksichtigung der subjektiven Lebensqualität',
+                        icon: '🌈',
+                        difficulty: 'medium',
+                        parentId: 'beneficence'
+                      },
+                      {
+                        id: 'palliative-care-ethics',
+                        name: 'Palliative Care',
+                        description: 'Ethische Aspekte der palliativen Versorgung',
+                        icon: '🕊️',
+                        difficulty: 'hard',
+                        parentId: 'beneficence'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'non-maleficence',
+                    name: 'Non-Malefizienz',
+                    description: 'Grundsatz des Nicht-Schadens',
+                    icon: '🛡️',
+                    difficulty: 'medium',
+                    parentId: 'principlism',
+                    children: [
+                      {
+                        id: 'do-no-harm',
+                        name: 'Nicht schaden',
+                        description: 'Vermeidung von Schäden durch Handeln oder Unterlassen',
+                        icon: '⛔',
+                        difficulty: 'easy',
+                        parentId: 'non-maleficence'
+                      },
+                      {
+                        id: 'risk-benefit-assessment',
+                        name: 'Risiko-Nutzen-Abwägung',
+                        description: 'Sorgfältige Abwägung von Nutzen und Risiken',
+                        icon: '⚖️',
+                        difficulty: 'medium',
+                        parentId: 'non-maleficence'
+                      },
+                      {
+                        id: 'side-effects',
+                        name: 'Nebenwirkungen',
+                        description: 'Berücksichtigung unerwünschter Behandlungsfolgen',
+                        icon: '⚠️',
+                        difficulty: 'easy',
+                        parentId: 'non-maleficence'
+                      },
+                      {
+                        id: 'error-culture',
+                        name: 'Fehlerkultur',
+                        description: 'Konstruktiver Umgang mit Fehlern',
+                        icon: '🔄',
+                        difficulty: 'medium',
+                        parentId: 'non-maleficence'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'justice',
+                    name: 'Gerechtigkeit',
+                    description: 'Faire Verteilung von Nutzen und Lasten',
+                    icon: '⚖️',
+                    difficulty: 'hard',
+                    parentId: 'principlism',
+                    children: [
+                      {
+                        id: 'distributive-justice',
+                        name: 'Verteilungsgerechtigkeit',
+                        description: 'Gerechte Verteilung von Ressourcen',
+                        icon: '📊',
+                        difficulty: 'hard',
+                        parentId: 'justice'
+                      },
+                      {
+                        id: 'equal-treatment',
+                        name: 'Gleichbehandlung',
+                        description: 'Gleiche Behandlung gleicher Fälle',
+                        icon: '🟰',
+                        difficulty: 'medium',
+                        parentId: 'justice'
+                      },
+                      {
+                        id: 'resource-allocation',
+                        name: 'Ressourcenallokation',
+                        description: 'Zuteilung begrenzter Ressourcen',
+                        icon: '📦',
+                        difficulty: 'hard',
+                        parentId: 'justice'
+                      },
+                      {
+                        id: 'prioritization',
+                        name: 'Priorisierung',
+                        description: 'Festlegung von Behandlungsprioritäten',
+                        icon: '🔢',
+                        difficulty: 'hard',
+                        parentId: 'justice'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                id: 'care-ethics',
+                name: 'Care-Ethik',
+                description: 'Ethik der Fürsorge und Beziehungen',
+                icon: '🤗',
+                difficulty: 'hard',
+                parentId: 'ethical-principles',
+                children: [
+                  {
+                    id: 'relationship-ethics',
+                    name: 'Beziehungsethik',
+                    description: 'Ethik zwischenmenschlicher Beziehungen',
+                    icon: '🔗',
+                    difficulty: 'medium',
+                    parentId: 'care-ethics'
+                  },
+                  {
+                    id: 'responsibility-ethics',
+                    name: 'Verantwortungsethik',
+                    description: 'Ethik der Verantwortung für andere',
+                    icon: '🤲',
+                    difficulty: 'medium',
+                    parentId: 'care-ethics'
+                  },
+                  {
+                    id: 'contextuality',
+                    name: 'Kontextbezogenheit',
+                    description: 'Berücksichtigung des individuellen Kontexts',
+                    icon: '🎭',
+                    difficulty: 'hard',
+                    parentId: 'care-ethics'
+                  },
+                  {
+                    id: 'narrative-ethics',
+                    name: 'Narrative Ethik',
+                    description: 'Bedeutung von Lebensgeschichten',
+                    icon: '📖',
+                    difficulty: 'hard',
+                    parentId: 'care-ethics'
+                  },
+                  {
+                    id: 'feminist-ethics',
+                    name: 'Feministische Ethik',
+                    description: 'Feministische Perspektiven auf Pflegeethik',
+                    icon: '♀️',
+                    difficulty: 'hard',
+                    parentId: 'care-ethics'
+                  }
+                ]
+              },
+              {
+                id: 'virtue-ethics',
+                name: 'Tugendethik',
+                description: 'Charaktereigenschaften und Tugenden in der Pflege',
+                icon: '💎',
+                difficulty: 'medium',
+                parentId: 'ethical-principles',
+                children: [
+                  {
+                    id: 'nursing-virtues',
+                    name: 'Pflegetugenden',
+                    description: 'Spezifische Tugenden für Pflegekräfte',
+                    icon: '⭐',
+                    difficulty: 'medium',
+                    parentId: 'virtue-ethics'
+                  },
+                  {
+                    id: 'compassion',
+                    name: 'Mitgefühl',
+                    description: 'Empathische Anteilnahme am Leid anderer',
+                    icon: '💙',
+                    difficulty: 'easy',
+                    parentId: 'virtue-ethics'
+                  },
+                  {
+                    id: 'truthfulness',
+                    name: 'Wahrhaftigkeit',
+                    description: 'Aufrichtigkeit in Kommunikation und Handeln',
+                    icon: '✨',
+                    difficulty: 'easy',
+                    parentId: 'virtue-ethics'
+                  },
+                  {
+                    id: 'integrity',
+                    name: 'Integrität',
+                    description: 'Übereinstimmung von Werten und Handeln',
+                    icon: '🎯',
+                    difficulty: 'medium',
+                    parentId: 'virtue-ethics'
+                  },
+                  {
+                    id: 'professionalism',
+                    name: 'Professionalität',
+                    description: 'Professionelle Haltung und Kompetenz',
+                    icon: '👔',
+                    difficulty: 'medium',
+                    parentId: 'virtue-ethics'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'ethical-challenges',
+            name: 'Ethische Herausforderungen',
+            description: 'Komplexe ethische Dilemmas in der Pflege',
+            icon: '🤔',
+            difficulty: 'hard',
+            parentId: 'nursing-ethics',
+            children: [
+              {
+                id: 'beginning-of-life',
+                name: 'Lebensanfang',
+                description: 'Ethische Fragen am Lebensbeginn',
+                icon: '👶',
+                difficulty: 'hard',
+                parentId: 'ethical-challenges',
+                children: [
+                  {
+                    id: 'prenatal-diagnosis',
+                    name: 'Pränatale Diagnostik',
+                    description: 'Ethische Aspekte vorgeburtlicher Untersuchungen',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'beginning-of-life'
+                  },
+                  {
+                    id: 'abortion',
+                    name: 'Schwangerschaftsabbruch',
+                    description: 'Ethische Dilemmata bei Schwangerschaftsabbrüchen',
+                    icon: '⚖️',
+                    difficulty: 'hard',
+                    parentId: 'beginning-of-life'
+                  },
+                  {
+                    id: 'premature-infants',
+                    name: 'Frühgeborene',
+                    description: 'Ethische Entscheidungen bei Frühgeburtlichkeit',
+                    icon: '🤱',
+                    difficulty: 'hard',
+                    parentId: 'beginning-of-life'
+                  },
+                  {
+                    id: 'neonatology',
+                    name: 'Neonatologie',
+                    description: 'Ethik in der Neugeborenenmedizin',
+                    icon: '🏥',
+                    difficulty: 'hard',
+                    parentId: 'beginning-of-life'
+                  },
+                  {
+                    id: 'parent-counseling',
+                    name: 'Elternberatung',
+                    description: 'Ethische Aspekte der Elternberatung',
+                    icon: '👨‍👩‍👧‍👦',
+                    difficulty: 'medium',
+                    parentId: 'beginning-of-life'
+                  }
+                ]
+              },
+              {
+                id: 'end-of-life',
+                name: 'Lebensende',
+                description: 'Ethische Fragen am Lebensende',
+                icon: '🕊️',
+                difficulty: 'hard',
+                parentId: 'ethical-challenges',
+                children: [
+                  {
+                    id: 'end-of-life-care',
+                    name: 'Sterbebegleitung',
+                    description: 'Ethische Aspekte der Sterbebegleitung',
+                    icon: '🤝',
+                    difficulty: 'medium',
+                    parentId: 'end-of-life'
+                  },
+                  {
+                    id: 'therapy-limitation',
+                    name: 'Therapiebegrenzung',
+                    description: 'Ethische Entscheidungen zur Therapiebegrenzung',
+                    icon: '⏸️',
+                    difficulty: 'hard',
+                    parentId: 'end-of-life'
+                  },
+                  {
+                    id: 'therapy-withdrawal',
+                    name: 'Therapieabbruch',
+                    description: 'Beendigung lebensverlängernder Maßnahmen',
+                    icon: '⏹️',
+                    difficulty: 'hard',
+                    parentId: 'end-of-life'
+                  },
+                  {
+                    id: 'palliative-sedation',
+                    name: 'Palliative Sedierung',
+                    description: 'Ethische Aspekte der palliativen Sedierung',
+                    icon: '😴',
+                    difficulty: 'hard',
+                    parentId: 'end-of-life'
+                  },
+                  {
+                    id: 'euthanasia-debate',
+                    name: 'Sterbehilfe-Debatte',
+                    description: 'Diskussion um aktive und passive Sterbehilfe',
+                    icon: '🗣️',
+                    difficulty: 'hard',
+                    parentId: 'end-of-life'
+                  },
+                  {
+                    id: 'patient-directive',
+                    name: 'Patientenverfügung',
+                    description: 'Ethische und rechtliche Aspekte von Patientenverfügungen',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'end-of-life'
+                  }
+                ]
+              },
+              {
+                id: 'autonomy-vs-care',
+                name: 'Autonomie vs. Fürsorge',
+                description: 'Spannungsfeld zwischen Selbstbestimmung und Fürsorge',
+                icon: '⚖️',
+                difficulty: 'hard',
+                parentId: 'ethical-challenges',
+                children: [
+                  {
+                    id: 'compliance-adherence',
+                    name: 'Compliance/Adherence',
+                    description: 'Therapietreue und Patientenautonomie',
+                    icon: '💊',
+                    difficulty: 'medium',
+                    parentId: 'autonomy-vs-care'
+                  },
+                  {
+                    id: 'coercive-measures',
+                    name: 'Zwangsmaßnahmen',
+                    description: 'Ethik von Zwangsmaßnahmen',
+                    icon: '⛓️',
+                    difficulty: 'hard',
+                    parentId: 'autonomy-vs-care'
+                  },
+                  {
+                    id: 'deprivation-of-liberty',
+                    name: 'Freiheitsentziehung',
+                    description: 'Ethische Bewertung freiheitsentziehender Maßnahmen',
+                    icon: '🔒',
+                    difficulty: 'hard',
+                    parentId: 'autonomy-vs-care'
+                  },
+                  {
+                    id: 'self-endangerment',
+                    name: 'Selbstgefährdung',
+                    description: 'Umgang mit selbstgefährdenden Patienten',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'autonomy-vs-care'
+                  },
+                  {
+                    id: 'caring-dominance',
+                    name: 'Fürsorgliche Übermacht',
+                    description: 'Grenzen fürsorglichen Handelns',
+                    icon: '🤗',
+                    difficulty: 'hard',
+                    parentId: 'autonomy-vs-care'
+                  }
+                ]
+              },
+              {
+                id: 'cultural-religious-aspects',
+                name: 'Kulturelle & religiöse Aspekte',
+                description: 'Ethik in multikulturellen Kontexten',
+                icon: '🌍',
+                difficulty: 'medium',
+                parentId: 'ethical-challenges',
+                children: [
+                  {
+                    id: 'culture-sensitive-care',
+                    name: 'Kultursensible Pflege',
+                    description: 'Berücksichtigung kultureller Unterschiede',
+                    icon: '🌐',
+                    difficulty: 'medium',
+                    parentId: 'cultural-religious-aspects'
+                  },
+                  {
+                    id: 'religious-needs',
+                    name: 'Religiöse Bedürfnisse',
+                    description: 'Achtung religiöser Überzeugungen',
+                    icon: '🙏',
+                    difficulty: 'medium',
+                    parentId: 'cultural-religious-aspects'
+                  },
+                  {
+                    id: 'value-conflicts',
+                    name: 'Wertekonflikte',
+                    description: 'Umgang mit widersprüchlichen Wertvorstellungen',
+                    icon: '💥',
+                    difficulty: 'hard',
+                    parentId: 'cultural-religious-aspects'
+                  },
+                  {
+                    id: 'diversity-management',
+                    name: 'Diversity Management',
+                    description: 'Management von Vielfalt in der Pflege',
+                    icon: '🌈',
+                    difficulty: 'medium',
+                    parentId: 'cultural-religious-aspects'
+                  },
+                  {
+                    id: 'intercultural-competence',
+                    name: 'Interkulturelle Kompetenz',
+                    description: 'Entwicklung interkultureller Fähigkeiten',
+                    icon: '🤝',
+                    difficulty: 'medium',
+                    parentId: 'cultural-religious-aspects'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'ethical-decision-making',
+            name: 'Ethische Entscheidungsfindung',
+            description: 'Methoden und Instrumente ethischer Entscheidungen',
+            icon: '🎯',
+            difficulty: 'hard',
+            parentId: 'nursing-ethics',
+            children: [
+              {
+                id: 'ethics-consultation',
+                name: 'Ethikberatung',
+                description: 'Strukturierte ethische Beratung',
+                icon: '💬',
+                difficulty: 'medium',
+                parentId: 'ethical-decision-making',
+                children: [
+                  {
+                    id: 'ethics-committee',
+                    name: 'Ethikkomitee',
+                    description: 'Institutionelle Ethikkomitees',
+                    icon: '👥',
+                    difficulty: 'medium',
+                    parentId: 'ethics-consultation'
+                  },
+                  {
+                    id: 'ethics-case-discussion',
+                    name: 'Ethische Fallbesprechung',
+                    description: 'Strukturierte Besprechung ethischer Dilemmata',
+                    icon: '🗣️',
+                    difficulty: 'medium',
+                    parentId: 'ethics-consultation'
+                  },
+                  {
+                    id: 'ethics-consultation-service',
+                    name: 'Ethikkonsil',
+                    description: 'Professionelle ethische Beratung',
+                    icon: '🩺',
+                    difficulty: 'medium',
+                    parentId: 'ethics-consultation'
+                  },
+                  {
+                    id: 'ethics-rounds',
+                    name: 'Ethikvisite',
+                    description: 'Ethische Reflexion in der Patientenversorgung',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'ethics-consultation'
+                  }
+                ]
+              },
+              {
+                id: 'decision-models',
+                name: 'Entscheidungsmodelle',
+                description: 'Strukturierte Modelle für ethische Entscheidungen',
+                icon: '🗺️',
+                difficulty: 'hard',
+                parentId: 'ethical-decision-making',
+                children: [
+                  {
+                    id: 'six-step-model',
+                    name: '6-Schritte-Modell',
+                    description: 'Systematisches sechsstufiges Entscheidungsmodell',
+                    icon: '6️⃣',
+                    difficulty: 'medium',
+                    parentId: 'decision-models'
+                  },
+                  {
+                    id: 'metap-model',
+                    name: 'METAP-Modell',
+                    description: 'Strukturiertes ethisches Entscheidungsmodell',
+                    icon: '📊',
+                    difficulty: 'hard',
+                    parentId: 'decision-models'
+                  },
+                  {
+                    id: 'nijmegen-method',
+                    name: 'Nimwegener Methode',
+                    description: 'Niederländische Methode ethischer Reflexion',
+                    icon: '🇳🇱',
+                    difficulty: 'hard',
+                    parentId: 'decision-models'
+                  },
+                  {
+                    id: 'principlism-model',
+                    name: 'Principlism',
+                    description: 'Anwendung der vier Prinzipien',
+                    icon: '4️⃣',
+                    difficulty: 'medium',
+                    parentId: 'decision-models'
+                  }
+                ]
+              },
+              {
+                id: 'ethics-instruments',
+                name: 'Instrumente',
+                description: 'Praktische Instrumente ethischer Reflexion',
+                icon: '🛠️',
+                difficulty: 'medium',
+                parentId: 'ethical-decision-making',
+                children: [
+                  {
+                    id: 'ethical-reflection',
+                    name: 'Ethische Reflexion',
+                    description: 'Systematische Reflexion ethischer Fragen',
+                    icon: '🤔',
+                    difficulty: 'medium',
+                    parentId: 'ethics-instruments'
+                  },
+                  {
+                    id: 'supervision',
+                    name: 'Supervision',
+                    description: 'Professionelle Supervision bei ethischen Fragen',
+                    icon: '👨‍🏫',
+                    difficulty: 'medium',
+                    parentId: 'ethics-instruments'
+                  },
+                  {
+                    id: 'peer-consultation',
+                    name: 'Kollegiale Beratung',
+                    description: 'Beratung durch Kollegen',
+                    icon: '👥',
+                    difficulty: 'easy',
+                    parentId: 'ethics-instruments'
+                  },
+                  {
+                    id: 'moral-distress',
+                    name: 'Moral Distress',
+                    description: 'Umgang mit moralischem Stress',
+                    icon: '😔',
+                    difficulty: 'hard',
+                    parentId: 'ethics-instruments'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'professional-codes',
+            name: 'Berufskodizes',
+            description: 'Ethische Kodizes und Richtlinien für Pflegekräfte',
+            icon: '📜',
+            difficulty: 'medium',
+            parentId: 'nursing-ethics',
+            children: [
+              {
+                id: 'icn-code',
+                name: 'ICN-Ethikkodex',
+                description: 'Internationaler Ethikkodex für Pflegende',
+                icon: '🌍',
+                difficulty: 'medium',
+                parentId: 'professional-codes',
+                children: [
+                  {
+                    id: 'nurses-and-people',
+                    name: 'Pflegende und Menschen',
+                    description: 'Verantwortung gegenüber Pflegebedürftigen',
+                    icon: '👤',
+                    difficulty: 'easy',
+                    parentId: 'icn-code'
+                  },
+                  {
+                    id: 'nurses-and-practice',
+                    name: 'Pflegende und Praxis',
+                    description: 'Verantwortung in der Pflegepraxis',
+                    icon: '🏥',
+                    difficulty: 'easy',
+                    parentId: 'icn-code'
+                  },
+                  {
+                    id: 'nurses-and-profession',
+                    name: 'Pflegende und Profession',
+                    description: 'Verantwortung für den Berufsstand',
+                    icon: '👩‍⚕️',
+                    difficulty: 'medium',
+                    parentId: 'icn-code'
+                  },
+                  {
+                    id: 'nurses-and-colleagues',
+                    name: 'Pflegende und Mitarbeitende',
+                    description: 'Verantwortung gegenüber Kollegen',
+                    icon: '🤝',
+                    difficulty: 'easy',
+                    parentId: 'icn-code'
+                  }
+                ]
+              },
+              {
+                id: 'german-nursing-council',
+                name: 'Deutscher Pflegerat',
+                description: 'Deutsche Berufsorganisation der Pflege',
+                icon: '🇩🇪',
+                difficulty: 'medium',
+                parentId: 'professional-codes',
+                children: [
+                  {
+                    id: 'professional-regulations',
+                    name: 'Berufsordnung',
+                    description: 'Regelungen für die Berufsausübung',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'german-nursing-council'
+                  },
+                  {
+                    id: 'ethical-principles-dpr',
+                    name: 'Ethische Grundsätze',
+                    description: 'Grundsätze des Deutschen Pflegerats',
+                    icon: '⚖️',
+                    difficulty: 'medium',
+                    parentId: 'german-nursing-council'
+                  },
+                  {
+                    id: 'professional-standards',
+                    name: 'Professionelle Standards',
+                    description: 'Standards für professionelle Pflegepraxis',
+                    icon: '📏',
+                    difficulty: 'medium',
+                    parentId: 'german-nursing-council'
+                  }
+                ]
+              },
+              {
+                id: 'ethics-charter',
+                name: 'Ethik-Charta',
+                description: 'Charta für eine kultursensible Altenpflege',
+                icon: '📃',
+                difficulty: 'medium',
+                parentId: 'professional-codes',
+                children: [
+                  {
+                    id: 'care-and-support',
+                    name: 'Pflege und Betreuung',
+                    description: 'Ethische Grundsätze für Pflege und Betreuung',
+                    icon: '🤗',
+                    difficulty: 'easy',
+                    parentId: 'ethics-charter'
+                  },
+                  {
+                    id: 'human-dignity',
+                    name: 'Menschenwürde',
+                    description: 'Achtung der Menschenwürde',
+                    icon: '👑',
+                    difficulty: 'easy',
+                    parentId: 'ethics-charter'
+                  },
+                  {
+                    id: 'quality-of-life-charter',
+                    name: 'Lebensqualität',
+                    description: 'Förderung der Lebensqualität',
+                    icon: '🌟',
+                    difficulty: 'easy',
+                    parentId: 'ethics-charter'
+                  },
+                  {
+                    id: 'self-determination-charter',
+                    name: 'Selbstbestimmung',
+                    description: 'Respekt vor der Selbstbestimmung',
+                    icon: '🗽',
+                    difficulty: 'easy',
+                    parentId: 'ethics-charter'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }
