@@ -37,6 +37,7 @@ interface PflegeinfoBewertungsResult {
 
 const PflegeinfoWorkflow = () => {
   const { user } = useAuthStore()
+  const [currentStep, setCurrentStep] = useState(1)
   const [input, setInput] = useState<PflegeinfoInput>({
     dokumentation: '',
     pflegemassnahmen: '',
@@ -45,6 +46,12 @@ const PflegeinfoWorkflow = () => {
   const [result, setResult] = useState<PflegeinfoBewertungsResult | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+
+  const steps = [
+    { number: 1, title: 'Dokumentation', field: 'dokumentation', description: 'Pflegedokumentation erfassen' },
+    { number: 2, title: 'Pflegemaßnahmen', field: 'pflegemassnahmen', description: 'Durchgeführte Maßnahmen dokumentieren' },
+    { number: 3, title: 'Beobachtungen', field: 'beobachtungen', description: 'Beobachtungen und Verlauf festhalten' }
+  ]
 
   const mockStructuredEvaluate = (): PflegeinfoBewertungsResult => {
     return {
@@ -209,6 +216,19 @@ const PflegeinfoWorkflow = () => {
     return <AlertCircle className="h-5 w-5 text-slate-500" />
   }
 
+  const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 3))
+  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1))
+
+  const getCurrentFieldValue = () => {
+    const currentField = steps[currentStep - 1]?.field as keyof PflegeinfoInput
+    return input[currentField] || ''
+  }
+
+  const updateCurrentField = (value: string) => {
+    const currentField = steps[currentStep - 1]?.field as keyof PflegeinfoInput
+    setInput(prev => ({ ...prev, [currentField]: value }))
+  }
+
   const canEvaluate = input.dokumentation.trim() !== ''
 
   // Structured Results Display
@@ -330,6 +350,7 @@ const PflegeinfoWorkflow = () => {
             <Button
               onClick={() => {
                 setResult(null)
+                setCurrentStep(1)
                 setInput({
                   dokumentation: '',
                   pflegemassnahmen: '',
@@ -410,113 +431,193 @@ const PflegeinfoWorkflow = () => {
           <h1 className="text-4xl font-light text-gray-900 mb-4">
             Pflegeinformationen bewerten
           </h1>
-          <p className="text-xl text-gray-600 font-light">
-            Qualitätsbewertung und Verbesserungsvorschläge für Pflegedokumentation
+          <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto">
+            Lassen Sie Ihre Pflegedokumentation von unserer KI bewerten und erhalten Sie detailliertes Feedback
           </p>
         </motion.div>
 
-        {/* Input Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-8"
-        >
-          <Card className="border border-gray-200">
-            <CardHeader className="border-b border-gray-100">
-              <CardTitle className="flex items-center text-gray-900 font-medium">
-                <FileCheck className="h-5 w-5 mr-3 text-gray-600" />
-                Pflegedokumentation eingeben
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-8 space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-3">
-                  Pflegedokumentation *
-                </label>
-                <textarea
-                  value={input.dokumentation}
-                  onChange={(e) => setInput(prev => ({ ...prev, dokumentation: e.target.value }))}
-                  placeholder="Geben Sie Ihre Pflegedokumentation ein..."
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent font-light transition-all"
-                  rows={6}
-                  required
-                />
-              </div>
+        {/* Progress Steps */}
+        <div className="mb-16">
+          <div className="relative mb-8">
+            {/* Progress Line Background */}
+            <div className="absolute top-1/2 left-0 right-0 h-px bg-gray-200 transform -translate-y-1/2" />
+            
+            {/* Active Progress Line */}
+            <div 
+              className="absolute top-1/2 left-0 h-px bg-slate-700 transform -translate-y-1/2 transition-all duration-500"
+              style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+            />
+            
+            {/* Step Dots */}
+            <div className="flex justify-between relative">
+              {steps.map((step, index) => {
+                const isActive = currentStep === step.number
+                const isCompleted = currentStep > step.number
+                
+                return (
+                  <motion.div 
+                    key={step.number} 
+                    className="flex flex-col items-center"
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: isActive ? 1.1 : 1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className={`
+                      w-4 h-4 rounded-full border-2 bg-white transition-all duration-300 relative
+                      ${isActive 
+                        ? 'border-slate-700' 
+                        : isCompleted 
+                          ? 'border-slate-700 bg-slate-700'
+                          : 'border-gray-300'
+                      }
+                    `}>
+                      {isCompleted && (
+                        <div className="absolute inset-1 bg-white rounded-full" />
+                      )}
+                      {isActive && (
+                        <div className="absolute inset-1.5 bg-slate-700 rounded-full" />
+                      )}
+                    </div>
+                    
+                    {/* Step Label */}
+                    <div className="mt-3 text-center">
+                      <p className={`text-xs font-medium transition-colors ${
+                        isActive || isCompleted ? 'text-slate-700' : 'text-gray-400'
+                      }`}>
+                        {step.title}
+                      </p>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-sm text-gray-500 mb-1">
+              Schritt {currentStep} von {steps.length}
+            </p>
+            <h2 className="text-2xl font-light text-gray-900">
+              {steps[currentStep - 1]?.description}
+            </h2>
+          </div>
+        </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-3">
-                  Durchgeführte Pflegemaßnahmen (optional)
-                </label>
-                <textarea
-                  value={input.pflegemassnahmen}
-                  onChange={(e) => setInput(prev => ({ ...prev, pflegemassnahmen: e.target.value }))}
-                  placeholder="Beschreiben Sie die durchgeführten Pflegemaßnahmen..."
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent font-light transition-all"
-                  rows={4}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-3">
-                  Beobachtungen und Verlauf (optional)
-                </label>
-                <textarea
-                  value={input.beobachtungen}
-                  onChange={(e) => setInput(prev => ({ ...prev, beobachtungen: e.target.value }))}
-                  placeholder="Dokumentieren Sie Beobachtungen und Verlauf..."
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent font-light transition-all"
-                  rows={4}
-                />
-              </div>
-
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                  <p className="text-red-600 text-sm font-light">{error}</p>
-                </div>
-              )}
-
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                <h4 className="font-medium text-gray-900 mb-3">Bewertungskriterien:</h4>
-                <ul className="text-sm text-gray-700 space-y-2 font-light">
-                  <li className="flex items-center">
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-3"></span>
-                    Vollständigkeit der Dokumentation
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-3"></span>
-                    Fachliche Korrektheit
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-3"></span>
-                    Struktur und Klarheit
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-3"></span>
-                    Rechtliche Compliance
-                  </li>
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Evaluate Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-center mb-8"
-        >
-          <Button
-            onClick={handleEvaluate}
-            disabled={!canEvaluate || isLoading}
-            className="px-8 py-3 bg-gray-900 hover:bg-gray-800 text-white font-light disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center space-x-3"
+        {/* Step Content */}
+        {!isLoading ? (
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mb-8"
           >
-            <Brain className="h-5 w-5" />
-            <span>Pflegedokumentation bewerten</span>
-          </Button>
-        </motion.div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <FileCheck className="h-5 w-5 mr-2" />
+                  {steps[currentStep - 1]?.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <textarea
+                  className="w-full p-4 border border-gray-300 rounded-lg min-h-[200px] focus:ring-2 focus:ring-slate-500 focus:border-slate-500"
+                  placeholder={`Beschreiben Sie hier Ihre ${steps[currentStep - 1]?.title.toLowerCase()}...`}
+                  value={getCurrentFieldValue()}
+                  onChange={(e) => updateCurrentField(e.target.value)}
+                />
+              </CardContent>
+            </Card>
+          </motion.div>
+        ) : (
+          <div className="py-16 text-center">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
+            >
+              <motion.div
+                className="w-32 h-32 border border-slate-300 rounded-lg flex items-center justify-center bg-white shadow-lg mb-6 mx-auto"
+                animate={{ 
+                  rotate: [0, 360],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ 
+                  rotate: {
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  },
+                  scale: {
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }
+                }}
+              >
+                <Plus className="h-16 w-16 text-slate-600" strokeWidth={1.5} />
+              </motion.div>
+              <motion.h2 
+                className="text-2xl font-light text-gray-900 mb-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                Pflegeinformationen Bewertung
+              </motion.h2>
+              <motion.p 
+                className="text-gray-600 font-light"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                Ihre Pflegedokumentation wird bewertet...
+              </motion.p>
+            </motion.div>
+          </div>
+        )}
+
+        {/* Navigation */}
+        {!isLoading && (
+          <div className="flex justify-center items-center space-x-4 mt-16">
+            <Button
+              variant="outline"
+              onClick={prevStep}
+              disabled={currentStep === 1}
+              className="px-8"
+            >
+              Zurück
+            </Button>
+            
+            {currentStep < 3 ? (
+              <Button
+                onClick={nextStep}
+                className="px-8 bg-slate-800 hover:bg-slate-900 text-white"
+              >
+                Weiter
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleEvaluate}
+                disabled={!canEvaluate || isLoading}
+                className="px-8 bg-slate-800 hover:bg-slate-900 text-white"
+              >
+                <Brain className="h-4 w-4 mr-2" />
+                Jetzt bewerten lassen
+              </Button>
+            )}
+          </div>
+        )}
+
+        {error && (
+          <div className="mt-8 text-center">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md inline-block">
+              {error}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
