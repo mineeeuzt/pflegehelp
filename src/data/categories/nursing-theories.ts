@@ -897,6 +897,444 @@ export const nursingTheoriesCategories: Category[] = [
             ]
           }
         ]
+      },
+      {
+        id: 'nursing-models',
+        name: 'PFLEGEMODELLE',
+        description: 'Praktische Modelle für die Pflegeorganisation',
+        icon: '🔄',
+        difficulty: 'medium',
+        parentId: 'nursing-theories',
+        children: [
+          {
+            id: 'process-models',
+            name: 'Pflegeprozessmodelle',
+            description: 'Systematische Pflegeprozessansätze',
+            icon: '⚙️',
+            difficulty: 'medium',
+            parentId: 'nursing-models',
+            children: [
+              {
+                id: 'six-step-model',
+                name: '6-Schritt-Modell (Fiechter/Meier)',
+                description: 'Klassisches Pflegeprozessmodell',
+                icon: '6️⃣',
+                difficulty: 'easy',
+                parentId: 'process-models',
+                children: [
+                  {
+                    id: 'information-collection',
+                    name: 'Informationssammlung',
+                    description: 'Systematische Erhebung pflegerelevanter Daten',
+                    icon: '📊',
+                    difficulty: 'easy',
+                    parentId: 'six-step-model'
+                  },
+                  {
+                    id: 'problem-resource-identification',
+                    name: 'Erkennen von Problemen/Ressourcen',
+                    description: 'Identifikation von Pflegeproblemen und Ressourcen',
+                    icon: '🔍',
+                    difficulty: 'easy',
+                    parentId: 'six-step-model'
+                  },
+                  {
+                    id: 'goal-setting',
+                    name: 'Festlegung der Pflegeziele',
+                    description: 'Definition konkreter, messbarer Pflegeziele',
+                    icon: '🎯',
+                    difficulty: 'easy',
+                    parentId: 'six-step-model'
+                  },
+                  {
+                    id: 'care-planning',
+                    name: 'Planung der Pflegemaßnahmen',
+                    description: 'Entwicklung spezifischer Pflegeinterventionen',
+                    icon: '📋',
+                    difficulty: 'easy',
+                    parentId: 'six-step-model'
+                  },
+                  {
+                    id: 'care-implementation',
+                    name: 'Durchführung der Pflege',
+                    description: 'Umsetzung der geplanten Pflegemaßnahmen',
+                    icon: '🔧',
+                    difficulty: 'easy',
+                    parentId: 'six-step-model'
+                  },
+                  {
+                    id: 'evaluation',
+                    name: 'Evaluation',
+                    description: 'Bewertung der Pflegeergebnisse und Zielerreichung',
+                    icon: '📈',
+                    difficulty: 'easy',
+                    parentId: 'six-step-model'
+                  }
+                ]
+              },
+              {
+                id: 'nanda-nic-noc',
+                name: 'NANDA-I / NIC / NOC',
+                description: 'Internationale Pflegeklassifikationssysteme',
+                icon: '📚',
+                difficulty: 'hard',
+                parentId: 'process-models',
+                children: [
+                  {
+                    id: 'nanda-i',
+                    name: 'NANDA-I (Pflegediagnosen)',
+                    description: 'North American Nursing Diagnosis Association International',
+                    icon: '🔍',
+                    difficulty: 'hard',
+                    parentId: 'nanda-nic-noc'
+                  },
+                  {
+                    id: 'nic',
+                    name: 'NIC (Pflegeinterventionen)',
+                    description: 'Nursing Interventions Classification',
+                    icon: '🔧',
+                    difficulty: 'hard',
+                    parentId: 'nanda-nic-noc'
+                  },
+                  {
+                    id: 'noc',
+                    name: 'NOC (Pflegeergebnisse)',
+                    description: 'Nursing Outcomes Classification',
+                    icon: '📊',
+                    difficulty: 'hard',
+                    parentId: 'nanda-nic-noc'
+                  },
+                  {
+                    id: 'taxonomy-classification',
+                    name: 'Taxonomie & Klassifikation',
+                    description: 'Systematische Ordnung der Pflegebegriffe',
+                    icon: '📖',
+                    difficulty: 'hard',
+                    parentId: 'nanda-nic-noc'
+                  }
+                ]
+              },
+              {
+                id: 'clinical-reasoning',
+                name: 'Clinical Reasoning',
+                description: 'Klinisches Denken und Entscheidungsfindung',
+                icon: '🧠',
+                difficulty: 'hard',
+                parentId: 'process-models',
+                children: [
+                  {
+                    id: 'hypothetical-deductive-thinking',
+                    name: 'Hypothetisch-deduktives Denken',
+                    description: 'Systematische Hypothesenbildung und -prüfung',
+                    icon: '🔬',
+                    difficulty: 'hard',
+                    parentId: 'clinical-reasoning'
+                  },
+                  {
+                    id: 'pattern-recognition',
+                    name: 'Mustererkennung',
+                    description: 'Erkennung von Patterns und Zusammenhängen',
+                    icon: '🧩',
+                    difficulty: 'medium',
+                    parentId: 'clinical-reasoning'
+                  },
+                  {
+                    id: 'intuition',
+                    name: 'Intuition',
+                    description: 'Erfahrungsbasierte intuitive Entscheidungen',
+                    icon: '💡',
+                    difficulty: 'hard',
+                    parentId: 'clinical-reasoning'
+                  },
+                  {
+                    id: 'narrative-reasoning',
+                    name: 'Narrative Reasoning',
+                    description: 'Fallgeschichten-orientiertes Denken',
+                    icon: '📖',
+                    difficulty: 'hard',
+                    parentId: 'clinical-reasoning'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'structural-models',
+            name: 'Strukturmodelle',
+            description: 'Pflegemodelle mit strukturiertem Ansatz',
+            icon: '🏗️',
+            difficulty: 'medium',
+            parentId: 'nursing-models',
+            children: [
+              {
+                id: 'atl-model',
+                name: 'ATL-Modell (Roper)',
+                description: 'Activities of Daily Living - Lebensaktivitäten',
+                icon: '📝',
+                difficulty: 'medium',
+                parentId: 'structural-models',
+                children: [
+                  {
+                    id: 'twelve-activities',
+                    name: '12 Lebensaktivitäten',
+                    description: 'Die zwölf grundlegenden Lebensaktivitäten nach Roper',
+                    icon: '📋',
+                    difficulty: 'easy',
+                    parentId: 'atl-model'
+                  },
+                  {
+                    id: 'lifespan',
+                    name: 'Lebensspanne',
+                    description: 'Entwicklung über die gesamte Lebensspanne',
+                    icon: '👶👴',
+                    difficulty: 'easy',
+                    parentId: 'atl-model'
+                  },
+                  {
+                    id: 'dependence-independence-continuum',
+                    name: 'Abhängigkeits-Unabhängigkeits-Kontinuum',
+                    description: 'Spektrum zwischen völliger Abhängigkeit und Unabhängigkeit',
+                    icon: '↔️',
+                    difficulty: 'medium',
+                    parentId: 'atl-model'
+                  },
+                  {
+                    id: 'influencing-factors',
+                    name: 'Einflussfaktoren',
+                    description: 'Faktoren die Lebensaktivitäten beeinflussen',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'atl-model'
+                  }
+                ]
+              },
+              {
+                id: 'abedl-model',
+                name: 'ABEDL-Modell (Krohwinkel)',
+                description: 'Aktivitäten und Existentielle Erfahrungen des Lebens',
+                icon: '🌟',
+                difficulty: 'medium',
+                parentId: 'structural-models',
+                children: [
+                  {
+                    id: 'thirteen-activities',
+                    name: '13 Aktivitäten',
+                    description: 'Die 13 ABEDL nach Krohwinkel',
+                    icon: '🔢',
+                    difficulty: 'medium',
+                    parentId: 'abedl-model',
+                    children: [
+                      {
+                        id: 'communicating',
+                        name: 'Kommunizieren',
+                        description: 'Sich mitteilen und verstehen',
+                        icon: '💬',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'moving',
+                        name: 'Sich bewegen',
+                        description: 'Mobilität und Bewegung',
+                        icon: '🚶',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'vital-functions',
+                        name: 'Vitale Funktionen',
+                        description: 'Atmung, Kreislauf, Temperatur',
+                        icon: '💓',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'personal-hygiene',
+                        name: 'Sich pflegen',
+                        description: 'Körperpflege und Hygiene',
+                        icon: '🧼',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'eating-drinking',
+                        name: 'Essen und trinken',
+                        description: 'Nahrung und Flüssigkeit aufnehmen',
+                        icon: '🍽️',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'elimination',
+                        name: 'Ausscheiden',
+                        description: 'Urin und Stuhl ausscheiden',
+                        icon: '🚽',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'dressing',
+                        name: 'Sich kleiden',
+                        description: 'Kleidung auswählen und anziehen',
+                        icon: '👔',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'resting-sleeping',
+                        name: 'Ruhen und schlafen',
+                        description: 'Erholung und Schlaf',
+                        icon: '😴',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'working-playing',
+                        name: 'Sich beschäftigen',
+                        description: 'Arbeiten, lernen und spielen',
+                        icon: '🎯',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'sexuality',
+                        name: 'Sich als Mann/Frau fühlen',
+                        description: 'Sexualität und Geschlechtsidentität',
+                        icon: '♀♂',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'safety',
+                        name: 'Für Sicherheit sorgen',
+                        description: 'Schutz und Sicherheit gewährleisten',
+                        icon: '🛡️',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'social-areas',
+                        name: 'Soziale Bereiche sichern',
+                        description: 'Soziale Kontakte und Beziehungen',
+                        icon: '👥',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      },
+                      {
+                        id: 'life-situations',
+                        name: 'Mit Lebenssituationen umgehen',
+                        description: 'Bewältigung von Lebenssituationen',
+                        icon: '🌊',
+                        difficulty: 'easy',
+                        parentId: 'thirteen-activities'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'promoting-process-care',
+                    name: 'Fördernde Prozesspflege',
+                    description: 'Unterstützung individueller Entwicklungsprozesse',
+                    icon: '🌱',
+                    difficulty: 'medium',
+                    parentId: 'abedl-model'
+                  },
+                  {
+                    id: 'rehabilitative-care',
+                    name: 'Rehabilitative Pflege',
+                    description: 'Wiederherstellung und Erhaltung von Fähigkeiten',
+                    icon: '♻️',
+                    difficulty: 'medium',
+                    parentId: 'abedl-model'
+                  }
+                ]
+              },
+              {
+                id: 'sis-model',
+                name: 'SIS (Strukturierte Informationssammlung)',
+                description: 'Strukturierte Informationssammlung in der Pflege',
+                icon: '📊',
+                difficulty: 'medium',
+                parentId: 'structural-models',
+                children: [
+                  {
+                    id: 'six-thematic-fields',
+                    name: '6 Themenfelder',
+                    description: 'Die sechs Themenfelder der SIS',
+                    icon: '6️⃣',
+                    difficulty: 'medium',
+                    parentId: 'sis-model',
+                    children: [
+                      {
+                        id: 'cognition-communication',
+                        name: 'Kognition und Kommunikation',
+                        description: 'Geistige Fähigkeiten und Kommunikationsmöglichkeiten',
+                        icon: '🧠',
+                        difficulty: 'easy',
+                        parentId: 'six-thematic-fields'
+                      },
+                      {
+                        id: 'mobility-movement',
+                        name: 'Mobilität und Beweglichkeit',
+                        description: 'Bewegungsfähigkeiten und Mobilitätsgrad',
+                        icon: '🚶',
+                        difficulty: 'easy',
+                        parentId: 'six-thematic-fields'
+                      },
+                      {
+                        id: 'disease-related-requirements',
+                        name: 'Krankheitsbezogene Anforderungen',
+                        description: 'Spezifische Pflege- und Therapieanforderungen',
+                        icon: '🏥',
+                        difficulty: 'easy',
+                        parentId: 'six-thematic-fields'
+                      },
+                      {
+                        id: 'self-care',
+                        name: 'Selbstversorgung',
+                        description: 'Fähigkeiten zur selbständigen Versorgung',
+                        icon: '🤲',
+                        difficulty: 'easy',
+                        parentId: 'six-thematic-fields'
+                      },
+                      {
+                        id: 'social-relationships',
+                        name: 'Leben in sozialen Beziehungen',
+                        description: 'Soziale Kontakte und Beziehungsgestaltung',
+                        icon: '👥',
+                        difficulty: 'easy',
+                        parentId: 'six-thematic-fields'
+                      },
+                      {
+                        id: 'household-management',
+                        name: 'Haushaltsführung',
+                        description: 'Bewältigung hauswirtschaftlicher Aufgaben',
+                        icon: '🏠',
+                        difficulty: 'easy',
+                        parentId: 'six-thematic-fields'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'debureaucratization',
+                    name: 'Entbürokratisierung',
+                    description: 'Reduzierung bürokratischer Belastung in der Pflege',
+                    icon: '📄',
+                    difficulty: 'medium',
+                    parentId: 'sis-model'
+                  },
+                  {
+                    id: 'action-fields',
+                    name: 'Handlungsfelder',
+                    description: 'Konkrete Handlungsfelder der strukturierten Pflege',
+                    icon: '🎯',
+                    difficulty: 'medium',
+                    parentId: 'sis-model'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }
