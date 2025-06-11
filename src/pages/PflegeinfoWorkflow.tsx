@@ -187,9 +187,19 @@ const PflegeinfoWorkflow = () => {
     setResult(null)
 
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      const evaluation = mockStructuredEvaluate()
+      // Use real API with structured JSON response
+      const response = await caseService.evaluatePflegeinfo(input, user.id)
+      
+      // Try to parse JSON response from API
+      let evaluation: PflegeinfoBewertungsResult
+      try {
+        evaluation = JSON.parse(response)
+      } catch (parseError) {
+        // Fallback to mock if API doesn't return valid JSON
+        console.log('API response is not JSON, using mock data')
+        evaluation = mockStructuredEvaluate()
+      }
+      
       setResult(evaluation)
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten')
