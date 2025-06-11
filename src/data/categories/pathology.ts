@@ -3339,6 +3339,622 @@ export const pathologyCategories: Category[] = [
             ]
           }
         ]
+      },
+      {
+        id: 'pharmacology',
+        name: 'PHARMAKOLOGIE',
+        description: 'Medikamentenlehre und Arzneimittelkunde',
+        icon: '💊',
+        difficulty: 'hard',
+        parentId: 'pathology',
+        children: [
+          {
+            id: 'medication-groups',
+            name: 'MEDIKAMENTENGRUPPEN',
+            description: 'Systematische Arzneimittelgruppen',
+            icon: '💉',
+            difficulty: 'hard',
+            parentId: 'pharmacology',
+            children: [
+              {
+                id: 'cardiovascular-medications',
+                name: 'Herz-Kreislauf-Medikamente',
+                description: 'Kardiovaskuläre Pharmakotherapie',
+                icon: '❤️',
+                difficulty: 'hard',
+                parentId: 'medication-groups',
+                children: [
+                  {
+                    id: 'antihypertensives',
+                    name: 'Antihypertensiva',
+                    description: 'Blutdrucksenkende Medikamente',
+                    icon: '🔽',
+                    difficulty: 'hard',
+                    parentId: 'cardiovascular-medications',
+                    children: [
+                      {
+                        id: 'ace-inhibitors',
+                        name: 'ACE-Hemmer (Ramipril, Enalapril, Lisinopril)',
+                        description: 'Angiotensin-Converting-Enzyme-Hemmer',
+                        icon: '🚫',
+                        difficulty: 'medium',
+                        parentId: 'antihypertensives',
+                        children: [
+                          {
+                            id: 'ace-mechanism',
+                            name: 'Wirkmechanismus (Hemmung ACE)',
+                            description: 'Blockade der Angiotensin-II-Bildung',
+                            icon: '⚙️',
+                            difficulty: 'medium',
+                            parentId: 'ace-inhibitors'
+                          },
+                          {
+                            id: 'ace-indications',
+                            name: 'Indikationen (Hypertonie, Herzinsuffizienz)',
+                            description: 'Hauptanwendungsgebiete der ACE-Hemmer',
+                            icon: '✓',
+                            difficulty: 'medium',
+                            parentId: 'ace-inhibitors'
+                          },
+                          {
+                            id: 'ace-side-effects',
+                            name: 'Nebenwirkungen (Reizhusten, Hyperkaliämie)',
+                            description: 'Unerwünschte Arzneimittelwirkungen',
+                            icon: '⚠️',
+                            difficulty: 'medium',
+                            parentId: 'ace-inhibitors'
+                          },
+                          {
+                            id: 'ace-contraindications',
+                            name: 'Kontraindikationen (Schwangerschaft, bilat. NAST)',
+                            description: 'Absolute und relative Kontraindikationen',
+                            icon: '🚫',
+                            difficulty: 'medium',
+                            parentId: 'ace-inhibitors'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'arbs',
+                        name: 'AT1-Antagonisten/ARB (Candesartan, Valsartan)',
+                        description: 'Angiotensin-Rezeptor-Blocker',
+                        icon: '🔒',
+                        difficulty: 'medium',
+                        parentId: 'antihypertensives',
+                        children: [
+                          {
+                            id: 'arb-mechanism',
+                            name: 'Wirkmechanismus (AT1-Rezeptor-Blockade)',
+                            description: 'Selektive AT1-Rezeptor-Antagonisierung',
+                            icon: '⚙️',
+                            difficulty: 'medium',
+                            parentId: 'arbs'
+                          },
+                          {
+                            id: 'arb-advantages',
+                            name: 'Vorteile (kein Reizhusten)',
+                            description: 'Bessere Verträglichkeit als ACE-Hemmer',
+                            icon: '👍',
+                            difficulty: 'medium',
+                            parentId: 'arbs'
+                          },
+                          {
+                            id: 'arb-combinations',
+                            name: 'Kombinationen (mit Diuretika)',
+                            description: 'Fixkombinationen und Therapieschemata',
+                            icon: '🔗',
+                            difficulty: 'medium',
+                            parentId: 'arbs'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'beta-blockers',
+                        name: 'Betablocker (Metoprolol, Bisoprolol, Carvedilol)',
+                        description: 'Beta-Adrenorezeptor-Antagonisten',
+                        icon: '🛡️',
+                        difficulty: 'medium',
+                        parentId: 'antihypertensives',
+                        children: [
+                          {
+                            id: 'selective-beta1',
+                            name: 'Selektive β1-Blocker',
+                            description: 'Kardioselektive Betablocker',
+                            icon: '🎯',
+                            difficulty: 'medium',
+                            parentId: 'beta-blockers'
+                          },
+                          {
+                            id: 'non-selective-beta',
+                            name: 'Nicht-selektive Betablocker',
+                            description: 'β1- und β2-Blockade',
+                            icon: '🔄',
+                            difficulty: 'medium',
+                            parentId: 'beta-blockers'
+                          },
+                          {
+                            id: 'beta-side-effects',
+                            name: 'Nebenwirkungen (Bradykardie, Bronchospasmus)',
+                            description: 'Typische unerwünschte Wirkungen',
+                            icon: '⚠️',
+                            difficulty: 'medium',
+                            parentId: 'beta-blockers'
+                          },
+                          {
+                            id: 'beta-discontinuation',
+                            name: 'Absetzen (langsam ausschleichen)',
+                            description: 'Rebound-Phänomen vermeiden',
+                            icon: '📉',
+                            difficulty: 'medium',
+                            parentId: 'beta-blockers'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'calcium-antagonists',
+                        name: 'Kalziumantagonisten',
+                        description: 'Kalziumkanalblocker',
+                        icon: '🚪',
+                        difficulty: 'medium',
+                        parentId: 'antihypertensives',
+                        children: [
+                          {
+                            id: 'dihydropyridines',
+                            name: 'Dihydropyridine (Amlodipin, Nifedipin)',
+                            description: 'Gefäßselektive Kalziumantagonisten',
+                            icon: '🔴',
+                            difficulty: 'medium',
+                            parentId: 'calcium-antagonists'
+                          },
+                          {
+                            id: 'non-dihydropyridines',
+                            name: 'Nicht-Dihydropyridine (Verapamil, Diltiazem)',
+                            description: 'Herz- und gefäßwirksame Kalziumantagonisten',
+                            icon: '🟢',
+                            difficulty: 'medium',
+                            parentId: 'calcium-antagonists'
+                          },
+                          {
+                            id: 'ca-side-effects',
+                            name: 'Nebenwirkungen (Ödeme, Obstipation)',
+                            description: 'Substanzklassen-spezifische UAW',
+                            icon: '⚠️',
+                            difficulty: 'medium',
+                            parentId: 'calcium-antagonists'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'diuretics',
+                        name: 'Diuretika',
+                        description: 'Entwässernde Medikamente',
+                        icon: '💧',
+                        difficulty: 'medium',
+                        parentId: 'antihypertensives',
+                        children: [
+                          {
+                            id: 'loop-diuretics',
+                            name: 'Schleifendiuretika (Furosemid, Torasemid)',
+                            description: 'Hochpotente Diuretika',
+                            icon: '🔁',
+                            difficulty: 'medium',
+                            parentId: 'diuretics'
+                          },
+                          {
+                            id: 'thiazides',
+                            name: 'Thiazide (HCT, Indapamid)',
+                            description: 'Mittelstark wirksame Diuretika',
+                            icon: '💊',
+                            difficulty: 'medium',
+                            parentId: 'diuretics'
+                          },
+                          {
+                            id: 'potassium-sparing',
+                            name: 'Kaliumsparende (Spironolacton, Amilorid)',
+                            description: 'Aldosteronantagonisten und ENaC-Blocker',
+                            icon: '🔋',
+                            difficulty: 'medium',
+                            parentId: 'diuretics'
+                          },
+                          {
+                            id: 'electrolyte-disorders',
+                            name: 'Elektrolytstörungen',
+                            description: 'Hypokaliämie, Hyponatriämie, Hyperurikämie',
+                            icon: '⚡',
+                            difficulty: 'medium',
+                            parentId: 'diuretics'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'other-antihypertensives',
+                        name: 'Weitere Antihypertensiva',
+                        description: 'Alternative blutdrucksenkende Substanzen',
+                        icon: '➕',
+                        difficulty: 'hard',
+                        parentId: 'antihypertensives',
+                        children: [
+                          {
+                            id: 'alpha-blockers',
+                            name: 'α-Blocker (Doxazosin)',
+                            description: 'Alpha-Adrenorezeptor-Antagonisten',
+                            icon: '🚫',
+                            difficulty: 'hard',
+                            parentId: 'other-antihypertensives'
+                          },
+                          {
+                            id: 'central-antisympathotonics',
+                            name: 'Zentrale Antisympathotonika (Clonidin)',
+                            description: 'Zentral wirksame Antihypertensiva',
+                            icon: '🧠',
+                            difficulty: 'hard',
+                            parentId: 'other-antihypertensives'
+                          },
+                          {
+                            id: 'vasodilators',
+                            name: 'Vasodilatatoren (Hydralazin, Minoxidil)',
+                            description: 'Direkte Gefäßerweiterer',
+                            icon: '🌊',
+                            difficulty: 'hard',
+                            parentId: 'other-antihypertensives'
+                          },
+                          {
+                            id: 'combination-drugs',
+                            name: 'Kombinationspräparate',
+                            description: 'Fixkombinationen verschiedener Antihypertensiva',
+                            icon: '🔗',
+                            difficulty: 'medium',
+                            parentId: 'other-antihypertensives'
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    id: 'antiarrhythmics',
+                    name: 'Antiarrhythmika',
+                    description: 'Medikamente gegen Herzrhythmusstörungen',
+                    icon: '💓',
+                    difficulty: 'hard',
+                    parentId: 'cardiovascular-medications',
+                    children: [
+                      {
+                        id: 'class-i-antiarrhythmics',
+                        name: 'Klasse I (Natriumkanalblocker)',
+                        description: 'Vaughan-Williams Klasse I',
+                        icon: '1️⃣',
+                        difficulty: 'hard',
+                        parentId: 'antiarrhythmics',
+                        children: [
+                          {
+                            id: 'class-ia',
+                            name: 'Ia (Chinidin, Procainamid)',
+                            description: 'Moderate Na-Kanal-Blockade',
+                            icon: '🅰️',
+                            difficulty: 'hard',
+                            parentId: 'class-i-antiarrhythmics'
+                          },
+                          {
+                            id: 'class-ib',
+                            name: 'Ib (Lidocain, Mexiletin)',
+                            description: 'Schwache Na-Kanal-Blockade',
+                            icon: '🅱️',
+                            difficulty: 'hard',
+                            parentId: 'class-i-antiarrhythmics'
+                          },
+                          {
+                            id: 'class-ic',
+                            name: 'Ic (Flecainid, Propafenon)',
+                            description: 'Starke Na-Kanal-Blockade',
+                            icon: '🇨',
+                            difficulty: 'hard',
+                            parentId: 'class-i-antiarrhythmics'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'class-ii-antiarrhythmics',
+                        name: 'Klasse II (Betablocker)',
+                        description: 'Beta-Adrenorezeptor-Antagonisten',
+                        icon: '2️⃣',
+                        difficulty: 'medium',
+                        parentId: 'antiarrhythmics'
+                      },
+                      {
+                        id: 'class-iii-antiarrhythmics',
+                        name: 'Klasse III (Kaliumkanalblocker)',
+                        description: 'Verlängerung der Repolarisation',
+                        icon: '3️⃣',
+                        difficulty: 'hard',
+                        parentId: 'antiarrhythmics',
+                        children: [
+                          {
+                            id: 'amiodarone',
+                            name: 'Amiodaron (Multikanalblocker)',
+                            description: 'Komplexes Antiarrhythmikum',
+                            icon: '🔄',
+                            difficulty: 'hard',
+                            parentId: 'class-iii-antiarrhythmics'
+                          },
+                          {
+                            id: 'dronedarone',
+                            name: 'Dronedaron',
+                            description: 'Amiodaron-Derivat ohne Jod',
+                            icon: '💊',
+                            difficulty: 'hard',
+                            parentId: 'class-iii-antiarrhythmics'
+                          },
+                          {
+                            id: 'sotalol',
+                            name: 'Sotalol (auch Beta-Blockade)',
+                            description: 'Klasse II und III Eigenschaften',
+                            icon: '🔀',
+                            difficulty: 'hard',
+                            parentId: 'class-iii-antiarrhythmics'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'class-iv-antiarrhythmics',
+                        name: 'Klasse IV (Kalziumantagonisten)',
+                        description: 'Nicht-Dihydropyridine',
+                        icon: '4️⃣',
+                        difficulty: 'medium',
+                        parentId: 'antiarrhythmics'
+                      },
+                      {
+                        id: 'digitalis-glycosides',
+                        name: 'Digitalisglykoside',
+                        description: 'Herzglykoside',
+                        icon: '🌿',
+                        difficulty: 'hard',
+                        parentId: 'antiarrhythmics',
+                        children: [
+                          {
+                            id: 'digoxin-digitoxin',
+                            name: 'Digoxin, Digitoxin',
+                            description: 'Positiv inotrop, negativ chronotrop',
+                            icon: '💊',
+                            difficulty: 'hard',
+                            parentId: 'digitalis-glycosides'
+                          },
+                          {
+                            id: 'tdm-digitalis',
+                            name: 'Therapeutisches Drug Monitoring',
+                            description: 'Spiegelkontrollen erforderlich',
+                            icon: '📊',
+                            difficulty: 'hard',
+                            parentId: 'digitalis-glycosides'
+                          },
+                          {
+                            id: 'digitalis-intoxication',
+                            name: 'Intoxikation',
+                            description: 'Symptome und Behandlung',
+                            icon: '☠️',
+                            difficulty: 'hard',
+                            parentId: 'digitalis-glycosides'
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    id: 'lipid-lowering-drugs',
+                    name: 'Lipidsenker',
+                    description: 'Cholesterin- und Triglyzerid-senkende Medikamente',
+                    icon: '🧈',
+                    difficulty: 'medium',
+                    parentId: 'cardiovascular-medications',
+                    children: [
+                      {
+                        id: 'statins',
+                        name: 'Statine (Simvastatin, Atorvastatin, Rosuvastatin)',
+                        description: 'HMG-CoA-Reduktase-Hemmer',
+                        icon: '💉',
+                        difficulty: 'medium',
+                        parentId: 'lipid-lowering-drugs',
+                        children: [
+                          {
+                            id: 'hmg-coa-reductase',
+                            name: 'HMG-CoA-Reduktase-Hemmer',
+                            description: 'Hemmung der Cholesterinsynthese',
+                            icon: '🚫',
+                            difficulty: 'medium',
+                            parentId: 'statins'
+                          },
+                          {
+                            id: 'pleiotropic-effects',
+                            name: 'Pleiotrope Effekte',
+                            description: 'Zusätzliche gefäßschützende Wirkungen',
+                            icon: '✨',
+                            difficulty: 'medium',
+                            parentId: 'statins'
+                          },
+                          {
+                            id: 'myopathy-rhabdomyolysis',
+                            name: 'Myopathie/Rhabdomyolyse',
+                            description: 'Muskelschädigung als UAW',
+                            icon: '💪',
+                            difficulty: 'medium',
+                            parentId: 'statins'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'ezetimibe',
+                        name: 'Ezetimib (Cholesterinresorptionshemmer)',
+                        description: 'Hemmung der intestinalen Cholesterinaufnahme',
+                        icon: '🚫',
+                        difficulty: 'medium',
+                        parentId: 'lipid-lowering-drugs'
+                      },
+                      {
+                        id: 'pcsk9-inhibitors',
+                        name: 'PCSK9-Inhibitoren (Evolocumab, Alirocumab)',
+                        description: 'Monoklonale Antikörper',
+                        icon: '🧬',
+                        difficulty: 'hard',
+                        parentId: 'lipid-lowering-drugs'
+                      },
+                      {
+                        id: 'fibrates',
+                        name: 'Fibrate (Fenofibrat, Gemfibrozil)',
+                        description: 'PPAR-α-Agonisten',
+                        icon: '💊',
+                        difficulty: 'medium',
+                        parentId: 'lipid-lowering-drugs'
+                      },
+                      {
+                        id: 'omega-3-fatty-acids',
+                        name: 'Omega-3-Fettsäuren',
+                        description: 'Triglyzeridsenkung',
+                        icon: '🐟',
+                        difficulty: 'easy',
+                        parentId: 'lipid-lowering-drugs'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'other-cardiovascular-drugs',
+                    name: 'Weitere kardiovaskuläre Medikamente',
+                    description: 'Zusätzliche Herz-Kreislauf-Medikamente',
+                    icon: '💊',
+                    difficulty: 'hard',
+                    parentId: 'cardiovascular-medications',
+                    children: [
+                      {
+                        id: 'nitrates',
+                        name: 'Nitrate (Nitroglycerin, ISDN, ISMN)',
+                        description: 'NO-Donatoren zur Vasodilatation',
+                        icon: '💨',
+                        difficulty: 'medium',
+                        parentId: 'other-cardiovascular-drugs'
+                      },
+                      {
+                        id: 'antiplatelet-drugs',
+                        name: 'Thrombozytenaggregationshemmer',
+                        description: 'Plättchenhemmer',
+                        icon: '🩸',
+                        difficulty: 'medium',
+                        parentId: 'other-cardiovascular-drugs',
+                        children: [
+                          {
+                            id: 'aspirin',
+                            name: 'ASS (irreversible COX-Hemmung)',
+                            description: 'Acetylsalicylsäure',
+                            icon: '💊',
+                            difficulty: 'medium',
+                            parentId: 'antiplatelet-drugs'
+                          },
+                          {
+                            id: 'clopidogrel',
+                            name: 'Clopidogrel (P2Y12-Hemmer)',
+                            description: 'ADP-Rezeptor-Antagonist',
+                            icon: '🔒',
+                            difficulty: 'medium',
+                            parentId: 'antiplatelet-drugs'
+                          },
+                          {
+                            id: 'prasugrel-ticagrelor',
+                            name: 'Prasugrel, Ticagrelor',
+                            description: 'Neue P2Y12-Hemmer',
+                            icon: '🆕',
+                            difficulty: 'medium',
+                            parentId: 'antiplatelet-drugs'
+                          },
+                          {
+                            id: 'dual-antiplatelet',
+                            name: 'Duale Plättchenhemmung',
+                            description: 'DAPT nach Stent-Implantation',
+                            icon: '2️⃣',
+                            difficulty: 'medium',
+                            parentId: 'antiplatelet-drugs'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'anticoagulants',
+                        name: 'Antikoagulanzien',
+                        description: 'Gerinnungshemmer',
+                        icon: '🩸',
+                        difficulty: 'hard',
+                        parentId: 'other-cardiovascular-drugs',
+                        children: [
+                          {
+                            id: 'vitamin-k-antagonists',
+                            name: 'Vitamin-K-Antagonisten (Warfarin, Phenprocoumon)',
+                            description: 'Cumarine',
+                            icon: '🅿️',
+                            difficulty: 'hard',
+                            parentId: 'anticoagulants'
+                          },
+                          {
+                            id: 'noacs',
+                            name: 'NOAK/DOAK (Apixaban, Rivaroxaban, Dabigatran)',
+                            description: 'Neue orale Antikoagulanzien',
+                            icon: '🆕',
+                            difficulty: 'hard',
+                            parentId: 'anticoagulants'
+                          },
+                          {
+                            id: 'heparins',
+                            name: 'Heparine (UFH, NMH)',
+                            description: 'Unfraktionierte und niedermolekulare Heparine',
+                            icon: '💉',
+                            difficulty: 'hard',
+                            parentId: 'anticoagulants'
+                          },
+                          {
+                            id: 'monitoring-antidotes',
+                            name: 'Monitoring & Antidota',
+                            description: 'INR, Anti-Xa, Gegenmittel',
+                            icon: '🔬',
+                            difficulty: 'hard',
+                            parentId: 'anticoagulants'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'catecholamines-vasopressors',
+                        name: 'Katecholamine & Vasopressoren',
+                        description: 'Notfallmedikamente',
+                        icon: '🚨',
+                        difficulty: 'hard',
+                        parentId: 'other-cardiovascular-drugs',
+                        children: [
+                          {
+                            id: 'adrenaline-noradrenaline',
+                            name: 'Adrenalin, Noradrenalin',
+                            description: 'Endogene Katecholamine',
+                            icon: '⚡',
+                            difficulty: 'hard',
+                            parentId: 'catecholamines-vasopressors'
+                          },
+                          {
+                            id: 'dopamine-dobutamine',
+                            name: 'Dopamin, Dobutamin',
+                            description: 'Synthetische Katecholamine',
+                            icon: '💊',
+                            difficulty: 'hard',
+                            parentId: 'catecholamines-vasopressors'
+                          },
+                          {
+                            id: 'vasopressin',
+                            name: 'Vasopressin',
+                            description: 'ADH-Analogon',
+                            icon: '💧',
+                            difficulty: 'hard',
+                            parentId: 'catecholamines-vasopressors'
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }
