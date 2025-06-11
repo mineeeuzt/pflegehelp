@@ -443,6 +443,686 @@ export const nursingTechniquesCategories: Category[] = [
                 ]
               }
             ]
+          },
+          {
+            id: 'nutrition',
+            name: 'Ernährung',
+            description: 'Ernährungsmanagement und Nahrungsaufnahme',
+            icon: '🍽️',
+            difficulty: 'medium',
+            parentId: 'basic-care',
+            children: [
+              {
+                id: 'food-intake',
+                name: 'Nahrungsaufnahme',
+                description: 'Unterstützung bei der Nahrungsaufnahme',
+                icon: '🥄',
+                difficulty: 'easy',
+                parentId: 'nutrition',
+                children: [
+                  {
+                    id: 'independent-eating',
+                    name: 'Selbstständig',
+                    description: 'Förderung der selbstständigen Nahrungsaufnahme',
+                    icon: '👤',
+                    difficulty: 'easy',
+                    parentId: 'food-intake'
+                  },
+                  {
+                    id: 'assisted-eating',
+                    name: 'Mit Hilfestellung',
+                    description: 'Teilweise Unterstützung beim Essen',
+                    icon: '🤝',
+                    difficulty: 'easy',
+                    parentId: 'food-intake'
+                  },
+                  {
+                    id: 'complete-feeding',
+                    name: 'Vollständige Übernahme',
+                    description: 'Vollständige Hilfe bei der Nahrungsaufnahme',
+                    icon: '🍴',
+                    difficulty: 'medium',
+                    parentId: 'food-intake'
+                  },
+                  {
+                    id: 'aspiration-prevention',
+                    name: 'Aspirationsprophylaxe',
+                    description: 'Vorbeugung des Verschluckens',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'food-intake'
+                  },
+                  {
+                    id: 'swallowing-training',
+                    name: 'Schlucktraining',
+                    description: 'Training der Schluckfunktion',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'food-intake'
+                  }
+                ]
+              },
+              {
+                id: 'diet-forms',
+                name: 'Kostformen',
+                description: 'Verschiedene Ernährungsformen',
+                icon: '🥗',
+                difficulty: 'medium',
+                parentId: 'nutrition',
+                children: [
+                  {
+                    id: 'full-diet',
+                    name: 'Vollkost',
+                    description: 'Normale, vollwertige Ernährung',
+                    icon: '🍽️',
+                    difficulty: 'easy',
+                    parentId: 'diet-forms'
+                  },
+                  {
+                    id: 'light-diet',
+                    name: 'Leichte Vollkost',
+                    description: 'Schonkost bei Verdauungsproblemen',
+                    icon: '🥙',
+                    difficulty: 'easy',
+                    parentId: 'diet-forms'
+                  },
+                  {
+                    id: 'diabetic-diet',
+                    name: 'Diabeteskost',
+                    description: 'Spezielle Ernährung für Diabetiker',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'diet-forms'
+                  },
+                  {
+                    id: 'pureed-diet',
+                    name: 'Pürierte Kost',
+                    description: 'Zerkleinerte Nahrung bei Schluckstörungen',
+                    icon: '🥣',
+                    difficulty: 'medium',
+                    parentId: 'diet-forms'
+                  },
+                  {
+                    id: 'liquid-diet',
+                    name: 'Flüssigkost',
+                    description: 'Reine Flüssignahrung',
+                    icon: '🥤',
+                    difficulty: 'medium',
+                    parentId: 'diet-forms'
+                  },
+                  {
+                    id: 'parenteral-nutrition',
+                    name: 'Parenterale Ernährung',
+                    description: 'Intravenöse Nährstoffzufuhr',
+                    icon: '💉',
+                    difficulty: 'hard',
+                    parentId: 'diet-forms'
+                  }
+                ]
+              },
+              {
+                id: 'enteral-nutrition',
+                name: 'Enterale Ernährung',
+                description: 'Ernährung über Sonden',
+                icon: '🔗',
+                difficulty: 'hard',
+                parentId: 'nutrition',
+                children: [
+                  {
+                    id: 'peg-pej-care',
+                    name: 'PEG/PEJ-Versorgung',
+                    description: 'Pflege von perkutanen Ernährungssonden',
+                    icon: '⚙️',
+                    difficulty: 'hard',
+                    parentId: 'enteral-nutrition'
+                  },
+                  {
+                    id: 'nasogastric-tube',
+                    name: 'Nasogastrale Sonde',
+                    description: 'Magensonde über die Nase',
+                    icon: '📏',
+                    difficulty: 'hard',
+                    parentId: 'enteral-nutrition'
+                  },
+                  {
+                    id: 'application-technique',
+                    name: 'Applikationstechnik',
+                    description: 'Verabreichung von Sondennahrung',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'enteral-nutrition'
+                  },
+                  {
+                    id: 'enteral-complications',
+                    name: 'Komplikationen',
+                    description: 'Komplikationen der enteralen Ernährung',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'enteral-nutrition'
+                  },
+                  {
+                    id: 'enteral-hygiene',
+                    name: 'Hygiene',
+                    description: 'Hygienemaßnahmen bei Sondenernährung',
+                    icon: '🧼',
+                    difficulty: 'medium',
+                    parentId: 'enteral-nutrition'
+                  }
+                ]
+              },
+              {
+                id: 'fluid-balance',
+                name: 'Flüssigkeitsbilanz',
+                description: 'Überwachung des Flüssigkeitshaushalts',
+                icon: '💧',
+                difficulty: 'medium',
+                parentId: 'nutrition',
+                children: [
+                  {
+                    id: 'intake-output-control',
+                    name: 'Ein-/Ausfuhrkontrolle',
+                    description: 'Messung von Flüssigkeitsaufnahme und -abgabe',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'fluid-balance'
+                  },
+                  {
+                    id: 'balance-calculation',
+                    name: 'Bilanzierung',
+                    description: 'Berechnung der Flüssigkeitsbilanz',
+                    icon: '🧮',
+                    difficulty: 'medium',
+                    parentId: 'fluid-balance'
+                  },
+                  {
+                    id: 'dehydration-prevention',
+                    name: 'Dehydratationsprophylaxe',
+                    description: 'Vorbeugung von Flüssigkeitsmangel',
+                    icon: '🚰',
+                    difficulty: 'medium',
+                    parentId: 'fluid-balance'
+                  },
+                  {
+                    id: 'edema-control',
+                    name: 'Ödemkontrolle',
+                    description: 'Überwachung von Wassereinlagerungen',
+                    icon: '👀',
+                    difficulty: 'medium',
+                    parentId: 'fluid-balance'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'elimination',
+            name: 'Ausscheidung',
+            description: 'Management von Harn- und Stuhlausscheidung',
+            icon: '🚽',
+            difficulty: 'medium',
+            parentId: 'basic-care',
+            children: [
+              {
+                id: 'continence-promotion',
+                name: 'Kontinenzförderung',
+                description: 'Förderung der Harn- und Stuhlkontinenz',
+                icon: '🎯',
+                difficulty: 'medium',
+                parentId: 'elimination',
+                children: [
+                  {
+                    id: 'toilet-training',
+                    name: 'Toilettentraining',
+                    description: 'Training der regelmäßigen Toilettengänge',
+                    icon: '⏰',
+                    difficulty: 'easy',
+                    parentId: 'continence-promotion'
+                  },
+                  {
+                    id: 'micturition-protocol',
+                    name: 'Miktionsprotokoll',
+                    description: 'Dokumentation der Blasenentleerung',
+                    icon: '📋',
+                    difficulty: 'easy',
+                    parentId: 'continence-promotion'
+                  },
+                  {
+                    id: 'pelvic-floor-training',
+                    name: 'Beckenbodentraining',
+                    description: 'Kräftigung der Beckenbodenmuskulatur',
+                    icon: '💪',
+                    difficulty: 'medium',
+                    parentId: 'continence-promotion'
+                  },
+                  {
+                    id: 'behavioral-therapy',
+                    name: 'Verhaltenstherapie',
+                    description: 'Verhaltensmodifikation bei Inkontinenz',
+                    icon: '🧠',
+                    difficulty: 'hard',
+                    parentId: 'continence-promotion'
+                  },
+                  {
+                    id: 'incontinence-aids-counseling',
+                    name: 'Hilfsmittelberatung',
+                    description: 'Beratung zu Inkontinenzhilfsmitteln',
+                    icon: '💬',
+                    difficulty: 'medium',
+                    parentId: 'continence-promotion'
+                  }
+                ]
+              },
+              {
+                id: 'incontinence-care',
+                name: 'Inkontinenzversorgung',
+                description: 'Versorgung bei Harn- und Stuhlinkontinenz',
+                icon: '🛡️',
+                difficulty: 'medium',
+                parentId: 'elimination',
+                children: [
+                  {
+                    id: 'absorbent-aids',
+                    name: 'Aufsaugende Hilfsmittel',
+                    description: 'Windeln, Vorlagen und Einlagen',
+                    icon: '🧷',
+                    difficulty: 'easy',
+                    parentId: 'incontinence-care'
+                  },
+                  {
+                    id: 'drainage-systems',
+                    name: 'Ableitende Systeme',
+                    description: 'Katheter und Urinsammelsysteme',
+                    icon: '🔗',
+                    difficulty: 'medium',
+                    parentId: 'incontinence-care'
+                  },
+                  {
+                    id: 'skin-protection-incontinence',
+                    name: 'Hautschutz',
+                    description: 'Schutz der Haut vor Feuchtigkeit',
+                    icon: '🧴',
+                    difficulty: 'medium',
+                    parentId: 'incontinence-care'
+                  },
+                  {
+                    id: 'odor-management',
+                    name: 'Geruchsmanagement',
+                    description: 'Bekämpfung von unangenehmen Gerüchen',
+                    icon: '💨',
+                    difficulty: 'easy',
+                    parentId: 'incontinence-care'
+                  },
+                  {
+                    id: 'dignity-preservation',
+                    name: 'Würde wahren',
+                    description: 'Erhaltung der Patientenwürde bei Inkontinenz',
+                    icon: '👑',
+                    difficulty: 'medium',
+                    parentId: 'incontinence-care'
+                  }
+                ]
+              },
+              {
+                id: 'bladder-catheter',
+                name: 'Blasenkatheter',
+                description: 'Katheterversorgung und -pflege',
+                icon: '🔗',
+                difficulty: 'hard',
+                parentId: 'elimination',
+                children: [
+                  {
+                    id: 'transurethral-catheter',
+                    name: 'Transurethraler Katheter',
+                    description: 'Katheter durch die Harnröhre',
+                    icon: '📏',
+                    difficulty: 'hard',
+                    parentId: 'bladder-catheter'
+                  },
+                  {
+                    id: 'suprapubic-catheter',
+                    name: 'Suprapubischer Katheter',
+                    description: 'Katheter durch die Bauchdecke',
+                    icon: '⚙️',
+                    difficulty: 'hard',
+                    parentId: 'bladder-catheter'
+                  },
+                  {
+                    id: 'catheter-care',
+                    name: 'Katheterpflege',
+                    description: 'Pflege und Wartung von Blasenkathetern',
+                    icon: '🧼',
+                    difficulty: 'medium',
+                    parentId: 'bladder-catheter'
+                  },
+                  {
+                    id: 'infection-prevention-catheter',
+                    name: 'Infektionsprophylaxe',
+                    description: 'Vorbeugung von Harnwegsinfektionen',
+                    icon: '🛡️',
+                    difficulty: 'hard',
+                    parentId: 'bladder-catheter'
+                  },
+                  {
+                    id: 'catheter-complications',
+                    name: 'Komplikationen',
+                    description: 'Komplikationen der Katheterversorgung',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'bladder-catheter'
+                  }
+                ]
+              },
+              {
+                id: 'stool-management',
+                name: 'Stuhlmanagement',
+                description: 'Management der Stuhlausscheidung',
+                icon: '📊',
+                difficulty: 'medium',
+                parentId: 'elimination',
+                children: [
+                  {
+                    id: 'constipation-prevention',
+                    name: 'Obstipationsprophylaxe',
+                    description: 'Vorbeugung von Verstopfung',
+                    icon: '🌿',
+                    difficulty: 'medium',
+                    parentId: 'stool-management'
+                  },
+                  {
+                    id: 'diarrhea-management',
+                    name: 'Diarrhö-Management',
+                    description: 'Behandlung von Durchfall',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'stool-management'
+                  },
+                  {
+                    id: 'enema-suppository',
+                    name: 'Einlauf/Klistier',
+                    description: 'Darmspülungen und Zäpfchen',
+                    icon: '💉',
+                    difficulty: 'hard',
+                    parentId: 'stool-management'
+                  },
+                  {
+                    id: 'digital-evacuation',
+                    name: 'Digitale Ausräumung',
+                    description: 'Manuelle Entfernung von Stuhl',
+                    icon: '🤏',
+                    difficulty: 'hard',
+                    parentId: 'stool-management'
+                  },
+                  {
+                    id: 'stoma-care',
+                    name: 'Stomapflege',
+                    description: 'Pflege künstlicher Darmausgänge',
+                    icon: '⭕',
+                    difficulty: 'hard',
+                    parentId: 'stool-management'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'prophylaxis',
+            name: 'Prophylaxen',
+            description: 'Vorbeugende Maßnahmen in der Pflege',
+            icon: '🛡️',
+            difficulty: 'medium',
+            parentId: 'basic-care',
+            children: [
+              {
+                id: 'pressure-ulcer-prevention',
+                name: 'Dekubitusprophylaxe',
+                description: 'Vorbeugung von Druckgeschwüren',
+                icon: '🛌',
+                difficulty: 'hard',
+                parentId: 'prophylaxis',
+                children: [
+                  {
+                    id: 'risk-assessment-pressure',
+                    name: 'Risikoassessment (Braden, Norton)',
+                    description: 'Bewertung des Dekubitusrisikos',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'pressure-ulcer-prevention'
+                  },
+                  {
+                    id: 'pressure-relief',
+                    name: 'Druckentlastung',
+                    description: 'Maßnahmen zur Druckreduzierung',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'pressure-ulcer-prevention'
+                  },
+                  {
+                    id: 'skin-inspection-pressure',
+                    name: 'Hautinspektion',
+                    description: 'Regelmäßige Überprüfung der Haut',
+                    icon: '👁️',
+                    difficulty: 'easy',
+                    parentId: 'pressure-ulcer-prevention'
+                  },
+                  {
+                    id: 'movement-promotion-pressure',
+                    name: 'Bewegungsförderung',
+                    description: 'Mobilisation zur Dekubitusvorbeugung',
+                    icon: '🏃',
+                    difficulty: 'medium',
+                    parentId: 'pressure-ulcer-prevention'
+                  },
+                  {
+                    id: 'pressure-aids',
+                    name: 'Hilfsmittel',
+                    description: 'Spezielle Matratzen und Lagerungshilfen',
+                    icon: '🛠️',
+                    difficulty: 'medium',
+                    parentId: 'pressure-ulcer-prevention'
+                  }
+                ]
+              },
+              {
+                id: 'fall-prevention',
+                name: 'Sturzprophylaxe',
+                description: 'Vorbeugung von Stürzen',
+                icon: '⚠️',
+                difficulty: 'medium',
+                parentId: 'prophylaxis',
+                children: [
+                  {
+                    id: 'fall-risk-factors',
+                    name: 'Sturzrisikofaktoren',
+                    description: 'Identifikation von Risikofaktoren',
+                    icon: '🔍',
+                    difficulty: 'medium',
+                    parentId: 'fall-prevention'
+                  },
+                  {
+                    id: 'fall-assessment',
+                    name: 'Assessment (Tinetti, STRATIFY)',
+                    description: 'Bewertung des Sturzrisikos',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'fall-prevention'
+                  },
+                  {
+                    id: 'environment-design',
+                    name: 'Umgebungsgestaltung',
+                    description: 'Sichere Gestaltung der Umgebung',
+                    icon: '🏠',
+                    difficulty: 'easy',
+                    parentId: 'fall-prevention'
+                  },
+                  {
+                    id: 'strength-balance-training',
+                    name: 'Kraft- und Balancetraining',
+                    description: 'Training zur Sturzvorbeugung',
+                    icon: '💪',
+                    difficulty: 'medium',
+                    parentId: 'fall-prevention'
+                  },
+                  {
+                    id: 'hip-protectors',
+                    name: 'Hüftprotektoren',
+                    description: 'Schutzausrüstung für die Hüfte',
+                    icon: '🦴',
+                    difficulty: 'easy',
+                    parentId: 'fall-prevention'
+                  }
+                ]
+              },
+              {
+                id: 'thrombosis-prevention',
+                name: 'Thromboseprophylaxe',
+                description: 'Vorbeugung von Blutgerinnseln',
+                icon: '🩸',
+                difficulty: 'medium',
+                parentId: 'prophylaxis',
+                children: [
+                  {
+                    id: 'early-mobilization',
+                    name: 'Frühmobilisation',
+                    description: 'Frühe Bewegung zur Thrombosevorbeugung',
+                    icon: '🚶',
+                    difficulty: 'easy',
+                    parentId: 'thrombosis-prevention'
+                  },
+                  {
+                    id: 'compression-stockings',
+                    name: 'Kompressionsstrümpfe',
+                    description: 'Anlegen und Pflege von Kompressionsstrümpfen',
+                    icon: '🧦',
+                    difficulty: 'medium',
+                    parentId: 'thrombosis-prevention'
+                  },
+                  {
+                    id: 'medication-prophylaxis',
+                    name: 'Medikamentöse Prophylaxe',
+                    description: 'Verabreichung gerinnungshemmender Medikamente',
+                    icon: '💊',
+                    difficulty: 'hard',
+                    parentId: 'thrombosis-prevention'
+                  },
+                  {
+                    id: 'fluid-intake-thrombosis',
+                    name: 'Flüssigkeitszufuhr',
+                    description: 'Ausreichende Flüssigkeitsversorgung',
+                    icon: '💧',
+                    difficulty: 'easy',
+                    parentId: 'thrombosis-prevention'
+                  },
+                  {
+                    id: 'vein-exercises',
+                    name: 'Venengymnastik',
+                    description: 'Spezielle Übungen für die Venen',
+                    icon: '🤸',
+                    difficulty: 'easy',
+                    parentId: 'thrombosis-prevention'
+                  }
+                ]
+              },
+              {
+                id: 'pneumonia-prevention',
+                name: 'Pneumonieprophylaxe',
+                description: 'Vorbeugung von Lungenentzündung',
+                icon: '🫁',
+                difficulty: 'medium',
+                parentId: 'prophylaxis',
+                children: [
+                  {
+                    id: 'breathing-exercises',
+                    name: 'Atemgymnastik',
+                    description: 'Übungen zur Atemverbesserung',
+                    icon: '🌬️',
+                    difficulty: 'medium',
+                    parentId: 'pneumonia-prevention'
+                  },
+                  {
+                    id: 'positioning-pneumonia',
+                    name: 'Lagerung',
+                    description: 'Spezielle Lagerung zur Pneumonievorbeugung',
+                    icon: '🛏️',
+                    difficulty: 'medium',
+                    parentId: 'pneumonia-prevention'
+                  },
+                  {
+                    id: 'mobilization-pneumonia',
+                    name: 'Mobilisation',
+                    description: 'Bewegung zur Lungenfunktionsverbesserung',
+                    icon: '🏃',
+                    difficulty: 'easy',
+                    parentId: 'pneumonia-prevention'
+                  },
+                  {
+                    id: 'coughing-techniques',
+                    name: 'Hustentechniken',
+                    description: 'Effektive Hustentechniken',
+                    icon: '🗣️',
+                    difficulty: 'medium',
+                    parentId: 'pneumonia-prevention'
+                  },
+                  {
+                    id: 'inhalation',
+                    name: 'Inhalation',
+                    description: 'Inhalationstherapie',
+                    icon: '💨',
+                    difficulty: 'medium',
+                    parentId: 'pneumonia-prevention'
+                  }
+                ]
+              },
+              {
+                id: 'additional-prophylaxis',
+                name: 'Weitere Prophylaxen',
+                description: 'Zusätzliche vorbeugende Maßnahmen',
+                icon: '➕',
+                difficulty: 'medium',
+                parentId: 'prophylaxis',
+                children: [
+                  {
+                    id: 'contracture-prevention-additional',
+                    name: 'Kontrakturenprophylaxe',
+                    description: 'Vorbeugung von Gelenkversteifungen',
+                    icon: '🔧',
+                    difficulty: 'medium',
+                    parentId: 'additional-prophylaxis'
+                  },
+                  {
+                    id: 'intertrigo-prevention-additional',
+                    name: 'Intertrigoprophylaxe',
+                    description: 'Vorbeugung von Hautwolf in Hautfalten',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'additional-prophylaxis'
+                  },
+                  {
+                    id: 'thrush-parotitis-prevention',
+                    name: 'Soor-/Parotitisprophylaxe',
+                    description: 'Vorbeugung von Mund- und Ohrspeicheldrüseninfektionen',
+                    icon: '🦷',
+                    difficulty: 'medium',
+                    parentId: 'additional-prophylaxis'
+                  },
+                  {
+                    id: 'cystitis-prevention',
+                    name: 'Zystitis prophylaxe',
+                    description: 'Vorbeugung von Blasenentzündungen',
+                    icon: '🚽',
+                    difficulty: 'medium',
+                    parentId: 'additional-prophylaxis'
+                  },
+                  {
+                    id: 'constipation-prevention-additional',
+                    name: 'Obstipationsprophylaxe',
+                    description: 'Vorbeugung von Verstopfung',
+                    icon: '🌿',
+                    difficulty: 'medium',
+                    parentId: 'additional-prophylaxis'
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
