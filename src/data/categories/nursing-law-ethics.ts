@@ -647,6 +647,468 @@ export const nursingLawEthicsCategories: Category[] = [
                 ]
               }
             ]
+          },
+          {
+            id: 'social-law',
+            name: 'Sozialrecht',
+            description: 'Sozialrechtliche Grundlagen der Pflege',
+            icon: '🏛️',
+            difficulty: 'hard',
+            parentId: 'legal-foundations',
+            children: [
+              {
+                id: 'sgb-v',
+                name: 'SGB V - Krankenversicherung',
+                description: 'Gesetzliche Krankenversicherung und Leistungen',
+                icon: '🏥',
+                difficulty: 'medium',
+                parentId: 'social-law',
+                children: [
+                  {
+                    id: 'home-nursing-care',
+                    name: 'Häusliche Krankenpflege',
+                    description: 'Krankenpflege im häuslichen Umfeld nach SGB V',
+                    icon: '🏠',
+                    difficulty: 'medium',
+                    parentId: 'sgb-v'
+                  },
+                  {
+                    id: 'treatment-care-sgb-v',
+                    name: 'Behandlungspflege',
+                    description: 'Medizinische Behandlungspflege als Kassenleistung',
+                    icon: '💉',
+                    difficulty: 'medium',
+                    parentId: 'sgb-v'
+                  },
+                  {
+                    id: 'basic-care-sgb-v',
+                    name: 'Grundpflege',
+                    description: 'Grundpflegerische Versorgung nach SGB V',
+                    icon: '🛁',
+                    difficulty: 'easy',
+                    parentId: 'sgb-v'
+                  },
+                  {
+                    id: 'respite-care-sgb-v',
+                    name: 'Verhinderungspflege',
+                    description: 'Ersatzpflege bei Verhinderung der Pflegeperson',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'sgb-v'
+                  },
+                  {
+                    id: 'medical-aids',
+                    name: 'Hilfsmittelversorgung',
+                    description: 'Versorgung mit medizinischen Hilfsmitteln',
+                    icon: '🦽',
+                    difficulty: 'easy',
+                    parentId: 'sgb-v'
+                  }
+                ]
+              },
+              {
+                id: 'sgb-xi',
+                name: 'SGB XI - Pflegeversicherung',
+                description: 'Soziale Pflegeversicherung',
+                icon: '👴',
+                difficulty: 'hard',
+                parentId: 'social-law',
+                children: [
+                  {
+                    id: 'care-dependency-concept',
+                    name: 'Pflegebedürftigkeitsbegriff',
+                    description: 'Definition und Kriterien der Pflegebedürftigkeit',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'sgb-xi'
+                  },
+                  {
+                    id: 'care-grades',
+                    name: 'Pflegegrade (1-5)',
+                    description: 'Einstufung in fünf Pflegegrade',
+                    icon: '5️⃣',
+                    difficulty: 'easy',
+                    parentId: 'sgb-xi'
+                  },
+                  {
+                    id: 'service-types',
+                    name: 'Leistungsarten',
+                    description: 'Verschiedene Leistungsformen der Pflegeversicherung',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'sgb-xi',
+                    children: [
+                      {
+                        id: 'care-allowance',
+                        name: 'Pflegegeld',
+                        description: 'Geldleistung für selbst beschaffte Pflegehilfen',
+                        icon: '💰',
+                        difficulty: 'easy',
+                        parentId: 'service-types'
+                      },
+                      {
+                        id: 'care-benefits-in-kind',
+                        name: 'Pflegesachleistung',
+                        description: 'Sachleistungen durch professionelle Pflegedienste',
+                        icon: '🏥',
+                        difficulty: 'easy',
+                        parentId: 'service-types'
+                      },
+                      {
+                        id: 'combination-benefits',
+                        name: 'Kombinationsleistung',
+                        description: 'Kombination aus Pflegegeld und Sachleistung',
+                        icon: '🔄',
+                        difficulty: 'medium',
+                        parentId: 'service-types'
+                      },
+                      {
+                        id: 'day-night-care',
+                        name: 'Tages-/Nachtpflege',
+                        description: 'Teilstationäre Pflege tagsüber oder nachts',
+                        icon: '🌅',
+                        difficulty: 'easy',
+                        parentId: 'service-types'
+                      },
+                      {
+                        id: 'short-term-care',
+                        name: 'Kurzzeitpflege',
+                        description: 'Vorübergehende vollstationäre Pflege',
+                        icon: '📅',
+                        difficulty: 'easy',
+                        parentId: 'service-types'
+                      },
+                      {
+                        id: 'respite-care-sgb-xi',
+                        name: 'Verhinderungspflege',
+                        description: 'Ersatzpflege bei Ausfall der Pflegeperson',
+                        icon: '🔄',
+                        difficulty: 'medium',
+                        parentId: 'service-types'
+                      },
+                      {
+                        id: 'inpatient-care',
+                        name: 'Vollstationäre Pflege',
+                        description: 'Dauerhafte Pflege in Pflegeheimen',
+                        icon: '🏢',
+                        difficulty: 'easy',
+                        parentId: 'service-types'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'additional-care-services',
+                    name: 'Zusätzliche Betreuungsleistungen',
+                    description: 'Ergänzende Betreuungs- und Entlastungsleistungen',
+                    icon: '➕',
+                    difficulty: 'medium',
+                    parentId: 'sgb-xi'
+                  },
+                  {
+                    id: 'quality-assessments',
+                    name: 'Qualitätsprüfungen',
+                    description: 'Prüfungen zur Qualitätssicherung in der Pflege',
+                    icon: '✅',
+                    difficulty: 'medium',
+                    parentId: 'sgb-xi'
+                  }
+                ]
+              },
+              {
+                id: 'sgb-xii',
+                name: 'SGB XII - Sozialhilfe',
+                description: 'Sozialhilfe als nachrangige Leistung',
+                icon: '🤝',
+                difficulty: 'medium',
+                parentId: 'social-law',
+                children: [
+                  {
+                    id: 'care-assistance',
+                    name: 'Hilfe zur Pflege',
+                    description: 'Sozialhilfe bei Pflegebedürftigkeit',
+                    icon: '🆘',
+                    difficulty: 'medium',
+                    parentId: 'sgb-xii'
+                  },
+                  {
+                    id: 'integration-assistance',
+                    name: 'Eingliederungshilfe',
+                    description: 'Hilfe zur Teilhabe für Menschen mit Behinderungen',
+                    icon: '♿',
+                    difficulty: 'medium',
+                    parentId: 'sgb-xii'
+                  },
+                  {
+                    id: 'basic-security',
+                    name: 'Grundsicherung',
+                    description: 'Grundsicherung im Alter und bei Erwerbsminderung',
+                    icon: '👴',
+                    difficulty: 'easy',
+                    parentId: 'sgb-xii'
+                  },
+                  {
+                    id: 'special-life-situations',
+                    name: 'Hilfe in besonderen Lebenslagen',
+                    description: 'Unterstützung in außergewöhnlichen Situationen',
+                    icon: '🚨',
+                    difficulty: 'medium',
+                    parentId: 'sgb-xii'
+                  }
+                ]
+              },
+              {
+                id: 'other-social-laws',
+                name: 'Weitere Sozialgesetze',
+                description: 'Andere relevante Sozialgesetzbücher',
+                icon: '📚',
+                difficulty: 'medium',
+                parentId: 'social-law',
+                children: [
+                  {
+                    id: 'sgb-ix',
+                    name: 'SGB IX - Rehabilitation',
+                    description: 'Rehabilitation und Teilhabe von Menschen mit Behinderungen',
+                    icon: '♻️',
+                    difficulty: 'medium',
+                    parentId: 'other-social-laws'
+                  },
+                  {
+                    id: 'sgb-vii',
+                    name: 'SGB VII - Unfallversicherung',
+                    description: 'Gesetzliche Unfallversicherung',
+                    icon: '🚑',
+                    difficulty: 'easy',
+                    parentId: 'other-social-laws'
+                  },
+                  {
+                    id: 'sgb-ii',
+                    name: 'SGB II - Grundsicherung für Arbeitssuchende',
+                    description: 'Arbeitslosengeld II und Sozialgeld',
+                    icon: '💼',
+                    difficulty: 'easy',
+                    parentId: 'other-social-laws'
+                  },
+                  {
+                    id: 'bshg',
+                    name: 'BSHG - Bundessozialhilfegesetz',
+                    description: 'Bundessozialhilfegesetz (historisch)',
+                    icon: '📜',
+                    difficulty: 'easy',
+                    parentId: 'other-social-laws'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'special-legal-areas',
+            name: 'Besondere Rechtsgebiete',
+            description: 'Spezielle Rechtsbereiche in der Pflege',
+            icon: '⚖️',
+            difficulty: 'hard',
+            parentId: 'legal-foundations',
+            children: [
+              {
+                id: 'guardianship-law',
+                name: 'Betreuungsrecht',
+                description: 'Rechtliche Betreuung von hilfsbedürftigen Erwachsenen',
+                icon: '👥',
+                difficulty: 'hard',
+                parentId: 'special-legal-areas',
+                children: [
+                  {
+                    id: 'guardianship-prerequisites',
+                    name: 'Voraussetzungen',
+                    description: 'Voraussetzungen für die Bestellung eines Betreuers',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'guardianship-law'
+                  },
+                  {
+                    id: 'guardian-appointment',
+                    name: 'Betreuerbestellung',
+                    description: 'Verfahren zur Bestellung eines rechtlichen Betreuers',
+                    icon: '👤',
+                    difficulty: 'medium',
+                    parentId: 'guardianship-law'
+                  },
+                  {
+                    id: 'task-areas',
+                    name: 'Aufgabenkreise',
+                    description: 'Bestimmte Bereiche der rechtlichen Betreuung',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'guardianship-law'
+                  },
+                  {
+                    id: 'consent-reservation',
+                    name: 'Einwilligungsvorbehalt',
+                    description: 'Vorbehalt der Zustimmung bei bestimmten Entscheidungen',
+                    icon: '✋',
+                    difficulty: 'hard',
+                    parentId: 'guardianship-law'
+                  },
+                  {
+                    id: 'guardianship-control',
+                    name: 'Kontrolle',
+                    description: 'Überwachung und Kontrolle der Betreuung',
+                    icon: '👁️',
+                    difficulty: 'medium',
+                    parentId: 'guardianship-law'
+                  }
+                ]
+              },
+              {
+                id: 'commitment-law',
+                name: 'Unterbringungsrecht',
+                description: 'Rechtliche Grundlagen für Unterbringung und Fixierung',
+                icon: '🔒',
+                difficulty: 'hard',
+                parentId: 'special-legal-areas',
+                children: [
+                  {
+                    id: 'freedom-restricting-measures',
+                    name: 'Freiheitsentziehende Maßnahmen',
+                    description: 'Maßnahmen, die die Bewegungsfreiheit einschränken',
+                    icon: '⛓️',
+                    difficulty: 'hard',
+                    parentId: 'commitment-law'
+                  },
+                  {
+                    id: 'psychkg',
+                    name: 'PsychKG (Landesrecht)',
+                    description: 'Psychisch-Kranken-Gesetze der Länder',
+                    icon: '🧠',
+                    difficulty: 'hard',
+                    parentId: 'commitment-law'
+                  },
+                  {
+                    id: 'judicial-approval',
+                    name: 'Richterliche Genehmigung',
+                    description: 'Erforderliche richterliche Genehmigung für Unterbringung',
+                    icon: '⚖️',
+                    difficulty: 'hard',
+                    parentId: 'commitment-law'
+                  },
+                  {
+                    id: 'fixation',
+                    name: 'Fixierung',
+                    description: 'Körperliche Fixierung als ultima ratio',
+                    icon: '🔗',
+                    difficulty: 'hard',
+                    parentId: 'commitment-law'
+                  },
+                  {
+                    id: 'commitment-documentation',
+                    name: 'Dokumentation',
+                    description: 'Pflicht zur Dokumentation freiheitsentziehender Maßnahmen',
+                    icon: '📝',
+                    difficulty: 'medium',
+                    parentId: 'commitment-law'
+                  }
+                ]
+              },
+              {
+                id: 'residential-care-law',
+                name: 'Heimrecht',
+                description: 'Rechtliche Regelungen für Pflegeheime',
+                icon: '🏢',
+                difficulty: 'medium',
+                parentId: 'special-legal-areas',
+                children: [
+                  {
+                    id: 'wbvg',
+                    name: 'Wohn- und Betreuungsvertragsgesetz (WBVG)',
+                    description: 'Bundesgesetz für Wohn- und Betreuungsverträge',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'residential-care-law'
+                  },
+                  {
+                    id: 'state-residential-laws',
+                    name: 'Landesheimgesetze',
+                    description: 'Länderspezifische Heimgesetze',
+                    icon: '🏛️',
+                    difficulty: 'medium',
+                    parentId: 'residential-care-law'
+                  },
+                  {
+                    id: 'residential-supervision',
+                    name: 'Heimaufsicht',
+                    description: 'Behördliche Überwachung von Pflegeheimen',
+                    icon: '👁️',
+                    difficulty: 'easy',
+                    parentId: 'residential-care-law'
+                  },
+                  {
+                    id: 'residents-council',
+                    name: 'Bewohnerbeirat',
+                    description: 'Interessenvertretung der Heimbewohner',
+                    icon: '🗳️',
+                    difficulty: 'easy',
+                    parentId: 'residential-care-law'
+                  },
+                  {
+                    id: 'residential-quality-assessments',
+                    name: 'Qualitätsprüfungen',
+                    description: 'Regelmäßige Qualitätsprüfungen in Heimen',
+                    icon: '✅',
+                    difficulty: 'medium',
+                    parentId: 'residential-care-law'
+                  }
+                ]
+              },
+              {
+                id: 'data-protection',
+                name: 'Datenschutz',
+                description: 'Datenschutz und Schweigepflicht in der Pflege',
+                icon: '🔐',
+                difficulty: 'medium',
+                parentId: 'special-legal-areas',
+                children: [
+                  {
+                    id: 'gdpr',
+                    name: 'DSGVO',
+                    description: 'Datenschutz-Grundverordnung',
+                    icon: '🇪🇺',
+                    difficulty: 'medium',
+                    parentId: 'data-protection'
+                  },
+                  {
+                    id: 'confidentiality-obligation',
+                    name: 'Schweigepflicht (§ 203 StGB)',
+                    description: 'Strafrechtliche Schweigepflicht für Pflegekräfte',
+                    icon: '🤐',
+                    difficulty: 'medium',
+                    parentId: 'data-protection'
+                  },
+                  {
+                    id: 'patient-confidentiality',
+                    name: 'Patientengeheimnis',
+                    description: 'Schutz persönlicher Patientendaten',
+                    icon: '🔒',
+                    difficulty: 'easy',
+                    parentId: 'data-protection'
+                  },
+                  {
+                    id: 'information-sharing',
+                    name: 'Informationsweitergabe',
+                    description: 'Regelungen zur Weitergabe von Patienteninformationen',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'data-protection'
+                  },
+                  {
+                    id: 'file-access',
+                    name: 'Akteneinsicht',
+                    description: 'Recht auf Einsicht in Patientenakten',
+                    icon: '👁️',
+                    difficulty: 'easy',
+                    parentId: 'data-protection'
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
