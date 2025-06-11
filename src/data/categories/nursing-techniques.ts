@@ -2409,6 +2409,638 @@ export const nursingTechniquesCategories: Category[] = [
             ]
           }
         ]
+      },
+      {
+        id: 'special-care-situations',
+        name: 'SPEZIELLE PFLEGESITUATIONEN',
+        description: 'Pflege in besonderen und kritischen Situationen',
+        icon: '🏃',
+        difficulty: 'hard',
+        parentId: 'nursing-techniques',
+        children: [
+          {
+            id: 'emergency-care',
+            name: 'Notfallpflege',
+            description: 'Pflegerische Maßnahmen in Notfallsituationen',
+            icon: '🚨',
+            difficulty: 'hard',
+            parentId: 'special-care-situations',
+            children: [
+              {
+                id: 'emergency-recognition',
+                name: 'Notfallerkennung',
+                description: 'Systematische Erkennung von Notfallsituationen',
+                icon: '🔍',
+                difficulty: 'hard',
+                parentId: 'emergency-care',
+                children: [
+                  {
+                    id: 'abcde-schema',
+                    name: 'ABCDE-Schema',
+                    description: 'Systematisches Vorgehen zur Notfallbeurteilung',
+                    icon: '📋',
+                    difficulty: 'hard',
+                    parentId: 'emergency-recognition'
+                  },
+                  {
+                    id: 'vital-signs-emergency',
+                    name: 'Vitalzeichenkontrolle',
+                    description: 'Schnelle Erfassung vitaler Parameter',
+                    icon: '💓',
+                    difficulty: 'medium',
+                    parentId: 'emergency-recognition'
+                  },
+                  {
+                    id: 'consciousness-check',
+                    name: 'Bewusstseinsprüfung',
+                    description: 'Bewusstseinsbeurteilung in Notfällen',
+                    icon: '🧠',
+                    difficulty: 'medium',
+                    parentId: 'emergency-recognition'
+                  },
+                  {
+                    id: 'news-mews-score',
+                    name: 'NEWS/MEWS-Score',
+                    description: 'Frühwarnsysteme für klinische Verschlechterung',
+                    icon: '📊',
+                    difficulty: 'hard',
+                    parentId: 'emergency-recognition'
+                  },
+                  {
+                    id: 'alert-system',
+                    name: 'Alarmierung',
+                    description: 'Strukturierte Alarmierung und Kommunikation',
+                    icon: '📞',
+                    difficulty: 'medium',
+                    parentId: 'emergency-recognition'
+                  }
+                ]
+              },
+              {
+                id: 'first-aid',
+                name: 'Erste Hilfe',
+                description: 'Sofortmaßnahmen in Notfallsituationen',
+                icon: '🏥',
+                difficulty: 'medium',
+                parentId: 'emergency-care',
+                children: [
+                  {
+                    id: 'recovery-position',
+                    name: 'Stabile Seitenlage',
+                    description: 'Positionierung bewusstloser Patienten',
+                    icon: '↩️',
+                    difficulty: 'easy',
+                    parentId: 'first-aid'
+                  },
+                  {
+                    id: 'chest-compressions',
+                    name: 'Herzdruckmassage',
+                    description: 'Externe Herzdruckmassage',
+                    icon: '👐',
+                    difficulty: 'medium',
+                    parentId: 'first-aid'
+                  },
+                  {
+                    id: 'rescue-breathing',
+                    name: 'Beatmung',
+                    description: 'Mund-zu-Mund und Beutelbeatmung',
+                    icon: '💨',
+                    difficulty: 'medium',
+                    parentId: 'first-aid'
+                  },
+                  {
+                    id: 'aed-application',
+                    name: 'AED-Anwendung',
+                    description: 'Bedienung automatischer externer Defibrillatoren',
+                    icon: '⚡',
+                    difficulty: 'medium',
+                    parentId: 'first-aid'
+                  },
+                  {
+                    id: 'bleeding-control',
+                    name: 'Blutstillung',
+                    description: 'Maßnahmen zur Blutungskontrolle',
+                    icon: '🩸',
+                    difficulty: 'medium',
+                    parentId: 'first-aid'
+                  }
+                ]
+              },
+              {
+                id: 'resuscitation',
+                name: 'Reanimation',
+                description: 'Erweiterte Reanimationsmaßnahmen',
+                icon: '⚡',
+                difficulty: 'hard',
+                parentId: 'emergency-care',
+                children: [
+                  {
+                    id: 'bls',
+                    name: 'BLS (Basic Life Support)',
+                    description: 'Grundlegende lebensrettende Maßnahmen',
+                    icon: '💓',
+                    difficulty: 'medium',
+                    parentId: 'resuscitation'
+                  },
+                  {
+                    id: 'als',
+                    name: 'ALS (Advanced Life Support)',
+                    description: 'Erweiterte lebensrettende Maßnahmen',
+                    icon: '🏥',
+                    difficulty: 'hard',
+                    parentId: 'resuscitation'
+                  },
+                  {
+                    id: 'emergency-medications',
+                    name: 'Medikamente',
+                    description: 'Notfallmedikamente und deren Anwendung',
+                    icon: '💉',
+                    difficulty: 'hard',
+                    parentId: 'resuscitation'
+                  },
+                  {
+                    id: 'team-work',
+                    name: 'Teamarbeit',
+                    description: 'Koordination im Reanimationsteam',
+                    icon: '👥',
+                    difficulty: 'hard',
+                    parentId: 'resuscitation'
+                  },
+                  {
+                    id: 'resuscitation-documentation',
+                    name: 'Dokumentation',
+                    description: 'Dokumentation von Reanimationsmaßnahmen',
+                    icon: '📝',
+                    difficulty: 'medium',
+                    parentId: 'resuscitation'
+                  }
+                ]
+              },
+              {
+                id: 'special-emergencies',
+                name: 'Spezielle Notfälle',
+                description: 'Management spezieller Notfallsituationen',
+                icon: '⚠️',
+                difficulty: 'hard',
+                parentId: 'emergency-care',
+                children: [
+                  {
+                    id: 'anaphylaxis',
+                    name: 'Anaphylaxie',
+                    description: 'Management schwerer allergischer Reaktionen',
+                    icon: '🚨',
+                    difficulty: 'hard',
+                    parentId: 'special-emergencies'
+                  },
+                  {
+                    id: 'acute-coronary-syndrome',
+                    name: 'Akutes Koronarsyndrom',
+                    description: 'Herzinfarkt und instabile Angina pectoris',
+                    icon: '💔',
+                    difficulty: 'hard',
+                    parentId: 'special-emergencies'
+                  },
+                  {
+                    id: 'stroke',
+                    name: 'Schlaganfall',
+                    description: 'Erkennung und Erstversorgung bei Schlaganfall',
+                    icon: '🧠',
+                    difficulty: 'hard',
+                    parentId: 'special-emergencies'
+                  },
+                  {
+                    id: 'status-epilepticus',
+                    name: 'Status epilepticus',
+                    description: 'Management anhaltender epileptischer Anfälle',
+                    icon: '⚡',
+                    difficulty: 'hard',
+                    parentId: 'special-emergencies'
+                  },
+                  {
+                    id: 'hypoglycemia',
+                    name: 'Hypoglykämie',
+                    description: 'Unterzuckerung erkennen und behandeln',
+                    icon: '🩸',
+                    difficulty: 'medium',
+                    parentId: 'special-emergencies'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'intensive-care',
+            name: 'Intensivpflege',
+            description: 'Pflege auf der Intensivstation',
+            icon: '🏥',
+            difficulty: 'hard',
+            parentId: 'special-care-situations',
+            children: [
+              {
+                id: 'monitoring',
+                name: 'Monitoring',
+                description: 'Überwachung kritisch kranker Patienten',
+                icon: '📊',
+                difficulty: 'hard',
+                parentId: 'intensive-care',
+                children: [
+                  {
+                    id: 'invasive-monitoring',
+                    name: 'Invasive Überwachung',
+                    description: 'Invasive Überwachungsverfahren',
+                    icon: '🔌',
+                    difficulty: 'hard',
+                    parentId: 'monitoring'
+                  },
+                  {
+                    id: 'cvp-measurement',
+                    name: 'ZVD-Messung',
+                    description: 'Zentraler Venendruck',
+                    icon: '📈',
+                    difficulty: 'hard',
+                    parentId: 'monitoring'
+                  },
+                  {
+                    id: 'arterial-pressure-monitoring',
+                    name: 'Arterielle Druckmessung',
+                    description: 'Invasive arterielle Blutdruckmessung',
+                    icon: '🩸',
+                    difficulty: 'hard',
+                    parentId: 'monitoring'
+                  },
+                  {
+                    id: 'cardiac-output-monitoring',
+                    name: 'HZV-Monitoring',
+                    description: 'Herzzeitvolumen-Überwachung',
+                    icon: '💓',
+                    difficulty: 'hard',
+                    parentId: 'monitoring'
+                  },
+                  {
+                    id: 'icp-measurement',
+                    name: 'ICP-Messung',
+                    description: 'Intrakranieller Druckmonitoring',
+                    icon: '🧠',
+                    difficulty: 'hard',
+                    parentId: 'monitoring'
+                  }
+                ]
+              },
+              {
+                id: 'ventilation',
+                name: 'Beatmung',
+                description: 'Maschinelle Beatmung und Atemwegsmanagement',
+                icon: '🫁',
+                difficulty: 'hard',
+                parentId: 'intensive-care',
+                children: [
+                  {
+                    id: 'ventilation-modes',
+                    name: 'Beatmungsmodi',
+                    description: 'Verschiedene Beatmungsformen und -einstellungen',
+                    icon: '⚙️',
+                    difficulty: 'hard',
+                    parentId: 'ventilation'
+                  },
+                  {
+                    id: 'weaning',
+                    name: 'Weaning',
+                    description: 'Entwöhnung von der maschinellen Beatmung',
+                    icon: '📉',
+                    difficulty: 'hard',
+                    parentId: 'ventilation'
+                  },
+                  {
+                    id: 'tracheostomy-intensive',
+                    name: 'Tracheostomapflege',
+                    description: 'Intensivpflegerische Tracheostomapflege',
+                    icon: '⭕',
+                    difficulty: 'hard',
+                    parentId: 'ventilation'
+                  },
+                  {
+                    id: 'bronchial-hygiene',
+                    name: 'Bronchialtoilette',
+                    description: 'Atemwegsreinigung und Sekretmanagement',
+                    icon: '🧽',
+                    difficulty: 'medium',
+                    parentId: 'ventilation'
+                  },
+                  {
+                    id: 'extubation',
+                    name: 'Extubation',
+                    description: 'Entfernung des Endotrachealtubus',
+                    icon: '↗️',
+                    difficulty: 'hard',
+                    parentId: 'ventilation'
+                  }
+                ]
+              },
+              {
+                id: 'renal-replacement',
+                name: 'Nierenersatzverfahren',
+                description: 'Dialyse und Nierenersatztherapie',
+                icon: '🔄',
+                difficulty: 'hard',
+                parentId: 'intensive-care',
+                children: [
+                  {
+                    id: 'hemodialysis',
+                    name: 'Hämodialyse',
+                    description: 'Extrakorporale Blutreinigung',
+                    icon: '🩸',
+                    difficulty: 'hard',
+                    parentId: 'renal-replacement'
+                  },
+                  {
+                    id: 'hemofiltration',
+                    name: 'Hämofiltration',
+                    description: 'Kontinuierliche Flüssigkeitsentfernung',
+                    icon: '💧',
+                    difficulty: 'hard',
+                    parentId: 'renal-replacement'
+                  },
+                  {
+                    id: 'cvvh-cvvhd',
+                    name: 'CVVH/CVVHD',
+                    description: 'Kontinuierliche veno-venöse Verfahren',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'renal-replacement'
+                  },
+                  {
+                    id: 'peritoneal-dialysis',
+                    name: 'Peritonealdialyse',
+                    description: 'Dialyse über das Bauchfell',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'renal-replacement'
+                  },
+                  {
+                    id: 'shunt-care',
+                    name: 'Shuntpflege',
+                    description: 'Pflege von Dialysezugängen',
+                    icon: '🔗',
+                    difficulty: 'medium',
+                    parentId: 'renal-replacement'
+                  }
+                ]
+              },
+              {
+                id: 'sedation-analgesia',
+                name: 'Sedierung & Analgesie',
+                description: 'Schmerztherapie und Sedierung auf der Intensivstation',
+                icon: '😴',
+                difficulty: 'hard',
+                parentId: 'intensive-care',
+                children: [
+                  {
+                    id: 'sedation-scales',
+                    name: 'Sedierungsskalen (RASS, SAS)',
+                    description: 'Bewertung des Sedierungsgrades',
+                    icon: '📏',
+                    difficulty: 'medium',
+                    parentId: 'sedation-analgesia'
+                  },
+                  {
+                    id: 'delirium-management',
+                    name: 'Delirmanagement (CAM-ICU)',
+                    description: 'Erkennung und Management von Delir',
+                    icon: '🌀',
+                    difficulty: 'hard',
+                    parentId: 'sedation-analgesia'
+                  },
+                  {
+                    id: 'analgosedation',
+                    name: 'Analgosedierung',
+                    description: 'Kombinierte Schmerz- und Sedierungstherapie',
+                    icon: '💊',
+                    difficulty: 'hard',
+                    parentId: 'sedation-analgesia'
+                  },
+                  {
+                    id: 'awakening-phase',
+                    name: 'Aufwachphase',
+                    description: 'Management der Sedierungsreduktion',
+                    icon: '👁️',
+                    difficulty: 'medium',
+                    parentId: 'sedation-analgesia'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'palliative-care',
+            name: 'Palliativpflege',
+            description: 'Pflege in der letzten Lebensphase',
+            icon: '🕊️',
+            difficulty: 'hard',
+            parentId: 'special-care-situations',
+            children: [
+              {
+                id: 'symptom-control',
+                name: 'Symptomkontrolle',
+                description: 'Management belastender Symptome',
+                icon: '🩹',
+                difficulty: 'hard',
+                parentId: 'palliative-care',
+                children: [
+                  {
+                    id: 'pain-therapy-palliative',
+                    name: 'Schmerztherapie',
+                    description: 'Spezialisierte Schmerzbehandlung in der Palliativpflege',
+                    icon: '💊',
+                    difficulty: 'hard',
+                    parentId: 'symptom-control'
+                  },
+                  {
+                    id: 'dyspnea',
+                    name: 'Dyspnoe',
+                    description: 'Atemnot lindern und bewältigen',
+                    icon: '🫁',
+                    difficulty: 'medium',
+                    parentId: 'symptom-control'
+                  },
+                  {
+                    id: 'nausea-vomiting',
+                    name: 'Übelkeit/Erbrechen',
+                    description: 'Antiemetische Therapie und pflegerische Maßnahmen',
+                    icon: '🤢',
+                    difficulty: 'medium',
+                    parentId: 'symptom-control'
+                  },
+                  {
+                    id: 'constipation-palliative',
+                    name: 'Obstipation',
+                    description: 'Verstopfung in der Palliativversorgung',
+                    icon: '🌿',
+                    difficulty: 'medium',
+                    parentId: 'symptom-control'
+                  },
+                  {
+                    id: 'anxiety-restlessness',
+                    name: 'Angst/Unruhe',
+                    description: 'Psychische Symptome lindern',
+                    icon: '😰',
+                    difficulty: 'hard',
+                    parentId: 'symptom-control'
+                  },
+                  {
+                    id: 'delirium-palliative',
+                    name: 'Delir',
+                    description: 'Verwirrtheitszustände in der Sterbephase',
+                    icon: '🌀',
+                    difficulty: 'hard',
+                    parentId: 'symptom-control'
+                  }
+                ]
+              },
+              {
+                id: 'psychosocial-care',
+                name: 'Psychosoziale Betreuung',
+                description: 'Emotionale und spirituelle Begleitung',
+                icon: '🤝',
+                difficulty: 'hard',
+                parentId: 'palliative-care',
+                children: [
+                  {
+                    id: 'communication-skills',
+                    name: 'Gesprächsführung',
+                    description: 'Kommunikation mit Sterbenden und Angehörigen',
+                    icon: '💬',
+                    difficulty: 'hard',
+                    parentId: 'psychosocial-care'
+                  },
+                  {
+                    id: 'family-support',
+                    name: 'Angehörigenbegleitung',
+                    description: 'Unterstützung der Familie',
+                    icon: '👨‍👩‍👧‍👦',
+                    difficulty: 'medium',
+                    parentId: 'psychosocial-care'
+                  },
+                  {
+                    id: 'spiritual-support',
+                    name: 'Spirituelle Begleitung',
+                    description: 'Unterstützung bei religiösen und spirituellen Bedürfnissen',
+                    icon: '🙏',
+                    difficulty: 'medium',
+                    parentId: 'psychosocial-care'
+                  },
+                  {
+                    id: 'grief-support',
+                    name: 'Trauerbegleitung',
+                    description: 'Unterstützung im Trauerprozess',
+                    icon: '💙',
+                    difficulty: 'hard',
+                    parentId: 'psychosocial-care'
+                  },
+                  {
+                    id: 'farewell-culture',
+                    name: 'Abschiedskultur',
+                    description: 'Rituale und Gestaltung des Abschieds',
+                    icon: '🕯️',
+                    difficulty: 'medium',
+                    parentId: 'psychosocial-care'
+                  }
+                ]
+              },
+              {
+                id: 'dying-phase',
+                name: 'Sterbephase',
+                description: 'Begleitung in der letzten Lebensphase',
+                icon: '🌅',
+                difficulty: 'hard',
+                parentId: 'palliative-care',
+                children: [
+                  {
+                    id: 'stages-of-dying',
+                    name: 'Sterbephasen (Kübler-Ross)',
+                    description: 'Die fünf Phasen des Sterbens',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'dying-phase'
+                  },
+                  {
+                    id: 'final-phase',
+                    name: 'Finalphase',
+                    description: 'Die letzten Stunden und Tage',
+                    icon: '⏰',
+                    difficulty: 'hard',
+                    parentId: 'dying-phase'
+                  },
+                  {
+                    id: 'mouth-care-dying',
+                    name: 'Mundpflege',
+                    description: 'Spezielle Mundpflege in der Sterbephase',
+                    icon: '💧',
+                    difficulty: 'medium',
+                    parentId: 'dying-phase'
+                  },
+                  {
+                    id: 'positioning-dying',
+                    name: 'Lagerung',
+                    description: 'Komfortlagerung in der Sterbephase',
+                    icon: '🛏️',
+                    difficulty: 'medium',
+                    parentId: 'dying-phase'
+                  },
+                  {
+                    id: 'include-family',
+                    name: 'Angehörige einbeziehen',
+                    description: 'Teilhabe der Familie am Sterbeprozess',
+                    icon: '🤗',
+                    difficulty: 'medium',
+                    parentId: 'dying-phase'
+                  }
+                ]
+              },
+              {
+                id: 'after-death',
+                name: 'Nach dem Tod',
+                description: 'Maßnahmen nach dem Versterben',
+                icon: '🕊️',
+                difficulty: 'medium',
+                parentId: 'palliative-care',
+                children: [
+                  {
+                    id: 'postmortem-care',
+                    name: 'Versorgung Verstorbener',
+                    description: 'Würdevolle Versorgung nach dem Tod',
+                    icon: '🤲',
+                    difficulty: 'medium',
+                    parentId: 'after-death'
+                  },
+                  {
+                    id: 'cultural-aspects',
+                    name: 'Kulturelle Aspekte',
+                    description: 'Berücksichtigung kultureller und religiöser Gepflogenheiten',
+                    icon: '🌍',
+                    difficulty: 'medium',
+                    parentId: 'after-death'
+                  },
+                  {
+                    id: 'family-bereavement',
+                    name: 'Angehörigenbetreuung',
+                    description: 'Begleitung nach dem Verlust',
+                    icon: '💙',
+                    difficulty: 'medium',
+                    parentId: 'after-death'
+                  },
+                  {
+                    id: 'death-documentation',
+                    name: 'Dokumentation',
+                    description: 'Notwendige Dokumentation nach dem Tod',
+                    icon: '📋',
+                    difficulty: 'easy',
+                    parentId: 'after-death'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }
