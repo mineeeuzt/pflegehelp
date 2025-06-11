@@ -3951,6 +3951,332 @@ export const pathologyCategories: Category[] = [
                     ]
                   }
                 ]
+              },
+              {
+                id: 'respiratory-medications',
+                name: 'Respiratorische Medikamente',
+                description: 'Atemwegsmedikamente und Bronchialtherapeutika',
+                icon: '🫁',
+                difficulty: 'hard',
+                parentId: 'medication-groups',
+                children: [
+                  {
+                    id: 'bronchodilators',
+                    name: 'Bronchodilatatoren',
+                    description: 'Atemwegserweiternde Medikamente',
+                    icon: '🌬️',
+                    difficulty: 'medium',
+                    parentId: 'respiratory-medications',
+                    children: [
+                      {
+                        id: 'beta2-sympathomimetics',
+                        name: 'β2-Sympathomimetika',
+                        description: 'Beta-2-Adrenorezeptor-Agonisten',
+                        icon: '💨',
+                        difficulty: 'medium',
+                        parentId: 'bronchodilators',
+                        children: [
+                          {
+                            id: 'saba',
+                            name: 'SABA (Salbutamol, Fenoterol)',
+                            description: 'Short-acting Beta-2-Agonists',
+                            icon: '🚀',
+                            difficulty: 'medium',
+                            parentId: 'beta2-sympathomimetics'
+                          },
+                          {
+                            id: 'laba',
+                            name: 'LABA (Formoterol, Salmeterol)',
+                            description: 'Long-acting Beta-2-Agonists',
+                            icon: '⏰',
+                            difficulty: 'medium',
+                            parentId: 'beta2-sympathomimetics'
+                          },
+                          {
+                            id: 'ultra-laba',
+                            name: 'Ultra-LABA (Indacaterol, Olodaterol)',
+                            description: 'Ultra-long-acting Beta-2-Agonists',
+                            icon: '🔄',
+                            difficulty: 'hard',
+                            parentId: 'beta2-sympathomimetics'
+                          },
+                          {
+                            id: 'beta2-side-effects',
+                            name: 'Nebenwirkungen (Tremor, Tachykardie)',
+                            description: 'Sympathomimetische Nebenwirkungen',
+                            icon: '⚠️',
+                            difficulty: 'medium',
+                            parentId: 'beta2-sympathomimetics'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'anticholinergics',
+                        name: 'Anticholinergika',
+                        description: 'Parasympatholytika zur Bronchodilatation',
+                        icon: '🚫',
+                        difficulty: 'medium',
+                        parentId: 'bronchodilators',
+                        children: [
+                          {
+                            id: 'sama',
+                            name: 'SAMA (Ipratropium)',
+                            description: 'Short-acting Muscarinic Antagonists',
+                            icon: '⚡',
+                            difficulty: 'medium',
+                            parentId: 'anticholinergics'
+                          },
+                          {
+                            id: 'lama',
+                            name: 'LAMA (Tiotropium, Glycopyrronium)',
+                            description: 'Long-acting Muscarinic Antagonists',
+                            icon: '🔒',
+                            difficulty: 'medium',
+                            parentId: 'anticholinergics'
+                          },
+                          {
+                            id: 'dry-mouth',
+                            name: 'Mundtrockenheit',
+                            description: 'Typische anticholinerge Nebenwirkung',
+                            icon: '💧',
+                            difficulty: 'easy',
+                            parentId: 'anticholinergics'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'methylxanthines',
+                        name: 'Methylxanthine',
+                        description: 'Phosphodiesterase-Hemmer',
+                        icon: '☕',
+                        difficulty: 'hard',
+                        parentId: 'bronchodilators',
+                        children: [
+                          {
+                            id: 'theophylline',
+                            name: 'Theophyllin',
+                            description: 'Klassischer PDE-Hemmer',
+                            icon: '💊',
+                            difficulty: 'hard',
+                            parentId: 'methylxanthines'
+                          },
+                          {
+                            id: 'theophylline-tdm',
+                            name: 'Therapeutisches Drug Monitoring',
+                            description: 'Spiegelkontrollen erforderlich',
+                            icon: '📊',
+                            difficulty: 'hard',
+                            parentId: 'methylxanthines'
+                          },
+                          {
+                            id: 'theophylline-interactions',
+                            name: 'Interaktionen',
+                            description: 'Viele Arzneimittelinteraktionen',
+                            icon: '🔗',
+                            difficulty: 'hard',
+                            parentId: 'methylxanthines'
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    id: 'anti-inflammatory-respiratory',
+                    name: 'Antientzündliche Medikamente',
+                    description: 'Entzündungshemmende Atemwegstherapeutika',
+                    icon: '🔥',
+                    difficulty: 'medium',
+                    parentId: 'respiratory-medications',
+                    children: [
+                      {
+                        id: 'inhaled-corticosteroids',
+                        name: 'Inhalative Kortikosteroide (ICS)',
+                        description: 'Topische Steroidtherapie der Atemwege',
+                        icon: '🌪️',
+                        difficulty: 'medium',
+                        parentId: 'anti-inflammatory-respiratory',
+                        children: [
+                          {
+                            id: 'budesonide-fluticasone',
+                            name: 'Budesonid, Fluticason',
+                            description: 'Moderne inhalative Kortikosteroide',
+                            icon: '💨',
+                            difficulty: 'medium',
+                            parentId: 'inhaled-corticosteroids'
+                          },
+                          {
+                            id: 'beclometasone-mometasone',
+                            name: 'Beclometason, Mometason',
+                            description: 'Weitere ICS-Präparate',
+                            icon: '🌬️',
+                            difficulty: 'medium',
+                            parentId: 'inhaled-corticosteroids'
+                          },
+                          {
+                            id: 'local-side-effects-ics',
+                            name: 'Lokale Nebenwirkungen (Soor)',
+                            description: 'Mundschleimhaut-Candidose',
+                            icon: '👄',
+                            difficulty: 'medium',
+                            parentId: 'inhaled-corticosteroids'
+                          },
+                          {
+                            id: 'systemic-effects-ics',
+                            name: 'Systemische Effekte bei Hochdosis',
+                            description: 'Systemische Steroidwirkungen',
+                            icon: '🔄',
+                            difficulty: 'hard',
+                            parentId: 'inhaled-corticosteroids'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'systemic-corticosteroids',
+                        name: 'Systemische Kortikosteroide',
+                        description: 'Orale/parenterale Steroidtherapie',
+                        icon: '💉',
+                        difficulty: 'hard',
+                        parentId: 'anti-inflammatory-respiratory',
+                        children: [
+                          {
+                            id: 'prednisolone-methylprednisolone',
+                            name: 'Prednisolon, Methylprednisolon',
+                            description: 'Systemische Kortikosteroide',
+                            icon: '💊',
+                            difficulty: 'medium',
+                            parentId: 'systemic-corticosteroids'
+                          },
+                          {
+                            id: 'pulse-therapy',
+                            name: 'Stoßtherapie bei Exazerbation',
+                            description: 'Hochdosis-Kurzzeittherapie',
+                            icon: '⚡',
+                            difficulty: 'hard',
+                            parentId: 'systemic-corticosteroids'
+                          },
+                          {
+                            id: 'tapering-required',
+                            name: 'Ausschleichen erforderlich',
+                            description: 'Gradueller Dosisreduktion',
+                            icon: '📉',
+                            difficulty: 'medium',
+                            parentId: 'systemic-corticosteroids'
+                          }
+                        ]
+                      },
+                      {
+                        id: 'leukotriene-antagonists',
+                        name: 'Leukotrienantagonisten',
+                        description: 'Anti-Leukotrien-Therapie',
+                        icon: '🚫',
+                        difficulty: 'medium',
+                        parentId: 'anti-inflammatory-respiratory',
+                        children: [
+                          {
+                            id: 'montelukast',
+                            name: 'Montelukast',
+                            description: 'CysLT1-Rezeptor-Antagonist',
+                            icon: '💊',
+                            difficulty: 'medium',
+                            parentId: 'leukotriene-antagonists'
+                          },
+                          {
+                            id: 'aspirin-asthma',
+                            name: 'Aspirinasthma',
+                            description: 'Besondere Indikation bei NSAR-Intoleranz',
+                            icon: '🔍',
+                            difficulty: 'hard',
+                            parentId: 'leukotriene-antagonists'
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    id: 'combination-preparations',
+                    name: 'Kombinationspräparate',
+                    description: 'Fixkombinationen für Atemwegstherapie',
+                    icon: '🔗',
+                    difficulty: 'medium',
+                    parentId: 'respiratory-medications',
+                    children: [
+                      {
+                        id: 'ics-laba',
+                        name: 'ICS/LABA (Symbicort, Seretide)',
+                        description: 'Steroid/LABA-Kombinationen',
+                        icon: '🌟',
+                        difficulty: 'medium',
+                        parentId: 'combination-preparations'
+                      },
+                      {
+                        id: 'laba-lama',
+                        name: 'LABA/LAMA (Anoro, Spiolto)',
+                        description: 'Duale Bronchodilatation',
+                        icon: '🔄',
+                        difficulty: 'medium',
+                        parentId: 'combination-preparations'
+                      },
+                      {
+                        id: 'ics-laba-lama',
+                        name: 'ICS/LABA/LAMA (Trimbow, Trelegy)',
+                        description: 'Triple-Therapie',
+                        icon: '3️⃣',
+                        difficulty: 'hard',
+                        parentId: 'combination-preparations'
+                      },
+                      {
+                        id: 'inhalation-technique',
+                        name: 'Inhalationstechnik',
+                        description: 'Korrekte Anwendung von Inhalatoren',
+                        icon: '🎯',
+                        difficulty: 'medium',
+                        parentId: 'combination-preparations'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'other-respiratory-medications',
+                    name: 'Weitere respiratorische Medikamente',
+                    description: 'Zusätzliche Atemwegstherapeutika',
+                    icon: '➕',
+                    difficulty: 'medium',
+                    parentId: 'respiratory-medications',
+                    children: [
+                      {
+                        id: 'antitussives',
+                        name: 'Antitussiva (Codein, Dextromethorphan)',
+                        description: 'Hustenstillende Medikamente',
+                        icon: '🤫',
+                        difficulty: 'medium',
+                        parentId: 'other-respiratory-medications'
+                      },
+                      {
+                        id: 'expectorants',
+                        name: 'Expektoranzien (ACC, Ambroxol)',
+                        description: 'Schleimlösende Medikamente',
+                        icon: '💧',
+                        difficulty: 'easy',
+                        parentId: 'other-respiratory-medications'
+                      },
+                      {
+                        id: 'medical-oxygen',
+                        name: 'Sauerstoff (Medizinischer O2)',
+                        description: 'Sauerstofftherapie',
+                        icon: '🌬️',
+                        difficulty: 'medium',
+                        parentId: 'other-respiratory-medications'
+                      },
+                      {
+                        id: 'biologics-respiratory',
+                        name: 'Biologika (Omalizumab, Mepolizumab)',
+                        description: 'Monoklonale Antikörper bei schwerem Asthma',
+                        icon: '🧬',
+                        difficulty: 'hard',
+                        parentId: 'other-respiratory-medications'
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
