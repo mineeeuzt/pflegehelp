@@ -1333,6 +1333,412 @@ export const nursingTheoriesCategories: Category[] = [
                 ]
               }
             ]
+          },
+          {
+            id: 'concept-models',
+            name: 'Konzeptmodelle',
+            description: 'Pflegekonzepte und -philosophien',
+            icon: '💡',
+            difficulty: 'medium',
+            parentId: 'nursing-models',
+            children: [
+              {
+                id: 'primary-nursing',
+                name: 'Primary Nursing',
+                description: 'Bezugspflege-Konzept mit Verantwortung einer Pflegekraft',
+                icon: '👨‍⚕️',
+                difficulty: 'medium',
+                parentId: 'concept-models',
+                children: [
+                  {
+                    id: 'primary-nurse',
+                    name: 'Primary Nurse',
+                    description: 'Hauptverantwortliche Pflegekraft für den Patienten',
+                    icon: '👩‍⚕️',
+                    difficulty: 'easy',
+                    parentId: 'primary-nursing'
+                  },
+                  {
+                    id: 'associate-nurse',
+                    name: 'Associate Nurse',
+                    description: 'Stellvertretende Pflegekraft bei Abwesenheit',
+                    icon: '👨‍⚕️',
+                    difficulty: 'easy',
+                    parentId: 'primary-nursing'
+                  },
+                  {
+                    id: 'continuity-of-care',
+                    name: 'Kontinuität der Pflege',
+                    description: 'Durchgängige Betreuung durch dieselbe Pflegekraft',
+                    icon: '🔄',
+                    difficulty: 'easy',
+                    parentId: 'primary-nursing'
+                  },
+                  {
+                    id: 'accountability',
+                    name: 'Verantwortlichkeit',
+                    description: '24-Stunden-Verantwortung für Pflegeergebnisse',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'primary-nursing'
+                  }
+                ]
+              },
+              {
+                id: 'kinaesthetics',
+                name: 'Kinästhetik',
+                description: 'Bewegungskonzept zur Gesundheitsförderung',
+                icon: '🤸',
+                difficulty: 'medium',
+                parentId: 'concept-models',
+                children: [
+                  {
+                    id: 'six-concepts',
+                    name: '6 Grundkonzepte',
+                    description: 'Interaktion, Funktionale Anatomie, Menschliche Bewegung, Anstrengung, Menschliche Funktion, Umgebung',
+                    icon: '6️⃣',
+                    difficulty: 'hard',
+                    parentId: 'kinaesthetics'
+                  },
+                  {
+                    id: 'movement-support',
+                    name: 'Bewegungsunterstützung',
+                    description: 'Unterstützung der natürlichen Bewegungsmuster',
+                    icon: '🤝',
+                    difficulty: 'medium',
+                    parentId: 'kinaesthetics'
+                  },
+                  {
+                    id: 'health-promotion',
+                    name: 'Gesundheitsförderung',
+                    description: 'Bewegung als Gesundheitsressource nutzen',
+                    icon: '💪',
+                    difficulty: 'medium',
+                    parentId: 'kinaesthetics'
+                  },
+                  {
+                    id: 'learning-process',
+                    name: 'Lernprozess',
+                    description: 'Erfahrungsbasiertes Lernen durch Bewegung',
+                    icon: '📈',
+                    difficulty: 'hard',
+                    parentId: 'kinaesthetics'
+                  }
+                ]
+              },
+              {
+                id: 'basal-stimulation',
+                name: 'Basale Stimulation',
+                description: 'Wahrnehmungsförderung bei schwer beeinträchtigten Menschen',
+                icon: '👋',
+                difficulty: 'medium',
+                parentId: 'concept-models',
+                children: [
+                  {
+                    id: 'somatische-stimulation',
+                    name: 'Somatische Stimulation',
+                    description: 'Körperwahrnehmung durch Berührung und Bewegung',
+                    icon: '🤲',
+                    difficulty: 'easy',
+                    parentId: 'basal-stimulation'
+                  },
+                  {
+                    id: 'vestibular-stimulation',
+                    name: 'Vestibuläre Stimulation',
+                    description: 'Gleichgewichtssinn und Lagewahrnehmung',
+                    icon: '⚖️',
+                    difficulty: 'easy',
+                    parentId: 'basal-stimulation'
+                  },
+                  {
+                    id: 'vibratory-stimulation',
+                    name: 'Vibratorische Stimulation',
+                    description: 'Wahrnehmung durch Vibration und Schwingung',
+                    icon: '📳',
+                    difficulty: 'easy',
+                    parentId: 'basal-stimulation'
+                  },
+                  {
+                    id: 'oral-stimulation',
+                    name: 'Orale Stimulation',
+                    description: 'Mund- und Geschmackswahrnehmung',
+                    icon: '👄',
+                    difficulty: 'easy',
+                    parentId: 'basal-stimulation'
+                  },
+                  {
+                    id: 'olfactory-stimulation',
+                    name: 'Olfaktorische Stimulation',
+                    description: 'Geruchswahrnehmung und -erinnerungen',
+                    icon: '👃',
+                    difficulty: 'easy',
+                    parentId: 'basal-stimulation'
+                  },
+                  {
+                    id: 'auditory-stimulation',
+                    name: 'Auditive Stimulation',
+                    description: 'Hörwahrnehmung und akustische Orientierung',
+                    icon: '👂',
+                    difficulty: 'easy',
+                    parentId: 'basal-stimulation'
+                  },
+                  {
+                    id: 'visual-stimulation',
+                    name: 'Visuelle Stimulation',
+                    description: 'Sehwahrnehmung und optische Reize',
+                    icon: '👁️',
+                    difficulty: 'easy',
+                    parentId: 'basal-stimulation'
+                  }
+                ]
+              },
+              {
+                id: 'bobath-concept',
+                name: 'Bobath-Konzept',
+                description: '24-Stunden-Konzept für neurologisch beeinträchtigte Menschen',
+                icon: '🧠',
+                difficulty: 'hard',
+                parentId: 'concept-models',
+                children: [
+                  {
+                    id: 'facilitation',
+                    name: 'Fazilitation',
+                    description: 'Bahnung normaler Bewegungsmuster',
+                    icon: '🎯',
+                    difficulty: 'hard',
+                    parentId: 'bobath-concept'
+                  },
+                  {
+                    id: 'inhibition',
+                    name: 'Inhibition',
+                    description: 'Hemmung pathologischer Bewegungsmuster',
+                    icon: '🚫',
+                    difficulty: 'hard',
+                    parentId: 'bobath-concept'
+                  },
+                  {
+                    id: 'handling',
+                    name: 'Handling',
+                    description: 'Führung und Unterstützung bei Bewegungen',
+                    icon: '🤝',
+                    difficulty: 'medium',
+                    parentId: 'bobath-concept'
+                  },
+                  {
+                    id: 'positioning',
+                    name: 'Lagerung',
+                    description: 'Therapeutische Positionierung zur Tonusregulation',
+                    icon: '🛏️',
+                    difficulty: 'medium',
+                    parentId: 'bobath-concept'
+                  },
+                  {
+                    id: 'transfer',
+                    name: 'Transfer',
+                    description: 'Bewegungsübergänge und Positionswechsel',
+                    icon: '↔️',
+                    difficulty: 'medium',
+                    parentId: 'bobath-concept'
+                  },
+                  {
+                    id: 'adl-integration',
+                    name: 'ADL-Integration',
+                    description: 'Integration in alltägliche Aktivitäten',
+                    icon: '🔄',
+                    difficulty: 'hard',
+                    parentId: 'bobath-concept'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'assessment-models',
+            name: 'Assessmentmodelle',
+            description: 'Instrumente zur Pflegebedarfsermittlung',
+            icon: '📊',
+            difficulty: 'medium',
+            parentId: 'nursing-models',
+            children: [
+              {
+                id: 'cds',
+                name: 'CDS (Care Dependency Scale)',
+                description: 'Pflegeabhängigkeitsskala',
+                icon: '📏',
+                difficulty: 'medium',
+                parentId: 'assessment-models',
+                children: [
+                  {
+                    id: 'cds-dimensions',
+                    name: '15 Dimensionen',
+                    description: 'Essen/Trinken, Inkontinenz, Körperpflege, Ankleiden, etc.',
+                    icon: '📋',
+                    difficulty: 'medium',
+                    parentId: 'cds'
+                  },
+                  {
+                    id: 'cds-scoring',
+                    name: 'Bewertungssystem',
+                    description: '5-stufige Skala von völlig abhängig bis unabhängig',
+                    icon: '5️⃣',
+                    difficulty: 'easy',
+                    parentId: 'cds'
+                  },
+                  {
+                    id: 'cds-application',
+                    name: 'Anwendungsbereich',
+                    description: 'Langzeitpflege und Rehabilitation',
+                    icon: '🏥',
+                    difficulty: 'easy',
+                    parentId: 'cds'
+                  }
+                ]
+              },
+              {
+                id: 'barthel-index',
+                name: 'Barthel-Index',
+                description: 'Assessment der Selbstständigkeit bei ADL',
+                icon: '📈',
+                difficulty: 'easy',
+                parentId: 'assessment-models',
+                children: [
+                  {
+                    id: 'barthel-activities',
+                    name: '10 Aktivitäten',
+                    description: 'Essen, Baden, Körperpflege, Ankleiden, Stuhlkontrolle, etc.',
+                    icon: '🔟',
+                    difficulty: 'easy',
+                    parentId: 'barthel-index'
+                  },
+                  {
+                    id: 'barthel-scoring',
+                    name: 'Punktesystem',
+                    description: '0-100 Punkte, höhere Werte = mehr Selbstständigkeit',
+                    icon: '💯',
+                    difficulty: 'easy',
+                    parentId: 'barthel-index'
+                  },
+                  {
+                    id: 'barthel-interpretation',
+                    name: 'Interpretation',
+                    description: 'Einteilung in Pflegebedürftigkeitsgrade',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'barthel-index'
+                  }
+                ]
+              },
+              {
+                id: 'fim',
+                name: 'FIM (Functional Independence Measure)',
+                description: 'Funktionale Selbstständigkeitsmessung',
+                icon: '🎯',
+                difficulty: 'medium',
+                parentId: 'assessment-models',
+                children: [
+                  {
+                    id: 'fim-domains',
+                    name: '6 Bereiche',
+                    description: 'Selbstversorgung, Mobilität, Lokomotion, Kommunikation, etc.',
+                    icon: '6️⃣',
+                    difficulty: 'medium',
+                    parentId: 'fim'
+                  },
+                  {
+                    id: 'fim-levels',
+                    name: '7 Funktionsebenen',
+                    description: 'Von völliger Hilfe bis völlige Unabhängigkeit',
+                    icon: '7️⃣',
+                    difficulty: 'medium',
+                    parentId: 'fim'
+                  },
+                  {
+                    id: 'fim-motor-cognitive',
+                    name: 'Motorik und Kognition',
+                    description: 'Getrennte Bewertung körperlicher und geistiger Funktionen',
+                    icon: '🧠💪',
+                    difficulty: 'medium',
+                    parentId: 'fim'
+                  }
+                ]
+              },
+              {
+                id: 'rai',
+                name: 'RAI (Resident Assessment Instrument)',
+                description: 'Umfassendes Assessment-System',
+                icon: '📚',
+                difficulty: 'hard',
+                parentId: 'assessment-models',
+                children: [
+                  {
+                    id: 'rai-mds',
+                    name: 'MDS (Minimum Data Set)',
+                    description: 'Standardisierter Kerndatensatz',
+                    icon: '📋',
+                    difficulty: 'hard',
+                    parentId: 'rai'
+                  },
+                  {
+                    id: 'rai-caps',
+                    name: 'CAPs (Client Assessment Protocols)',
+                    description: 'Problemspezifische Assessmentprotokolle',
+                    icon: '🔍',
+                    difficulty: 'hard',
+                    parentId: 'rai'
+                  },
+                  {
+                    id: 'rai-comprehensive',
+                    name: 'Ganzheitlicher Ansatz',
+                    description: 'Körperliche, psychische und soziale Aspekte',
+                    icon: '🌐',
+                    difficulty: 'medium',
+                    parentId: 'rai'
+                  }
+                ]
+              },
+              {
+                id: 'nba',
+                name: 'NBA (Neues Begutachtungsassessment)',
+                description: 'Pflegegradermittlung nach SGB XI',
+                icon: '⚖️',
+                difficulty: 'hard',
+                parentId: 'assessment-models',
+                children: [
+                  {
+                    id: 'nba-modules',
+                    name: '6 Module',
+                    description: 'Mobilität, kognitive Fähigkeiten, Verhaltensweisen, Selbstversorgung, etc.',
+                    icon: '6️⃣',
+                    difficulty: 'medium',
+                    parentId: 'nba'
+                  },
+                  {
+                    id: 'nba-care-grades',
+                    name: 'Pflegegrade 1-5',
+                    description: 'Einstufung nach Schweregrad der Beeinträchtigungen',
+                    icon: '5️⃣',
+                    difficulty: 'easy',
+                    parentId: 'nba'
+                  },
+                  {
+                    id: 'nba-weighting',
+                    name: 'Gewichtung der Module',
+                    description: 'Unterschiedliche Gewichtung je nach Relevanz',
+                    icon: '⚖️',
+                    difficulty: 'hard',
+                    parentId: 'nba'
+                  },
+                  {
+                    id: 'nba-scoring',
+                    name: 'Punktesystem',
+                    description: '0-100 Punkte bestimmen den Pflegegrad',
+                    icon: '💯',
+                    difficulty: 'medium',
+                    parentId: 'nba'
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
