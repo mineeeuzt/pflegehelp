@@ -792,7 +792,7 @@ export async function generateStreamingAIResponse(
   // Für sehr einfache Tasks könnte man Cache verwenden, aber für Fallbeispiele ist Streaming besser
   if (cacheableTask && !prompt.includes('fallbeispiel')) {
     const cached = simpleCache.get(userInput)
-    if (cached) {
+    if (cached && typeof cached === 'string' && cached.length > 0) {
       console.log(`⚡ Cache HIT: ${model} | Tokens: ${maxTokens} | Simulating stream`)
       // Simulate streaming for cached content
       let index = 0
@@ -835,10 +835,15 @@ export async function generateStreamingAIResponse(
     let fullText = ''
     
     for await (const chunk of stream) {
-      const content = chunk.choices[0]?.delta?.content || ''
-      if (content) {
-        fullText += content
-        onChunk(content)
+      try {
+        const content = chunk.choices?.[0]?.delta?.content || ''
+        if (content) {
+          fullText += content
+          onChunk(content)
+        }
+      } catch (chunkError) {
+        console.warn('Error processing chunk:', chunkError)
+        // Continue with next chunk
       }
     }
     
