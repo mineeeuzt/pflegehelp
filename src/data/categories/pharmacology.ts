@@ -12,14 +12,14 @@ export const pharmacologyCategories: Category[] = [
   {
     id: 'pharmacology',
     name: 'PHARMAKOLOGIE',
-    description: 'Medikamente und Wirkweisen',
+    description: 'Medikamentenlehre und Arzneimittelkunde',
     icon: '💊',
     difficulty: 'hard',
     children: [
       {
         id: 'medication-groups',
-        name: 'Medikamentengruppen',
-        description: 'Systematische Einteilung der Arzneimittel',
+        name: 'MEDIKAMENTENGRUPPEN',
+        description: 'Systematische Arzneimittelgruppen',
         icon: '💉',
         difficulty: 'hard',
         parentId: 'pharmacology',
@@ -27,7 +27,7 @@ export const pharmacologyCategories: Category[] = [
           {
             id: 'cardiovascular-medications',
             name: 'Herz-Kreislauf-Medikamente',
-            description: 'Medikamente für das kardiovaskuläre System',
+            description: 'Kardiovaskuläre Pharmakotherapie',
             icon: '❤️',
             difficulty: 'hard',
             parentId: 'medication-groups',
@@ -36,49 +36,245 @@ export const pharmacologyCategories: Category[] = [
                 id: 'antihypertensives',
                 name: 'Antihypertensiva',
                 description: 'Blutdrucksenkende Medikamente',
-                icon: '📉',
-                difficulty: 'medium',
+                icon: '🔽',
+                difficulty: 'hard',
                 parentId: 'cardiovascular-medications',
                 children: [
                   {
                     id: 'ace-inhibitors',
-                    name: 'ACE-Hemmer (Ramipril, Enalapril)',
-                    description: 'Angiotensin-Converting-Enzym-Hemmer',
-                    icon: '🔒',
+                    name: 'ACE-Hemmer (Ramipril, Enalapril, Lisinopril)',
+                    description: 'Angiotensin-Converting-Enzyme-Hemmer',
+                    icon: '🚫',
                     difficulty: 'medium',
-                    parentId: 'antihypertensives'
+                    parentId: 'antihypertensives',
+                    children: [
+                      {
+                        id: 'ace-mechanism',
+                        name: 'Wirkmechanismus (Hemmung ACE)',
+                        description: 'Blockade der Angiotensin-II-Bildung',
+                        icon: '⚙️',
+                        difficulty: 'medium',
+                        parentId: 'ace-inhibitors'
+                      },
+                      {
+                        id: 'ace-indications',
+                        name: 'Indikationen (Hypertonie, Herzinsuffizienz)',
+                        description: 'Einsatzgebiete der ACE-Hemmer',
+                        icon: '🎯',
+                        difficulty: 'easy',
+                        parentId: 'ace-inhibitors'
+                      },
+                      {
+                        id: 'ace-side-effects',
+                        name: 'Nebenwirkungen (Reizhusten, Hyperkaliämie)',
+                        description: 'Unerwünschte Wirkungen der ACE-Hemmer',
+                        icon: '⚠️',
+                        difficulty: 'medium',
+                        parentId: 'ace-inhibitors'
+                      },
+                      {
+                        id: 'ace-contraindications',
+                        name: 'Kontraindikationen (Schwangerschaft, bilat. NAST)',
+                        description: 'Gegenanzeigen für ACE-Hemmer',
+                        icon: '🚫',
+                        difficulty: 'medium',
+                        parentId: 'ace-inhibitors'
+                      }
+                    ]
                   },
                   {
                     id: 'arb',
-                    name: 'ARB (Losartan, Valsartan)',
+                    name: 'AT1-Antagonisten/ARB (Candesartan, Valsartan)',
                     description: 'Angiotensin-Rezeptor-Blocker',
-                    icon: '🚫',
+                    icon: '🛡️',
                     difficulty: 'medium',
-                    parentId: 'antihypertensives'
-                  },
-                  {
-                    id: 'calcium-channel-blockers',
-                    name: 'Kalziumkanalblocker (Amlodipin, Nifedipin)',
-                    description: 'Kalziumantagonisten',
-                    icon: '🔐',
-                    difficulty: 'medium',
-                    parentId: 'antihypertensives'
+                    parentId: 'antihypertensives',
+                    children: [
+                      {
+                        id: 'arb-mechanism',
+                        name: 'Wirkmechanismus (AT1-Rezeptor-Blockade)',
+                        description: 'Blockade des Angiotensin-II-Rezeptors',
+                        icon: '🔒',
+                        difficulty: 'medium',
+                        parentId: 'arb'
+                      },
+                      {
+                        id: 'arb-advantages',
+                        name: 'Vorteile (kein Reizhusten)',
+                        description: 'Vorteile gegenüber ACE-Hemmern',
+                        icon: '✅',
+                        difficulty: 'easy',
+                        parentId: 'arb'
+                      },
+                      {
+                        id: 'arb-combinations',
+                        name: 'Kombinationen (mit Diuretika)',
+                        description: 'Fixkombinationen mit anderen Antihypertensiva',
+                        icon: '🤝',
+                        difficulty: 'medium',
+                        parentId: 'arb'
+                      }
+                    ]
                   },
                   {
                     id: 'beta-blockers',
-                    name: 'Betablocker (Metoprolol, Bisoprolol)',
+                    name: 'Betablocker (Metoprolol, Bisoprolol, Carvedilol)',
                     description: 'Beta-Adrenozeptor-Antagonisten',
                     icon: '🛑',
                     difficulty: 'medium',
-                    parentId: 'antihypertensives'
+                    parentId: 'antihypertensives',
+                    children: [
+                      {
+                        id: 'selective-beta-blockers',
+                        name: 'Selektive β1-Blocker',
+                        description: 'Kardioselektive Betablocker',
+                        icon: '🎯',
+                        difficulty: 'medium',
+                        parentId: 'beta-blockers'
+                      },
+                      {
+                        id: 'non-selective-beta-blockers',
+                        name: 'Nicht-selektive Betablocker',
+                        description: 'β1- und β2-Adrenozeptor-Antagonisten',
+                        icon: '🔄',
+                        difficulty: 'medium',
+                        parentId: 'beta-blockers'
+                      },
+                      {
+                        id: 'beta-blocker-side-effects',
+                        name: 'Nebenwirkungen (Bradykardie, Bronchospasmus)',
+                        description: 'Unerwünschte Wirkungen der Betablocker',
+                        icon: '⚠️',
+                        difficulty: 'medium',
+                        parentId: 'beta-blockers'
+                      },
+                      {
+                        id: 'beta-blocker-withdrawal',
+                        name: 'Absetzen (langsam ausschleichen)',
+                        description: 'Vorsichtiges Absetzen zur Vermeidung von Rebound-Effekten',
+                        icon: '📉',
+                        difficulty: 'easy',
+                        parentId: 'beta-blockers'
+                      }
+                    ]
                   },
                   {
-                    id: 'diuretics-hypertension',
-                    name: 'Diuretika (HCT, Indapamid)',
+                    id: 'calcium-channel-blockers',
+                    name: 'Kalziumantagonisten',
+                    description: 'Kalziumkanalblocker',
+                    icon: '🔐',
+                    difficulty: 'medium',
+                    parentId: 'antihypertensives',
+                    children: [
+                      {
+                        id: 'dihydropyridines',
+                        name: 'Dihydropyridine (Amlodipin, Nifedipin)',
+                        description: 'Gefäßselektive Kalziumantagonisten',
+                        icon: '🩸',
+                        difficulty: 'medium',
+                        parentId: 'calcium-channel-blockers'
+                      },
+                      {
+                        id: 'non-dihydropyridines',
+                        name: 'Nicht-Dihydropyridine (Verapamil, Diltiazem)',
+                        description: 'Herzwirksame Kalziumantagonisten',
+                        icon: '💓',
+                        difficulty: 'medium',
+                        parentId: 'calcium-channel-blockers'
+                      },
+                      {
+                        id: 'calcium-blocker-side-effects',
+                        name: 'Nebenwirkungen (Ödeme, Obstipation)',
+                        description: 'Unerwünschte Wirkungen der Kalziumantagonisten',
+                        icon: '⚠️',
+                        difficulty: 'easy',
+                        parentId: 'calcium-channel-blockers'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'diuretics',
+                    name: 'Diuretika',
                     description: 'Harntreibende Medikamente',
                     icon: '💧',
                     difficulty: 'medium',
-                    parentId: 'antihypertensives'
+                    parentId: 'antihypertensives',
+                    children: [
+                      {
+                        id: 'loop-diuretics',
+                        name: 'Schleifendiuretika (Furosemid, Torasemid)',
+                        description: 'Hochpotente Diuretika',
+                        icon: '🌊',
+                        difficulty: 'medium',
+                        parentId: 'diuretics'
+                      },
+                      {
+                        id: 'thiazide-diuretics',
+                        name: 'Thiazide (HCT, Indapamid)',
+                        description: 'Thiazid- und thiazidähnliche Diuretika',
+                        icon: '💧',
+                        difficulty: 'easy',
+                        parentId: 'diuretics'
+                      },
+                      {
+                        id: 'potassium-sparing-diuretics',
+                        name: 'Kaliumsparende (Spironolacton, Amilorid)',
+                        description: 'Kaliumsparende Diuretika',
+                        icon: '⚖️',
+                        difficulty: 'medium',
+                        parentId: 'diuretics'
+                      },
+                      {
+                        id: 'electrolyte-disorders',
+                        name: 'Elektrolytstörungen',
+                        description: 'Diuretika-bedingte Elektrolytimbalancen',
+                        icon: '⚡',
+                        difficulty: 'hard',
+                        parentId: 'diuretics'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'other-antihypertensives',
+                    name: 'Weitere Antihypertensiva',
+                    description: 'Zusätzliche blutdrucksenkende Medikamente',
+                    icon: '🔧',
+                    difficulty: 'medium',
+                    parentId: 'antihypertensives',
+                    children: [
+                      {
+                        id: 'alpha-blockers',
+                        name: 'α-Blocker (Doxazosin)',
+                        description: 'Alpha-Adrenozeptor-Antagonisten',
+                        icon: '🎯',
+                        difficulty: 'medium',
+                        parentId: 'other-antihypertensives'
+                      },
+                      {
+                        id: 'central-antisympathomimetics',
+                        name: 'Zentrale Antisympathotonika (Clonidin)',
+                        description: 'Zentral wirksame Antihypertensiva',
+                        icon: '🧠',
+                        difficulty: 'hard',
+                        parentId: 'other-antihypertensives'
+                      },
+                      {
+                        id: 'vasodilators',
+                        name: 'Vasodilatatoren (Hydralazin, Minoxidil)',
+                        description: 'Direkte Gefäßerweiterer',
+                        icon: '🔀',
+                        difficulty: 'medium',
+                        parentId: 'other-antihypertensives'
+                      },
+                      {
+                        id: 'combination-preparations',
+                        name: 'Kombinationspräparate',
+                        description: 'Fixkombinationen verschiedener Antihypertensiva',
+                        icon: '🤝',
+                        difficulty: 'easy',
+                        parentId: 'other-antihypertensives'
+                      }
+                    ]
                   }
                 ]
               },
