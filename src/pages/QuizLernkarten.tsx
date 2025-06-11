@@ -24,6 +24,7 @@ import { pathologyCategories } from '../data/categories/pathology'
 import { pharmacologyCategories } from '../data/categories/pharmacology'
 import { nursingTheoriesCategories } from '../data/categories/nursing-theories'
 import { nursingLawEthicsCategories } from '../data/categories/nursing-law-ethics'
+import { nursingTechniquesCategories } from '../data/categories/nursing-techniques'
 
 const QuizLernkarten = () => {
   const {
@@ -321,7 +322,11 @@ const QuizLernkarten = () => {
           <div className="flex-1 min-w-0">
             <div className="text-lg font-medium text-gray-900 mb-1">Pflegetechniken & Interventionen</div>
             <div className="text-gray-600 text-sm font-light mb-2">Praktische Fertigkeiten</div>
-            <div className="text-xs text-gray-500">Bald verfügbar</div>
+            <div className="text-xs text-gray-500">
+              {nursingTechniquesCategories[0]?.children?.length || 0} Hauptbereiche • 
+              {nursingTechniquesCategories[0]?.children?.reduce((total, group) => 
+                total + (group.children?.length || 0), 0)} Techniken
+            </div>
           </div>
           <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
         </motion.button>
@@ -505,57 +510,6 @@ const QuizLernkarten = () => {
     }
 
     if (selectedMainCategory === 'nursing-techniques') {
-      const nursingTechniquesCategories = [
-        {
-          id: 'basic-care',
-          name: 'Grundpflege',
-          description: 'Körperpflege, Mobilisation, Ernährung, Ausscheidung',
-          icon: '🛁'
-        },
-        {
-          id: 'treatment-care',
-          name: 'Behandlungspflege',
-          description: 'Medikamente, Injektionen, Wundversorgung',
-          icon: '💊'
-        },
-        {
-          id: 'emergency-care',
-          name: 'Notfallpflege',
-          description: 'Reanimation, Erste Hilfe, ABCDE-Schema',
-          icon: '🚨'
-        },
-        {
-          id: 'intensive-care',
-          name: 'Intensivpflege',
-          description: 'Monitoring, Beatmung, Nierenersatz',
-          icon: '🏥'
-        },
-        {
-          id: 'palliative-care',
-          name: 'Palliativpflege',
-          description: 'Symptomkontrolle, Sterbebegleitung',
-          icon: '🕊️'
-        },
-        {
-          id: 'psychiatric-care',
-          name: 'Psychiatrische Pflege',
-          description: 'Milieugestaltung, Krisenintervention',
-          icon: '🧠'
-        },
-        {
-          id: 'pediatric-care',
-          name: 'Pädiatrische Pflege',
-          description: 'Entwicklungsorientiert, familienorientiert',
-          icon: '👶'
-        },
-        {
-          id: 'prophylaxis',
-          name: 'Prophylaxen',
-          description: 'Dekubitus, Sturz, Thrombose, Pneumonie',
-          icon: '🛡️'
-        }
-      ]
-
       return (
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
@@ -570,7 +524,7 @@ const QuizLernkarten = () => {
             </Button>
           </div>
           <CategoryGrid 
-            categories={nursingTechniquesCategories}
+            categories={nursingTechniquesCategories[0]?.children || []}
             color="blue"
           />
         </div>
