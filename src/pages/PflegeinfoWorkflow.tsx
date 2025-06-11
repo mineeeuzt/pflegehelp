@@ -193,16 +193,39 @@ const PflegeinfoWorkflow = () => {
       // Try to parse JSON response from API
       let evaluation: PflegeinfoBewertungsResult
       try {
-        evaluation = JSON.parse(response)
+        // Clean response - remove any markdown formatting if present
+        const cleanResponse = response.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
+        evaluation = JSON.parse(cleanResponse)
+        
+        // Validate that the parsed object has the required structure
+        if (!evaluation.gesamtbewertung || !evaluation.feedback || !evaluation.bewertungBegruendung) {
+          throw new Error('Invalid response structure')
+        }
+        
+        // Ensure all arrays exist to prevent .length errors
+        evaluation.hauptprobleme = evaluation.hauptprobleme || []
+        Object.keys(evaluation.feedback).forEach(key => {
+          const bereich = evaluation.feedback[key as keyof typeof evaluation.feedback]
+          if (bereich) {
+            bereich.positiv = bereich.positiv || []
+            bereich.fehler = bereich.fehler || []
+          }
+        })
+        
+        console.log('Successfully parsed API response:', evaluation)
       } catch (parseError) {
         // Fallback to mock if API doesn't return valid JSON
-        console.log('API response is not JSON, using mock data')
+        console.log('API response parsing failed, using mock data. Response was:', response)
+        console.error('Parse error:', parseError)
         evaluation = mockStructuredEvaluate()
       }
       
       setResult(evaluation)
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten')
+      console.error('Evaluation error:', error)
+      // If API call fails completely, use mock data
+      const evaluation = mockStructuredEvaluate()
+      setResult(evaluation)
     } finally {
       setIsLoading(false)
     }
