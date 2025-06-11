@@ -1125,6 +1125,432 @@ export const nursingTechniquesCategories: Category[] = [
             ]
           }
         ]
+      },
+      {
+        id: 'treatment-care',
+        name: 'BEHANDLUNGSPFLEGE',
+        description: 'Medizinische Behandlungspflege und therapeutische Maßnahmen',
+        icon: '💊',
+        difficulty: 'hard',
+        parentId: 'nursing-techniques',
+        children: [
+          {
+            id: 'medication-management',
+            name: 'Medikamentenmanagement',
+            description: 'Sichere Medikamentengabe und -verwaltung',
+            icon: '💊',
+            difficulty: 'hard',
+            parentId: 'treatment-care',
+            children: [
+              {
+                id: 'medication-administration',
+                name: 'Medikamentengabe',
+                description: 'Verschiedene Applikationsformen von Medikamenten',
+                icon: '💉',
+                difficulty: 'medium',
+                parentId: 'medication-management',
+                children: [
+                  {
+                    id: 'six-ten-r-rule',
+                    name: '6-R-Regel/10-R-Regel',
+                    description: 'Sicherheitsregeln für die Medikamentengabe',
+                    icon: '✅',
+                    difficulty: 'medium',
+                    parentId: 'medication-administration'
+                  },
+                  {
+                    id: 'oral-application',
+                    name: 'Orale Applikation',
+                    description: 'Verabreichung von Medikamenten über den Mund',
+                    icon: '💊',
+                    difficulty: 'easy',
+                    parentId: 'medication-administration'
+                  },
+                  {
+                    id: 'rectal-vaginal-application',
+                    name: 'Rektale/vaginale Applikation',
+                    description: 'Verabreichung über Rektum oder Vagina',
+                    icon: '🔄',
+                    difficulty: 'medium',
+                    parentId: 'medication-administration'
+                  },
+                  {
+                    id: 'transdermal-application',
+                    name: 'Transdermale Applikation',
+                    description: 'Medikamentengabe über die Haut (Pflaster, Salben)',
+                    icon: '🩹',
+                    difficulty: 'easy',
+                    parentId: 'medication-administration'
+                  },
+                  {
+                    id: 'inhalation-application',
+                    name: 'Inhalative Applikation',
+                    description: 'Verabreichung über die Atemwege',
+                    icon: '💨',
+                    difficulty: 'medium',
+                    parentId: 'medication-administration'
+                  },
+                  {
+                    id: 'eye-drops-ointments',
+                    name: 'Augentropfen/Salben',
+                    description: 'Applikation von Augentropfen und -salben',
+                    icon: '👁️',
+                    difficulty: 'easy',
+                    parentId: 'medication-administration'
+                  }
+                ]
+              },
+              {
+                id: 'injections',
+                name: 'Injektionen',
+                description: 'Parenterale Medikamentengabe durch Injektionen',
+                icon: '💉',
+                difficulty: 'hard',
+                parentId: 'medication-management',
+                children: [
+                  {
+                    id: 'subcutaneous',
+                    name: 'Subkutan (s.c.)',
+                    description: 'Injektion ins Unterhautfettgewebe',
+                    icon: '💉',
+                    difficulty: 'medium',
+                    parentId: 'injections',
+                    children: [
+                      {
+                        id: 'sc-injection-sites',
+                        name: 'Injektionsorte',
+                        description: 'Geeignete Stellen für subkutane Injektionen',
+                        icon: '📍',
+                        difficulty: 'easy',
+                        parentId: 'subcutaneous'
+                      },
+                      {
+                        id: 'insulin-application',
+                        name: 'Insulin-Applikation',
+                        description: 'Spezielle Techniken für Insulininjektionen',
+                        icon: '🩸',
+                        difficulty: 'medium',
+                        parentId: 'subcutaneous'
+                      },
+                      {
+                        id: 'heparin-injection',
+                        name: 'Heparin-Injektion',
+                        description: 'Besonderheiten bei Antikoagulantien',
+                        icon: '💊',
+                        difficulty: 'medium',
+                        parentId: 'subcutaneous'
+                      },
+                      {
+                        id: 'sc-complications',
+                        name: 'Komplikationen',
+                        description: 'Mögliche Komplikationen und deren Vermeidung',
+                        icon: '⚠️',
+                        difficulty: 'medium',
+                        parentId: 'subcutaneous'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'intramuscular',
+                    name: 'Intramuskulär (i.m.)',
+                    description: 'Injektion in den Muskel',
+                    icon: '💪',
+                    difficulty: 'hard',
+                    parentId: 'injections',
+                    children: [
+                      {
+                        id: 'im-injection-sites',
+                        name: 'Injektionsorte (ventrogluteal)',
+                        description: 'Sichere Injektionsstellen für i.m.-Injektionen',
+                        icon: '📍',
+                        difficulty: 'medium',
+                        parentId: 'intramuscular'
+                      },
+                      {
+                        id: 'z-technique',
+                        name: 'Z-Technik',
+                        description: 'Spezielle Injektionstechnik zur Vermeidung von Leckage',
+                        icon: '🔄',
+                        difficulty: 'hard',
+                        parentId: 'intramuscular'
+                      },
+                      {
+                        id: 'aspiration-control',
+                        name: 'Aspirationskontrolle',
+                        description: 'Prüfung auf intravasale Lage',
+                        icon: '🔍',
+                        difficulty: 'medium',
+                        parentId: 'intramuscular'
+                      },
+                      {
+                        id: 'im-contraindications',
+                        name: 'Kontraindikationen',
+                        description: 'Situationen, in denen i.m.-Injektionen vermieden werden sollten',
+                        icon: '🚫',
+                        difficulty: 'medium',
+                        parentId: 'intramuscular'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'intradermal',
+                    name: 'Intradermal (i.d.)',
+                    description: 'Injektion in die Haut',
+                    icon: '🔬',
+                    difficulty: 'medium',
+                    parentId: 'injections',
+                    children: [
+                      {
+                        id: 'tuberculin-test',
+                        name: 'Tuberkulintest',
+                        description: 'Durchführung des Tuberkulin-Hauttests',
+                        icon: '🔬',
+                        difficulty: 'medium',
+                        parentId: 'intradermal'
+                      },
+                      {
+                        id: 'allergy-testing',
+                        name: 'Allergietestung',
+                        description: 'Intrakutane Allergietests',
+                        icon: '🌿',
+                        difficulty: 'medium',
+                        parentId: 'intradermal'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'intravenous',
+                    name: 'Intravenös (i.v.)',
+                    description: 'Injektion in die Vene',
+                    icon: '🩸',
+                    difficulty: 'hard',
+                    parentId: 'injections',
+                    children: [
+                      {
+                        id: 'venipuncture',
+                        name: 'Venenpunktion',
+                        description: 'Technik der Venenpunktion',
+                        icon: '💉',
+                        difficulty: 'hard',
+                        parentId: 'intravenous'
+                      },
+                      {
+                        id: 'peripheral-venous-catheter',
+                        name: 'Venenverweilkanüle',
+                        description: 'Anlage und Pflege peripherer Venenkatheter',
+                        icon: '🔗',
+                        difficulty: 'hard',
+                        parentId: 'intravenous'
+                      },
+                      {
+                        id: 'infusion-management',
+                        name: 'Infusionsmanagement',
+                        description: 'Verwaltung und Überwachung von Infusionen',
+                        icon: '💧',
+                        difficulty: 'medium',
+                        parentId: 'intravenous'
+                      },
+                      {
+                        id: 'iv-complications',
+                        name: 'Komplikationen',
+                        description: 'Erkennung und Management von i.v.-Komplikationen',
+                        icon: '⚠️',
+                        difficulty: 'hard',
+                        parentId: 'intravenous'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                id: 'infusion-therapy',
+                name: 'Infusionstherapie',
+                description: 'Management von Infusionen und Kathetersystemen',
+                icon: '💧',
+                difficulty: 'hard',
+                parentId: 'medication-management',
+                children: [
+                  {
+                    id: 'peripheral-venous-catheter-pvk',
+                    name: 'Peripherer Venenkatheter (PVK)',
+                    description: 'Anlage und Pflege peripherer Zugänge',
+                    icon: '💉',
+                    difficulty: 'medium',
+                    parentId: 'infusion-therapy'
+                  },
+                  {
+                    id: 'central-venous-catheter',
+                    name: 'Zentraler Venenkatheter (ZVK)',
+                    description: 'Management zentralvenöser Zugänge',
+                    icon: '🔗',
+                    difficulty: 'hard',
+                    parentId: 'infusion-therapy'
+                  },
+                  {
+                    id: 'port-systems',
+                    name: 'Port-Systeme',
+                    description: 'Handhabung und Pflege von Portsystemen',
+                    icon: '⚙️',
+                    difficulty: 'hard',
+                    parentId: 'infusion-therapy'
+                  },
+                  {
+                    id: 'infusion-pumps',
+                    name: 'Infusionspumpen',
+                    description: 'Bedienung verschiedener Pumpsysteme',
+                    icon: '🔌',
+                    difficulty: 'medium',
+                    parentId: 'infusion-therapy'
+                  },
+                  {
+                    id: 'complication-management',
+                    name: 'Komplikationsmanagement',
+                    description: 'Erkennung und Behandlung von Infusionskomplikationen',
+                    icon: '⚠️',
+                    difficulty: 'hard',
+                    parentId: 'infusion-therapy'
+                  }
+                ]
+              },
+              {
+                id: 'pain-management',
+                name: 'Schmerzmanagement',
+                description: 'Umfassende Schmerzerfassung und -behandlung',
+                icon: '🩹',
+                difficulty: 'hard',
+                parentId: 'medication-management',
+                children: [
+                  {
+                    id: 'pain-assessment',
+                    name: 'Schmerzassessment',
+                    description: 'Systematische Schmerzerfassung',
+                    icon: '📊',
+                    difficulty: 'medium',
+                    parentId: 'pain-management',
+                    children: [
+                      {
+                        id: 'vas-nrs',
+                        name: 'VAS/NRS',
+                        description: 'Visuelle Analogskala und Numerische Rating-Skala',
+                        icon: '📏',
+                        difficulty: 'easy',
+                        parentId: 'pain-assessment'
+                      },
+                      {
+                        id: 'pain-diary',
+                        name: 'Schmerztagebuch',
+                        description: 'Dokumentation des Schmerzverlaufs',
+                        icon: '📔',
+                        difficulty: 'easy',
+                        parentId: 'pain-assessment'
+                      },
+                      {
+                        id: 'besd-dementia',
+                        name: 'BESD (bei Demenz)',
+                        description: 'Beurteilung von Schmerzen bei Demenz',
+                        icon: '🧠',
+                        difficulty: 'hard',
+                        parentId: 'pain-assessment'
+                      },
+                      {
+                        id: 'pain-types',
+                        name: 'Schmerzarten',
+                        description: 'Unterscheidung verschiedener Schmerztypen',
+                        icon: '🔍',
+                        difficulty: 'medium',
+                        parentId: 'pain-assessment'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'medication-therapy',
+                    name: 'Medikamentöse Therapie',
+                    description: 'Pharmakologische Schmerzbehandlung',
+                    icon: '💊',
+                    difficulty: 'hard',
+                    parentId: 'pain-management',
+                    children: [
+                      {
+                        id: 'who-step-scheme',
+                        name: 'WHO-Stufenschema',
+                        description: 'Stufenweise Schmerztherapie nach WHO',
+                        icon: '📈',
+                        difficulty: 'medium',
+                        parentId: 'medication-therapy'
+                      },
+                      {
+                        id: 'basic-analgesia',
+                        name: 'Basisanalgesie',
+                        description: 'Grundversorgung mit Schmerzmitteln',
+                        icon: '💉',
+                        difficulty: 'medium',
+                        parentId: 'medication-therapy'
+                      },
+                      {
+                        id: 'as-needed-medication',
+                        name: 'Bedarfsmedikation',
+                        description: 'Schmerzmittel bei Bedarf',
+                        icon: '🔔',
+                        difficulty: 'medium',
+                        parentId: 'medication-therapy'
+                      },
+                      {
+                        id: 'pca-pump',
+                        name: 'PCA-Pumpe',
+                        description: 'Patientenkontrollierte Analgesie',
+                        icon: '🎛️',
+                        difficulty: 'hard',
+                        parentId: 'medication-therapy'
+                      }
+                    ]
+                  },
+                  {
+                    id: 'non-medication-measures',
+                    name: 'Nicht-medikamentöse Maßnahmen',
+                    description: 'Alternative Schmerzlinderungsmethoden',
+                    icon: '🌿',
+                    difficulty: 'medium',
+                    parentId: 'pain-management',
+                    children: [
+                      {
+                        id: 'positioning-pain',
+                        name: 'Lagerung',
+                        description: 'Schmerzlindernde Lagerungstechniken',
+                        icon: '🛏️',
+                        difficulty: 'easy',
+                        parentId: 'non-medication-measures'
+                      },
+                      {
+                        id: 'heat-cold-therapy',
+                        name: 'Wärme-/Kältetherapie',
+                        description: 'Thermische Anwendungen zur Schmerzlinderung',
+                        icon: '🌡️',
+                        difficulty: 'easy',
+                        parentId: 'non-medication-measures'
+                      },
+                      {
+                        id: 'relaxation-techniques',
+                        name: 'Entspannungstechniken',
+                        description: 'Progressive Muskelentspannung, Atemübungen',
+                        icon: '🧘',
+                        difficulty: 'medium',
+                        parentId: 'non-medication-measures'
+                      },
+                      {
+                        id: 'distraction',
+                        name: 'Ablenkung',
+                        description: 'Ablenkungsstrategien zur Schmerzreduktion',
+                        icon: '🎯',
+                        difficulty: 'easy',
+                        parentId: 'non-medication-measures'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }
