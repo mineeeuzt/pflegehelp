@@ -23,6 +23,7 @@ import { medicalBasicsCategories } from '../data/categories/medical-basics'
 import { pathologyCategories } from '../data/categories/pathology'
 import { pharmacologyCategories } from '../data/categories/pharmacology'
 import { nursingTheoriesCategories } from '../data/categories/nursing-theories'
+import { nursingLawEthicsCategories } from '../data/categories/nursing-law-ethics'
 
 const QuizLernkarten = () => {
   const {
@@ -344,15 +345,38 @@ const QuizLernkarten = () => {
           <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
         </motion.button>
 
-        {/* Pflegeorganisation & Management */}
+        {/* Pflegerecht & Ethik */}
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 6 * 0.1 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
+          onClick={() => navigateToMain('nursing-law-ethics')}
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32"
+        >
+          <span className="text-4xl flex-shrink-0">⚖️</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-lg font-medium text-gray-900 mb-1">Pflegerecht & Ethik</div>
+            <div className="text-gray-600 text-sm font-light mb-2">Rechtliche und ethische Grundlagen</div>
+            <div className="text-xs text-gray-500">
+              {nursingLawEthicsCategories[0]?.children?.length || 0} Rechtsbereiche • 
+              {nursingLawEthicsCategories[0]?.children?.reduce((total, group) => 
+                total + (group.children?.length || 0), 0)} Kategorien
+            </div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+        </motion.button>
+
+        {/* Pflegeorganisation & Management */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 7 * 0.1 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => navigateToMain('nursing-management')}
-          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32 md:col-span-2 md:max-w-lg md:mx-auto"
+          className="group flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg text-left h-32"
         >
           <span className="text-4xl flex-shrink-0">📋</span>
           <div className="flex-1 min-w-0">
@@ -453,6 +477,28 @@ const QuizLernkarten = () => {
           <CategoryGrid 
             categories={nursingTheoriesCategories[0]?.children || []}
             color="green"
+          />
+        </div>
+      )
+    }
+
+    if (selectedMainCategory === 'nursing-law-ethics') {
+      return (
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <BreadcrumbNav />
+              <h2 className="text-2xl font-light text-gray-900 mb-2">⚖️ Pflegerecht & Ethik</h2>
+              <p className="text-gray-600 font-light">Rechtliche und ethische Grundlagen der Pflege</p>
+            </div>
+            <Button variant="outline" onClick={navigateBack} className="shrink-0">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Zurück
+            </Button>
+          </div>
+          <CategoryGrid 
+            categories={nursingLawEthicsCategories[0]?.children || []}
+            color="red"
           />
         </div>
       )
