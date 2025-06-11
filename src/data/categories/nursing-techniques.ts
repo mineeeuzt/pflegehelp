@@ -3039,6 +3039,418 @@ export const nursingTechniquesCategories: Category[] = [
                 ]
               }
             ]
+          },
+          {
+            id: 'psychiatric-care',
+            name: 'Psychiatrische Pflege',
+            description: 'Spezielle Pflege bei psychischen Erkrankungen',
+            icon: '🧠',
+            difficulty: 'hard',
+            parentId: 'special-care-situations',
+          children: [
+            {
+              id: 'milieu-therapy',
+              name: 'Milieugestaltung',
+              description: 'Gestaltung eines therapeutischen Umfelds',
+              icon: '🏥',
+              difficulty: 'medium',
+              parentId: 'psychiatric-care',
+              children: [
+                {
+                  id: 'therapeutic-milieu',
+                  name: 'Therapeutisches Milieu',
+                  description: 'Schaffung eines heilenden Umfelds',
+                  icon: '🌱',
+                  difficulty: 'medium',
+                  parentId: 'milieu-therapy'
+                },
+                {
+                  id: 'daily-structure',
+                  name: 'Tagesstruktur',
+                  description: 'Strukturierung des Tagesablaufs',
+                  icon: '📅',
+                  difficulty: 'easy',
+                  parentId: 'milieu-therapy'
+                },
+                {
+                  id: 'meaningful-activity',
+                  name: 'Beschäftigung',
+                  description: 'Sinnvolle Aktivitäten und Therapien',
+                  icon: '🎨',
+                  difficulty: 'easy',
+                  parentId: 'milieu-therapy'
+                },
+                {
+                  id: 'retreat-spaces',
+                  name: 'Rückzugsräume',
+                  description: 'Bereitstellung von Ruhe- und Rückzugsmöglichkeiten',
+                  icon: '🏠',
+                  difficulty: 'easy',
+                  parentId: 'milieu-therapy'
+                },
+                {
+                  id: 'safety-measures',
+                  name: 'Sicherheit',
+                  description: 'Gewährleistung der Sicherheit aller Beteiligten',
+                  icon: '🛡️',
+                  difficulty: 'medium',
+                  parentId: 'milieu-therapy'
+                }
+              ]
+            },
+            {
+              id: 'relationship-building',
+              name: 'Beziehungsgestaltung',
+              description: 'Aufbau therapeutischer Beziehungen',
+              icon: '🤝',
+              difficulty: 'hard',
+              parentId: 'psychiatric-care',
+              children: [
+                {
+                  id: 'trust-building',
+                  name: 'Vertrauensaufbau',
+                  description: 'Entwicklung einer vertrauensvollen Beziehung',
+                  icon: '💙',
+                  difficulty: 'medium',
+                  parentId: 'relationship-building'
+                },
+                {
+                  id: 'empathy',
+                  name: 'Empathie',
+                  description: 'Einfühlsames Verstehen und Mitfühlen',
+                  icon: '💚',
+                  difficulty: 'medium',
+                  parentId: 'relationship-building'
+                },
+                {
+                  id: 'boundary-setting',
+                  name: 'Grenzen setzen',
+                  description: 'Professionelle Grenzen definieren und wahren',
+                  icon: '⚖️',
+                  difficulty: 'hard',
+                  parentId: 'relationship-building'
+                },
+                {
+                  id: 'deescalation',
+                  name: 'Deeskalation',
+                  description: 'Beruhigung und Entspannung von Konfliktsituationen',
+                  icon: '🕊️',
+                  difficulty: 'hard',
+                  parentId: 'relationship-building'
+                },
+                {
+                  id: 'primary-nursing-psychiatric',
+                  name: 'Bezugspflege',
+                  description: 'Kontinuierliche Betreuung durch feste Bezugsperson',
+                  icon: '👩‍⚕️',
+                  difficulty: 'medium',
+                  parentId: 'relationship-building'
+                }
+              ]
+            },
+            {
+              id: 'crisis-intervention',
+              name: 'Krisenintervention',
+              description: 'Akute psychiatrische Notfallsituationen',
+              icon: '🚨',
+              difficulty: 'hard',
+              parentId: 'psychiatric-care',
+              children: [
+                {
+                  id: 'suicidality',
+                  name: 'Suizidalität',
+                  description: 'Erkennung und Management von Suizidrisiko',
+                  icon: '⚠️',
+                  difficulty: 'hard',
+                  parentId: 'crisis-intervention'
+                },
+                {
+                  id: 'self-harm',
+                  name: 'Selbstverletzung',
+                  description: 'Umgang mit selbstverletzendem Verhalten',
+                  icon: '🩹',
+                  difficulty: 'hard',
+                  parentId: 'crisis-intervention'
+                },
+                {
+                  id: 'aggression-psychiatric',
+                  name: 'Aggression',
+                  description: 'Management aggressiven Verhaltens',
+                  icon: '⚡',
+                  difficulty: 'hard',
+                  parentId: 'crisis-intervention'
+                },
+                {
+                  id: 'anxiety-panic',
+                  name: 'Angst/Panik',
+                  description: 'Intervention bei Angst- und Panikzuständen',
+                  icon: '😰',
+                  difficulty: 'medium',
+                  parentId: 'crisis-intervention'
+                },
+                {
+                  id: 'psychosis',
+                  name: 'Psychose',
+                  description: 'Umgang mit psychotischen Zuständen',
+                  icon: '🌀',
+                  difficulty: 'hard',
+                  parentId: 'crisis-intervention'
+                }
+              ]
+            },
+            {
+              id: 'special-psychiatric-interventions',
+              name: 'Spezielle Interventionen',
+              description: 'Spezifische therapeutische Maßnahmen',
+              icon: '🎯',
+              difficulty: 'hard',
+              parentId: 'psychiatric-care',
+              children: [
+                {
+                  id: 'adherence-promotion',
+                  name: 'Adhärenzförderung',
+                  description: 'Förderung der Therapietreue',
+                  icon: '💊',
+                  difficulty: 'medium',
+                  parentId: 'special-psychiatric-interventions'
+                },
+                {
+                  id: 'psychoeducation',
+                  name: 'Psychoedukation',
+                  description: 'Aufklärung über Erkrankung und Behandlung',
+                  icon: '📚',
+                  difficulty: 'medium',
+                  parentId: 'special-psychiatric-interventions'
+                },
+                {
+                  id: 'skills-training',
+                  name: 'Skills-Training',
+                  description: 'Training von Bewältigungsfertigkeiten',
+                  icon: '🏋️',
+                  difficulty: 'hard',
+                  parentId: 'special-psychiatric-interventions'
+                },
+                {
+                  id: 'recovery-approach',
+                  name: 'Recovery-Ansatz',
+                  description: 'Fokus auf Genesung und Selbstbestimmung',
+                  icon: '🌟',
+                  difficulty: 'hard',
+                  parentId: 'special-psychiatric-interventions'
+                },
+                {
+                  id: 'family-work',
+                  name: 'Angehörigenarbeit',
+                  description: 'Einbeziehung und Unterstützung der Familie',
+                  icon: '👨‍👩‍👧‍👦',
+                  difficulty: 'medium',
+                  parentId: 'special-psychiatric-interventions'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'pediatric-care',
+          name: 'Pädiatrische Pflege',
+          description: 'Spezielle Pflege von Kindern und Jugendlichen',
+          icon: '🧸',
+          difficulty: 'hard',
+          parentId: 'special-care-situations',
+          children: [
+            {
+              id: 'developmental-care',
+              name: 'Entwicklungsorientierte Pflege',
+              description: 'Altersgerechte und entwicklungsfördernde Pflege',
+              icon: '🌱',
+              difficulty: 'medium',
+              parentId: 'pediatric-care',
+              children: [
+                {
+                  id: 'age-specific-care',
+                  name: 'Altersspezifische Betreuung',
+                  description: 'Anpassung der Pflege an Entwicklungsstand',
+                  icon: '👶',
+                  difficulty: 'medium',
+                  parentId: 'developmental-care'
+                },
+                {
+                  id: 'playful-elements',
+                  name: 'Spielerische Elemente',
+                  description: 'Integration von Spiel und Spaß in die Pflege',
+                  icon: '🎈',
+                  difficulty: 'easy',
+                  parentId: 'developmental-care'
+                },
+                {
+                  id: 'involve-caregivers',
+                  name: 'Bezugspersonen einbeziehen',
+                  description: 'Aktive Einbindung von Eltern und Familie',
+                  icon: '👪',
+                  difficulty: 'medium',
+                  parentId: 'developmental-care'
+                },
+                {
+                  id: 'school-education',
+                  name: 'Schulunterricht',
+                  description: 'Fortsetzung der Bildung während Krankenhausaufenthalt',
+                  icon: '📚',
+                  difficulty: 'easy',
+                  parentId: 'developmental-care'
+                },
+                {
+                  id: 'transition',
+                  name: 'Transition',
+                  description: 'Übergang zwischen verschiedenen Versorgungsebenen',
+                  icon: '🚪',
+                  difficulty: 'medium',
+                  parentId: 'developmental-care'
+                }
+              ]
+            },
+            {
+              id: 'special-pediatric-techniques',
+              name: 'Spezielle Techniken',
+              description: 'Kinderspezifische Pflegetechniken',
+              icon: '🩺',
+              difficulty: 'hard',
+              parentId: 'pediatric-care',
+              children: [
+                {
+                  id: 'medication-dosing',
+                  name: 'Medikamentendosierung',
+                  description: 'Gewichtsadaptierte Dosierung bei Kindern',
+                  icon: '💊',
+                  difficulty: 'hard',
+                  parentId: 'special-pediatric-techniques'
+                },
+                {
+                  id: 'pediatric-pain-assessment',
+                  name: 'Schmerzassessment (KUSS, Wong-Baker)',
+                  description: 'Altersentsprechende Schmerzerfassung',
+                  icon: '😢',
+                  difficulty: 'medium',
+                  parentId: 'special-pediatric-techniques'
+                },
+                {
+                  id: 'fever-management',
+                  name: 'Fiebermanagement',
+                  description: 'Umgang mit Fieber bei Kindern',
+                  icon: '🌡️',
+                  difficulty: 'medium',
+                  parentId: 'special-pediatric-techniques'
+                },
+                {
+                  id: 'infant-nutrition',
+                  name: 'Ernährung (Stillen, Flasche)',
+                  description: 'Säuglingsernährung und Fütterungstechniken',
+                  icon: '🍼',
+                  difficulty: 'medium',
+                  parentId: 'special-pediatric-techniques'
+                },
+                {
+                  id: 'developmental-promotion',
+                  name: 'Entwicklungsförderung',
+                  description: 'Gezielte Förderung der kindlichen Entwicklung',
+                  icon: '🧩',
+                  difficulty: 'medium',
+                  parentId: 'special-pediatric-techniques'
+                }
+              ]
+            },
+            {
+              id: 'family-centered-care',
+              name: 'Familienorientierte Pflege',
+              description: 'Einbeziehung der ganzen Familie in die Pflege',
+              icon: '👨‍👩‍👧‍👦',
+              difficulty: 'medium',
+              parentId: 'pediatric-care',
+              children: [
+                {
+                  id: 'rooming-in',
+                  name: 'Rooming-in',
+                  description: 'Unterbringung der Eltern mit dem Kind',
+                  icon: '🛏️',
+                  difficulty: 'easy',
+                  parentId: 'family-centered-care'
+                },
+                {
+                  id: 'parent-education',
+                  name: 'Elternanleitung',
+                  description: 'Schulung und Anleitung der Eltern',
+                  icon: '👨‍🏫',
+                  difficulty: 'medium',
+                  parentId: 'family-centered-care'
+                },
+                {
+                  id: 'sibling-care',
+                  name: 'Geschwisterbetreuung',
+                  description: 'Berücksichtigung der Geschwisterkinder',
+                  icon: '👧👦',
+                  difficulty: 'medium',
+                  parentId: 'family-centered-care'
+                },
+                {
+                  id: 'coping-support',
+                  name: 'Coping-Unterstützung',
+                  description: 'Hilfe bei der Krankheitsbewältigung',
+                  icon: '💪',
+                  difficulty: 'hard',
+                  parentId: 'family-centered-care'
+                },
+                {
+                  id: 'discharge-management-pediatric',
+                  name: 'Entlassungsmanagement',
+                  description: 'Planung und Vorbereitung der Entlassung',
+                  icon: '🏠',
+                  difficulty: 'medium',
+                  parentId: 'family-centered-care'
+                }
+              ]
+            },
+            {
+              id: 'child-protection',
+              name: 'Kinderschutz',
+              description: 'Schutz des Kindeswohls',
+              icon: '🛡️',
+              difficulty: 'hard',
+              parentId: 'pediatric-care',
+              children: [
+                {
+                  id: 'child-welfare-endangerment',
+                  name: 'Kindeswohlgefährdung',
+                  description: 'Erkennung und Beurteilung von Gefährdungslagen',
+                  icon: '⚠️',
+                  difficulty: 'hard',
+                  parentId: 'child-protection'
+                },
+                {
+                  id: 'protection-documentation',
+                  name: 'Dokumentation',
+                  description: 'Sorgfältige Dokumentation bei Verdachtsfällen',
+                  icon: '📝',
+                  difficulty: 'medium',
+                  parentId: 'child-protection'
+                },
+                {
+                  id: 'reporting-obligation',
+                  name: 'Meldepflicht',
+                  description: 'Rechtliche Verpflichtungen zur Meldung',
+                  icon: '📞',
+                  difficulty: 'hard',
+                  parentId: 'child-protection'
+                },
+                {
+                  id: 'interdisciplinary-collaboration',
+                  name: 'Interdisziplinäre Zusammenarbeit',
+                  description: 'Kooperation mit anderen Berufsgruppen',
+                  icon: '🤝',
+                  difficulty: 'medium',
+                  parentId: 'child-protection'
+                }
+              ]
+            }
+          ]
           }
         ]
       }
