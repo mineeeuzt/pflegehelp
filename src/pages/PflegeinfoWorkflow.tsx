@@ -57,6 +57,7 @@ const PflegeinfoWorkflow = () => {
   const handleEvaluate = async () => {
     if (!user) return
 
+    console.log('Starting Pflegeinfo evaluation...')
     setIsLoading(true)
     setError('')
     setResult(null)
@@ -110,12 +111,16 @@ const PflegeinfoWorkflow = () => {
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1))
 
   const getCurrentFieldValue = () => {
-    const currentField = steps[currentStep - 1]?.field as keyof PflegeinfoInput
+    const step = steps[currentStep - 1]
+    if (!step) return ''
+    const currentField = step.field as keyof PflegeinfoInput
     return input[currentField] || ''
   }
 
   const updateCurrentField = (value: string) => {
-    const currentField = steps[currentStep - 1]?.field as keyof PflegeinfoInput
+    const step = steps[currentStep - 1]
+    if (!step) return
+    const currentField = step.field as keyof PflegeinfoInput
     setInput(prev => ({ ...prev, [currentField]: value }))
   }
 
@@ -391,12 +396,12 @@ const PflegeinfoWorkflow = () => {
             {/* Active Progress Line */}
             <div 
               className="absolute top-1/2 left-0 h-px bg-slate-700 transform -translate-y-1/2 transition-all duration-500"
-              style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+              style={{ width: `${steps.length > 1 ? ((currentStep - 1) / (steps.length - 1)) * 100 : 0}%` }}
             />
             
             {/* Step Dots */}
             <div className="flex justify-between relative">
-              {steps.map((step, index) => {
+              {steps && steps.length > 0 && steps.map((step, index) => {
                 const isActive = currentStep === step.number
                 const isCompleted = currentStep > step.number
                 
@@ -441,10 +446,10 @@ const PflegeinfoWorkflow = () => {
           
           <div className="text-center">
             <p className="text-sm text-gray-500 mb-1">
-              Schritt {currentStep} von {steps.length}
+              Schritt {currentStep} von {steps?.length || 3}
             </p>
             <h2 className="text-2xl font-light text-gray-900">
-              {steps[currentStep - 1]?.description}
+              {steps && steps[currentStep - 1]?.description || 'Lädt...'}
             </h2>
           </div>
         </div>
@@ -462,13 +467,13 @@ const PflegeinfoWorkflow = () => {
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <FileCheck className="h-5 w-5 mr-2" />
-                  {steps[currentStep - 1]?.title}
+                  {steps && steps[currentStep - 1]?.title || 'Schritt'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <textarea
                   className="w-full p-4 border border-gray-300 rounded-lg min-h-[200px] focus:ring-2 focus:ring-slate-500 focus:border-slate-500"
-                  placeholder={`Beschreiben Sie hier Ihre ${steps[currentStep - 1]?.title.toLowerCase()}...`}
+                  placeholder={`Beschreiben Sie hier Ihre ${steps && steps[currentStep - 1]?.title?.toLowerCase() || 'Eingabe'}...`}
                   value={getCurrentFieldValue()}
                   onChange={(e) => updateCurrentField(e.target.value)}
                 />
