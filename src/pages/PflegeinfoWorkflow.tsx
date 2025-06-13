@@ -234,7 +234,7 @@ const PflegeinfoWorkflow = () => {
             {/* Active Progress Line */}
             <div 
               className="absolute top-1/2 left-0 h-px bg-slate-700 transform -translate-y-1/2 transition-all duration-500"
-              style={{ width: `${steps.length > 1 ? ((currentStep - 1) / (steps.length - 1)) * 100 : 0}%` }}
+              style={{ width: `${steps && steps.length > 1 ? ((currentStep - 1) / (steps.length - 1)) * 100 : 0}%` }}
             />
             
             {/* Step Dots */}
