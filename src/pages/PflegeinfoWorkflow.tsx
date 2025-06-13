@@ -68,19 +68,25 @@ const PflegeinfoWorkflow = () => {
       
       // Try to parse as JSON first (structured response)
       try {
-        const parsedResult = JSON.parse(response)
-        console.log('Parsed Result:', parsedResult)
-        
-        if (parsedResult && typeof parsedResult === 'object' && parsedResult.gesamtbewertung !== undefined) {
-          // Validate the structure
-          if (!parsedResult.feedback || typeof parsedResult.feedback !== 'object') {
-            console.error('Invalid feedback structure:', parsedResult)
-            setResult(response)
+        // Check if response is truncated JSON
+        if (response.trim().endsWith('}')) {
+          const parsedResult = JSON.parse(response)
+          console.log('Parsed Result:', parsedResult)
+          
+          if (parsedResult && typeof parsedResult === 'object' && parsedResult.gesamtbewertung !== undefined) {
+            // Validate the structure
+            if (!parsedResult.feedback || typeof parsedResult.feedback !== 'object') {
+              console.error('Invalid feedback structure:', parsedResult)
+              setResult(response)
+            } else {
+              setResult(parsedResult as PflegeinfoBewertungsResult)
+            }
           } else {
-            setResult(parsedResult as PflegeinfoBewertungsResult)
+            setResult(response)
           }
         } else {
-          setResult(response)
+          console.warn('Response appears truncated, using as text:', response)
+          setResult(response + '\n\n[Antwort wurde möglicherweise abgeschnitten - versuchen Sie es erneut]')
         }
       } catch (parseError) {
         console.log('Parse error, using as string:', parseError)
