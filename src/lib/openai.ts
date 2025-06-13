@@ -688,13 +688,14 @@ export async function generateAIResponse(
   
   // Spezielle Behandlung für Pflegeinfo-Bewertung
   if (prompt.includes('pflegeinfo')) {
-    if (!pflegeinfoOpenai) {
-      console.warn('Pflegeinfo OpenAI API ist nicht konfiguriert. Verwende Mock-Implementierung.')
+    // Verwende speziellen Pflegeinfo-Client ODER Fallback auf normalen Client
+    const aiClient = pflegeinfoOpenai || openai
+    
+    if (!aiClient) {
+      console.warn('Keine OpenAI API konfiguriert. Verwende Mock-Implementierung.')
       const mockModule = await import('./openai-mock')
       return mockModule.generateAIResponse(prompt, userInput)
     }
-    // Verwende speziellen Pflegeinfo-Client
-    const aiClient = pflegeinfoOpenai
     
     try {
       const completion = await aiClient.chat.completions.create({
