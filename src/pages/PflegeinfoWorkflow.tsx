@@ -63,20 +63,31 @@ const PflegeinfoWorkflow = () => {
 
     try {
       const response = await caseService.evaluatePflegeinfo(input, user.id)
+      console.log('Pflegeinfo Response:', response)
       
       // Try to parse as JSON first (structured response)
       try {
         const parsedResult = JSON.parse(response)
+        console.log('Parsed Result:', parsedResult)
+        
         if (parsedResult && typeof parsedResult === 'object' && parsedResult.gesamtbewertung !== undefined) {
-          setResult(parsedResult as PflegeinfoBewertungsResult)
+          // Validate the structure
+          if (!parsedResult.feedback || typeof parsedResult.feedback !== 'object') {
+            console.error('Invalid feedback structure:', parsedResult)
+            setResult(response)
+          } else {
+            setResult(parsedResult as PflegeinfoBewertungsResult)
+          }
         } else {
           setResult(response)
         }
-      } catch {
+      } catch (parseError) {
+        console.log('Parse error, using as string:', parseError)
         // If parsing fails, use as string
         setResult(response)
       }
     } catch (error) {
+      console.error('Error in evaluatePflegeinfo:', error)
       setError(error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten')
     } finally {
       setIsLoading(false)
@@ -173,6 +184,7 @@ const PflegeinfoWorkflow = () => {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
+                      {feedback && (
                       <div className="space-y-4">
                         {feedback?.positiv && Array.isArray(feedback.positiv) && feedback.positiv.length > 0 && (
                           <div>
@@ -205,9 +217,10 @@ const PflegeinfoWorkflow = () => {
                         )}
                         
                         <div className="border-t pt-3">
-                          <p className="text-sm text-gray-600 italic">{feedback.note}</p>
+                          <p className="text-sm text-gray-600 italic">{feedback?.note || ''}</p>
                         </div>
                       </div>
+                      )}
                     </CardContent>
                   </Card>
                 ))}
