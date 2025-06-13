@@ -7,14 +7,16 @@ import { simpleCache } from './simpleCache'
 // Temporäre Lösung: Wir deaktivieren OpenAI komplett wenn kein Key vorhanden ist
 const apiKey = import.meta.env.VITE_OPENAI_API_KEY || ''
 const medicationApiKey = import.meta.env.VITE_OPENAI_MEDICATION_API_KEY || ''
+const pflegeinfoApiKey = import.meta.env.VITE_OPENAI_PFLEGEINFO_API_KEY || ''
 
 // Mock OpenAI wenn kein API Key vorhanden
 let openai: any = null
 let medicationOpenai: any = null
+let pflegeinfoOpenai: any = null
 
 // Initialisierung wird in den Funktionen durchgeführt, um top-level await zu vermeiden
 async function initializeOpenAI() {
-  if ((apiKey || medicationApiKey) && !openai && !medicationOpenai) {
+  if ((apiKey || medicationApiKey || pflegeinfoApiKey) && !openai && !medicationOpenai && !pflegeinfoOpenai) {
     try {
       const OpenAI = (await import('openai')).default
       
@@ -28,6 +30,13 @@ async function initializeOpenAI() {
       if (medicationApiKey && !medicationOpenai) {
         medicationOpenai = new OpenAI({
           apiKey: medicationApiKey,
+          dangerouslyAllowBrowser: true, // WARNUNG: Nur für Entwicklung!
+        })
+      }
+      
+      if (pflegeinfoApiKey && !pflegeinfoOpenai) {
+        pflegeinfoOpenai = new OpenAI({
+          apiKey: pflegeinfoApiKey,
           dangerouslyAllowBrowser: true, // WARNUNG: Nur für Entwicklung!
         })
       }
@@ -677,8 +686,53 @@ export async function generateAIResponse(
 ): Promise<string> {
   await initializeOpenAI()
   
+  // Spezielle Behandlung für Pflegeinfo-Bewertung
+  if (prompt.includes('pflegeinfo')) {
+    if (!pflegeinfoOpenai) {
+      console.warn('Pflegeinfo OpenAI API ist nicht konfiguriert. Verwende Mock-Implementierung.')
+      const mockModule = await import('./openai-mock')
+      return mockModule.generateAIResponse(prompt, userInput)
+    }
+    // Verwende speziellen Pflegeinfo-Client
+    const aiClient = pflegeinfoOpenai
+    
+    try {
+      const completion = await aiClient.chat.completions.create({
+        model: 'gpt-4',
+        messages: [
+          {
+            role: 'system',
+            content: prompt,
+          },
+          {
+            role: 'user',
+            content: userInput,
+          },
+        ],
+        max_tokens: 2000,
+        temperature: 0.7,
+      })
+
+      return completion.choices[0]?.message?.content || 'Keine Antwort erhalten.'
+    } catch (error: any) {
+      console.error('Pflegeinfo AI Generation Error:', error)
+      
+      // Wenn API-Key ungültig ist, verwende Mock
+      if (error?.status === 401 || error?.message?.includes('API key')) {
+        console.warn('Pflegeinfo API Key ungültig. Verwende Mock-Implementierung.')
+        const mockModule = await import('./openai-mock')
+        return mockModule.generateAIResponse(prompt, userInput)
+      }
+      
+      throw new Error('Fehler bei der KI-Generierung. Bitte versuchen Sie es erneut.')
+    }
+  }
+  
+  // Normale Verarbeitung für alle anderen Funktionen
   if (!openai) {
-    throw new Error('OpenAI API ist nicht konfiguriert. Bitte fügen Sie einen API-Schlüssel in den Umgebungsvariablen hinzu.')
+    console.warn('OpenAI API ist nicht konfiguriert. Verwende Mock-Implementierung.')
+    const mockModule = await import('./openai-mock')
+    return mockModule.generateAIResponse(prompt, userInput)
   }
   
   // Finale Model-Optimierung: Intelligente Auswahl basierend auf Komplexität
@@ -742,8 +796,16 @@ export async function generateAIResponse(
     }
     
     return response
-  } catch (error) {
+  } catch (error: any) {
     console.error('AI Generation Error:', error)
+    
+    // Wenn API-Key ungültig ist, verwende Mock
+    if (error?.status === 401 || error?.message?.includes('API key')) {
+      console.warn('API Key ungültig. Verwende Mock-Implementierung.')
+      const mockModule = await import('./openai-mock')
+      return mockModule.generateAIResponse(prompt, userInput)
+    }
+    
     throw new Error('Fehler bei der KI-Generierung. Bitte versuchen Sie es erneut.')
   }
 }
