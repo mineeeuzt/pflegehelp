@@ -128,7 +128,7 @@ const PflegeinfoWorkflow = () => {
             </h1>
           </motion.div>
 
-          {isStructured ? (
+          {isStructured && (result as PflegeinfoBewertungsResult).feedback ? (
             // Structured Display (like PflegeplanungBewertung)
             <div className="space-y-6">
               {/* Overall Score */}
@@ -154,8 +154,8 @@ const PflegeinfoWorkflow = () => {
 
               {/* Detailed Feedback */}
               <div className="grid gap-6">
-                {Object.entries((result as PflegeinfoBewertungsResult).feedback).map(([key, feedback]) => (
-                  <Card key={key} className={`border ${getScoreColor(feedback.score)}`}>
+                {(result as PflegeinfoBewertungsResult).feedback && Object.entries((result as PflegeinfoBewertungsResult).feedback).map(([key, feedback]) => feedback && (
+                  <Card key={key} className={`border ${getScoreColor(feedback?.score || 0)}`}>
                     <CardHeader>
                       <CardTitle className="flex items-center justify-between">
                         <span className="capitalize">
@@ -167,14 +167,14 @@ const PflegeinfoWorkflow = () => {
                            key === 'rechtliches' ? 'Rechtliches' : key}
                         </span>
                         <div className="flex items-center space-x-2">
-                          <span className="text-sm font-medium">{feedback.score}%</span>
-                          {getScoreIcon(feedback.score)}
+                          <span className="text-sm font-medium">{feedback?.score || 0}%</span>
+                          {getScoreIcon(feedback?.score || 0)}
                         </div>
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
-                        {feedback.positiv && feedback.positiv.length > 0 && (
+                        {feedback?.positiv && Array.isArray(feedback.positiv) && feedback.positiv.length > 0 && (
                           <div>
                             <h4 className="font-medium text-green-800 mb-2">Positive Aspekte:</h4>
                             <ul className="list-disc list-inside text-green-700 space-y-1">
@@ -185,7 +185,7 @@ const PflegeinfoWorkflow = () => {
                           </div>
                         )}
                         
-                        {feedback.fehler && feedback.fehler.length > 0 && (
+                        {feedback?.fehler && Array.isArray(feedback.fehler) && feedback.fehler.length > 0 && (
                           <div>
                             <h4 className="font-medium text-red-800 mb-2">Verbesserungsmöglichkeiten:</h4>
                             <div className="space-y-3">
@@ -214,7 +214,7 @@ const PflegeinfoWorkflow = () => {
               </div>
 
               {/* Main Problems */}
-              {(result as PflegeinfoBewertungsResult).hauptprobleme && (result as PflegeinfoBewertungsResult).hauptprobleme.length > 0 && (
+              {(result as PflegeinfoBewertungsResult).hauptprobleme && Array.isArray((result as PflegeinfoBewertungsResult).hauptprobleme) && (result as PflegeinfoBewertungsResult).hauptprobleme.length > 0 && (
                 <Card className="border-2 border-yellow-100">
                   <CardHeader>
                     <CardTitle className="flex items-center">
