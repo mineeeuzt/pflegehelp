@@ -57,44 +57,15 @@ const PflegeinfoWorkflow = () => {
   const handleEvaluate = async () => {
     if (!user) return
 
-    console.log('Starting Pflegeinfo evaluation...')
     setIsLoading(true)
     setError('')
     setResult(null)
 
     try {
       const response = await caseService.evaluatePflegeinfo(input, user.id)
-      console.log('Pflegeinfo Response:', response)
-      
-      // Try to parse as JSON first (structured response)
-      try {
-        // Check if response is truncated JSON
-        if (response.trim().endsWith('}')) {
-          const parsedResult = JSON.parse(response)
-          console.log('Parsed Result:', parsedResult)
-          
-          if (parsedResult && typeof parsedResult === 'object' && parsedResult.gesamtbewertung !== undefined) {
-            // Validate the structure
-            if (!parsedResult.feedback || typeof parsedResult.feedback !== 'object') {
-              console.error('Invalid feedback structure:', parsedResult)
-              setResult(response)
-            } else {
-              setResult(parsedResult as PflegeinfoBewertungsResult)
-            }
-          } else {
-            setResult(response)
-          }
-        } else {
-          console.warn('Response appears truncated, using as text:', response)
-          setResult(response + '\n\n[Antwort wurde möglicherweise abgeschnitten - versuchen Sie es erneut]')
-        }
-      } catch (parseError) {
-        console.log('Parse error, using as string:', parseError)
-        // If parsing fails, use as string
-        setResult(response)
-      }
+      // EINFACH: Immer als String anzeigen, keine JSON-Parsing-Probleme
+      setResult(response)
     } catch (error) {
-      console.error('Error in evaluatePflegeinfo:', error)
       setError(error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten')
     } finally {
       setIsLoading(false)
@@ -132,171 +103,32 @@ const PflegeinfoWorkflow = () => {
 
   const canEvaluate = input.dokumentation.trim() !== ''
 
-  // Results Display - handles both string and structured responses
+  // EINFACHE Results Display - nur Text, keine komplexe UI
   if (result) {
-    const isStructured = typeof result === 'object' && result.gesamtbewertung !== undefined
-    const resultText = typeof result === 'string' ? result : JSON.stringify(result, null, 2)
-    
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto px-6 py-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12">
             <h1 className="text-4xl font-light text-gray-900 mb-4">
               KI-Bewertung Ihrer Pflegedokumentation
             </h1>
-          </motion.div>
+          </div>
 
-          {isStructured && (result as PflegeinfoBewertungsResult).feedback ? (
-            // Structured Display (like PflegeplanungBewertung)
-            <div className="space-y-6">
-              {/* Overall Score */}
-              <Card className="border-2 border-slate-100">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Brain className="h-5 w-5 mr-2 text-slate-600" />
-                    Gesamtbewertung
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="text-4xl font-light text-slate-700">
-                      {(result as PflegeinfoBewertungsResult).gesamtbewertung}%
-                    </div>
-                    {getScoreIcon((result as PflegeinfoBewertungsResult).gesamtbewertung)}
-                  </div>
-                  <p className="text-gray-700 leading-relaxed">
-                    {(result as PflegeinfoBewertungsResult).bewertungBegruendung}
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* Detailed Feedback */}
-              <div className="grid gap-6">
-                {(result as PflegeinfoBewertungsResult).feedback && Object.entries((result as PflegeinfoBewertungsResult).feedback).map(([key, feedback]) => feedback && (
-                  <Card key={key} className={`border ${getScoreColor(feedback?.score || 0)}`}>
-                    <CardHeader>
-                      <CardTitle className="flex items-center justify-between">
-                        <span className="capitalize">
-                          {key === 'dokumentation' ? 'Dokumentation' :
-                           key === 'pflegemassnahmen' ? 'Pflegemaßnahmen' :
-                           key === 'beobachtungen' ? 'Beobachtungen' :
-                           key === 'struktur' ? 'Struktur' :
-                           key === 'fachlichkeit' ? 'Fachlichkeit' :
-                           key === 'rechtliches' ? 'Rechtliches' : key}
-                        </span>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-sm font-medium">{feedback?.score || 0}%</span>
-                          {getScoreIcon(feedback?.score || 0)}
-                        </div>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      {feedback && (
-                      <div className="space-y-4">
-                        {feedback?.positiv && Array.isArray(feedback.positiv) && feedback.positiv.length > 0 && (
-                          <div>
-                            <h4 className="font-medium text-green-800 mb-2">Positive Aspekte:</h4>
-                            <ul className="list-disc list-inside text-green-700 space-y-1">
-                              {feedback.positiv.map((item, index) => (
-                                <li key={index} className="text-sm">{item}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                        
-                        {feedback?.fehler && Array.isArray(feedback.fehler) && feedback.fehler.length > 0 && (
-                          <div>
-                            <h4 className="font-medium text-red-800 mb-2">Verbesserungsmöglichkeiten:</h4>
-                            <div className="space-y-3">
-                              {feedback.fehler.map((fehler, index) => (
-                                <div key={index} className="bg-red-50 border border-red-200 p-3 rounded">
-                                  <p className="text-sm text-red-900 font-medium mb-1">{fehler.problem}</p>
-                                  <p className="text-sm text-red-700">{fehler.korrektur}</p>
-                                  {fehler.zitat && (
-                                    <p className="text-xs text-red-600 mt-2 italic">
-                                      Bezug: "{fehler.zitat}"
-                                    </p>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        
-                        <div className="border-t pt-3">
-                          <p className="text-sm text-gray-600 italic">{feedback?.note || ''}</p>
-                        </div>
-                      </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle>KI-Bewertung</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
+                {result}
               </div>
-
-              {/* Main Problems */}
-              {(result as PflegeinfoBewertungsResult).hauptprobleme && Array.isArray((result as PflegeinfoBewertungsResult).hauptprobleme) && (result as PflegeinfoBewertungsResult).hauptprobleme.length > 0 && (
-                <Card className="border-2 border-yellow-100">
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <AlertCircle className="h-5 w-5 mr-2 text-yellow-600" />
-                      Hauptverbesserungsfelder
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="list-disc list-inside space-y-2">
-                      {(result as PflegeinfoBewertungsResult).hauptprobleme.map((problem, index) => (
-                        <li key={index} className="text-gray-700">{problem}</li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Recommendation */}
-              <Card className="border-2 border-blue-100">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <CheckCircle className="h-5 w-5 mr-2 text-blue-600" />
-                    Empfehlung
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700 leading-relaxed">
-                    {(result as PflegeinfoBewertungsResult).empfehlung}
-                  </p>
-                  <div className="mt-4 flex items-center">
-                    <span className="text-sm font-medium mr-2">Mindestanforderung erfüllt:</span>
-                    {(result as PflegeinfoBewertungsResult).mindestanforderungErfuellt ? (
-                      <span className="text-green-600 font-medium">✓ Ja</span>
-                    ) : (
-                      <span className="text-red-600 font-medium">✗ Nein</span>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ) : (
-            // Simple Text Display (fallback)
-            <Card className="mb-8">
-              <CardHeader>
-                <CardTitle>KI-Bewertung</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
-                  {resultText}
-                </div>
-              </CardContent>
-            </Card>
-          )}
+            </CardContent>
+          </Card>
 
           <div className="text-center space-y-4 mt-8">
             <Button
               onClick={() => {
-                navigator.clipboard.writeText(resultText)
+                navigator.clipboard.writeText(result as string)
               }}
               variant="outline"
               className="border-gray-300 hover:border-gray-400 text-gray-700 mr-4"
