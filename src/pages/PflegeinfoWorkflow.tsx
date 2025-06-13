@@ -43,7 +43,7 @@ const PflegeinfoWorkflow = () => {
     pflegemassnahmen: '',
     beobachtungen: ''
   })
-  const [result, setResult] = useState<PflegeinfoBewertungsResult | null>(null)
+  const [result, setResult] = useState<string | PflegeinfoBewertungsResult | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -53,131 +53,6 @@ const PflegeinfoWorkflow = () => {
     { number: 3, title: 'Beobachtungen', field: 'beobachtungen', description: 'Beobachtungen und Verlauf festhalten' }
   ]
 
-  const mockStructuredEvaluate = (): PflegeinfoBewertungsResult => {
-    return {
-      gesamtbewertung: 72,
-      bewertungBegruendung: "Die Pflegedokumentation zeigt solide Grundlagen mit guten Ansätzen in der Beschreibung der Pflegesituation. Es gibt jedoch Verbesserungspotential in der Strukturierung und fachlichen Tiefe.",
-      feedback: {
-        dokumentation: {
-          score: 75,
-          eingereichtText: input.dokumentation,
-          positiv: [
-            "Chronologische Darstellung erkennbar",
-            "Wichtige Patientendaten erfasst",
-            "Lesbare Struktur vorhanden"
-          ],
-          fehler: [
-            {
-              zitat: input.dokumentation.substring(0, 80) + "...",
-              problem: "Objektive und subjektive Befunde vermischt",
-              korrektur: "Trennen Sie objektive Beobachtungen von subjektiven Äußerungen des Patienten"
-            }
-          ],
-          note: "Grundlegende Dokumentation mit Verbesserungspotential bei der Struktur"
-        },
-        pflegemassnahmen: {
-          score: input.pflegemassnahmen ? 68 : 50,
-          eingereichtText: input.pflegemassnahmen || "(Nicht angegeben)",
-          positiv: input.pflegemassnahmen ? [
-            "Maßnahmen erkennbar beschrieben",
-            "Praktische Durchführung berücksichtigt"
-          ] : [],
-          fehler: input.pflegemassnahmen ? [
-            {
-              zitat: input.pflegemassnahmen?.substring(0, 60) + "...",
-              problem: "Zeitangaben bei Maßnahmen fehlen",
-              korrektur: "Geben Sie konkrete Zeitpunkte und Häufigkeiten für Pflegemaßnahmen an"
-            }
-          ] : [
-            {
-              zitat: "Keine Pflegemaßnahmen dokumentiert",
-              problem: "Vollständige Dokumentation erforderlich",
-              korrektur: "Dokumentieren Sie alle durchgeführten Pflegemaßnahmen detailliert"
-            }
-          ],
-          note: input.pflegemassnahmen ? "Maßnahmen dokumentiert, Präzision bei Zeitangaben verbessern" : "Pflegemaßnahmen fehlen in der Dokumentation"
-        },
-        beobachtungen: {
-          score: input.beobachtungen ? 70 : 45,
-          eingereichtText: input.beobachtungen || "(Nicht angegeben)",
-          positiv: input.beobachtungen ? [
-            "Beobachtungen werden festgehalten",
-            "Verlaufsdokumentation erkennbar"
-          ] : [],
-          fehler: input.beobachtungen ? [
-            {
-              zitat: input.beobachtungen?.substring(0, 60) + "...",
-              problem: "Messbare Parameter fehlen",
-              korrektur: "Ergänzen Sie messbare Werte wie Vitalzeichen, Schmerzskala, etc."
-            }
-          ] : [
-            {
-              zitat: "Keine Beobachtungen dokumentiert",
-              problem: "Verlaufsbeobachtung fehlt",
-              korrektur: "Dokumentieren Sie systematische Beobachtungen und Veränderungen"
-            }
-          ],
-          note: input.beobachtungen ? "Beobachtungen vorhanden, messbare Parameter ergänzen" : "Systematische Beobachtungsdokumentation fehlt"
-        },
-        struktur: {
-          score: 65,
-          eingereichtText: "Gesamte Dokumentationsstruktur",
-          positiv: [
-            "Grundlegende Struktur erkennbar",
-            "Thematische Zuordnung teilweise vorhanden"
-          ],
-          fehler: [
-            {
-              zitat: "Dokumentationsstruktur",
-              problem: "Keine einheitliche Dokumentationsstandards",
-              korrektur: "Verwenden Sie einheitliche Strukturen wie ABEDL oder andere Pflegemodelle"
-            }
-          ],
-          note: "Struktur ausbaufähig, Standards implementieren"
-        },
-        fachlichkeit: {
-          score: 70,
-          eingereichtText: "Fachliche Inhalte der Dokumentation",
-          positiv: [
-            "Fachterminologie teilweise korrekt verwendet",
-            "Pflegerelevante Aspekte erkannt"
-          ],
-          fehler: [
-            {
-              zitat: "Fachliche Beschreibungen",
-              problem: "Unvollständige Pflegediagnosen",
-              korrektur: "Ergänzen Sie strukturierte Pflegediagnosen nach anerkannten Standards"
-            }
-          ],
-          note: "Fachliche Grundlagen vorhanden, Vertiefung erforderlich"
-        },
-        rechtliches: {
-          score: 75,
-          eingereichtText: "Rechtliche Aspekte der Dokumentation",
-          positiv: [
-            "Dokumentation grundsätzlich nachvollziehbar",
-            "Keine offensichtlichen rechtlichen Mängel"
-          ],
-          fehler: [
-            {
-              zitat: "Rechtliche Dokumentation",
-              problem: "Unterschriften und Zeitstempel prüfen",
-              korrektur: "Stellen Sie sicher, dass alle Einträge mit Zeit und Unterschrift versehen sind"
-            }
-          ],
-          note: "Rechtliche Grundlagen beachtet, Vollständigkeit prüfen"
-        }
-      },
-      hauptprobleme: [
-        "Strukturierung nach Pflegemodellen fehlt",
-        "Messbare Parameter unvollständig",
-        "Pflegediagnosen nicht systematisch formuliert",
-        "Zeitangaben bei Maßnahmen ungenau"
-      ],
-      mindestanforderungErfuellt: true,
-      empfehlung: "Grundsolide Dokumentation - Strukturierung nach ABEDL/Pflegemodellen und Ergänzung messbarer Parameter empfohlen"
-    }
-  }
 
   const handleEvaluate = async () => {
     if (!user) return
@@ -187,10 +62,20 @@ const PflegeinfoWorkflow = () => {
     setResult(null)
 
     try {
-      // Use mock evaluation for now to ensure functionality  
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      const evaluation = mockStructuredEvaluate()
-      setResult(evaluation)
+      const response = await caseService.evaluatePflegeinfo(input, user.id)
+      
+      // Try to parse as JSON first (structured response)
+      try {
+        const parsedResult = JSON.parse(response)
+        if (parsedResult && typeof parsedResult === 'object' && parsedResult.gesamtbewertung !== undefined) {
+          setResult(parsedResult as PflegeinfoBewertungsResult)
+        } else {
+          setResult(response)
+        }
+      } catch {
+        // If parsing fails, use as string
+        setResult(response)
+      }
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten')
     } finally {
@@ -198,12 +83,6 @@ const PflegeinfoWorkflow = () => {
     }
   }
 
-  const handleCopy = () => {
-    if (result) {
-      const resultText = `Bewertung der Pflegedokumentation\n\nGesamtbewertung: ${result.gesamtbewertung}%\n\n${result.bewertungBegruendung}\n\nEmpfehlung: ${result.empfehlung}\n\nHauptverbesserungsbereiche:\n${result.hauptprobleme.map(p => `- ${p}`).join('\n')}`
-      navigator.clipboard.writeText(resultText)
-    }
-  }
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-slate-600 bg-slate-50'
@@ -231,8 +110,11 @@ const PflegeinfoWorkflow = () => {
 
   const canEvaluate = input.dokumentation.trim() !== ''
 
-  // Structured Results Display
+  // Results Display - handles both string and structured responses
   if (result) {
+    const isStructured = typeof result === 'object' && result.gesamtbewertung !== undefined
+    const resultText = typeof result === 'string' ? result : JSON.stringify(result, null, 2)
+    
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto px-6 py-12">
@@ -246,101 +128,152 @@ const PflegeinfoWorkflow = () => {
             </h1>
           </motion.div>
 
-          {/* Gesamtbewertung */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span>Gesamtbewertung</span>
-                <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${getScoreColor(result.gesamtbewertung)}`}>
-                  {getScoreIcon(result.gesamtbewertung)}
-                  <span className="font-bold">{result.gesamtbewertung}%</span>
-                </div>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700 mb-4">{result.bewertungBegruendung}</p>
-              <p className="text-slate-600 font-medium">Empfehlung: {result.empfehlung}</p>
-            </CardContent>
-          </Card>
+          {isStructured ? (
+            // Structured Display (like PflegeplanungBewertung)
+            <div className="space-y-6">
+              {/* Overall Score */}
+              <Card className="border-2 border-slate-100">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Brain className="h-5 w-5 mr-2 text-slate-600" />
+                    Gesamtbewertung
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="text-4xl font-light text-slate-700">
+                      {(result as PflegeinfoBewertungsResult).gesamtbewertung}%
+                    </div>
+                    {getScoreIcon((result as PflegeinfoBewertungsResult).gesamtbewertung)}
+                  </div>
+                  <p className="text-gray-700 leading-relaxed">
+                    {(result as PflegeinfoBewertungsResult).bewertungBegruendung}
+                  </p>
+                </CardContent>
+              </Card>
 
-          {/* Bereichsbewertungen */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {Object.entries(result.feedback).map(([bereich, bewertung]) => {
-              const bereichNames: Record<string, string> = {
-                dokumentation: 'Dokumentation',
-                pflegemassnahmen: 'Pflegemaßnahmen',
-                beobachtungen: 'Beobachtungen',
-                struktur: 'Struktur',
-                fachlichkeit: 'Fachlichkeit',
-                rechtliches: 'Rechtliche Aspekte'
-              }
-              
-              return (
-                <Card key={bereich} className="border border-gray-200">
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between text-lg">
-                      <span>{bereichNames[bereich] || bereich}</span>
-                      <div className={`flex items-center space-x-2 px-3 py-1 rounded-lg ${getScoreColor(bewertung.score)}`}>
-                        {getScoreIcon(bewertung.score)}
-                        <span className="font-bold text-sm">{bewertung.score}%</span>
+              {/* Detailed Feedback */}
+              <div className="grid gap-6">
+                {Object.entries((result as PflegeinfoBewertungsResult).feedback).map(([key, feedback]) => (
+                  <Card key={key} className={`border ${getScoreColor(feedback.score)}`}>
+                    <CardHeader>
+                      <CardTitle className="flex items-center justify-between">
+                        <span className="capitalize">
+                          {key === 'dokumentation' ? 'Dokumentation' :
+                           key === 'pflegemassnahmen' ? 'Pflegemaßnahmen' :
+                           key === 'beobachtungen' ? 'Beobachtungen' :
+                           key === 'struktur' ? 'Struktur' :
+                           key === 'fachlichkeit' ? 'Fachlichkeit' :
+                           key === 'rechtliches' ? 'Rechtliches' : key}
+                        </span>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-sm font-medium">{feedback.score}%</span>
+                          {getScoreIcon(feedback.score)}
+                        </div>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {feedback.positiv && feedback.positiv.length > 0 && (
+                          <div>
+                            <h4 className="font-medium text-green-800 mb-2">Positive Aspekte:</h4>
+                            <ul className="list-disc list-inside text-green-700 space-y-1">
+                              {feedback.positiv.map((item, index) => (
+                                <li key={index} className="text-sm">{item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        
+                        {feedback.fehler && feedback.fehler.length > 0 && (
+                          <div>
+                            <h4 className="font-medium text-red-800 mb-2">Verbesserungsmöglichkeiten:</h4>
+                            <div className="space-y-3">
+                              {feedback.fehler.map((fehler, index) => (
+                                <div key={index} className="bg-red-50 border border-red-200 p-3 rounded">
+                                  <p className="text-sm text-red-900 font-medium mb-1">{fehler.problem}</p>
+                                  <p className="text-sm text-red-700">{fehler.korrektur}</p>
+                                  {fehler.zitat && (
+                                    <p className="text-xs text-red-600 mt-2 italic">
+                                      Bezug: "{fehler.zitat}"
+                                    </p>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        <div className="border-t pt-3">
+                          <p className="text-sm text-gray-600 italic">{feedback.note}</p>
+                        </div>
                       </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Main Problems */}
+              {(result as PflegeinfoBewertungsResult).hauptprobleme && (result as PflegeinfoBewertungsResult).hauptprobleme.length > 0 && (
+                <Card className="border-2 border-yellow-100">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <AlertCircle className="h-5 w-5 mr-2 text-yellow-600" />
+                      Hauptverbesserungsfelder
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-gray-600 mb-3">{bewertung.note}</p>
-                    
-                    {bewertung.positiv.length > 0 && (
-                      <div className="mb-3">
-                        <h5 className="font-medium text-slate-700 mb-2">Positiv:</h5>
-                        <ul className="text-sm space-y-1">
-                          {bewertung.positiv.map((punkt, idx) => (
-                            <li key={idx} className="text-slate-600">• {punkt}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    
-                    {bewertung.fehler.length > 0 && (
-                      <div>
-                        <h5 className="font-medium text-slate-700 mb-2">Verbesserungen:</h5>
-                        <ul className="text-sm space-y-2">
-                          {bewertung.fehler.map((fehler, idx) => (
-                            <li key={idx} className="text-slate-600">
-                              <strong>Problem:</strong> {fehler.problem}<br />
-                              <strong>Korrektur:</strong> {fehler.korrektur}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                    <ul className="list-disc list-inside space-y-2">
+                      {(result as PflegeinfoBewertungsResult).hauptprobleme.map((problem, index) => (
+                        <li key={index} className="text-gray-700">{problem}</li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
-              )
-            })}
-          </div>
+              )}
 
-          {/* Hauptprobleme */}
-          {result.hauptprobleme.length > 0 && (
+              {/* Recommendation */}
+              <Card className="border-2 border-blue-100">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <CheckCircle className="h-5 w-5 mr-2 text-blue-600" />
+                    Empfehlung
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700 leading-relaxed">
+                    {(result as PflegeinfoBewertungsResult).empfehlung}
+                  </p>
+                  <div className="mt-4 flex items-center">
+                    <span className="text-sm font-medium mr-2">Mindestanforderung erfüllt:</span>
+                    {(result as PflegeinfoBewertungsResult).mindestanforderungErfuellt ? (
+                      <span className="text-green-600 font-medium">✓ Ja</span>
+                    ) : (
+                      <span className="text-red-600 font-medium">✗ Nein</span>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ) : (
+            // Simple Text Display (fallback)
             <Card className="mb-8">
               <CardHeader>
-                <CardTitle>Hauptverbesserungsbereiche</CardTitle>
+                <CardTitle>KI-Bewertung</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2">
-                  {result.hauptprobleme.map((problem, idx) => (
-                    <li key={idx} className="flex items-center text-slate-700">
-                      <ArrowRight className="h-4 w-4 mr-2 text-slate-500" />
-                      {problem}
-                    </li>
-                  ))}
-                </ul>
+                <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
+                  {resultText}
+                </div>
               </CardContent>
             </Card>
           )}
 
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-4 mt-8">
             <Button
-              onClick={handleCopy}
+              onClick={() => {
+                navigator.clipboard.writeText(resultText)
+              }}
               variant="outline"
               className="border-gray-300 hover:border-gray-400 text-gray-700 mr-4"
             >
