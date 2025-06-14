@@ -19,71 +19,25 @@ export async function generateAIResponse(
   // Simuliere API Delay
   await new Promise(resolve => setTimeout(resolve, 1000))
   
-  // Spezielle Mock-Antwort für Pflegeinfo-Bewertung
+  // Spezielle Mock-Antwort für Pflegeinfo-Bewertung - NUR TEXT!
   if (prompt.includes('pflegeinfo')) {
-    return JSON.stringify({
-      "gesamtbewertung": 75,
-      "bewertungBegruendung": "Dies ist eine Demo-Bewertung. Die vollständige KI-Bewertung ist nur mit gültigem OpenAI API-Key verfügbar.",
-      "feedback": {
-        "dokumentation": {
-          "score": 80,
-          "eingereichtText": userInput.split('\n')[0] || "Keine Dokumentation eingegeben",
-          "positiv": [
-            "Demo: Dokumentation wurde erfasst",
-            "Demo: Strukturierte Eingabe"
-          ],
-          "fehler": [
-            {
-              "zitat": "Demo-Beispiel",
-              "problem": "Dies ist nur eine Demo-Bewertung",
-              "korrektur": "Für echte Bewertungen benötigen Sie einen gültigen API-Key"
-            }
-          ],
-          "note": "Demo-Bewertung der Dokumentation"
-        },
-        "pflegemassnahmen": {
-          "score": 70,
-          "eingereichtText": userInput.split('\n')[1] || "(Nicht angegeben)",
-          "positiv": ["Demo: Pflegemaßnahmen erfasst"],
-          "fehler": [],
-          "note": "Demo-Bewertung der Pflegemaßnahmen"
-        },
-        "beobachtungen": {
-          "score": 75,
-          "eingereichtText": userInput.split('\n')[2] || "(Nicht angegeben)",
-          "positiv": ["Demo: Beobachtungen dokumentiert"],
-          "fehler": [],
-          "note": "Demo-Bewertung der Beobachtungen"
-        },
-        "struktur": {
-          "score": 80,
-          "eingereichtText": "Gesamte Dokumentationsstruktur",
-          "positiv": ["Demo: Strukturierte Erfassung"],
-          "fehler": [],
-          "note": "Demo-Bewertung der Struktur"
-        },
-        "fachlichkeit": {
-          "score": 70,
-          "eingereichtText": "Fachliche Inhalte",
-          "positiv": ["Demo: Fachbegriffe verwendet"],
-          "fehler": [],
-          "note": "Demo-Bewertung der Fachlichkeit"
-        },
-        "rechtliches": {
-          "score": 75,
-          "eingereichtText": "Rechtliche Aspekte",
-          "positiv": ["Demo: Dokumentation vorhanden"],
-          "fehler": [],
-          "note": "Demo-Bewertung der rechtlichen Aspekte"
-        }
-      },
-      "hauptprobleme": [
-        "Dies ist nur eine Demo-Bewertung",
-        "Für echte KI-Bewertungen wird ein API-Key benötigt"
-      ],
-      "mindestanforderungErfuellt": true,
-      "empfehlung": "Dies ist eine Demo-Version. Um die volle Funktionalität mit echter KI-Bewertung zu nutzen, konfigurieren Sie bitte einen gültigen OpenAI API-Key."
-    })
+    return `DEMO-BEWERTUNG (Kein API-Key konfiguriert)
+
+Gesamtbewertung: 75/100
+
+Dies ist eine Demo-Bewertung. Die vollständige KI-Bewertung ist nur mit gültigem OpenAI API-Key verfügbar.
+
+DOKUMENTATION:
+✓ Demo: Dokumentation wurde erfasst
+✓ Demo: Strukturierte Eingabe
+
+PFLEGEMASSNAHMEN:
+✓ Demo: Pflegemaßnahmen erfasst
+
+BEOBACHTUNGEN:
+✓ Demo: Beobachtungen dokumentiert
+
+HINWEIS: Für echte Bewertungen benötigen Sie einen gültigen API-Key.`
   }
   
   return `Dies ist eine Demo-Antwort. Die OpenAI API ist nicht konfiguriert. 
@@ -130,17 +84,16 @@ export async function generateMedicationScenario(
     vitals: {
       bloodPressure: "160/95",
       heartRate: 88,
-      temperature: 36.8,
-      respiratoryRate: 16
+      temperature: 37.2
     },
     symptoms: [
       "Kopfschmerzen seit heute Morgen",
       "Leichter Schwindel beim Aufstehen",
-      "Nackensteifigkeit"
+      "Nervosität"
     ],
     correctMedication: "ramipril",
     needsDoctor: false,
-    explanation: "Dies ist eine Demo. In der Vollversion würde hier eine detaillierte Erklärung stehen.",
+    explanation: "Dies ist ein Demo-Szenario. Für echte KI-generierte Szenarien ist ein API-Key erforderlich.",
     level: 1
   })
 }

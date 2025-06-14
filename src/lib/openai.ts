@@ -9,6 +9,13 @@ const apiKey = import.meta.env.VITE_OPENAI_API_KEY || ''
 const medicationApiKey = import.meta.env.VITE_OPENAI_MEDICATION_API_KEY || ''
 const pflegeinfoApiKey = import.meta.env.VITE_OPENAI_PFLEGEINFO_API_KEY || ''
 
+// DEBUG LOG
+console.log('API Keys loaded:', {
+  main: apiKey ? 'VORHANDEN' : 'FEHLT',
+  medication: medicationApiKey ? 'VORHANDEN' : 'FEHLT', 
+  pflegeinfo: pflegeinfoApiKey ? 'VORHANDEN' : 'FEHLT'
+})
+
 // Mock OpenAI wenn kein API Key vorhanden
 let openai: any = null
 let medicationOpenai: any = null
@@ -688,6 +695,12 @@ export async function generateAIResponse(
   
   // Spezielle Behandlung für Pflegeinfo-Bewertung
   if (prompt.includes('pflegeinfo')) {
+    console.log('Pflegeinfo-Bewertung gestartet. Clients verfügbar:', {
+      pflegeinfoOpenai: !!pflegeinfoOpenai,
+      openai: !!openai,
+      pflegeinfoApiKey: !!pflegeinfoApiKey
+    })
+    
     // Verwende speziellen Pflegeinfo-Client ODER Fallback auf normalen Client
     const aiClient = pflegeinfoOpenai || openai
     
