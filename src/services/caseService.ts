@@ -347,5 +347,87 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
       console.error('Error streaming review:', error)
       onError?.(new Error('Fehler beim Überprüfen der Arbeit'))
     }
+  },
+
+  async generateQuiz(
+    categories: string[],
+    difficulty: string,
+    userId: string
+  ): Promise<any> {
+    try {
+      await authService.incrementUsageCount(userId, 'care_plan')
+
+      const categoryNames = categories.join(', ')
+      const userInput = `
+Kategorien: ${categoryNames}
+Schwierigkeitsgrad: ${difficulty}
+Erstelle ein Quiz mit 10 Fragen zu diesen Pflegethemen.
+      `.trim()
+
+      const response = await generateAIResponse(AI_PROMPTS.quiz, userInput)
+      
+      // Try to parse JSON response
+      let parsedQuiz
+      try {
+        parsedQuiz = JSON.parse(response)
+      } catch (e) {
+        throw new Error('Quiz konnte nicht generiert werden. Bitte versuchen Sie es erneut.')
+      }
+
+      const caseData = {
+        title: `Quiz - ${categoryNames}`,
+        content: userInput,
+        case_type: 'pflegeplanung' as const,
+        ai_response: response,
+        user_id: userId
+      }
+
+      await useCaseStore.getState().createCase(caseData)
+      
+      return parsedQuiz
+    } catch (error) {
+      console.error('Error generating Quiz:', error)
+      throw new Error('Fehler beim Generieren des Quiz')
+    }
+  },
+
+  async generateFlashcards(
+    categories: string[],
+    userId: string
+  ): Promise<any> {
+    try {
+      await authService.incrementUsageCount(userId, 'care_plan')
+
+      const categoryNames = categories.join(', ')
+      const userInput = `
+Kategorien: ${categoryNames}
+Erstelle Lernkarten zu diesen Pflegethemen.
+      `.trim()
+
+      const response = await generateAIResponse(AI_PROMPTS.flashcards, userInput)
+      
+      // Try to parse JSON response
+      let parsedFlashcards
+      try {
+        parsedFlashcards = JSON.parse(response)
+      } catch (e) {
+        throw new Error('Lernkarten konnten nicht generiert werden. Bitte versuchen Sie es erneut.')
+      }
+
+      const caseData = {
+        title: `Lernkarten - ${categoryNames}`,
+        content: userInput,
+        case_type: 'pflegeplanung' as const,
+        ai_response: response,
+        user_id: userId
+      }
+
+      await useCaseStore.getState().createCase(caseData)
+      
+      return parsedFlashcards
+    } catch (error) {
+      console.error('Error generating Flashcards:', error)
+      throw new Error('Fehler beim Generieren der Lernkarten')
+    }
   }
 }

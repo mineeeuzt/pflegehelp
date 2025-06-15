@@ -18,6 +18,8 @@ import {
 } from 'lucide-react'
 import { Button, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useQuizStore } from '../store/quizStore'
+import { useAuthStore } from '../store/authStore'
+import { caseService } from '../services/caseService'
 import { quizCategories } from '../data/quizData'
 import { medicalBasicsCategories } from '../data/categories/medical-basics'
 import { pathologyCategories } from '../data/categories/pathology'
@@ -27,6 +29,7 @@ import { nursingLawEthicsCategories } from '../data/categories/nursing-law-ethic
 import { nursingTechniquesCategories } from '../data/categories/nursing-techniques'
 
 const QuizLernkarten = () => {
+  const { user } = useAuthStore()
   const {
     currentSession,
     selectedCategories,
@@ -52,22 +55,91 @@ const QuizLernkarten = () => {
   const [selectedMainCategory, setSelectedMainCategory] = useState<string | null>(null)
   const [selectedSubcategory, setSelectedSubcategory] = useState<any>(null)
   const [navigationPath, setNavigationPath] = useState<string[]>([])
+  const [isGeneratingQuiz, setIsGeneratingQuiz] = useState(false)
+  const [isGeneratingFlashcards, setIsGeneratingFlashcards] = useState(false)
 
 
-  const handleStartQuiz = () => {
+  const handleStartQuiz = async () => {
     if (selectedCategories.length === 0) {
       alert('Bitte wählen Sie mindestens eine Kategorie aus.')
       return
     }
-    startQuiz(selectedCategories, selectedDifficulty)
+    if (!user) {
+      alert('Bitte melden Sie sich an, um Quiz zu generieren.')
+      return
+    }
+
+    setIsGeneratingQuiz(true)
+    try {
+      const quizData = await caseService.generateQuiz(selectedCategories, selectedDifficulty, user.id)
+      
+      // Start Quiz with generated questions
+      if (quizData?.questions) {
+        // Convert AI format to store format
+        const formattedQuestions = quizData.questions.map((q: any) => ({
+          id: Math.random().toString(),
+          question: q.question,
+          options: q.options,
+          correctAnswer: q.correctAnswer,
+          explanation: q.explanation,
+          difficulty: q.difficulty,
+          category: q.category
+        }))
+        
+        // Start quiz with generated questions
+        useQuizStore.setState({
+          currentSession: {
+            questions: formattedQuestions,
+            currentQuestionIndex: 0,
+            score: 0,
+            completed: false
+          }
+        })
+      }
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Fehler beim Generieren des Quiz')
+    } finally {
+      setIsGeneratingQuiz(false)
+    }
   }
 
-  const handleStartFlashcards = () => {
+  const handleStartFlashcards = async () => {
     if (selectedCategories.length === 0) {
       alert('Bitte wählen Sie mindestens eine Kategorie aus.')
       return
     }
-    startFlashcards(selectedCategories)
+    if (!user) {
+      alert('Bitte melden Sie sich an, um Lernkarten zu generieren.')
+      return
+    }
+
+    setIsGeneratingFlashcards(true)
+    try {
+      const flashcardData = await caseService.generateFlashcards(selectedCategories, user.id)
+      
+      // Start Flashcards with generated cards
+      if (flashcardData?.flashcards) {
+        // Convert AI format to store format
+        const formattedFlashcards = flashcardData.flashcards.map((fc: any) => ({
+          id: Math.random().toString(),
+          front: fc.front,
+          back: fc.back,
+          difficulty: fc.difficulty,
+          category: fc.category
+        }))
+        
+        // Start flashcards with generated cards
+        useQuizStore.setState({
+          flashcards: formattedFlashcards,
+          currentFlashcardIndex: 0,
+          showFlashcardAnswer: false
+        })
+      }
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Fehler beim Generieren der Lernkarten')
+    } finally {
+      setIsGeneratingFlashcards(false)
+    }
   }
 
   const handleAnswerSelect = (answerIndex: number) => {
@@ -1021,21 +1093,39 @@ const QuizLernkarten = () => {
             <Button
               size="lg"
               onClick={handleStartQuiz}
-              disabled={selectedCategories.length === 0}
+              disabled={selectedCategories.length === 0 || isGeneratingQuiz || isGeneratingFlashcards}
               className="px-8 py-3 text-base"
             >
-              <Play className="w-5 h-5 mr-2" />
-              Quiz starten
+              {isGeneratingQuiz ? (
+                <>
+                  <Brain className="w-5 h-5 mr-2 animate-spin" />
+                  Quiz wird generiert...
+                </>
+              ) : (
+                <>
+                  <Play className="w-5 h-5 mr-2" />
+                  Quiz starten
+                </>
+              )}
             </Button>
             <Button
               size="lg"
               variant="outline"
               onClick={handleStartFlashcards}
-              disabled={selectedCategories.length === 0}
+              disabled={selectedCategories.length === 0 || isGeneratingQuiz || isGeneratingFlashcards}
               className="px-8 py-3 text-base"
             >
-              <BookOpen className="w-5 h-5 mr-2" />
-              Lernkarten starten
+              {isGeneratingFlashcards ? (
+                <>
+                  <Brain className="w-5 h-5 mr-2 animate-spin" />
+                  Lernkarten werden generiert...
+                </>
+              ) : (
+                <>
+                  <BookOpen className="w-5 h-5 mr-2" />
+                  Lernkarten starten
+                </>
+              )}
             </Button>
           </div>
         </div>
