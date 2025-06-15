@@ -49,9 +49,9 @@ const PflegeinfoWorkflow = () => {
   const handleABEDLToggle = (abedlId: string) => {
     setFormData(prev => ({
       ...prev,
-      selectedABEDL: prev.selectedABEDL.includes(abedlId)
-        ? prev.selectedABEDL.filter(id => id !== abedlId)
-        : [...prev.selectedABEDL, abedlId]
+      selectedABEDL: (prev.selectedABEDL || []).includes(abedlId)
+        ? (prev.selectedABEDL || []).filter(id => id !== abedlId)
+        : [...(prev.selectedABEDL || []), abedlId]
     }))
   }
 
@@ -65,7 +65,7 @@ const PflegeinfoWorkflow = () => {
       // Erstelle das Input-Objekt für die Bewertung
       const input: PflegeinfoInput = {
         dokumentation: formData.pflegeInfo,
-        pflegemassnahmen: `ABEDL-Bereiche: ${formData.selectedABEDL.join(', ')}`,
+        pflegemassnahmen: `ABEDL-Bereiche: ${(formData.selectedABEDL || []).join(', ')}`,
         beobachtungen: formData.begruendung
       }
 
@@ -94,7 +94,7 @@ const PflegeinfoWorkflow = () => {
 
 
   const canProceedStep1 = formData.pflegeInfo.trim() !== ''
-  const canProceedStep2 = formData.selectedABEDL.length > 0
+  const canProceedStep2 = formData.selectedABEDL?.length > 0
   const canEvaluate = formData.begruendung.trim() !== ''
 
   // Show loading animation when evaluating
@@ -280,14 +280,14 @@ const PflegeinfoWorkflow = () => {
                       <label
                         key={abedl.id}
                         className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
-                          formData.selectedABEDL.includes(abedl.id)
+                          (formData.selectedABEDL || []).includes(abedl.id)
                             ? 'border-slate-800 bg-slate-50'
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
                         <input
                           type="checkbox"
-                          checked={formData.selectedABEDL.includes(abedl.id)}
+                          checked={(formData.selectedABEDL || []).includes(abedl.id)}
                           onChange={() => handleABEDLToggle(abedl.id)}
                           className="mr-3"
                         />
@@ -314,10 +314,10 @@ const PflegeinfoWorkflow = () => {
                   <div className="mt-6 bg-gray-50 border border-gray-200 rounded-xl p-4">
                     <h4 className="font-medium text-gray-900 mb-2">Ihre Eingaben:</h4>
                     <p className="text-sm text-gray-700 mb-2">
-                      <strong>Information:</strong> {formData.pflegeInfo.substring(0, 100)}...
+                      <strong>Information:</strong> {formData.pflegeInfo?.substring(0, 100) || ''}...
                     </p>
                     <p className="text-sm text-gray-700">
-                      <strong>Betroffene ABEDL-Bereiche:</strong> {formData.selectedABEDL.join(', ')}
+                      <strong>Betroffene ABEDL-Bereiche:</strong> {formData.selectedABEDL?.join(', ') || 'Keine ausgewählt'}
                     </p>
                   </div>
                 </div>
