@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FileCheck, Copy, ArrowRight, ArrowLeft, Brain, CheckCircle, AlertCircle } from 'lucide-react'
+import { FileCheck, Copy, ArrowRight, ArrowLeft, Brain } from 'lucide-react'
 import { Button, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
 import { caseService, type PflegeinfoInput } from '../services/caseService'
@@ -92,17 +92,6 @@ const PflegeinfoWorkflow = () => {
     }
   }
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 bg-green-50'
-    if (score >= 60) return 'text-yellow-600 bg-yellow-50'
-    return 'text-red-600 bg-red-50'
-  }
-
-  const getScoreIcon = (score: number) => {
-    if (score >= 80) return <CheckCircle className="h-5 w-5 text-green-600" />
-    if (score >= 60) return <AlertCircle className="h-5 w-5 text-yellow-600" />
-    return <AlertCircle className="h-5 w-5 text-red-600" />
-  }
 
   const canProceedStep1 = formData.pflegeInfo.trim() !== ''
   const canProceedStep2 = formData.selectedABEDL.length > 0
@@ -132,10 +121,8 @@ const PflegeinfoWorkflow = () => {
     )
   }
 
-  // Show result
+  // Show result - SIMPLIFIED TO PREVENT CRASHES
   if (result) {
-    const isStructured = typeof result === 'object' && result.gesamtbewertung !== undefined
-
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto px-6 py-12">
@@ -149,137 +136,27 @@ const PflegeinfoWorkflow = () => {
             </h1>
           </motion.div>
 
-          {isStructured ? (
-            <>
-              {/* Gesamtbewertung */}
-              <Card className="mb-8">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <span>Gesamtbewertung</span>
-                    <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${getScoreColor(result.gesamtbewertung)}`}>
-                      {getScoreIcon(result.gesamtbewertung)}
-                      <span className="font-bold text-lg">{result.gesamtbewertung}%</span>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700">{result.bewertungBegruendung}</p>
-                </CardContent>
-              </Card>
-
-              {/* Detailliertes Feedback */}
-              <div className="grid gap-6 mb-8">
-                {Object.entries(result.feedback || {}).map(([bereich, bewertung]: [string, any]) => (
-                  <Card key={bereich} className="border border-gray-200">
-                    <CardHeader>
-                      <CardTitle className="flex items-center justify-between text-lg">
-                        <span className="capitalize">
-                          {bereich === 'dokumentation' ? 'Dokumentation' :
-                           bereich === 'pflegemassnahmen' ? 'Pflegemaßnahmen' :
-                           bereich === 'beobachtungen' ? 'Beobachtungen' :
-                           bereich === 'struktur' ? 'Struktur' :
-                           bereich === 'fachlichkeit' ? 'Fachlichkeit' :
-                           bereich === 'rechtliches' ? 'Rechtliches' : bereich}
-                        </span>
-                        <div className={`flex items-center space-x-2 px-3 py-1 rounded-lg ${getScoreColor(bewertung.score)}`}>
-                          {getScoreIcon(bewertung.score)}
-                          <span className="font-bold text-sm">{bewertung.score}%</span>
-                        </div>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600 mb-3">{bewertung.note}</p>
-                      
-                      {bewertung.positiv && bewertung.positiv.length > 0 && (
-                        <div className="mb-3">
-                          <h5 className="font-medium text-slate-700 mb-2">Positiv:</h5>
-                          <ul className="text-sm space-y-1">
-                            {bewertung.positiv.map((punkt: string, idx: number) => (
-                              <li key={idx} className="text-slate-600">• {punkt}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                      
-                      {bewertung.fehler && bewertung.fehler.length > 0 && (
-                        <div>
-                          <h5 className="font-medium text-slate-700 mb-2">Verbesserungen:</h5>
-                          <ul className="text-sm space-y-2">
-                            {bewertung.fehler.map((fehler: any, idx: number) => (
-                              <li key={idx} className="text-slate-600">
-                                <strong>Problem:</strong> {fehler.problem}<br />
-                                <strong>Korrektur:</strong> {fehler.korrektur}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
+          <Card className="mb-8">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>Bewertungsergebnis</CardTitle>
+              <Button
+                onClick={handleCopy}
+                variant="outline"
+                size="sm"
+                className="border-gray-300 hover:border-gray-400 text-gray-700"
+              >
+                <Copy className="h-4 w-4 mr-2" />
+                Kopieren
+              </Button>
+            </CardHeader>
+            <CardContent className="p-8">
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
+                <pre className="whitespace-pre-wrap text-sm text-gray-800 font-light leading-relaxed">
+                  {typeof result === 'string' ? result : JSON.stringify(result, null, 2)}
+                </pre>
               </div>
-
-              {/* Hauptprobleme */}
-              {result.hauptprobleme && result.hauptprobleme.length > 0 && (
-                <Card className="mb-8">
-                  <CardHeader>
-                    <CardTitle>Hauptverbesserungsbereiche</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {result.hauptprobleme.map((problem: string, idx: number) => (
-                        <li key={idx} className="flex items-center text-slate-700">
-                          <ArrowRight className="h-4 w-4 mr-2 text-slate-500" />
-                          {problem}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Empfehlung */}
-              <Card className="mb-8">
-                <CardHeader>
-                  <CardTitle>Empfehlung</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700">{result.empfehlung}</p>
-                  <div className="mt-4 flex items-center">
-                    <span className="text-sm font-medium mr-2">Mindestanforderung erfüllt:</span>
-                    {result.mindestanforderungErfuellt ? (
-                      <span className="text-green-600 font-medium">✓ Ja</span>
-                    ) : (
-                      <span className="text-red-600 font-medium">✗ Nein</span>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          ) : (
-            // Fallback für Text-Antwort
-            <Card className="mb-8">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Bewertungsergebnis</CardTitle>
-                <Button
-                  onClick={handleCopy}
-                  variant="outline"
-                  size="sm"
-                  className="border-gray-300 hover:border-gray-400 text-gray-700"
-                >
-                  <Copy className="h-4 w-4 mr-2" />
-                  Kopieren
-                </Button>
-              </CardHeader>
-              <CardContent className="p-8">
-                <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                  <pre className="whitespace-pre-wrap text-sm text-gray-800 font-light leading-relaxed">
-                    {result}
-                  </pre>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+            </CardContent>
+          </Card>
 
           <div className="text-center">
             <Button
