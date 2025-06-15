@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Brain, BookOpen, Target, FileText, CheckCircle, ArrowRight } from 'lucide-react'
+import { Brain, BookOpen, Target, FileCheck, CheckCircle, ArrowRight, FileText } from 'lucide-react'
 import { Button, Card, CardContent } from '../components/ui'
 import { APP_CONFIG } from '../lib/stripe'
 
@@ -9,32 +9,37 @@ const LandingPage = () => {
     {
       icon: <Brain className="h-8 w-8" />,
       title: 'Fallbeispiel Generator',
-      description: 'Erstelle prüfungsrelevante Fallbeispiele nach Pflegepädagogik-Standards für alle Ausbildungsjahre.'
+      description: 'Erstelle realistische, prüfungsrelevante Fallbeispiele nach Pflegepädagogik-Standards mit KI-Unterstützung.'
     },
     {
       icon: <BookOpen className="h-8 w-8" />,
       title: 'Pflegeplanung Workflow',
-      description: 'Systematische Erstellung von NANDA-I konformen Pflegeplänen mit SMART-Zielen und Evaluationskriterien.'
+      description: 'Systematische Erstellung von strukturierten Pflegeplänen mit PESR-Schema, Workflows und KI-Bewertung.'
     },
     {
       icon: <Target className="h-8 w-8" />,
       title: 'Medikamenten-Training',
-      description: 'Interaktives Drag & Drop Spiel mit KI-generierten Szenarien für über 24 verschiedene Medikamente.'
+      description: 'Interaktives Drag & Drop Spiel mit KI-generierten Szenarien für über 60 verschiedene Medikamente.'
+    },
+    {
+      icon: <FileCheck className="h-8 w-8" />,
+      title: 'Pflegeinfo-Bewertung',
+      description: 'Lasse deine pflegerelevanten Informationen von der KI strukturiert bewerten und erhalte detailliertes Feedback.'
     },
     {
       icon: <FileText className="h-8 w-8" />,
       title: 'Anamnese-Simulator',
-      description: 'Interaktive Patientengespräche üben mit realistischen Szenarien und direktem Feedback.'
+      description: 'Interaktive Patientengespräche üben mit realistischen Szenarien und direktem Feedback. (Bald verfügbar)'
     }
   ]
 
   const benefits = [
     'KI-generierte Fallbeispiele',
-    'NANDA-I konforme Pflegepläne',
+    'PESR-basierte Pflegeplanung',
     'Interaktives Medikamenten-Training',
-    'Anamnese-Simulator',
-    'Mobile Nutzung',
-    'Regelmäßige Updates'
+    'Pflegeinfo-Bewertung mit KI',
+    'Quiz & Lernkarten System',
+    'Anamnese-Simulator (bald)'
   ]
 
   return (
@@ -59,7 +64,7 @@ const LandingPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl text-gray-600 font-light mb-8 max-w-3xl mx-auto"
             >
-              Trainiere mit KI-generierten Fallbeispielen, erstelle NANDA-I konforme Pflegepläne und übe Medikamenten-Szenarien mit unserem interaktiven Drag & Drop Spiel.
+              Trainiere mit KI-generierten Fallbeispielen, erstelle strukturierte Pflegepläne, bewerte Pflegeinformationen und übe Medikamenten-Szenarien mit interaktiven Tools.
             </motion.p>
             
             <motion.div
@@ -92,11 +97,11 @@ const LandingPage = () => {
               Professionelle Lerntools für die Pflege
             </h2>
             <p className="text-xl text-gray-600 font-light max-w-2xl mx-auto">
-              Nutze interaktive KI-Tools für praxisnahe Fallbeispiele, professionelle Pflegeplanung und spielerisches Medikamenten-Training.
+              Nutze interaktive KI-Tools für praxisnahe Fallbeispiele, strukturierte Pflegeplanung, Medikamenten-Training und Pflegeinfo-Bewertung.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -184,11 +189,11 @@ const LandingPage = () => {
                   <ul className="space-y-3 mb-8">
                     <li className="flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-gray-700 mr-2" />
-                      Fallbeispiel Generator
+                      Alle KI-Features
                     </li>
                     <li className="flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-gray-700 mr-2" />
-                      Medikamenten-Training
+                      Unbegrenzte Nutzung
                     </li>
                     <li className="flex items-center justify-center">
                       <CheckCircle className="h-5 w-5 text-gray-700 mr-2" />
