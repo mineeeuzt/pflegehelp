@@ -101,13 +101,36 @@ const LandingPage = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-            {features.map((feature, index) => (
+          {/* Erste Reihe: 3 Features */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {features.slice(0, 3).map((feature, index) => (
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <Card className="h-full border-2 border-gray-200 hover:border-gray-300 transition-all">
+                  <CardContent className="p-6 text-center">
+                    <div className="text-gray-700 mb-4 flex justify-center">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-lg font-medium mb-2">{feature.title}</h3>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Zweite Reihe: 2 Features zentriert */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            {features.slice(3).map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: (index + 3) * 0.1 }}
               >
                 <Card className="h-full border-2 border-gray-200 hover:border-gray-300 transition-all">
                   <CardContent className="p-6 text-center">
