@@ -188,6 +188,11 @@ const FallbeispielGenerator = () => {
       value: 'langzeitpflege', 
       label: 'Stationäre Langzeitpflege', 
       description: 'Pflegeheim und Langzeiteinrichtungen' 
+    },
+    { 
+      value: 'psychiatrie', 
+      label: 'Psychiatrische Pflege', 
+      description: 'Psychiatrische Kliniken und Tageskliniken' 
     }
   ]
 
