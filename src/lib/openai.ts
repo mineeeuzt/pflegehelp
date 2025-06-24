@@ -434,7 +434,7 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
         "Antwort D"
       ],
       "correctAnswer": 0,
-      "explanation": "Detaillierte Erklärung warum die Antwort richtig ist",
+      "explanation": "Kurze, präzise Erklärung (max. 2 Sätze)",
       "difficulty": "leicht|mittel|schwer",
       "category": "Die spezifische Kategorie"
     }
@@ -469,7 +469,7 @@ ANFORDERUNGEN FÜR PFLEGEAZUBI-NIVEAU:
 - Keine zu akademischen oder theoretischen Fragen
 - Fokus auf praktische Pflegehandlungen, Beobachtung, Dokumentation
 - Fragen sollen für Zwischen- und Abschlussprüfung relevant sein
-- Detaillierte Erklärungen mit Bezug zu Pflegestandards
+- Kompakte Erklärungen (max. 2 Sätze) mit Bezug zu Pflegestandards
 - Verwende verständliche Sprache auf Azubi-Niveau
 - Beziehe ABEDL-Modell und Pflegeprozess mit ein`,
 
@@ -788,7 +788,7 @@ export async function generateAIResponse(
   if (prompt.includes('pesr')) maxTokens = 400
   else if (prompt.includes('medikamentenszenario')) maxTokens = 800
   else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
-  else if (prompt.includes('quiz')) maxTokens = 6000 // Erhöht für 15 Fragen mit detaillierten Erklärungen
+  else if (prompt.includes('quiz')) maxTokens = 8000 // Erhöht für 15 vollständige Fragen ohne Abbruch
   else if (prompt.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten  
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
