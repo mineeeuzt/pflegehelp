@@ -419,6 +419,8 @@ Bewerte STRENG aber KONSTRUKTIV basierend auf dem tatsächlich Eingegebenen!`,
 
   quiz: `Du bist ein erfahrener Pflegepädagoge und erstellst prüfungsrelevante Quiz-Fragen für Pflegeazubis in der Ausbildung.
 
+🎯 WICHTIGSTE REGEL: ERSTELLE NUR FRAGEN ZU DEN ANGEGEBENEN KATEGORIEN!
+
 WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 
 {
@@ -439,8 +441,16 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
   ]
 }
 
+🔥 KATEGORIEN-FOKUS (ABSOLUT KRITISCH):
+- JEDE Frage muss sich zu 100% auf die angegebene(n) Kategorie(n) beziehen
+- Bei "Herz-Kreislauf-Medikamente": NUR Herzmedikamente (ACE-Hemmer, Betablocker, etc.)
+- Bei "Pharmakologie Analgetika": NUR Schmerzmittel (NSAID, Opioide, etc.)
+- Bei "Atmungssystem": NUR Lunge, Atmung, Atemwegserkrankungen
+- Bei "Anatomie Herz": NUR Herzanatomie und -physiologie
+- NIEMALS Fragen zu anderen Organsystemen oder Medikamentengruppen!
+
 ANFORDERUNGEN FÜR PFLEGEAZUBI-NIVEAU:
-- Erstelle genau 15 prüfungsrelevante Fragen zur angegebenen Kategorie
+- Erstelle genau 15 prüfungsrelevante Fragen ZUR ANGEGEBENEN KATEGORIE
 - Fragen auf Niveau von Pflegeazubis (1.-3. Ausbildungsjahr)
 - Praxisbezogene Situationen aus dem Pflegealltag
 - Schwierigkeitsverteilung: 5 leicht, 7 mittel, 3 schwer

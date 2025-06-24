@@ -361,7 +361,17 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
       const userInput = `
 Kategorien: ${categoryNames}
 Schwierigkeitsgrad: ${difficulty}
-Erstelle ein Quiz mit 10 Fragen zu diesen Pflegethemen.
+
+WICHTIG: Erstelle AUSSCHLIESSLICH Fragen zu den oben genannten Kategorien! 
+
+Spezifische Anforderungen:
+- Alle 15 Fragen müssen sich DIREKT auf die ausgewählten Kategorien beziehen
+- Bei "Herz-Kreislauf-Medikamente": NUR Fragen zu Herzmedikamenten, Blutdrucksenkern, etc.
+- Bei "Atmungssystem": NUR Fragen zu Lunge, Atmung, Atemwegserkrankungen
+- Bei "Pharmakologie": NUR Fragen zu Medikamenten der gewählten Wirkstoffgruppe
+- Keine Fragen zu anderen Organsystemen oder Themenbereichen
+
+Fokus: Jede Frage muss zu 100% thematisch zu "${categoryNames}" passen.
       `.trim()
 
       const response = await generateAIResponse(AI_PROMPTS.quiz, userInput)
@@ -370,7 +380,14 @@ Erstelle ein Quiz mit 10 Fragen zu diesen Pflegethemen.
       let parsedQuiz
       try {
         parsedQuiz = JSON.parse(response)
+        
+        // Validate that we have questions
+        if (!parsedQuiz.questions || !Array.isArray(parsedQuiz.questions) || parsedQuiz.questions.length === 0) {
+          throw new Error('Keine gültigen Fragen erhalten')
+        }
+        
       } catch (e) {
+        console.error('Quiz parsing error:', e, 'Response:', response)
         throw new Error('Quiz konnte nicht generiert werden. Bitte versuchen Sie es erneut.')
       }
 
