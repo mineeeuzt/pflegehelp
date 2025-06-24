@@ -449,6 +449,17 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 - Bei "Anatomie Herz": NUR Herzanatomie und -physiologie
 - NIEMALS Fragen zu anderen Organsystemen oder Medikamentengruppen!
 
+🚫 VERBOTENE THEMENMISCHUNGEN:
+- Wenn "Herz-Kreislauf" gewählt: KEINE Lungen-, Nieren- oder andere Organfragen
+- Wenn "Atmungssystem" gewählt: KEINE Herz-, Verdauungs- oder andere Organfragen  
+- Wenn "Pharmakologie" einer Gruppe gewählt: NUR diese Medikamentengruppe
+- Jede Frage muss den Kategorienamen im Titel oder Inhalt widerspiegeln
+
+✅ QUALITÄTSKONTROLLE:
+- Prüfe vor jeder Frage: "Passt das 100% zur gewählten Kategorie?"
+- Verwerfe Fragen, die auch nur teilweise andere Themen behandeln
+- Alle 15 Fragen müssen dasselbe Hauptthema haben
+
 ANFORDERUNGEN FÜR PFLEGEAZUBI-NIVEAU:
 - Erstelle genau 15 prüfungsrelevante Fragen ZUR ANGEGEBENEN KATEGORIE
 - Fragen auf Niveau von Pflegeazubis (1.-3. Ausbildungsjahr)

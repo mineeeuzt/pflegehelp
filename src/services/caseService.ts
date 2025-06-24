@@ -359,19 +359,24 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
 
       const categoryNames = categories.join(', ')
       const userInput = `
-Kategorien: ${categoryNames}
+🎯 QUIZ-GENERIERUNG FÜR KATEGORIE: ${categoryNames}
 Schwierigkeitsgrad: ${difficulty}
 
-WICHTIG: Erstelle AUSSCHLIESSLICH Fragen zu den oben genannten Kategorien! 
+🚨 KRITISCHE ANWEISUNG: Erstelle 15 Fragen AUSSCHLIESSLICH zu "${categoryNames}"
 
-Spezifische Anforderungen:
-- Alle 15 Fragen müssen sich DIREKT auf die ausgewählten Kategorien beziehen
-- Bei "Herz-Kreislauf-Medikamente": NUR Fragen zu Herzmedikamenten, Blutdrucksenkern, etc.
-- Bei "Atmungssystem": NUR Fragen zu Lunge, Atmung, Atemwegserkrankungen
-- Bei "Pharmakologie": NUR Fragen zu Medikamenten der gewählten Wirkstoffgruppe
-- Keine Fragen zu anderen Organsystemen oder Themenbereichen
+📋 STRENGE KATEGORIE-REGELN:
+- JEDE einzelne Frage muss 100% zu "${categoryNames}" passen
+- VERBIETE alle anderen Themen komplett
+- Bei Herz-Kreislauf: NUR Herz-Kreislauf (NICHT Atmung, Nieren, etc.)
+- Bei Atmungssystem: NUR Atmung/Lunge (NICHT Herz, Verdauung, etc.)
+- Bei Pharmakologie: NUR die spezifische Medikamentengruppe
 
-Fokus: Jede Frage muss zu 100% thematisch zu "${categoryNames}" passen.
+🔍 QUALITÄTSPRÜFUNG:
+- Frage dich vor jeder Frage: "Behandelt das zu 100% nur ${categoryNames}?"
+- Verwerfe alle Fragen, die andere Organsysteme auch nur erwähnen
+- Alle 15 Fragen = Ein einziges Thema: ${categoryNames}
+
+ZIEL: 15 perfekt passende Fragen nur zu "${categoryNames}" - keine Abweichungen!
       `.trim()
 
       const response = await generateAIResponse(AI_PROMPTS.quiz, userInput)
