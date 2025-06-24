@@ -793,7 +793,7 @@ export async function generateAIResponse(
   if (promptLower.includes('pesr')) maxTokens = 400
   else if (promptLower.includes('medikamentenszenario')) maxTokens = 800
   else if (promptLower.includes('fallbeispielprofi')) maxTokens = 1800
-  else if (promptLower.includes('quiz')) maxTokens = 8000 // GPT-4-turbo unterstützt viel mehr Token
+  else if (promptLower.includes('quiz')) maxTokens = 4000 // Reduziert von 8000 auf 4000 wegen 4096 Token-Limit
   else if (promptLower.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten  
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
@@ -889,7 +889,7 @@ export async function generateStreamingAIResponse(
   if (promptLowerStreaming.includes('pesr')) maxTokens = 400
   else if (promptLowerStreaming.includes('medikamentenszenario')) maxTokens = 800
   else if (promptLowerStreaming.includes('fallbeispielprofi')) maxTokens = 1800
-  else if (promptLowerStreaming.includes('quiz')) maxTokens = 8000 // GPT-4-turbo unterstützt viel mehr Token
+  else if (promptLowerStreaming.includes('quiz')) maxTokens = 4000 // Reduziert von 8000 auf 4000 wegen 4096 Token-Limit
   else if (promptLowerStreaming.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
