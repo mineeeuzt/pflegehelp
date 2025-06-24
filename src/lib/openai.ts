@@ -786,7 +786,7 @@ export async function generateAIResponse(
   if (prompt.includes('pesr')) maxTokens = 400
   else if (prompt.includes('medikamentenszenario')) maxTokens = 800
   else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
-  else if (prompt.includes('quiz')) maxTokens = 10000 // Maximale Tokens für 15 vollständige Fragen
+  else if (prompt.toLowerCase().includes('quiz')) maxTokens = 10000 // Maximale Tokens für 15 vollständige Fragen
   else if (prompt.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten  
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
