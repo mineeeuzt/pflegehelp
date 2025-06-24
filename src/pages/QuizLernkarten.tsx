@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { 
   Brain, 
   BookOpen, 
@@ -20,6 +20,7 @@ import { Button, Card, CardHeader, CardTitle, CardContent } from '../components/
 import { useQuizStore } from '../store/quizStore'
 import { useAuthStore } from '../store/authStore'
 import { caseService } from '../services/caseService'
+import AILoadingAnimation from '../components/AILoadingAnimation'
 import { quizCategories } from '../data/quizData'
 import { medicalBasicsCategories } from '../data/categories/medical-basics'
 import { pathologyCategories } from '../data/categories/pathology'
@@ -58,7 +59,6 @@ const QuizLernkarten = () => {
   const [isGeneratingQuiz, setIsGeneratingQuiz] = useState(false)
   const [isGeneratingFlashcards, setIsGeneratingFlashcards] = useState(false)
 
-
   const handleStartQuiz = async () => {
     if (selectedCategories.length === 0) {
       alert('Bitte wählen Sie mindestens eine Kategorie aus.')
@@ -70,6 +70,7 @@ const QuizLernkarten = () => {
     }
 
     setIsGeneratingQuiz(true)
+    
     try {
       const quizData = await caseService.generateQuiz(selectedCategories, selectedDifficulty, user.id)
       
@@ -86,18 +87,26 @@ const QuizLernkarten = () => {
           category: q.category
         }))
         
-        // Start quiz with generated questions
+        // Start quiz with generated questions using proper session structure
+        const session = {
+          id: Date.now().toString(),
+          categoryId: selectedCategories[0] || 'ai-generated',
+          questions: formattedQuestions,
+          currentQuestionIndex: 0,
+          answers: new Array(formattedQuestions.length).fill(null),
+          startTime: new Date(),
+          score: 0,
+          completed: false
+        }
+        
         useQuizStore.setState({
-          currentSession: {
-            questions: formattedQuestions,
-            currentQuestionIndex: 0,
-            score: 0,
-            completed: false
-          }
+          currentSession: session
         })
       }
     } catch (error) {
-      alert(error instanceof Error ? error.message : 'Fehler beim Generieren des Quiz')
+      console.error('Quiz generation error:', error)
+      const errorMessage = error instanceof Error ? error.message : 'Fehler beim Generieren des Quiz'
+      alert(errorMessage)
     } finally {
       setIsGeneratingQuiz(false)
     }
@@ -114,6 +123,7 @@ const QuizLernkarten = () => {
     }
 
     setIsGeneratingFlashcards(true)
+    
     try {
       const flashcardData = await caseService.generateFlashcards(selectedCategories, user.id)
       
@@ -136,24 +146,73 @@ const QuizLernkarten = () => {
         })
       }
     } catch (error) {
-      alert(error instanceof Error ? error.message : 'Fehler beim Generieren der Lernkarten')
+      console.error('Flashcard generation error:', error)
+      const errorMessage = error instanceof Error ? error.message : 'Fehler beim Generieren der Lernkarten'
+      alert(errorMessage)
     } finally {
       setIsGeneratingFlashcards(false)
     }
   }
 
   const handleAnswerSelect = (answerIndex: number) => {
+    console.log('Answer selected:', answerIndex, 'Current selected:', selectedAnswer)
+    
     if (selectedAnswer !== null) return // Already answered
     
     setSelectedAnswer(answerIndex)
-    answerQuestion(answerIndex)
+    
+    // Update score for AI-generated quizzes
+    const { currentSession } = useQuizStore.getState()
+    if (currentSession) {
+      const currentQuestion = currentSession.questions[currentSession.currentQuestionIndex]
+      const isCorrect = answerIndex === currentQuestion.correctAnswer
+      const newScore = currentSession.score + (isCorrect ? 1 : 0)
+      
+      const newAnswers = [...currentSession.answers]
+      newAnswers[currentSession.currentQuestionIndex] = answerIndex
+      
+      useQuizStore.setState({
+        currentSession: {
+          ...currentSession,
+          answers: newAnswers,
+          score: newScore
+        }
+      })
+    }
+    
+    // Always show explanation after selecting an answer
     setShowExplanation(true)
+    console.log('After setting - selectedAnswer:', answerIndex, 'showExplanation:', true)
   }
 
   const handleNextQuestion = () => {
+    const { currentSession } = useQuizStore.getState()
+    if (!currentSession) return
+    
+    const nextIndex = currentSession.currentQuestionIndex + 1
+    
+    if (nextIndex >= currentSession.questions.length) {
+      // Quiz completed
+      const completedSession = {
+        ...currentSession,
+        currentQuestionIndex: nextIndex,
+        endTime: new Date(),
+        completed: true
+      }
+      
+      useQuizStore.setState({ currentSession: completedSession })
+    } else {
+      // Next question
+      useQuizStore.setState({
+        currentSession: {
+          ...currentSession,
+          currentQuestionIndex: nextIndex
+        }
+      })
+    }
+    
     setSelectedAnswer(null)
     setShowExplanation(false)
-    nextQuestion()
   }
 
   const toggleFlashcardAnswer = () => {
@@ -760,9 +819,9 @@ const QuizLernkarten = () => {
     return (
       <Card className="max-w-4xl mx-auto">
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-4">
             <CardTitle>
-              Frage {(currentSession?.currentQuestionIndex || 0) + 1} von {currentSession?.questions.length}
+              Frage {(currentSession?.currentQuestionIndex || 0) + 1} von {currentSession?.questions.length || 15}
             </CardTitle>
             <div className="flex items-center gap-4">
               <span className={`px-2 py-1 rounded text-sm ${
@@ -777,20 +836,36 @@ const QuizLernkarten = () => {
               </span>
             </div>
           </div>
+          
+          {/* Progress Bar */}
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div 
+              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+              style={{ 
+                width: `${((currentSession?.currentQuestionIndex || 0) + 1) / (currentSession?.questions.length || 15) * 100}%` 
+              }}
+            />
+          </div>
         </CardHeader>
         <CardContent>
           <div className="mb-6">
             <h3 className="text-xl font-medium mb-4">{currentQuestion.question}</h3>
             
+            {selectedAnswer === null && (
+              <p className="text-sm text-gray-600 mb-4">
+                💡 Wähle eine Antwort aus, um fortzufahren
+              </p>
+            )}
+            
             <div className="space-y-3">
               {currentQuestion.options.map((option, index) => (
-                <motion.button
+                <button
                   key={index}
                   onClick={() => handleAnswerSelect(index)}
                   disabled={selectedAnswer !== null}
-                  className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
+                  className={`w-full p-4 text-left rounded-lg border-2 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 ${
                     selectedAnswer === null
-                      ? 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                      ? 'border-gray-200 hover:border-blue-300 hover:bg-blue-50 cursor-pointer'
                       : selectedAnswer === index
                         ? index === currentQuestion.correctAnswer
                           ? 'border-green-500 bg-green-50'
@@ -798,9 +873,7 @@ const QuizLernkarten = () => {
                         : index === currentQuestion.correctAnswer
                           ? 'border-green-500 bg-green-50'
                           : 'border-gray-200 bg-gray-50'
-                  }`}
-                  whileHover={selectedAnswer === null ? { scale: 1.02 } : {}}
-                  whileTap={selectedAnswer === null ? { scale: 0.98 } : {}}
+                  } ${selectedAnswer !== null ? 'cursor-default' : ''}`}
                 >
                   <div className="flex items-center justify-between">
                     <span>{option}</span>
@@ -814,23 +887,31 @@ const QuizLernkarten = () => {
                       </span>
                     )}
                   </div>
-                </motion.button>
+                </button>
               ))}
             </div>
 
-            <AnimatePresence>
-              {showExplanation && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200"
-                >
-                  <h4 className="font-medium mb-2">Erklärung:</h4>
-                  <p className="text-gray-700">{currentQuestion.explanation}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Show explanation immediately after answer selection */}
+            {showExplanation && selectedAnswer !== null && (
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <h4 className="font-medium mb-2 flex items-center">
+                  {selectedAnswer === currentQuestion.correctAnswer ? (
+                    <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
+                  ) : (
+                    <XCircle className="w-5 h-5 text-red-600 mr-2" />
+                  )}
+                  {selectedAnswer === currentQuestion.correctAnswer ? 'Richtig!' : 'Leider falsch'}
+                </h4>
+                <p className="text-gray-700 mb-2">
+                  <strong>Erklärung:</strong> {currentQuestion.explanation || 'Keine Erklärung verfügbar.'}
+                </p>
+                {selectedAnswer !== currentQuestion.correctAnswer && (
+                  <p className="text-sm text-gray-600">
+                    <strong>Richtige Antwort:</strong> {currentQuestion.options[currentQuestion.correctAnswer]}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="flex justify-between">
@@ -846,18 +927,24 @@ const QuizLernkarten = () => {
               Zurück zur Auswahl
             </Button>
             
-            {showExplanation && (
-              <Button onClick={handleNextQuestion}>
-                {(currentSession?.currentQuestionIndex || 0) < (currentSession?.questions.length || 0) - 1 ? (
-                  <>
-                    Nächste Frage
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </>
-                ) : (
-                  'Quiz beenden'
-                )}
-              </Button>
-            )}
+            {/* Always show next button, but enable only after answer selection */}
+            <Button 
+              onClick={handleNextQuestion} 
+              disabled={selectedAnswer === null}
+              className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              {(currentSession?.currentQuestionIndex || 0) < (currentSession?.questions.length || 0) - 1 ? (
+                <>
+                  Nächste Frage
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </>
+              ) : (
+                <>
+                  Quiz beenden
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </>
+              )}
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -1044,6 +1131,45 @@ const QuizLernkarten = () => {
     )
   }
 
+
+  // Loading state for quiz generation
+  if (isGeneratingQuiz) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="max-w-4xl mx-auto px-6 py-16">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-light text-gray-900 mb-4">
+              Quiz wird generiert
+            </h1>
+            <p className="text-gray-600">
+              Die KI erstellt maßgeschneiderte Fragen für deine Lernbereiche...
+            </p>
+          </div>
+          <AILoadingAnimation message="Quiz wird generiert..." size="lg" />
+        </div>
+      </div>
+    )
+  }
+
+  // Loading state for flashcard generation
+  if (isGeneratingFlashcards) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="max-w-4xl mx-auto px-6 py-16">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-light text-gray-900 mb-4">
+              Lernkarten werden generiert
+            </h1>
+            <p className="text-gray-600">
+              Die KI erstellt personalisierte Lernkarten für deine Themen...
+            </p>
+          </div>
+          <AILoadingAnimation message="Lernkarten werden generiert..." size="lg" />
+        </div>
+      </div>
+    )
+  }
+
   // Main render logic
   if (isQuizCompleted) {
     return (
@@ -1073,18 +1199,19 @@ const QuizLernkarten = () => {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-6 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl font-light text-gray-900 mb-4">
-            Quiz & Lernkarten
-          </h1>
-          <p className="text-xl text-gray-600 font-light">
-            Interaktives Lernsystem für die Pflegeausbildung
-          </p>
-        </motion.div>
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <h1 className="text-5xl font-light text-gray-900 mb-4">
+              Quiz & Lernkarten
+            </h1>
+            <p className="text-xl text-gray-600 font-light">
+              Interaktives Lernsystem für die Pflegeausbildung
+            </p>
+          </motion.div>
+        </div>
 
         <CategorySelection />
 
