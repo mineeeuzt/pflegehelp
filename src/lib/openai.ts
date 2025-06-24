@@ -861,7 +861,6 @@ export async function generateAIResponse(
   console.error('🚨 All attempts failed:', lastError)
   throw new Error('Netzwerkfehler bei der KI-Generierung. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.')
 }
-}
 
 // Neue Streaming-Funktion für den Fallbeispiel Generator
 export async function generateStreamingAIResponse(
