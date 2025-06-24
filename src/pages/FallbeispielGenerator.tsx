@@ -748,9 +748,6 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                     onClick={() => setParams(prev => ({ ...prev, schwierigkeitsgrad: grad.value }))}
                   >
                     <CardContent className="p-6 text-center relative">
-                      <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium mb-4 ${grad.color}`}>
-                        {grad.label}
-                      </div>
                       <h3 className="font-medium text-gray-900 mb-2">{grad.jahr}</h3>
                       <p className="text-sm text-gray-600">{grad.description}</p>
                       {/* Selection indicator */}
@@ -876,14 +873,10 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                       >
                         <div className="flex items-center mb-2">
                           <Target className="h-4 w-4 text-gray-500 mr-2" />
-                          <span className="text-sm font-medium text-gray-600">Schwierigkeit</span>
+                          <span className="text-sm font-medium text-gray-600">Ausbildungsjahr</span>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${schwierigkeitsgrade.find(g => g.value === params.schwierigkeitsgrad)?.color}`}>
-                            {schwierigkeitsgrade.find(g => g.value === params.schwierigkeitsgrad)?.label}
-                          </span>
-                        </div>
-                        <p className="text-xs text-gray-500 mt-1">{schwierigkeitsgrade.find(g => g.value === params.schwierigkeitsgrad)?.jahr}</p>
+                        <p className="text-gray-900 font-medium">{schwierigkeitsgrade.find(g => g.value === params.schwierigkeitsgrad)?.jahr}</p>
+                        <p className="text-xs text-gray-500">{schwierigkeitsgrade.find(g => g.value === params.schwierigkeitsgrad)?.description}</p>
                       </div>
 
                       {params.zusatzinfo && (
