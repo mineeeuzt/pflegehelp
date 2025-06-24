@@ -358,26 +358,11 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
       await authService.incrementUsageCount(userId, 'care_plan')
 
       const categoryNames = categories.join(', ')
-      const userInput = `
-🎯 QUIZ-GENERIERUNG FÜR KATEGORIE: ${categoryNames}
+      const userInput = `Kategorie: ${categoryNames}
 Schwierigkeitsgrad: ${difficulty}
 
-🚨 KRITISCHE ANWEISUNG: Erstelle 15 Fragen AUSSCHLIESSLICH zu "${categoryNames}"
-
-📋 STRENGE KATEGORIE-REGELN:
-- JEDE einzelne Frage muss 100% zu "${categoryNames}" passen
-- VERBIETE alle anderen Themen komplett
-- Bei Herz-Kreislauf: NUR Herz-Kreislauf (NICHT Atmung, Nieren, etc.)
-- Bei Atmungssystem: NUR Atmung/Lunge (NICHT Herz, Verdauung, etc.)
-- Bei Pharmakologie: NUR die spezifische Medikamentengruppe
-
-🔍 QUALITÄTSPRÜFUNG:
-- Frage dich vor jeder Frage: "Behandelt das zu 100% nur ${categoryNames}?"
-- Verwerfe alle Fragen, die andere Organsysteme auch nur erwähnen
-- Alle 15 Fragen = Ein einziges Thema: ${categoryNames}
-
-ZIEL: 15 perfekt passende Fragen nur zu "${categoryNames}" - keine Abweichungen!
-      `.trim()
+Erstelle 15 Quiz-Fragen nur zu dieser Kategorie: ${categoryNames}
+Alle Fragen müssen zu "${categoryNames}" passen - keine anderen Themen.`
 
       const response = await generateAIResponse(AI_PROMPTS.quiz, userInput)
       
@@ -388,7 +373,14 @@ ZIEL: 15 perfekt passende Fragen nur zu "${categoryNames}" - keine Abweichungen!
         
         // Validate that we have questions
         if (!parsedQuiz.questions || !Array.isArray(parsedQuiz.questions) || parsedQuiz.questions.length === 0) {
-          throw new Error('Keine gültigen Fragen erhalten')
+          console.error('Leere Fragen-Array erhalten. Response:', response)
+          throw new Error('AI hat keine Fragen generiert. Prompt möglicherweise zu komplex.')
+        }
+        
+        // Validate we have at least 10 questions (not necessarily 15)
+        if (parsedQuiz.questions.length < 10) {
+          console.error(`Nur ${parsedQuiz.questions.length} Fragen erhalten, mindestens 10 erwartet`)
+          throw new Error(`Nur ${parsedQuiz.questions.length} Fragen erhalten. Versuchen Sie es erneut.`)
         }
         
       } catch (e) {

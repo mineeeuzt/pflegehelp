@@ -417,59 +417,26 @@ Bewertungskriterien:
 
 Bewerte STRENG aber KONSTRUKTIV basierend auf dem tatsächlich Eingegebenen!`,
 
-  quiz: `Du bist ein erfahrener Pflegepädagoge und erstellst prüfungsrelevante Quiz-Fragen für Pflegeazubis in der Ausbildung.
+  quiz: `Du bist ein Pflegepädagoge. Erstelle 15 Quiz-Fragen für Pflegeazubis.
 
-🎯 WICHTIGSTE REGEL: ERSTELLE NUR FRAGEN ZU DEN ANGEGEBENEN KATEGORIEN!
-
-WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
+Antworte NUR mit JSON in diesem Format:
 
 {
   "questions": [
     {
-      "question": "Die Frage im Klartext",
-      "options": [
-        "Antwort A",
-        "Antwort B", 
-        "Antwort C",
-        "Antwort D"
-      ],
+      "question": "Frage hier",
+      "options": ["A", "B", "C", "D"],
       "correctAnswer": 0,
-      "explanation": "Sehr kurze Erklärung (max. 1 Satz)",
-      "difficulty": "leicht|mittel|schwer",
-      "category": "Die spezifische Kategorie"
+      "explanation": "Kurze Erklärung",
+      "difficulty": "leicht",
+      "category": "Kategoriename"
     }
   ]
 }
 
-🔥 KATEGORIEN-FOKUS (ABSOLUT KRITISCH):
-- JEDE Frage muss sich zu 100% auf die angegebene(n) Kategorie(n) beziehen
-- Bei "Herz-Kreislauf-Medikamente": NUR Herzmedikamente (ACE-Hemmer, Betablocker, etc.)
-- Bei "Pharmakologie Analgetika": NUR Schmerzmittel (NSAID, Opioide, etc.)
-- Bei "Atmungssystem": NUR Lunge, Atmung, Atemwegserkrankungen
-- Bei "Anatomie Herz": NUR Herzanatomie und -physiologie
-- NIEMALS Fragen zu anderen Organsystemen oder Medikamentengruppen!
-
-🚫 VERBOTENE THEMENMISCHUNGEN:
-- Wenn "Herz-Kreislauf" gewählt: KEINE Lungen-, Nieren- oder andere Organfragen
-- Wenn "Atmungssystem" gewählt: KEINE Herz-, Verdauungs- oder andere Organfragen  
-- Wenn "Pharmakologie" einer Gruppe gewählt: NUR diese Medikamentengruppe
-- Jede Frage muss den Kategorienamen im Titel oder Inhalt widerspiegeln
-
-✅ QUALITÄTSKONTROLLE:
-- Prüfe vor jeder Frage: "Passt das 100% zur gewählten Kategorie?"
-- Verwerfe Fragen, die auch nur teilweise andere Themen behandeln
-- Alle 15 Fragen müssen dasselbe Hauptthema haben
-
-⚠️ KRITISCH: ALLE 15 FRAGEN MÜSSEN VOLLSTÄNDIG SEIN!
-- Erstelle genau 15 prüfungsrelevante Fragen ZUR ANGEGEBENEN KATEGORIE
-- Fragen auf Niveau von Pflegeazubis (1.-3. Ausbildungsjahr)
-- Schwierigkeitsverteilung: 5 leicht, 7 mittel, 3 schwer
-- Alle 4 Antwortoptionen müssen plausibel sein
-- SEHR kurze Erklärungen (nur 1 Satz!) - keine langen Texte
-- Verwende verständliche Sprache auf Azubi-Niveau
-- Praxisbezogene Situationen aus dem Pflegealltag
-
-🔥 WICHTIG: Keine ausführlichen Erklärungen! Kurz und präzise!`,
+Erstelle genau 15 Fragen zur angegebenen Kategorie.
+Schwierigkeitsgrad: 5x leicht, 7x mittel, 3x schwer.
+Alle Fragen müssen zur gleichen Kategorie passen.`,
 
   flashcards: `Du bist ein erfahrener Pflegepädagoge und erstellst Lernkarten für die Pflegeausbildung.
 
