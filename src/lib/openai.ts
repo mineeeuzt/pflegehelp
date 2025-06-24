@@ -772,29 +772,30 @@ export async function generateAIResponse(
   }
   
   // Finale Model-Optimierung: Intelligente Auswahl basierend auf Komplexität
+  const promptLower = prompt.toLowerCase()
   const isSimpleTask = (
-    prompt.includes('pesr') ||
-    prompt.includes('medikamentenszenario') ||
-    (userInput.length < 50 && !prompt.includes('fallbeispielProfi')) ||
-    (userInput.length < 100 && !prompt.includes('pflegeplanung'))
+    promptLower.includes('pesr') ||
+    promptLower.includes('medikamentenszenario') ||
+    (userInput.length < 50 && !promptLower.includes('fallbeispielprofi')) ||
+    (userInput.length < 100 && !promptLower.includes('pflegeplanung'))
   )
   
   const model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
   
   // Dynamische Token-Optimierung basierend auf Task-Typ
   let maxTokens: number
-  if (prompt.includes('pesr')) maxTokens = 400
-  else if (prompt.includes('medikamentenszenario')) maxTokens = 800
-  else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
-  else if (prompt.toLowerCase().includes('quiz')) maxTokens = 10000 // Maximale Tokens für 15 vollständige Fragen
-  else if (prompt.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten  
+  if (promptLower.includes('pesr')) maxTokens = 400
+  else if (promptLower.includes('medikamentenszenario')) maxTokens = 800
+  else if (promptLower.includes('fallbeispielprofi')) maxTokens = 1800
+  else if (promptLower.includes('quiz')) maxTokens = 10000 // Maximale Tokens für 15 vollständige Fragen
+  else if (promptLower.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten  
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
   
   // Erweiterte Caching-Strategie für häufige Tasks
   const cacheableTask = (
-    prompt.includes('pesr') || 
-    (prompt.includes('medikamentenszenario') && userInput.length < 80) ||
+    promptLower.includes('pesr') || 
+    (promptLower.includes('medikamentenszenario') && userInput.length < 80) ||
     (isSimpleTask && userInput.length < 60)
   )
   
@@ -810,7 +811,7 @@ export async function generateAIResponse(
   console.log(`🤖 AI: ${model} | Tokens: ${maxTokens} | Cache: ${cacheableTask ? 'enabled' : 'disabled'}`)
   
   // Verwende speziellen Pflegeinfo-API-Key falls verfügbar und es sich um Pflegeinfo handelt
-  const shouldUsePflegeinfoKey = prompt.includes('pflegeinfo') || prompt.includes('Pflegeinfo')
+  const shouldUsePflegeinfoKey = promptLower.includes('pflegeinfo')
   const aiClient = shouldUsePflegeinfoKey ? (pflegeinfoOpenai || openai) : openai
 
   try {
@@ -861,34 +862,35 @@ export async function generateStreamingAIResponse(
   }
   
   // Model-Optimierung: Intelligente Auswahl basierend auf Komplexität
+  const promptLowerStreaming = prompt.toLowerCase()
   const isSimpleTask = (
-    prompt.includes('pesr') ||
-    prompt.includes('medikamentenszenario') ||
-    (userInput.length < 50 && !prompt.includes('fallbeispielProfi')) ||
-    (userInput.length < 100 && !prompt.includes('pflegeplanung'))
+    promptLowerStreaming.includes('pesr') ||
+    promptLowerStreaming.includes('medikamentenszenario') ||
+    (userInput.length < 50 && !promptLowerStreaming.includes('fallbeispielprofi')) ||
+    (userInput.length < 100 && !promptLowerStreaming.includes('pflegeplanung'))
   )
   
   const model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
   
   // Dynamische Token-Optimierung basierend auf Task-Typ
   let maxTokens: number
-  if (prompt.includes('pesr')) maxTokens = 400
-  else if (prompt.includes('medikamentenszenario')) maxTokens = 800
-  else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
-  else if (prompt.includes('quiz')) maxTokens = 3000 // Mehr Tokens für 15 Fragen
-  else if (prompt.includes('flashcards')) maxTokens = 2500 // Mehr Tokens für Lernkarten
+  if (promptLowerStreaming.includes('pesr')) maxTokens = 400
+  else if (promptLowerStreaming.includes('medikamentenszenario')) maxTokens = 800
+  else if (promptLowerStreaming.includes('fallbeispielprofi')) maxTokens = 1800
+  else if (promptLowerStreaming.includes('quiz')) maxTokens = 10000 // Maximale Tokens für 15 vollständige Fragen
+  else if (promptLowerStreaming.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
   
   // Erweiterte Caching-Strategie - bei Streaming nicht verwenden für bessere UX
   const cacheableTask = (
-    prompt.includes('pesr') || 
-    (prompt.includes('medikamentenszenario') && userInput.length < 80) ||
+    promptLowerStreaming.includes('pesr') || 
+    (promptLowerStreaming.includes('medikamentenszenario') && userInput.length < 80) ||
     (isSimpleTask && userInput.length < 60)
   )
   
   // Für sehr einfache Tasks könnte man Cache verwenden, aber für Fallbeispiele ist Streaming besser
-  if (cacheableTask && !prompt.includes('fallbeispiel')) {
+  if (cacheableTask && !promptLowerStreaming.includes('fallbeispiel')) {
     const cached = simpleCache.get(userInput)
     if (cached) {
       console.log(`⚡ Cache HIT: ${model} | Tokens: ${maxTokens} | Simulating stream`)
@@ -913,7 +915,7 @@ export async function generateStreamingAIResponse(
   console.log(`🤖 STREAMING: ${model} | Tokens: ${maxTokens}`)
   
   // Verwende speziellen Pflegeinfo-API-Key falls verfügbar und es sich um Pflegeinfo handelt
-  const shouldUsePflegeinfoKey = prompt.includes('pflegeinfo') || prompt.includes('Pflegeinfo')
+  const shouldUsePflegeinfoKey = promptLowerStreaming.includes('pflegeinfo')
   const aiClient = shouldUsePflegeinfoKey ? (pflegeinfoOpenai || openai) : openai
   
   try {
@@ -965,7 +967,7 @@ export async function generateMedicationScenario(
   await initializeOpenAI()
   
   // Nur für Medikamenten-Spiel verwenden
-  if (!prompt.includes('medikamentenszenario') && !userInput.includes('Medikamenten')) {
+  if (!prompt.toLowerCase().includes('medikamentenszenario') && !userInput.toLowerCase().includes('medikamenten')) {
     throw new Error('Diese Funktion ist nur für das Medikamenten-Training verfügbar.')
   }
   
