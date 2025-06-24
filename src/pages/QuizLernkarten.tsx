@@ -47,7 +47,10 @@ const QuizLernkarten = () => {
     startFlashcards,
     nextFlashcard,
     rateFlashcard,
-    resetSession
+    resetSession,
+    setSelectedCategories,
+    clearSelectedCategories,
+    setSelectedDifficulty
   } = useQuizStore()
 
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
@@ -246,6 +249,8 @@ const QuizLernkarten = () => {
       setCurrentView('main')
       setSelectedMainCategory(null)
       setNavigationPath([])
+      // Clear selected categories when going back to main
+      clearSelectedCategories()
     }
   }
 
@@ -254,13 +259,16 @@ const QuizLernkarten = () => {
     setSelectedMainCategory(null)
     setSelectedSubcategory(null)
     setNavigationPath([])
+    // Clear selected categories when navigating home
+    clearSelectedCategories()
   }
 
   const selectCategory = (categoryId: string) => {
+    // Single-select behavior: replace previous selection instead of adding to it
     const newSelection = selectedCategories.includes(categoryId)
-      ? selectedCategories.filter(id => id !== categoryId)
-      : [...selectedCategories, categoryId]
-    useQuizStore.setState({ selectedCategories: newSelection })
+      ? [] // If already selected, deselect it
+      : [categoryId] // If not selected, select only this one (replace others)
+    setSelectedCategories(newSelection)
   }
 
   // Get all leaf categories (categories without children)

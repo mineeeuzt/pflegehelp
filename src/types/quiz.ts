@@ -86,4 +86,7 @@ export type QuizActions = {
   resetSession: () => void
   updateStats: (session: QuizSession) => void
   resetStats: () => void
+  setSelectedCategories: (categories: string[]) => void
+  clearSelectedCategories: () => void
+  setSelectedDifficulty: (difficulty: ('leicht' | 'mittel' | 'schwer')[]) => void
 }

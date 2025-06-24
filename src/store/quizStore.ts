@@ -233,6 +233,18 @@ export const useQuizStore = create<QuizState & QuizActions>()(
 
       resetStats: () => {
         set({ stats: initialStats })
+      },
+
+      setSelectedCategories: (categories) => {
+        set({ selectedCategories: categories })
+      },
+
+      clearSelectedCategories: () => {
+        set({ selectedCategories: [] })
+      },
+
+      setSelectedDifficulty: (difficulty) => {
+        set({ selectedDifficulty: difficulty })
       }
     }),
     {
