@@ -47,6 +47,11 @@ async function initializeOpenAI() {
 }
 
 export const AI_PROMPTS = {
+  anamnesePatient: `Du bist ein Patient im Krankenhaus. Antworte authentisch, menschlich und realistisch auf die Fragen der Pflegekraft. 
+Bleibe immer in deiner Rolle und antworte so, wie ein echter Patient es tun würde - mit Ängsten, Sorgen, manchmal ausweichend oder unsicher.
+Verwende einfache, alltägliche Sprache. Maximal 2-3 Sätze pro Antwort.
+Zeige typische Patientenreaktionen: manchmal vergesslich, emotional, besorgt oder auch dankbar.`,
+
   fallbeispiel: `Du bist ein erfahrener Pflegepädagoge und erstellst realistische Fallbeispiele für Pflegeazubis.
 
 WICHTIG: Erstelle das Fallbeispiel als zusammenhängenden Fließtext ohne Aufzählungen, Nummerierungen oder Gliederungspunkte!
@@ -412,7 +417,7 @@ Bewertungskriterien:
 
 Bewerte STRENG aber KONSTRUKTIV basierend auf dem tatsächlich Eingegebenen!`,
 
-  quiz: `Du bist ein erfahrener Pflegepädagoge und erstellst prüfungsrelevante Quiz-Fragen für die Pflegeausbildung.
+  quiz: `Du bist ein erfahrener Pflegepädagoge und erstellst prüfungsrelevante Quiz-Fragen für Pflegeazubis in der Ausbildung.
 
 WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 
@@ -434,12 +439,18 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
   ]
 }
 
-Erstelle genau 10 prüfungsrelevante Fragen zur angegebenen Kategorie. 
-- Mische verschiedene Schwierigkeitsgrade (3 leicht, 5 mittel, 2 schwer)
-- Alle 4 Antwortoptionen müssen plausibel sein
-- Fragen sollen praxisrelevant und lehrplankonform sein
-- Detaillierte Erklärungen mit Fachwissen
-- Verwende aktuelle Pflegestandards und Richtlinien`,
+ANFORDERUNGEN FÜR PFLEGEAZUBI-NIVEAU:
+- Erstelle genau 15 prüfungsrelevante Fragen zur angegebenen Kategorie
+- Fragen auf Niveau von Pflegeazubis (1.-3. Ausbildungsjahr)
+- Praxisbezogene Situationen aus dem Pflegealltag
+- Schwierigkeitsverteilung: 5 leicht, 7 mittel, 3 schwer
+- Alle 4 Antwortoptionen müssen plausibel und realistic sein
+- Keine zu akademischen oder theoretischen Fragen
+- Fokus auf praktische Pflegehandlungen, Beobachtung, Dokumentation
+- Fragen sollen für Zwischen- und Abschlussprüfung relevant sein
+- Detaillierte Erklärungen mit Bezug zu Pflegestandards
+- Verwende verständliche Sprache auf Azubi-Niveau
+- Beziehe ABEDL-Modell und Pflegeprozess mit ein`,
 
   flashcards: `Du bist ein erfahrener Pflegepädagoge und erstellst Lernkarten für die Pflegeausbildung.
 
@@ -756,6 +767,8 @@ export async function generateAIResponse(
   if (prompt.includes('pesr')) maxTokens = 400
   else if (prompt.includes('medikamentenszenario')) maxTokens = 800
   else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
+  else if (prompt.includes('quiz')) maxTokens = 4000 // Erhöht für 15 Fragen
+  else if (prompt.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten  
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
   
@@ -843,6 +856,8 @@ export async function generateStreamingAIResponse(
   if (prompt.includes('pesr')) maxTokens = 400
   else if (prompt.includes('medikamentenszenario')) maxTokens = 800
   else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
+  else if (prompt.includes('quiz')) maxTokens = 3000 // Mehr Tokens für 15 Fragen
+  else if (prompt.includes('flashcards')) maxTokens = 2500 // Mehr Tokens für Lernkarten
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
   

@@ -10,7 +10,7 @@ interface Message {
   type: 'user' | 'patient' | 'system'
   content: string
   timestamp: Date
-  patientMood?: 'anxious' | 'cooperative' | 'confused' | 'defensive'
+  patientMood?: 'anxious' | 'cooperative' | 'confused' | 'defensive' | 'uncooperative'
 }
 
 interface PatientProfile {
@@ -247,6 +247,7 @@ Antworte wie diese Person auf die Frage der Pflegekraft. Bleibe in der Rolle. An
     switch (mood) {
       case 'anxious': return 'text-yellow-600'
       case 'defensive': return 'text-red-600' 
+      case 'uncooperative': return 'text-red-600'
       case 'confused': return 'text-purple-600'
       default: return 'text-green-600'
     }
@@ -256,6 +257,7 @@ Antworte wie diese Person auf die Frage der Pflegekraft. Bleibe in der Rolle. An
     switch (mood) {
       case 'anxious': return '😰'
       case 'defensive': return '😤'
+      case 'uncooperative': return '😤'
       case 'confused': return '😵'
       default: return '😊'
     }
@@ -377,7 +379,7 @@ Antworte wie diese Person auf die Frage der Pflegekraft. Bleibe in der Rolle. An
                   >
                     <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                       message.type === 'user' 
-                        ? 'bg-primary text-white' 
+                        ? 'bg-blue-600 text-white' 
                         : message.type === 'system'
                         ? 'bg-gray-100 text-gray-700 text-center'
                         : 'bg-gray-100 text-gray-800'
