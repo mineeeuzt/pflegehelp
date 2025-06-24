@@ -696,7 +696,7 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
       case 3:
         return (
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {settings.map((setting) => (
                 <motion.div
                   key={setting.value}
