@@ -780,14 +780,20 @@ export async function generateAIResponse(
     (userInput.length < 100 && !promptLower.includes('pflegeplanung'))
   )
   
-  const model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
+  // Spezielle Model-Auswahl für Quiz (mehr Token-Kapazität)
+  let model: string
+  if (promptLower.includes('quiz')) {
+    model = 'gpt-4-turbo'
+  } else {
+    model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
+  }
   
   // Dynamische Token-Optimierung basierend auf Task-Typ
   let maxTokens: number
   if (promptLower.includes('pesr')) maxTokens = 400
   else if (promptLower.includes('medikamentenszenario')) maxTokens = 800
   else if (promptLower.includes('fallbeispielprofi')) maxTokens = 1800
-  else if (promptLower.includes('quiz')) maxTokens = 10000 // Maximale Tokens für 15 vollständige Fragen
+  else if (promptLower.includes('quiz')) maxTokens = 8000 // GPT-4-turbo unterstützt viel mehr Token
   else if (promptLower.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten  
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
@@ -870,14 +876,20 @@ export async function generateStreamingAIResponse(
     (userInput.length < 100 && !promptLowerStreaming.includes('pflegeplanung'))
   )
   
-  const model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
+  // Spezielle Model-Auswahl für Quiz (mehr Token-Kapazität)
+  let model: string
+  if (promptLowerStreaming.includes('quiz')) {
+    model = 'gpt-4-turbo'
+  } else {
+    model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
+  }
   
   // Dynamische Token-Optimierung basierend auf Task-Typ
   let maxTokens: number
   if (promptLowerStreaming.includes('pesr')) maxTokens = 400
   else if (promptLowerStreaming.includes('medikamentenszenario')) maxTokens = 800
   else if (promptLowerStreaming.includes('fallbeispielprofi')) maxTokens = 1800
-  else if (promptLowerStreaming.includes('quiz')) maxTokens = 10000 // Maximale Tokens für 15 vollständige Fragen
+  else if (promptLowerStreaming.includes('quiz')) maxTokens = 8000 // GPT-4-turbo unterstützt viel mehr Token
   else if (promptLowerStreaming.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
