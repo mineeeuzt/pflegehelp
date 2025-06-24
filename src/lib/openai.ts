@@ -434,7 +434,7 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
         "Antwort D"
       ],
       "correctAnswer": 0,
-      "explanation": "Kurze, präzise Erklärung (max. 2 Sätze)",
+      "explanation": "Sehr kurze Erklärung (max. 1 Satz)",
       "difficulty": "leicht|mittel|schwer",
       "category": "Die spezifische Kategorie"
     }
@@ -460,18 +460,16 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 - Verwerfe Fragen, die auch nur teilweise andere Themen behandeln
 - Alle 15 Fragen müssen dasselbe Hauptthema haben
 
-ANFORDERUNGEN FÜR PFLEGEAZUBI-NIVEAU:
+⚠️ KRITISCH: ALLE 15 FRAGEN MÜSSEN VOLLSTÄNDIG SEIN!
 - Erstelle genau 15 prüfungsrelevante Fragen ZUR ANGEGEBENEN KATEGORIE
 - Fragen auf Niveau von Pflegeazubis (1.-3. Ausbildungsjahr)
-- Praxisbezogene Situationen aus dem Pflegealltag
 - Schwierigkeitsverteilung: 5 leicht, 7 mittel, 3 schwer
-- Alle 4 Antwortoptionen müssen plausibel und realistic sein
-- Keine zu akademischen oder theoretischen Fragen
-- Fokus auf praktische Pflegehandlungen, Beobachtung, Dokumentation
-- Fragen sollen für Zwischen- und Abschlussprüfung relevant sein
-- Kompakte Erklärungen (max. 2 Sätze) mit Bezug zu Pflegestandards
+- Alle 4 Antwortoptionen müssen plausibel sein
+- SEHR kurze Erklärungen (nur 1 Satz!) - keine langen Texte
 - Verwende verständliche Sprache auf Azubi-Niveau
-- Beziehe ABEDL-Modell und Pflegeprozess mit ein`,
+- Praxisbezogene Situationen aus dem Pflegealltag
+
+🔥 WICHTIG: Keine ausführlichen Erklärungen! Kurz und präzise!`,
 
   flashcards: `Du bist ein erfahrener Pflegepädagoge und erstellst Lernkarten für die Pflegeausbildung.
 
@@ -788,7 +786,7 @@ export async function generateAIResponse(
   if (prompt.includes('pesr')) maxTokens = 400
   else if (prompt.includes('medikamentenszenario')) maxTokens = 800
   else if (prompt.includes('fallbeispielProfi')) maxTokens = 1800
-  else if (prompt.includes('quiz')) maxTokens = 8000 // Erhöht für 15 vollständige Fragen ohne Abbruch
+  else if (prompt.includes('quiz')) maxTokens = 10000 // Maximale Tokens für 15 vollständige Fragen
   else if (prompt.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten  
   else if (isSimpleTask) maxTokens = 800
   else maxTokens = 2000
