@@ -804,35 +804,63 @@ export async function generateAIResponse(
   const shouldUsePflegeinfoKey = prompt.includes('pflegeinfo') || prompt.includes('Pflegeinfo')
   const aiClient = shouldUsePflegeinfoKey ? (pflegeinfoOpenai || openai) : openai
 
-  try {
-    const completion = await aiClient.chat.completions.create({
-      model,
-      messages: [
-        {
-          role: 'system',
-          content: prompt,
-        },
-        {
-          role: 'user',
-          content: userInput,
-        },
-      ],
-      max_tokens: maxTokens,
-      temperature: 0.7,
-    })
+  // Retry-Logik für Netzwerkfehler
+  let lastError: any
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      console.log(`🔄 Attempt ${attempt}/3: Generating with ${model}`)
+      
+      const completion = await aiClient.chat.completions.create({
+        model,
+        messages: [
+          {
+            role: 'system',
+            content: prompt,
+          },
+          {
+            role: 'user',
+            content: userInput,
+          },
+        ],
+        max_tokens: maxTokens,
+        temperature: 0.7,
+        timeout: 30000, // 30 Sekunden Timeout
+      })
 
-    const response = completion.choices[0]?.message?.content || 'Keine Antwort erhalten.'
-    
-    // Cache nur erfolgreiche Antworten für cacheable Tasks
-    if (cacheableTask && response !== 'Keine Antwort erhalten.') {
-      simpleCache.set(userInput, response)
+      const response = completion.choices[0]?.message?.content || 'Keine Antwort erhalten.'
+      
+      // Cache nur erfolgreiche Antworten für cacheable Tasks
+      if (cacheableTask && response !== 'Keine Antwort erhalten.') {
+        simpleCache.set(userInput, response)
+      }
+      
+      console.log(`✅ Success on attempt ${attempt}`)
+      return response
+    } catch (error: any) {
+      lastError = error
+      console.error(`❌ Attempt ${attempt} failed:`, error.message)
+      
+      // Wenn es ein Netzwerkfehler ist, versuche es nochmal
+      if (attempt < 3 && (
+        error.message?.includes('network') || 
+        error.message?.includes('timeout') ||
+        error.message?.includes('NETWORK_CHANGED') ||
+        error.code === 'ENOTFOUND' ||
+        error.code === 'ECONNRESET'
+      )) {
+        console.log(`⏳ Waiting 1s before retry...`)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        continue
+      }
+      
+      // Bei anderen Fehlern sofort abbrechen
+      break
     }
-    
-    return response
-  } catch (error) {
-    console.error('AI Generation Error:', error)
-    throw new Error('Fehler bei der KI-Generierung. Bitte versuchen Sie es erneut.')
   }
+  
+  console.error('🚨 All attempts failed:', lastError)
+  throw new Error('Netzwerkfehler bei der KI-Generierung. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.')
+}
 }
 
 // Neue Streaming-Funktion für den Fallbeispiel Generator
