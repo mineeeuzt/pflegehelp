@@ -7,8 +7,7 @@ import {
   FileText, 
   ArrowRight,
   Plus,
-  Heart,
-  FileCheck
+  Heart
 } from 'lucide-react'
 import { Card, CardContent } from '../components/ui'
 
@@ -43,12 +42,6 @@ const Dashboard = () => {
       description: 'Interaktives Lernsystem mit Spaced Repetition',
       icon: Target,
       href: '/quiz-lernkarten'
-    },
-    {
-      title: 'Pflegeinfo-Bewertung',
-      description: 'KI-Bewertung pflegerelevanter Informationen',
-      icon: FileCheck,
-      href: '/pflegeinfo-workflow'
     }
   ]
 
