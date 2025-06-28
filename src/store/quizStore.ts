@@ -111,7 +111,11 @@ export const useQuizStore = create<QuizState & QuizActions>()(
         }
         
         get().updateStats(completedSession)
-        set({ currentSession: null })
+        set({ 
+          currentSession: null,
+          selectedCategories: [],
+          selectedDifficulty: ['leicht', 'mittel', 'schwer']
+        })
       },
 
       setStudyMode: (mode) => {
@@ -202,7 +206,9 @@ export const useQuizStore = create<QuizState & QuizActions>()(
         set({
           currentSession: null,
           currentFlashcardIndex: 0,
-          showFlashcardAnswer: false
+          showFlashcardAnswer: false,
+          selectedCategories: [],
+          selectedDifficulty: ['leicht', 'mittel', 'schwer']
         })
       },
 

@@ -205,6 +205,10 @@ const QuizLernkarten = () => {
       }
       
       useQuizStore.setState({ currentSession: completedSession })
+      // Reset categories after quiz completion
+      setTimeout(() => {
+        endQuiz()
+      }, 100)
     } else {
       // Next question
       useQuizStore.setState({
