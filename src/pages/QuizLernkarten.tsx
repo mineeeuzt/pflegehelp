@@ -53,7 +53,6 @@ const QuizLernkarten = () => {
     setStudyMode,
     startFlashcards,
     nextFlashcard,
-    rateFlashcard,
     resetSession,
     setSelectedCategories,
     clearSelectedCategories,
@@ -1251,40 +1250,14 @@ const QuizLernkarten = () => {
                 </Button>
 
                 {showFlashcardAnswer && (
-                  <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => rateFlashcard('again')}
-                      className="text-red-600 hover:text-red-700"
-                    >
-                      Nochmal
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => rateFlashcard('hard')}
-                      className="text-orange-600 hover:text-orange-700"
-                    >
-                      Schwer
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => rateFlashcard('good')}
-                      className="text-blue-600 hover:text-blue-700"
-                    >
-                      Gut
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => rateFlashcard('easy')}
-                      className="text-green-600 hover:text-green-700"
-                    >
-                      Einfach
-                    </Button>
-                  </div>
+                  <Button
+                    size="sm"
+                    onClick={nextFlashcard}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    <ArrowRight className="w-4 h-4 mr-2" />
+                    Weiter
+                  </Button>
                 )}
               </div>
             </div>
