@@ -1436,22 +1436,16 @@ const QuizLernkarten = () => {
 
   if (currentSession) {
     return (
-      <div className="min-h-screen bg-white">
-        <NavigationHeader />
-        <div className="container mx-auto px-4 py-8">
-          <QuizInterface />
-        </div>
+      <div className="container mx-auto px-4 py-8">
+        <QuizInterface />
       </div>
     )
   }
 
   if (flashcards.length > 0 && selectedCategories.length > 0) {
     return (
-      <div className="min-h-screen bg-white">
-        <NavigationHeader />
-        <div className="container mx-auto px-4 py-8">
-          <FlashcardInterface />
-        </div>
+      <div className="container mx-auto px-4 py-8">
+        <FlashcardInterface />
       </div>
     )
   }
