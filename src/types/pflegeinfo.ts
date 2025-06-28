@@ -1,0 +1,161 @@
+// TypeScript interfaces for Pflegeinfo AI evaluation
+
+export interface FeedbackError {
+  zitat: string
+  problem: string
+  korrektur: string
+}
+
+export interface FeedbackSection {
+  score: number
+  eingereichtText: string
+  positiv: string[]
+  fehler: FeedbackError[]
+  note: string
+}
+
+export interface PflegeinfoFeedback {
+  dokumentation: FeedbackSection
+  pflegemassnahmen: FeedbackSection
+  beobachtungen: FeedbackSection
+  struktur: FeedbackSection
+  fachlichkeit: FeedbackSection
+  rechtliches: FeedbackSection
+}
+
+export interface PflegeinfoResult {
+  gesamtbewertung: number
+  bewertungBegruendung: string
+  feedback: PflegeinfoFeedback
+  hauptprobleme: string[]
+  mindestanforderungErfuellt: boolean
+  empfehlung: string
+}
+
+export interface PflegeinfoInput {
+  dokumentation: string
+  pflegemassnahmen?: string
+  beobachtungen?: string
+}
+
+export interface PflegeinfoFormData {
+  pflegeInfo: string
+  selectedABEDL: string[]
+  begruendung: string
+}
+
+export interface ABEDLCategory {
+  id: string
+  label: string
+}
+
+// Type guards
+export function isPflegeinfoResult(obj: any): obj is PflegeinfoResult {
+  return (
+    obj &&
+    typeof obj === 'object' &&
+    typeof obj.gesamtbewertung === 'number' &&
+    typeof obj.bewertungBegruendung === 'string' &&
+    obj.feedback &&
+    typeof obj.feedback === 'object'
+  )
+}
+
+export function isFeedbackSection(obj: any): obj is FeedbackSection {
+  return (
+    obj &&
+    typeof obj === 'object' &&
+    typeof obj.score === 'number' &&
+    Array.isArray(obj.positiv) &&
+    Array.isArray(obj.fehler)
+  )
+}
+
+export function isFeedbackError(obj: any): obj is FeedbackError {
+  return (
+    obj &&
+    typeof obj === 'object' &&
+    typeof obj.zitat === 'string' &&
+    typeof obj.problem === 'string' &&
+    typeof obj.korrektur === 'string'
+  )
+}
+
+// Safe access utilities
+export class PflegeinfoSafeAccess {
+  static getOverallScore(result: any): number {
+    return typeof result?.gesamtbewertung === 'number' ? result.gesamtbewertung : 0
+  }
+
+  static getSectionScore(section: any): number {
+    return typeof section?.score === 'number' ? section.score : 0
+  }
+
+  static getArray<T>(arr: any): T[] {
+    return Array.isArray(arr) ? arr : []
+  }
+
+  static getString(str: any): string {
+    return typeof str === 'string' ? str : ''
+  }
+
+  static getBoolean(bool: any): boolean {
+    return typeof bool === 'boolean' ? bool : false
+  }
+
+  static getFeedbackSection(section: any): FeedbackSection {
+    return {
+      score: this.getSectionScore(section),
+      eingereichtText: this.getString(section?.eingereichtText),
+      positiv: this.getArray(section?.positiv),
+      fehler: this.getArray(section?.fehler).filter(isFeedbackError),
+      note: this.getString(section?.note)
+    }
+  }
+
+  static getAllFeedback(feedback: any): PflegeinfoFeedback {
+    return {
+      dokumentation: this.getFeedbackSection(feedback?.dokumentation),
+      pflegemassnahmen: this.getFeedbackSection(feedback?.pflegemassnahmen),
+      beobachtungen: this.getFeedbackSection(feedback?.beobachtungen),
+      struktur: this.getFeedbackSection(feedback?.struktur),
+      fachlichkeit: this.getFeedbackSection(feedback?.fachlichkeit),
+      rechtliches: this.getFeedbackSection(feedback?.rechtliches)
+    }
+  }
+
+  static parseResult(result: any): PflegeinfoResult {
+    return {
+      gesamtbewertung: this.getOverallScore(result),
+      bewertungBegruendung: this.getString(result?.bewertungBegruendung),
+      feedback: this.getAllFeedback(result?.feedback),
+      hauptprobleme: this.getArray(result?.hauptprobleme),
+      mindestanforderungErfuellt: this.getBoolean(result?.mindestanforderungErfuellt),
+      empfehlung: this.getString(result?.empfehlung)
+    }
+  }
+}
+
+// Utility functions for styling
+export class ScoreColorUtils {
+  static getScoreColor(score: number): string {
+    if (score >= 70) return 'text-green-600'
+    if (score >= 50) return 'text-yellow-600'
+    if (score >= 40) return 'text-orange-600'
+    return 'text-red-600'
+  }
+
+  static getScoreBackgroundColor(score: number): string {
+    if (score >= 70) return 'bg-green-50 border-green-200'
+    if (score >= 50) return 'bg-yellow-50 border-yellow-200'
+    if (score >= 40) return 'bg-orange-50 border-orange-200'
+    return 'bg-red-50 border-red-200'
+  }
+
+  static getScoreDescription(score: number): string {
+    if (score >= 70) return 'Gut'
+    if (score >= 50) return 'Befriedigend'
+    if (score >= 40) return 'Ausreichend'
+    return 'Ungenügend'
+  }
+}

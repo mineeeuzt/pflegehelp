@@ -1,9 +1,17 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FileCheck, Copy, ArrowRight, ArrowLeft, Brain } from 'lucide-react'
+import { FileCheck, Copy, ArrowRight, ArrowLeft, Brain, CheckCircle, AlertCircle, XCircle } from 'lucide-react'
 import { Button, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useAuthStore } from '../store/authStore'
 import { caseService, type PflegeinfoInput } from '../services/caseService'
+import { 
+  type PflegeinfoResult, 
+  type FeedbackSection, 
+  type FeedbackError,
+  PflegeinfoSafeAccess,
+  ScoreColorUtils,
+  isPflegeinfoResult 
+} from '../types/pflegeinfo'
 
 // ABEDL Kategorien
 const ABEDL_CATEGORIES = [
@@ -30,7 +38,7 @@ const PflegeinfoWorkflow = () => {
     selectedABEDL: [] as string[],
     begruendung: ''
   })
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<PflegeinfoResult | string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -95,15 +103,33 @@ const PflegeinfoWorkflow = () => {
       const response = await caseService.evaluatePflegeinfo(input, user.id)
       console.log('Pflegeinfo evaluation response:', response)
       
-      // Try to parse JSON response
+      // Try to parse JSON response and validate structure
       try {
         const parsed = JSON.parse(response)
-        setResult(parsed)
         console.log('Parsed result:', parsed)
+        
+        // Use safe parsing to ensure all required properties exist
+        const safeResult = PflegeinfoSafeAccess.parseResult(parsed)
+        setResult(safeResult)
       } catch (e) {
-        // If parsing fails, use as string
-        console.warn('JSON parsing failed, using string response:', e)
-        setResult(response)
+        // If parsing fails, try to clean and parse again
+        console.warn('JSON parsing failed, attempting cleanup:', e)
+        try {
+          // Try to extract JSON from response if it's wrapped in text
+          const jsonMatch = response.match(/\{[\s\S]*\}/)
+          if (jsonMatch) {
+            const cleanedJson = jsonMatch[0]
+            const parsed = JSON.parse(cleanedJson)
+            const safeResult = PflegeinfoSafeAccess.parseResult(parsed)
+            setResult(safeResult)
+          } else {
+            // Use as string fallback
+            setResult(response)
+          }
+        } catch (secondError) {
+          console.warn('Second parsing attempt failed:', secondError)
+          setResult(response)
+        }
       }
     } catch (error) {
       console.error('Pflegeinfo evaluation error:', {
@@ -122,6 +148,104 @@ const PflegeinfoWorkflow = () => {
       const textToCopy = typeof result === 'string' ? result : JSON.stringify(result, null, 2)
       navigator.clipboard.writeText(textToCopy)
     }
+  }
+
+  // Helper component for rendering feedback errors
+  const FeedbackErrorList = ({ errors }: { errors: FeedbackError[] }) => {
+    if (!errors || errors.length === 0) {
+      return <p className="text-sm text-gray-500">Keine spezifischen Verbesserungen erforderlich.</p>
+    }
+
+    return (
+      <div className="space-y-3">
+        {errors.map((error, index) => (
+          <div key={index} className="bg-red-50 border border-red-200 rounded-lg p-3">
+            {error.zitat && (
+              <p className="text-sm text-gray-600 mb-2">
+                <strong>Zitat:</strong> "{error.zitat}"
+              </p>
+            )}
+            <p className="text-sm text-red-700 mb-2">
+              <strong>Problem:</strong> {error.problem}
+            </p>
+            <p className="text-sm text-green-700">
+              <strong>Verbesserung:</strong> {error.korrektur}
+            </p>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  // Helper component for rendering a feedback section
+  const FeedbackSectionCard = ({ title, section }: { title: string; section: FeedbackSection }) => {
+    const score = PflegeinfoSafeAccess.getSectionScore(section)
+    const scoreColor = ScoreColorUtils.getScoreColor(score)
+    const scoreBgColor = ScoreColorUtils.getScoreBackgroundColor(score)
+    const scoreDescription = ScoreColorUtils.getScoreDescription(score)
+
+    return (
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            <span className="flex items-center">
+              {score >= 70 ? (
+                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+              ) : score >= 50 ? (
+                <AlertCircle className="h-5 w-5 text-yellow-500 mr-2" />
+              ) : (
+                <XCircle className="h-5 w-5 text-red-500 mr-2" />
+              )}
+              {title}
+            </span>
+            <div className={`px-3 py-1 rounded-full border ${scoreBgColor}`}>
+              <span className={`font-medium ${scoreColor}`}>
+                {score}/100 - {scoreDescription}
+              </span>
+            </div>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* User's input text */}
+          {section.eingereichtText && section.eingereichtText !== '(Nicht angegeben)' && (
+            <div className="mb-4">
+              <h4 className="font-medium text-gray-900 mb-2">Ihre Eingabe:</h4>
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                <p className="text-sm text-gray-700">{section.eingereichtText}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Positive aspects */}
+          {section.positiv && section.positiv.length > 0 && (
+            <div className="mb-4">
+              <h4 className="font-medium text-green-700 mb-2">✅ Positive Aspekte:</h4>
+              <ul className="list-disc list-inside space-y-1">
+                {section.positiv.map((positive, index) => (
+                  <li key={index} className="text-sm text-green-600">{positive}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Improvements needed */}
+          {section.fehler && section.fehler.length > 0 && (
+            <div className="mb-4">
+              <h4 className="font-medium text-red-700 mb-2">🔧 Verbesserungen:</h4>
+              <FeedbackErrorList errors={section.fehler} />
+            </div>
+          )}
+
+          {/* Summary note */}
+          {section.note && (
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <h4 className="font-medium text-gray-900 mb-2">Zusammenfassung:</h4>
+              <p className="text-sm text-gray-700">{section.note}</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    )
   }
 
 
@@ -153,11 +277,14 @@ const PflegeinfoWorkflow = () => {
     )
   }
 
-  // Show result - SIMPLIFIED TO PREVENT CRASHES
+  // Show result with structured feedback
   if (result) {
+    // Check if we have a structured result or just a string
+    const isStructuredResult = typeof result === 'object' && isPflegeinfoResult(result)
+    
     return (
       <div className="min-h-screen bg-white">
-        <div className="max-w-4xl mx-auto px-6 py-12">
+        <div className="max-w-6xl mx-auto px-6 py-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -168,29 +295,151 @@ const PflegeinfoWorkflow = () => {
             </h1>
           </motion.div>
 
-          <Card className="mb-8">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Bewertungsergebnis</CardTitle>
-              <Button
-                onClick={handleCopy}
-                variant="outline"
-                size="sm"
-                className="border-gray-300 hover:border-gray-400 text-gray-700"
-              >
-                <Copy className="h-4 w-4 mr-2" />
-                Kopieren
-              </Button>
-            </CardHeader>
-            <CardContent className="p-8">
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                <pre className="whitespace-pre-wrap text-sm text-gray-800 font-light leading-relaxed">
-                  {typeof result === 'string' ? result : JSON.stringify(result, null, 2)}
-                </pre>
-              </div>
-            </CardContent>
-          </Card>
+          {isStructuredResult ? (
+            <>
+              {/* Overall Score and Summary */}
+              <Card className="mb-8">
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    <span>Gesamtbewertung</span>
+                    <div className="flex items-center space-x-4">
+                      <div className={`px-4 py-2 rounded-full border ${ScoreColorUtils.getScoreBackgroundColor(result.gesamtbewertung)}`}>
+                        <span className={`text-lg font-bold ${ScoreColorUtils.getScoreColor(result.gesamtbewertung)}`}>
+                          {result.gesamtbewertung}/100
+                        </span>
+                      </div>
+                      <Button
+                        onClick={handleCopy}
+                        variant="outline"
+                        size="sm"
+                        className="border-gray-300 hover:border-gray-400 text-gray-700"
+                      >
+                        <Copy className="h-4 w-4 mr-2" />
+                        Kopieren
+                      </Button>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Overall Assessment */}
+                    <div>
+                      <h3 className="font-medium text-gray-900 mb-3">Bewertungsbegründung</h3>
+                      <p className="text-gray-700 leading-relaxed">{result.bewertungBegruendung}</p>
+                    </div>
+                    
+                    {/* Minimum Requirements Status */}
+                    <div>
+                      <h3 className="font-medium text-gray-900 mb-3">Status</h3>
+                      <div className="space-y-3">
+                        <div className="flex items-center">
+                          {result.mindestanforderungErfuellt ? (
+                            <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                          ) : (
+                            <XCircle className="h-5 w-5 text-red-500 mr-2" />
+                          )}
+                          <span className="text-sm">
+                            Mindestanforderung {result.mindestanforderungErfuellt ? 'erfüllt' : 'nicht erfüllt'}
+                          </span>
+                        </div>
+                        <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                          <p className="text-sm text-blue-800">
+                            <strong>Empfehlung:</strong> {result.empfehlung}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-          <div className="text-center">
+              {/* Main Problems */}
+              {result.hauptprobleme && result.hauptprobleme.length > 0 && (
+                <Card className="mb-8">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <AlertCircle className="h-5 w-5 text-orange-500 mr-2" />
+                      Hauptverbesserungsfelder
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {result.hauptprobleme.map((problem, index) => (
+                        <div key={index} className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                          <div className="flex items-center mb-2">
+                            <span className="bg-orange-100 text-orange-800 text-xs font-medium px-2 py-1 rounded-full">
+                              #{index + 1}
+                            </span>
+                          </div>
+                          <p className="text-sm text-orange-800">{problem}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Detailed Feedback Sections */}
+              <div className="space-y-6">
+                <h2 className="text-2xl font-light text-gray-900 mb-6">Detaillierte Bewertung</h2>
+                
+                <FeedbackSectionCard 
+                  title="Dokumentation" 
+                  section={result.feedback.dokumentation} 
+                />
+                
+                <FeedbackSectionCard 
+                  title="Pflegemaßnahmen" 
+                  section={result.feedback.pflegemassnahmen} 
+                />
+                
+                <FeedbackSectionCard 
+                  title="Beobachtungen" 
+                  section={result.feedback.beobachtungen} 
+                />
+                
+                <FeedbackSectionCard 
+                  title="Struktur" 
+                  section={result.feedback.struktur} 
+                />
+                
+                <FeedbackSectionCard 
+                  title="Fachlichkeit" 
+                  section={result.feedback.fachlichkeit} 
+                />
+                
+                <FeedbackSectionCard 
+                  title="Rechtliche Aspekte" 
+                  section={result.feedback.rechtliches} 
+                />
+              </div>
+            </>
+          ) : (
+            /* Fallback for string results */
+            <Card className="mb-8">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle>Bewertungsergebnis</CardTitle>
+                <Button
+                  onClick={handleCopy}
+                  variant="outline"
+                  size="sm"
+                  className="border-gray-300 hover:border-gray-400 text-gray-700"
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  Kopieren
+                </Button>
+              </CardHeader>
+              <CardContent className="p-8">
+                <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
+                  <pre className="whitespace-pre-wrap text-sm text-gray-800 font-light leading-relaxed">
+                    {typeof result === 'string' ? result : JSON.stringify(result, null, 2)}
+                  </pre>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          <div className="text-center mt-12">
             <Button
               onClick={() => {
                 setResult(null)
