@@ -734,6 +734,44 @@ export async function generateAIResponse(
 ): Promise<string> {
   await initializeOpenAI()
   
+  // Spezielle Behandlung für Pflegeinfo-Bewertungen
+  if (prompt.toLowerCase().includes('pflegeexperte') || prompt.toLowerCase().includes('pflegedokumentation')) {
+    const aiClient = pflegeinfoOpenai || openai
+    if (!aiClient) {
+      console.error('Kein API-Key für Pflegeinfo verfügbar. Verfügbare Keys:', {
+        hasMainKey: !!apiKey,
+        hasPflegeinfoKey: !!pflegeinfoApiKey,
+        hasMedicationKey: !!medicationApiKey
+      })
+      throw new Error('OpenAI API für Pflegeinfo-Bewertungen ist nicht konfiguriert. Bitte fügen Sie VITE_OPENAI_API_KEY oder VITE_OPENAI_PFLEGEINFO_API_KEY hinzu.')
+    }
+    
+    console.log('Using pflegeinfo-specific AI client')
+    
+    try {
+      const completion = await aiClient.chat.completions.create({
+        model: 'gpt-4',
+        messages: [
+          { role: 'system', content: prompt },
+          { role: 'user', content: userInput }
+        ],
+        max_tokens: 2000,
+        temperature: 0.7
+      })
+
+      const response = completion.choices[0]?.message?.content?.trim()
+      if (!response) {
+        throw new Error('Leere Antwort von OpenAI erhalten')
+      }
+
+      console.log('Pflegeinfo AI response received:', response.substring(0, 200) + '...')
+      return response
+    } catch (error: any) {
+      console.error('Pflegeinfo AI Error:', error)
+      throw new Error(`Fehler bei der KI-Bewertung: ${error.message}`)
+    }
+  }
+  
   if (!openai) {
     throw new Error('OpenAI API ist nicht konfiguriert. Bitte fügen Sie einen API-Schlüssel in den Umgebungsvariablen hinzu.')
   }
