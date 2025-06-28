@@ -393,33 +393,18 @@ const PflegeinfoWorkflowEmbedded = ({ fallbeispiel, onBack }: PflegeinfoWorkflow
               <h3 className="text-xl font-light text-gray-900">Detaillierte Bewertung</h3>
               
               <FeedbackSectionCard 
-                title="Dokumentation" 
+                title="Pflegerelevante Information" 
                 section={result?.feedback?.dokumentation} 
               />
               
               <FeedbackSectionCard 
-                title="Pflegemaßnahmen" 
+                title="ABEDL-Zuordnung" 
                 section={result?.feedback?.pflegemassnahmen} 
               />
               
               <FeedbackSectionCard 
-                title="Beobachtungen" 
+                title="Begründung der Pflegerelevanz" 
                 section={result?.feedback?.beobachtungen} 
-              />
-              
-              <FeedbackSectionCard 
-                title="Struktur" 
-                section={result?.feedback?.struktur} 
-              />
-              
-              <FeedbackSectionCard 
-                title="Fachlichkeit" 
-                section={result?.feedback?.fachlichkeit} 
-              />
-              
-              <FeedbackSectionCard 
-                title="Rechtliche Aspekte" 
-                section={result?.feedback?.rechtliches} 
               />
             </div>
           </>

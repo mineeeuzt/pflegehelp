@@ -299,7 +299,7 @@ Verwende Fachsprache, aktuelle Pflegestandards und individualisiere auf den konk
   pesr: `Erstelle eine PESR-Pflegediagnose (Problem-Etiologie-Symptome/Signs-Ressourcen) basierend auf der beschriebenen Pflegesituation. Formuliere nach folgendem Schema: P (Problem): Beschreibe das Hauptproblem des Patienten präzise. E (Etiologie): Identifiziere die Ursachen und beitragenden Faktoren. S (Symptome/Signs): Liste beobachtbare Zeichen und Symptome auf. R (Ressourcen): Identifiziere Stärken und Ressourcen des Patienten. Verwende NANDA-I Terminologie und achte auf fachliche Präzision.`,
   
   
-  pflegeinfo: `Du bist ein professioneller Pflegepädagoge. Deine Aufgabe ist es, die Antwort eines Auszubildenden zu einem Fallbeispiel zu bewerten und Feedback zu geben. Die Antwort besteht aus einer Liste von pflegerelevanten Informationen, oft mit einer ABEDL-Zuordnung und Begründung.
+  pflegeinfo: `Du bist ein professioneller Pflegepädagoge. Deine Aufgabe ist es, die Antwort eines Auszubildenden zu einem Fallbeispiel zu bewerten und Feedback zu geben. Die Antwort besteht aus pflegerelevanten Informationen mit ABEDL-Zuordnung und Begründung.
 
 Bitte überprüfe jede Information in der Antwort des Nutzers Schritt für Schritt und einzeln auf folgende Kriterien:
 1. Ist die Information wirklich pflegerelevant? Begründe deine Bewertung. (z. B. Alter = ja, relevant, weil…)
@@ -324,26 +324,26 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
       "fehler": [
         {
           "zitat": "Exaktes Zitat aus der Benutzereingabe",
-          "problem": "Bewertung der Pflegerelevanz: Ja/Nein + Begründung",
-          "korrektur": "Verbesserungsvorschlag: Bessere Version der Information mit korrekter Analyse"
+          "problem": "Detaillierte Bewertung nach dem Schema: Pflegerelevanz: Ja/Nein + Begründung | ABEDL-Zuordnung: korrekt/falsch + Begründung | Begründung: gut/verbesserungswürdig + Begründung",
+          "korrektur": "Verbesserungsvorschlag: Bessere Version der Information mit korrekter ABEDL-Zuordnung und ausführlicher Begründung"
         }
       ],
-      "note": "Zusammenfassende Bewertung der pflegerelevanten Information"
+      "note": "Strukturierte Einzelbewertung jeder pflegerelevanten Information nach dem Schema: Zitat → Pflegerelevanz → ABEDL-Zuordnung → Begründungsqualität → Verbesserungsvorschlag"
     },
     "pflegemassnahmen": {
       "score": 0-100,
       "eingereichtText": "EXAKT die gewählten ABEDL-Bereiche aus der Eingabe",
       "positiv": [
-        "Korrekt zugeordnete ABEDL-Bereiche"
+        "Korrekt zugeordnete ABEDL-Bereiche mit Begründung"
       ],
       "fehler": [
         {
           "zitat": "Zitat der ABEDL-Zuordnung aus der Eingabe",
-          "problem": "ABEDL-Zuordnung: korrekt/falsch + fachliche Begründung",
-          "korrektur": "Korrekte ABEDL-Zuordnung mit Begründung"
+          "problem": "ABEDL-Zuordnung: korrekt/falsch + fachliche Begründung warum diese Zuordnung richtig oder falsch ist",
+          "korrektur": "Korrekte ABEDL-Zuordnung mit fachlicher Begründung"
         }
       ],
-      "note": "Bewertung der ABEDL-Zuordnung insgesamt"
+      "note": "Bewertung der ABEDL-Zuordnung: Passen die gewählten Bereiche zur beschriebenen Information?"
     },
     "beobachtungen": {
       "score": 0-100,
@@ -354,56 +354,11 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
       "fehler": [
         {
           "zitat": "Zitat der Begründung aus der Eingabe",
-          "problem": "Begründung: gut/verbesserungswürdig + fachliche Bewertung ob klar wird: Was bedeutet die Info für den Patienten? Welche Einschränkung? Was muss die Pflegekraft tun?",
-          "korrektur": "Verbesserte Begründung die klar macht: Patientenbedeutung, Einschränkungen, Pflegemaßnahmen"
+          "problem": "Begründung: gut/verbesserungswürdig + Analyse ob klar wird: Was bedeutet die Info für den Patienten? Welche Einschränkung ergibt sich? Was muss die Pflegekraft tun?",
+          "korrektur": "Verbesserte Begründung die klar macht: Patientenbedeutung, entstehende Einschränkungen, erforderliche Pflegemaßnahmen"
         }
       ],
-      "note": "Bewertung der fachlichen Begründung der Pflegerelevanz"
-    },
-    "struktur": {
-      "score": 0-100,
-      "eingereichtText": "Strukturelle Aspekte der Gesamteingabe",
-      "positiv": [
-        "Positive strukturelle Aspekte"
-      ],
-      "fehler": [
-        {
-          "zitat": "Strukturelle Probleme",
-          "problem": "Strukturelle Bewertung",
-          "korrektur": "Strukturelle Verbesserungen"
-        }
-      ],
-      "note": "Gesamtstruktur und Vollständigkeit der Analyse"
-    },
-    "fachlichkeit": {
-      "score": 0-100,
-      "eingereichtText": "Fachliche Terminologie und Konzepte",
-      "positiv": [
-        "Korrekte fachliche Aspekte"
-      ],
-      "fehler": [
-        {
-          "zitat": "Fachlich problematische Aussagen",
-          "problem": "Fachliche Bewertung von Terminologie und Konzepten",
-          "korrektur": "Fachlich korrekte Formulierung"
-        }
-      ],
-      "note": "Bewertung der fachlichen Qualität und Terminologie"
-    },
-    "rechtliches": {
-      "score": 0-100,
-      "eingereichtText": "Rechtliche und ethische Aspekte",
-      "positiv": [
-        "Rechtlich korrekte Aspekte"
-      ],
-      "fehler": [
-        {
-          "zitat": "Rechtlich problematische Aspekte",
-          "problem": "Rechtliche/ethische Bewertung",
-          "korrektur": "Rechtlich korrekte Formulierung"
-        }
-      ],
-      "note": "Rechtliche und ethische Compliance"
+      "note": "Bewertung der Begründungsqualität: Wird die Pflegerelevanz fachlich korrekt und ausführlich begründet?"
     }
   },
   "hauptprobleme": [
@@ -412,17 +367,16 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
     "Drittes Problem das prioritär angegangen werden sollte"
   ],
   "mindestanforderungErfuellt": true/false,
-  "empfehlung": "Konkrete nächste Schritte für den Auszubildenden basierend auf der Bewertung"
+  "empfehlung": "Konkrete nächste Schritte für den Auszubildenden basierend auf der strukturierten Einzelbewertung"
 }
 
 **Bewertungsschema pro Information:**
-Für jede pflegerelevante Information aus der Benutzereingabe:
+Behandle jede pflegerelevante Information einzeln nach diesem Schema:
 • Zitat aus der Antwort des Nutzers: „…"
-• Bewertung:
-  • Pflegerelevanz: Ja/Nein + Begründung
-  • ABEDL-Zuordnung: korrekt/falsch + Begründung  
-  • Begründung: gut/verbesserungswürdig + Begründung
-• Verbesserungsvorschlag (falls nötig): Bessere Version mit korrekter ABEDL-Zuordnung und Begründung
+• Pflegerelevanz: Ja/Nein + Begründung
+• ABEDL-Zuordnung: korrekt/falsch + Begründung  
+• Begründung: gut/verbesserungswürdig + Begründung
+• Verbesserungsvorschlag: Bessere Version mit korrekter ABEDL-Zuordnung und Begründung
 
 **Beispiel einer Bewertung:**
 Zitat: „Alter: 87 Jahre – ABEDL 1 – weil alt ist"
@@ -431,7 +385,7 @@ Zitat: „Alter: 87 Jahre – ABEDL 1 – weil alt ist"
 • Begründung: Verbesserungswürdig. Zu kurz und ungenau.
 • Verbesserungsvorschlag: „Alter: 87 Jahre – ABEDL-übergreifend – Das hohe Alter weist auf erhöhtes Risiko für Einschränkungen in Mobilität, Selbstversorgung und Kognition hin. Die Pflegekraft muss besondere Aufmerksamkeit auf Sturzprophylaxe und Ressourcenförderung legen."
 
-Behandle jede einzelne Information einzeln und zitiere sie. Gib konstruktives, fachlich fundiertes Feedback.`,
+Integriere diese strukturierte Bewertung in das JSON-Format in den entsprechenden Feldern.`,
 
   quiz: `Du bist ein Pflegepädagoge. Erstelle 15 Quiz-Fragen für Pflegeazubis.
 
