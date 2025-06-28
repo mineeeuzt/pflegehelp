@@ -158,18 +158,18 @@ const PflegeinfoWorkflow = () => {
 
     return (
       <div className="space-y-3">
-        {errors.map((error, index) => (
+        {(errors || []).map((error, index) => (
           <div key={index} className="bg-red-50 border border-red-200 rounded-lg p-3">
-            {error.zitat && (
+            {error?.zitat && (
               <p className="text-sm text-gray-600 mb-2">
-                <strong>Zitat:</strong> "{error.zitat}"
+                <strong>Zitat:</strong> "{error?.zitat || ''}"
               </p>
             )}
             <p className="text-sm text-red-700 mb-2">
-              <strong>Problem:</strong> {error.problem}
+              <strong>Problem:</strong> {error?.problem || ''}
             </p>
             <p className="text-sm text-green-700">
-              <strong>Verbesserung:</strong> {error.korrektur}
+              <strong>Verbesserung:</strong> {error?.korrektur || ''}
             </p>
           </div>
         ))}
@@ -221,11 +221,11 @@ const PflegeinfoWorkflow = () => {
           )}
 
           {/* Positive aspects */}
-          {section.positiv && section.positiv.length > 0 && (
+          {section?.positiv && section.positiv.length > 0 && (
             <div className="mb-4">
               <h4 className="font-medium text-green-700 mb-2">✅ Positive Aspekte:</h4>
               <ul className="list-disc list-inside space-y-1">
-                {section.positiv.map((positive, index) => (
+                {(section.positiv || []).map((positive, index) => (
                   <li key={index} className="text-sm text-green-600">{positive}</li>
                 ))}
               </ul>
@@ -233,7 +233,7 @@ const PflegeinfoWorkflow = () => {
           )}
 
           {/* Improvements needed */}
-          {section.fehler && section.fehler.length > 0 && (
+          {section?.fehler && section.fehler.length > 0 && (
             <div className="mb-4">
               <h4 className="font-medium text-red-700 mb-2">🔧 Verbesserungen:</h4>
               <FeedbackErrorList errors={section.fehler} />
@@ -241,7 +241,7 @@ const PflegeinfoWorkflow = () => {
           )}
 
           {/* Summary note */}
-          {section.note && (
+          {section?.note && (
             <div className="mt-4 pt-4 border-t border-gray-200">
               <h4 className="font-medium text-gray-900 mb-2">Zusammenfassung:</h4>
               <p className="text-sm text-gray-700">{section.note}</p>
