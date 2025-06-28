@@ -114,7 +114,10 @@ export const useQuizStore = create<QuizState & QuizActions>()(
         set({ 
           currentSession: null,
           selectedCategories: [],
-          selectedDifficulty: ['leicht', 'mittel', 'schwer']
+          selectedDifficulty: ['leicht', 'mittel', 'schwer'],
+          flashcards: [],
+          currentFlashcardIndex: 0,
+          showFlashcardAnswer: false
         })
       },
 
@@ -208,7 +211,8 @@ export const useQuizStore = create<QuizState & QuizActions>()(
           currentFlashcardIndex: 0,
           showFlashcardAnswer: false,
           selectedCategories: [],
-          selectedDifficulty: ['leicht', 'mittel', 'schwer']
+          selectedDifficulty: ['leicht', 'mittel', 'schwer'],
+          flashcards: []
         })
       },
 

@@ -1442,7 +1442,7 @@ const QuizLernkarten = () => {
     )
   }
 
-  if (flashcards.length > 0 && selectedCategories.length > 0) {
+  if (flashcards.length > 0 && selectedCategories.length > 0 && !isGeneratingFlashcards) {
     return (
       <div className="container mx-auto px-4 py-8">
         <FlashcardInterface />
