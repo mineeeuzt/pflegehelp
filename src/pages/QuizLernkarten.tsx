@@ -1186,18 +1186,9 @@ const QuizLernkarten = () => {
     return (
       <Card className="max-w-4xl mx-auto">
         <CardHeader>
-          <div className="flex justify-between items-center">
-            <CardTitle>
-              Lernkarte {currentFlashcardIndex + 1} von {flashcards.length}
-            </CardTitle>
-            <span className={`px-2 py-1 rounded text-sm ${
-              currentFlashcard.difficulty === 'leicht' ? 'bg-green-100 text-green-700' :
-              currentFlashcard.difficulty === 'mittel' ? 'bg-yellow-100 text-yellow-700' :
-              'bg-red-100 text-red-700'
-            }`}>
-              {currentFlashcard.difficulty}
-            </span>
-          </div>
+          <CardTitle>
+            Lernkarte {currentFlashcardIndex + 1} von {flashcards.length}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="min-h-[300px] flex flex-col">
