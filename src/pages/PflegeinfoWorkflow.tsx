@@ -178,7 +178,11 @@ const PflegeinfoWorkflow = () => {
   }
 
   // Helper component for rendering a feedback section
-  const FeedbackSectionCard = ({ title, section }: { title: string; section: FeedbackSection }) => {
+  const FeedbackSectionCard = ({ title, section }: { title: string; section: FeedbackSection | undefined }) => {
+    if (!section) {
+      return null
+    }
+    
     const score = PflegeinfoSafeAccess.getSectionScore(section)
     const scoreColor = ScoreColorUtils.getScoreColor(score)
     const scoreBgColor = ScoreColorUtils.getScoreBackgroundColor(score)
@@ -282,6 +286,62 @@ const PflegeinfoWorkflow = () => {
     // Check if we have a structured result or just a string
     const isStructuredResult = typeof result === 'object' && isPflegeinfoResult(result)
     
+    // Additional safety check - fallback to string display if any issues
+    try {
+      if (isStructuredResult) {
+        // Test access to ensure no undefined errors
+        const testAccess = result.gesamtbewertung + ''
+        const testFeedback = result.feedback ? Object.keys(result.feedback).length : 0
+      }
+    } catch (error) {
+      console.warn('Structured result access failed, falling back to string display:', error)
+      return (
+        <div className="min-h-screen bg-white">
+          <div className="max-w-4xl mx-auto px-6 py-16">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl font-light text-gray-900 mb-4">
+                KI-Bewertung Ihrer Pflegeinformationen
+              </h1>
+            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <span>Bewertungsergebnis</span>
+                  <Button variant="outline" size="sm" onClick={handleCopy}>
+                    <Copy className="w-4 h-4 mr-2" />
+                    Kopieren
+                  </Button>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <pre className="text-sm text-gray-700 whitespace-pre-wrap overflow-x-auto">
+                    {typeof result === 'string' ? result : JSON.stringify(result, null, 2)}
+                  </pre>
+                </div>
+                <div className="mt-6 text-center">
+                  <Button
+                    onClick={() => {
+                      setResult(null)
+                      setCurrentStep(1)
+                      setFormData({
+                        pflegeInfo: '',
+                        selectedABEDL: [],
+                        begruendung: ''
+                      })
+                    }}
+                    className="bg-gray-900 hover:bg-gray-800 text-white"
+                  >
+                    Neue Bewertung starten
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      )
+    }
+    
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-6xl mx-auto px-6 py-12">
@@ -303,9 +363,9 @@ const PflegeinfoWorkflow = () => {
                   <CardTitle className="flex items-center justify-between">
                     <span>Gesamtbewertung</span>
                     <div className="flex items-center space-x-4">
-                      <div className={`px-4 py-2 rounded-full border ${ScoreColorUtils.getScoreBackgroundColor(result.gesamtbewertung)}`}>
-                        <span className={`text-lg font-bold ${ScoreColorUtils.getScoreColor(result.gesamtbewertung)}`}>
-                          {result.gesamtbewertung}/100
+                      <div className={`px-4 py-2 rounded-full border ${ScoreColorUtils.getScoreBackgroundColor(result?.gesamtbewertung || 0)}`}>
+                        <span className={`text-lg font-bold ${ScoreColorUtils.getScoreColor(result?.gesamtbewertung || 0)}`}>
+                          {result?.gesamtbewertung || 0}/100
                         </span>
                       </div>
                       <Button
@@ -325,7 +385,7 @@ const PflegeinfoWorkflow = () => {
                     {/* Overall Assessment */}
                     <div>
                       <h3 className="font-medium text-gray-900 mb-3">Bewertungsbegründung</h3>
-                      <p className="text-gray-700 leading-relaxed">{result.bewertungBegruendung}</p>
+                      <p className="text-gray-700 leading-relaxed">{result?.bewertungBegruendung || 'Keine Begründung verfügbar'}</p>
                     </div>
                     
                     {/* Minimum Requirements Status */}
@@ -333,18 +393,18 @@ const PflegeinfoWorkflow = () => {
                       <h3 className="font-medium text-gray-900 mb-3">Status</h3>
                       <div className="space-y-3">
                         <div className="flex items-center">
-                          {result.mindestanforderungErfuellt ? (
+                          {result?.mindestanforderungErfuellt ? (
                             <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
                           ) : (
                             <XCircle className="h-5 w-5 text-red-500 mr-2" />
                           )}
                           <span className="text-sm">
-                            Mindestanforderung {result.mindestanforderungErfuellt ? 'erfüllt' : 'nicht erfüllt'}
+                            Mindestanforderung {result?.mindestanforderungErfuellt ? 'erfüllt' : 'nicht erfüllt'}
                           </span>
                         </div>
                         <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
                           <p className="text-sm text-blue-800">
-                            <strong>Empfehlung:</strong> {result.empfehlung}
+                            <strong>Empfehlung:</strong> {result?.empfehlung || 'Keine Empfehlung verfügbar'}
                           </p>
                         </div>
                       </div>
@@ -354,7 +414,7 @@ const PflegeinfoWorkflow = () => {
               </Card>
 
               {/* Main Problems */}
-              {result.hauptprobleme && result.hauptprobleme.length > 0 && (
+              {result?.hauptprobleme && result.hauptprobleme.length > 0 && (
                 <Card className="mb-8">
                   <CardHeader>
                     <CardTitle className="flex items-center">
@@ -364,7 +424,7 @@ const PflegeinfoWorkflow = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {result.hauptprobleme.map((problem, index) => (
+                      {(result?.hauptprobleme || []).map((problem, index) => (
                         <div key={index} className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
                           <div className="flex items-center mb-2">
                             <span className="bg-orange-100 text-orange-800 text-xs font-medium px-2 py-1 rounded-full">
@@ -385,32 +445,32 @@ const PflegeinfoWorkflow = () => {
                 
                 <FeedbackSectionCard 
                   title="Dokumentation" 
-                  section={result.feedback.dokumentation} 
+                  section={result?.feedback?.dokumentation} 
                 />
                 
                 <FeedbackSectionCard 
                   title="Pflegemaßnahmen" 
-                  section={result.feedback.pflegemassnahmen} 
+                  section={result?.feedback?.pflegemassnahmen} 
                 />
                 
                 <FeedbackSectionCard 
                   title="Beobachtungen" 
-                  section={result.feedback.beobachtungen} 
+                  section={result?.feedback?.beobachtungen} 
                 />
                 
                 <FeedbackSectionCard 
                   title="Struktur" 
-                  section={result.feedback.struktur} 
+                  section={result?.feedback?.struktur} 
                 />
                 
                 <FeedbackSectionCard 
                   title="Fachlichkeit" 
-                  section={result.feedback.fachlichkeit} 
+                  section={result?.feedback?.fachlichkeit} 
                 />
                 
                 <FeedbackSectionCard 
                   title="Rechtliche Aspekte" 
-                  section={result.feedback.rechtliches} 
+                  section={result?.feedback?.rechtliches} 
                 />
               </div>
             </>
