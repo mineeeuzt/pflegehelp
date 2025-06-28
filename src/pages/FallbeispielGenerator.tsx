@@ -513,13 +513,34 @@ ${pflegeplanungData.evaluation}
       const response = await caseService.reviewWorkflow('pflegeplanung', pflegeplanungText, user.id)
       
       try {
+        // First try direct parsing
         const parsedData = JSON.parse(response)
         setReviewData(parsedData)
         setShowReview(true)
       } catch (parseError) {
         console.error('Failed to parse JSON response:', parseError)
-        setReviewResult(response)
-        setShowReview(true)
+        console.log('Response content:', response)
+        
+        // Try to extract JSON from response if it's wrapped in text
+        try {
+          const jsonMatch = response.match(/\{[\s\S]*\}/)
+          if (jsonMatch) {
+            const cleanedJson = jsonMatch[0]
+            console.log('Extracted JSON:', cleanedJson)
+            const parsedData = JSON.parse(cleanedJson)
+            setReviewData(parsedData)
+            setShowReview(true)
+          } else {
+            // Fallback to raw text
+            console.log('No JSON found in response, using raw text')
+            setReviewResult(response)
+            setShowReview(true)
+          }
+        } catch (secondError) {
+          console.error('Second parsing attempt failed:', secondError)
+          setReviewResult(response)
+          setShowReview(true)
+        }
       }
     } catch (error) {
       console.error('Review error:', error)
