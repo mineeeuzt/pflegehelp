@@ -436,6 +436,8 @@ WICHTIG: Bewerte STRENG und REALISTISCH basierend auf dem tatsächlich Geschrieb
 
 Analysiere die folgende Pflegeplanung EXAKT wie sie geschrieben wurde und gib strukturiertes Feedback im JSON-Format zurück.
 
+KRITISCH: Antworte AUSSCHLIESSLICH mit validem JSON! Keine zusätzlichen Texte, Kommentare oder Erklärungen außerhalb des JSON!
+
 Antworte ausschließlich im folgenden JSON-Format:
 {
   "overallScore": 0-100,
@@ -502,7 +504,9 @@ Bewertungskriterien:
 - Begründung: Evidenzbasierung, Fachlichkeit
 - Evaluation: Messbarkeit, Realismus
 
-Jeder Verbesserungsvorschlag muss KONKRET und mit BEISPIEL formuliert sein!`,
+Jeder Verbesserungsvorschlag muss KONKRET und mit BEISPIEL formuliert sein!
+
+REMEMBER: Antwort muss valides JSON sein - beginne mit { und ende mit }!`,
 
   abedlinfo: `Du bist ein erfahrener Pflegepädagoge und bewertest die Fähigkeit von Auszubildenden, pflegerelevante Informationen aus Fallbeispielen zu identifizieren und korrekt den ABEDL-Bereichen zuzuordnen.
 
