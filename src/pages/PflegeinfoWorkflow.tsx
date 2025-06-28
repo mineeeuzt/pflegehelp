@@ -56,7 +56,26 @@ const PflegeinfoWorkflow = () => {
   }
 
   const handleEvaluate = async () => {
-    if (!user) return
+    if (!user) {
+      setError('Bitte melden Sie sich an, um diese Funktion zu nutzen.')
+      return
+    }
+
+    // Validierung der Eingaben
+    if (!formData.pflegeInfo.trim()) {
+      setError('Bitte geben Sie Pflegeinformationen ein.')
+      return
+    }
+
+    if (formData.selectedABEDL.length === 0) {
+      setError('Bitte wählen Sie mindestens einen ABEDL-Bereich aus.')
+      return
+    }
+
+    if (!formData.begruendung.trim()) {
+      setError('Bitte geben Sie eine Begründung an.')
+      return
+    }
 
     setIsLoading(true)
     setError('')
@@ -69,16 +88,26 @@ const PflegeinfoWorkflow = () => {
         beobachtungen: formData.begruendung
       }
 
+      console.log('Pflegeinfo evaluation input:', input)
       const response = await caseService.evaluatePflegeinfo(input, user.id)
+      console.log('Pflegeinfo evaluation response:', response)
+      
       // Try to parse JSON response
       try {
         const parsed = JSON.parse(response)
         setResult(parsed)
+        console.log('Parsed result:', parsed)
       } catch (e) {
         // If parsing fails, use as string
+        console.warn('JSON parsing failed, using string response:', e)
         setResult(response)
       }
     } catch (error) {
+      console.error('Pflegeinfo evaluation error:', {
+        error: error instanceof Error ? error.message : error,
+        input: formData,
+        timestamp: new Date().toISOString()
+      })
       setError(error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten')
     } finally {
       setIsLoading(false)
