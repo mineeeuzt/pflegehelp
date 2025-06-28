@@ -7,7 +7,8 @@ import {
   FileText, 
   ArrowRight,
   Plus,
-  Heart
+  Heart,
+  FileCheck
 } from 'lucide-react'
 import { Card, CardContent } from '../components/ui'
 
@@ -42,6 +43,12 @@ const Dashboard = () => {
       description: 'Interaktives Lernsystem mit Spaced Repetition',
       icon: Target,
       href: '/quiz-lernkarten'
+    },
+    {
+      title: 'Pflegeinfo-Bewertung',
+      description: 'KI-Bewertung pflegerelevanter Informationen',
+      icon: FileCheck,
+      href: '/pflegeinfo-workflow'
     }
   ]
 
@@ -88,7 +95,7 @@ const Dashboard = () => {
 
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {tools.map((tool, index) => {
             const Icon = tool.icon
             return (
