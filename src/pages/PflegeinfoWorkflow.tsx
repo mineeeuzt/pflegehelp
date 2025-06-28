@@ -47,12 +47,15 @@ const PflegeinfoWorkflow = () => {
   }
 
   const handleABEDLToggle = (abedlId: string) => {
-    setFormData(prev => ({
-      ...prev,
-      selectedABEDL: (prev.selectedABEDL || []).includes(abedlId)
-        ? (prev.selectedABEDL || []).filter(id => id !== abedlId)
-        : [...(prev.selectedABEDL || []), abedlId]
-    }))
+    setFormData(prev => {
+      const currentSelected = prev.selectedABEDL || []
+      return {
+        ...prev,
+        selectedABEDL: currentSelected.includes(abedlId)
+          ? currentSelected.filter(id => id !== abedlId)
+          : [...currentSelected, abedlId]
+      }
+    })
   }
 
   const handleEvaluate = async () => {
@@ -67,7 +70,7 @@ const PflegeinfoWorkflow = () => {
       return
     }
 
-    if (formData.selectedABEDL.length === 0) {
+    if (!formData.selectedABEDL || formData.selectedABEDL.length === 0) {
       setError('Bitte wählen Sie mindestens einen ABEDL-Bereich aus.')
       return
     }
@@ -309,14 +312,14 @@ const PflegeinfoWorkflow = () => {
                       <label
                         key={abedl.id}
                         className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
-                          (formData.selectedABEDL || []).includes(abedl.id)
+                          formData.selectedABEDL?.includes(abedl.id)
                             ? 'border-slate-800 bg-slate-50'
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
                         <input
                           type="checkbox"
-                          checked={(formData.selectedABEDL || []).includes(abedl.id)}
+                          checked={formData.selectedABEDL?.includes(abedl.id) || false}
                           onChange={() => handleABEDLToggle(abedl.id)}
                           className="mr-3"
                         />
