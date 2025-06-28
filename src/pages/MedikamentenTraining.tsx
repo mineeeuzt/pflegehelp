@@ -729,6 +729,18 @@ const MedikamentenTraining = () => {
           <h1 className="text-4xl font-light text-gray-900 mb-4">
             Medikamenten-Training
           </h1>
+          
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8 max-w-3xl mx-auto">
+            <p className="text-sm text-blue-800 font-medium mb-2 text-center">
+              ⚕️ Rechtlicher Hinweis
+            </p>
+            <p className="text-xs text-blue-700 leading-relaxed text-center">
+              Alle in diesem Training dargestellten Medikamente sind <strong>ärztlich verordnet</strong>. 
+              Diese Simulation dient ausschließlich der Schulung zur <strong>Medikamentenverabreichung</strong> 
+              im Rahmen der pflegerischen Kompetenzen. Pflegekräfte sind nicht berechtigt, 
+              Medikamente zu verschreiben.
+            </p>
+          </div>
           <div className="flex items-center justify-center space-x-4 text-gray-600 font-light">
             <span>Szenario {completedScenarios + 1}</span>
             <span>•</span>
@@ -907,9 +919,12 @@ const MedikamentenTraining = () => {
           >
             {/* Drop Zone */}
             <div>
-              <h3 className="text-xl font-light text-gray-900 mb-6">
-                Medikament auswählen
+              <h3 className="text-xl font-light text-gray-900 mb-2">
+                Ärztlich verordnetes Medikament auswählen
               </h3>
+              <p className="text-sm text-gray-600 mb-6 italic">
+                Wählen Sie das vom Arzt verordnete Medikament für die Verabreichung aus
+              </p>
               <div
                 ref={dropZoneRef}
                 className={`border-2 border-dashed p-8 rounded-xl text-center transition-all min-h-[120px] flex items-center justify-center ${
@@ -923,6 +938,7 @@ const MedikamentenTraining = () => {
                 {selectedMedication ? (
                   <div className="text-center">
                     <div className="bg-white border border-gray-200 px-4 py-3 rounded-lg shadow-sm">
+                      <div className="text-xs text-blue-600 mb-1">📋 Ärztlich verordnet</div>
                       <div className="font-medium text-gray-900">
                         {availableMedications.find(m => m.id === selectedMedication)?.name}
                       </div>
@@ -933,7 +949,7 @@ const MedikamentenTraining = () => {
                   </div>
                 ) : (
                   <div className="text-gray-500 font-light">
-                    Medikament hier hinziehen
+                    Ärztlich verordnetes Medikament hier hinziehen
                   </div>
                 )}
               </div>
@@ -941,9 +957,12 @@ const MedikamentenTraining = () => {
 
             {/* Available Medications */}
             <div>
-              <h3 className="text-xl font-light text-gray-900 mb-6">
-                Verfügbare Medikamente
+              <h3 className="text-xl font-light text-gray-900 mb-2">
+                Ärztlich verordnete Medikamente
               </h3>
+              <p className="text-xs text-gray-500 mb-6 italic">
+                Alle Medikamente sind vom behandelnden Arzt verordnet
+              </p>
               <div className="space-y-3 max-h-80 overflow-y-auto">
                 {availableMedications.map((med) => (
                   <motion.div
@@ -1021,7 +1040,7 @@ const MedikamentenTraining = () => {
               disabled={!selectedMedication || doctorCalled === null}
               className="px-8 py-3 bg-gray-900 hover:bg-gray-800 text-white font-light disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              Entscheidung bestätigen
+              Medikamentenverabreichung bestätigen
             </Button>
           </motion.div>
         </div>
@@ -1153,6 +1172,18 @@ const MedikamentenTraining = () => {
             </motion.div>
           )}
         </AnimatePresence>
+        
+        {/* Footer Disclaimer */}
+        <div className="mt-12 text-center">
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 inline-block max-w-4xl">
+            <p className="text-xs text-gray-600 leading-relaxed">
+              <strong>Wichtiger Hinweis:</strong> Diese Simulation dient der Ausbildung in der 
+              Medikamentenverabreichung nach ärztlicher Anordnung. Alle dargestellten 
+              Medikamente sind als ärztlich verordnet zu verstehen. Die Verschreibung von 
+              Medikamenten obliegt ausschließlich approbierten Ärzten.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
