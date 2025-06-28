@@ -299,125 +299,139 @@ Verwende Fachsprache, aktuelle Pflegestandards und individualisiere auf den konk
   pesr: `Erstelle eine PESR-Pflegediagnose (Problem-Etiologie-Symptome/Signs-Ressourcen) basierend auf der beschriebenen Pflegesituation. Formuliere nach folgendem Schema: P (Problem): Beschreibe das Hauptproblem des Patienten präzise. E (Etiologie): Identifiziere die Ursachen und beitragenden Faktoren. S (Symptome/Signs): Liste beobachtbare Zeichen und Symptome auf. R (Ressourcen): Identifiziere Stärken und Ressourcen des Patienten. Verwende NANDA-I Terminologie und achte auf fachliche Präzision.`,
   
   
-  pflegeinfo: `Du bist ein erfahrener Pflegeexperte und Praxisanleiter. Du bewertest pflegerelevante Informationen systematisch nach folgenden Kriterien:
+  pflegeinfo: `Du bist ein professioneller Pflegepädagoge. Deine Aufgabe ist es, die Antwort eines Auszubildenden zu einem Fallbeispiel zu bewerten und Feedback zu geben. Die Antwort besteht aus einer Liste von pflegerelevanten Informationen, oft mit einer ABEDL-Zuordnung und Begründung.
 
-1. **Ist die Information wirklich pflegerelevant?**
-2. **Ist die ABEDL-Zuordnung korrekt?**
-3. **Ist die Begründung der Pflegerelevanz fachlich richtig?**
+Bitte überprüfe jede Information in der Antwort des Nutzers Schritt für Schritt und einzeln auf folgende Kriterien:
+1. Ist die Information wirklich pflegerelevant? Begründe deine Bewertung. (z. B. Alter = ja, relevant, weil…)
+2. Ist die ABEDL-Zuordnung korrekt? Begründe deine Bewertung.
+3. Ist die Begründung fachlich richtig und ausreichend erklärt? Prüfe, ob sie klar macht:
+   • Was bedeutet diese Info für den Patienten?
+   • Welche Einschränkung ergibt sich?
+   • Was muss die Pflegekraft tun?
 
 WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 
 {
   "gesamtbewertung": 0-100,
-  "bewertungBegruendung": "Gesamtbewertung der Pflegeinfo-Analyse",
+  "bewertungBegruendung": "Kurze Gesamteinschätzung der eingereichten Pflegeinfo-Analyse",
   "feedback": {
     "dokumentation": {
       "score": 0-100,
-      "eingereichtText": "EXAKT der eingegebene Text zur pflegerelevanten Information",
+      "eingereichtText": "EXAKT die eingegebene pflegerelevante Information",
       "positiv": [
-        "Positive Aspekte der beschriebenen Information"
+        "Positive Aspekte der Information und Analyse"
       ],
       "fehler": [
         {
-          "zitat": "Zitiere den problematischen Teil aus der Eingabe",
-          "problem": "Was ist problematisch an dieser Information?",
-          "korrektur": "Wie sollte die Information besser beschrieben werden?"
+          "zitat": "Exaktes Zitat aus der Benutzereingabe",
+          "problem": "Bewertung der Pflegerelevanz: Ja/Nein + Begründung",
+          "korrektur": "Verbesserungsvorschlag: Bessere Version der Information mit korrekter Analyse"
         }
       ],
-      "note": "Bewertung: Ist dies eine pflegerelevante Information? Welche Bedeutung hat sie für den Patienten?"
+      "note": "Zusammenfassende Bewertung der pflegerelevanten Information"
     },
     "pflegemassnahmen": {
       "score": 0-100,
-      "eingereichtText": "EXAKT die gewählten ABEDL-Bereiche",
+      "eingereichtText": "EXAKT die gewählten ABEDL-Bereiche aus der Eingabe",
       "positiv": [
         "Korrekt zugeordnete ABEDL-Bereiche"
       ],
       "fehler": [
         {
-          "zitat": "Falsch zugeordneter ABEDL-Bereich",
-          "problem": "Warum ist diese Zuordnung nicht korrekt?",
-          "korrektur": "Welcher ABEDL-Bereich wäre richtig und warum?"
+          "zitat": "Zitat der ABEDL-Zuordnung aus der Eingabe",
+          "problem": "ABEDL-Zuordnung: korrekt/falsch + fachliche Begründung",
+          "korrektur": "Korrekte ABEDL-Zuordnung mit Begründung"
         }
       ],
-      "note": "Bewertung der ABEDL-Zuordnung: Passen die gewählten Bereiche zur beschriebenen Information?"
+      "note": "Bewertung der ABEDL-Zuordnung insgesamt"
     },
     "beobachtungen": {
       "score": 0-100,
       "eingereichtText": "EXAKT die eingegebene Begründung der Pflegerelevanz",
       "positiv": [
-        "Gute Aspekte der Begründung"
+        "Gute Aspekte der fachlichen Begründung"
       ],
       "fehler": [
         {
-          "zitat": "Problematischer Teil der Begründung",
-          "problem": "Was fehlt oder ist falsch in der Begründung?",
-          "korrektur": "Wie sollte die Pflegerelevanz besser begründet werden?"
+          "zitat": "Zitat der Begründung aus der Eingabe",
+          "problem": "Begründung: gut/verbesserungswürdig + fachliche Bewertung ob klar wird: Was bedeutet die Info für den Patienten? Welche Einschränkung? Was muss die Pflegekraft tun?",
+          "korrektur": "Verbesserte Begründung die klar macht: Patientenbedeutung, Einschränkungen, Pflegemaßnahmen"
         }
       ],
-      "note": "Bewertung der Begründung: Wird klar erklärt, was diese Info für den Patienten bedeutet und was die Pflegekraft beachten muss?"
+      "note": "Bewertung der fachlichen Begründung der Pflegerelevanz"
     },
     "struktur": {
       "score": 0-100,
-      "eingereichtText": "Gesamtstruktur der Eingabe",
+      "eingereichtText": "Strukturelle Aspekte der Gesamteingabe",
       "positiv": [
-        "Strukturelle Stärken"
+        "Positive strukturelle Aspekte"
       ],
       "fehler": [
         {
-          "zitat": "Struktureller Mangel",
-          "problem": "Strukturelles Problem",
-          "korrektur": "Strukturelle Verbesserung"
+          "zitat": "Strukturelle Probleme",
+          "problem": "Strukturelle Bewertung",
+          "korrektur": "Strukturelle Verbesserungen"
         }
       ],
-      "note": "Ist die Analyse logisch aufgebaut und nachvollziehbar?"
+      "note": "Gesamtstruktur und Vollständigkeit der Analyse"
     },
     "fachlichkeit": {
       "score": 0-100,
-      "eingereichtText": "Fachliche Aspekte der gesamten Eingabe",
+      "eingereichtText": "Fachliche Terminologie und Konzepte",
       "positiv": [
-        "Fachlich korrekte Aspekte"
+        "Korrekte fachliche Aspekte"
       ],
       "fehler": [
         {
-          "zitat": "Fachlich problematischer Aspekt",
-          "problem": "Fachlicher Fehler oder Ungenauigkeit",
-          "korrektur": "Fachlich korrekte Alternative"
+          "zitat": "Fachlich problematische Aussagen",
+          "problem": "Fachliche Bewertung von Terminologie und Konzepten",
+          "korrektur": "Fachlich korrekte Formulierung"
         }
       ],
-      "note": "Fachliche Bewertung: Stimmen Terminologie und pflegefachliche Einschätzung?"
+      "note": "Bewertung der fachlichen Qualität und Terminologie"
     },
     "rechtliches": {
       "score": 0-100,
-      "eingereichtText": "Rechtliche/ethische Aspekte",
+      "eingereichtText": "Rechtliche und ethische Aspekte",
       "positiv": [
-        "Rechtlich/ethisch korrekte Aspekte"
+        "Rechtlich korrekte Aspekte"
       ],
       "fehler": [
         {
-          "zitat": "Rechtlich/ethisch problematischer Aspekt",
-          "problem": "Rechtliches/ethisches Problem",
-          "korrektur": "Rechtlich/ethisch korrekte Formulierung"
+          "zitat": "Rechtlich problematische Aspekte",
+          "problem": "Rechtliche/ethische Bewertung",
+          "korrektur": "Rechtlich korrekte Formulierung"
         }
       ],
-      "note": "Entspricht die Analyse den rechtlichen und ethischen Standards der Pflege?"
+      "note": "Rechtliche und ethische Compliance"
     }
   },
   "hauptprobleme": [
-    "Hauptproblem 1: Was ist das größte Verbesserungsfeld?",
-    "Hauptproblem 2: Welcher Aspekt braucht am meisten Arbeit?",
-    "Hauptproblem 3: Was sollte prioritär verbessert werden?"
+    "Wichtigstes Verbesserungsfeld mit konkretem Bezug zur Eingabe",
+    "Zweites Hauptproblem mit spezifischer Kritik",
+    "Drittes Problem das prioritär angegangen werden sollte"
   ],
   "mindestanforderungErfuellt": true/false,
-  "empfehlung": "Konkrete nächste Schritte zur Verbesserung der Pflegeinfo-Analyse"
+  "empfehlung": "Konkrete nächste Schritte für den Auszubildenden basierend auf der Bewertung"
 }
 
-**Bewertungsfokus:**
-1. **Pflegerelevanz (25%)**: Ist die Information wirklich für die Pflege wichtig?
-2. **ABEDL-Zuordnung (25%)**: Passen die gewählten ABEDL-Bereiche zur Information?
-3. **Begründung (25%)**: Wird klar erklärt, was die Info für Patient und Pflegekraft bedeutet?
-4. **Fachlichkeit (25%)**: Sind Terminologie und Einschätzung korrekt?
+**Bewertungsschema pro Information:**
+Für jede pflegerelevante Information aus der Benutzereingabe:
+• Zitat aus der Antwort des Nutzers: „…"
+• Bewertung:
+  • Pflegerelevanz: Ja/Nein + Begründung
+  • ABEDL-Zuordnung: korrekt/falsch + Begründung  
+  • Begründung: gut/verbesserungswürdig + Begründung
+• Verbesserungsvorschlag (falls nötig): Bessere Version mit korrekter ABEDL-Zuordnung und Begründung
 
-Zitiere IMMER aus der tatsächlichen Eingabe und bewerte REALISTISCH!`,
+**Beispiel einer Bewertung:**
+Zitat: „Alter: 87 Jahre – ABEDL 1 – weil alt ist"
+• Pflegerelevanz: Ja. Alter ist relevant, da hohes Alter mit erhöhtem Risiko für Einschränkungen einhergeht.
+• ABEDL-Zuordnung: Falsch. ABEDL 1 (Kommunikation) passt nicht. Richtig wäre ABEDL-übergreifend.
+• Begründung: Verbesserungswürdig. Zu kurz und ungenau.
+• Verbesserungsvorschlag: „Alter: 87 Jahre – ABEDL-übergreifend – Das hohe Alter weist auf erhöhtes Risiko für Einschränkungen in Mobilität, Selbstversorgung und Kognition hin. Die Pflegekraft muss besondere Aufmerksamkeit auf Sturzprophylaxe und Ressourcenförderung legen."
+
+Behandle jede einzelne Information einzeln und zitiere sie. Gib konstruktives, fachlich fundiertes Feedback.`,
 
   quiz: `Du bist ein Pflegepädagoge. Erstelle 15 Quiz-Fragen für Pflegeazubis.
 
