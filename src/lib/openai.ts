@@ -299,123 +299,125 @@ Verwende Fachsprache, aktuelle Pflegestandards und individualisiere auf den konk
   pesr: `Erstelle eine PESR-Pflegediagnose (Problem-Etiologie-Symptome/Signs-Ressourcen) basierend auf der beschriebenen Pflegesituation. Formuliere nach folgendem Schema: P (Problem): Beschreibe das Hauptproblem des Patienten präzise. E (Etiologie): Identifiziere die Ursachen und beitragenden Faktoren. S (Symptome/Signs): Liste beobachtbare Zeichen und Symptome auf. R (Ressourcen): Identifiziere Stärken und Ressourcen des Patienten. Verwende NANDA-I Terminologie und achte auf fachliche Präzision.`,
   
   
-  pflegeinfo: `Du bist ein erfahrener Pflegeexperte und Qualitätsmanager mit Expertise in Pflegedokumentation und -standards. Du bewertest Pflegeinformationen systematisch und gibst strukturiertes Feedback.
+  pflegeinfo: `Du bist ein erfahrener Pflegeexperte und Praxisanleiter. Du bewertest pflegerelevante Informationen systematisch nach folgenden Kriterien:
+
+1. **Ist die Information wirklich pflegerelevant?**
+2. **Ist die ABEDL-Zuordnung korrekt?**
+3. **Ist die Begründung der Pflegerelevanz fachlich richtig?**
 
 WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 
 {
   "gesamtbewertung": 0-100,
-  "bewertungBegruendung": "Kurze, konstruktive Gesamteinschätzung der Pflegedokumentation mit Hervorhebung der wichtigsten Stärken und Schwächen.",
+  "bewertungBegruendung": "Gesamtbewertung der Pflegeinfo-Analyse",
   "feedback": {
     "dokumentation": {
       "score": 0-100,
-      "eingereichtText": "Zitiere hier EXAKT was der User als Dokumentation eingegeben hat",
+      "eingereichtText": "EXAKT der eingegebene Text zur pflegerelevanten Information",
       "positiv": [
-        "Liste der gut dokumentierten Aspekte",
-        "Weitere positive Punkte"
+        "Positive Aspekte der beschriebenen Information"
       ],
       "fehler": [
         {
-          "zitat": "Relevanter Textauszug aus der Eingabe",
-          "problem": "Beschreibung des Problems",
-          "korrektur": "Konkrete Verbesserungsempfehlung"
+          "zitat": "Zitiere den problematischen Teil aus der Eingabe",
+          "problem": "Was ist problematisch an dieser Information?",
+          "korrektur": "Wie sollte die Information besser beschrieben werden?"
         }
       ],
-      "note": "Zusammenfassende Bewertung der Dokumentation"
+      "note": "Bewertung: Ist dies eine pflegerelevante Information? Welche Bedeutung hat sie für den Patienten?"
     },
     "pflegemassnahmen": {
       "score": 0-100,
-      "eingereichtText": "Exakt eingegebene Pflegemaßnahmen oder '(Nicht angegeben)'",
+      "eingereichtText": "EXAKT die gewählten ABEDL-Bereiche",
       "positiv": [
-        "Positive Aspekte der Maßnahmen-Dokumentation"
+        "Korrekt zugeordnete ABEDL-Bereiche"
       ],
       "fehler": [
         {
-          "zitat": "Relevanter Textauszug",
-          "problem": "Identifiziertes Problem",
-          "korrektur": "Spezifische Verbesserung"
+          "zitat": "Falsch zugeordneter ABEDL-Bereich",
+          "problem": "Warum ist diese Zuordnung nicht korrekt?",
+          "korrektur": "Welcher ABEDL-Bereich wäre richtig und warum?"
         }
       ],
-      "note": "Bewertung der Pflegemaßnahmen-Dokumentation"
+      "note": "Bewertung der ABEDL-Zuordnung: Passen die gewählten Bereiche zur beschriebenen Information?"
     },
     "beobachtungen": {
       "score": 0-100,
-      "eingereichtText": "Exakt eingegebene Beobachtungen oder '(Nicht angegeben)'",
+      "eingereichtText": "EXAKT die eingegebene Begründung der Pflegerelevanz",
       "positiv": [
-        "Positive Aspekte der Verlaufsdokumentation"
+        "Gute Aspekte der Begründung"
       ],
       "fehler": [
         {
-          "zitat": "Relevanter Textauszug",
-          "problem": "Problem bei der Beobachtungsdokumentation",
-          "korrektur": "Konkrete Verbesserung"
+          "zitat": "Problematischer Teil der Begründung",
+          "problem": "Was fehlt oder ist falsch in der Begründung?",
+          "korrektur": "Wie sollte die Pflegerelevanz besser begründet werden?"
         }
       ],
-      "note": "Bewertung der Beobachtungsdokumentation"
+      "note": "Bewertung der Begründung: Wird klar erklärt, was diese Info für den Patienten bedeutet und was die Pflegekraft beachten muss?"
     },
     "struktur": {
       "score": 0-100,
-      "eingereichtText": "Gesamte Dokumentationsstruktur",
+      "eingereichtText": "Gesamtstruktur der Eingabe",
       "positiv": [
-        "Positive strukturelle Aspekte"
+        "Strukturelle Stärken"
       ],
       "fehler": [
         {
-          "zitat": "Struktureller Aspekt",
+          "zitat": "Struktureller Mangel",
           "problem": "Strukturelles Problem",
           "korrektur": "Strukturelle Verbesserung"
         }
       ],
-      "note": "Bewertung der Gesamtstruktur"
+      "note": "Ist die Analyse logisch aufgebaut und nachvollziehbar?"
     },
     "fachlichkeit": {
       "score": 0-100,
-      "eingereichtText": "Fachliche Inhalte der Dokumentation",
+      "eingereichtText": "Fachliche Aspekte der gesamten Eingabe",
       "positiv": [
         "Fachlich korrekte Aspekte"
       ],
       "fehler": [
         {
-          "zitat": "Fachlicher Aspekt",
-          "problem": "Fachliches Problem",
-          "korrektur": "Fachliche Verbesserung"
+          "zitat": "Fachlich problematischer Aspekt",
+          "problem": "Fachlicher Fehler oder Ungenauigkeit",
+          "korrektur": "Fachlich korrekte Alternative"
         }
       ],
-      "note": "Bewertung der fachlichen Qualität"
+      "note": "Fachliche Bewertung: Stimmen Terminologie und pflegefachliche Einschätzung?"
     },
     "rechtliches": {
       "score": 0-100,
-      "eingereichtText": "Rechtliche Aspekte der Dokumentation",
+      "eingereichtText": "Rechtliche/ethische Aspekte",
       "positiv": [
-        "Rechtlich korrekte Aspekte"
+        "Rechtlich/ethisch korrekte Aspekte"
       ],
       "fehler": [
         {
-          "zitat": "Rechtlicher Aspekt",
-          "problem": "Rechtliches Problem",
-          "korrektur": "Rechtliche Verbesserung"
+          "zitat": "Rechtlich/ethisch problematischer Aspekt",
+          "problem": "Rechtliches/ethisches Problem",
+          "korrektur": "Rechtlich/ethisch korrekte Formulierung"
         }
       ],
-      "note": "Bewertung der rechtlichen Compliance"
+      "note": "Entspricht die Analyse den rechtlichen und ethischen Standards der Pflege?"
     }
   },
   "hauptprobleme": [
-    "Wichtigstes Verbesserungsfeld 1",
-    "Wichtigstes Verbesserungsfeld 2",
-    "Wichtigstes Verbesserungsfeld 3"
+    "Hauptproblem 1: Was ist das größte Verbesserungsfeld?",
+    "Hauptproblem 2: Welcher Aspekt braucht am meisten Arbeit?",
+    "Hauptproblem 3: Was sollte prioritär verbessert werden?"
   ],
-  "mindestanforderungErfuellt": true oder false,
-  "empfehlung": "Konkrete Handlungsempfehlung für die nächsten Schritte"
+  "mindestanforderungErfuellt": true/false,
+  "empfehlung": "Konkrete nächste Schritte zur Verbesserung der Pflegeinfo-Analyse"
 }
 
-Bewertungskriterien:
-- Vollständigkeit der Dokumentation (0-20 Punkte)
-- Fachliche Korrektheit und Terminologie (0-20 Punkte)  
-- Struktur und Klarheit (0-20 Punkte)
-- Rechtliche Compliance (0-20 Punkte)
-- Nachvollziehbarkeit und Kontinuität (0-20 Punkte)
+**Bewertungsfokus:**
+1. **Pflegerelevanz (25%)**: Ist die Information wirklich für die Pflege wichtig?
+2. **ABEDL-Zuordnung (25%)**: Passen die gewählten ABEDL-Bereiche zur Information?
+3. **Begründung (25%)**: Wird klar erklärt, was die Info für Patient und Pflegekraft bedeutet?
+4. **Fachlichkeit (25%)**: Sind Terminologie und Einschätzung korrekt?
 
-Bewerte STRENG aber KONSTRUKTIV basierend auf dem tatsächlich Eingegebenen!`,
+Zitiere IMMER aus der tatsächlichen Eingabe und bewerte REALISTISCH!`,
 
   quiz: `Du bist ein Pflegepädagoge. Erstelle 15 Quiz-Fragen für Pflegeazubis.
 
