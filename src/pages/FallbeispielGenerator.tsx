@@ -6,6 +6,7 @@ import { useAuthStore } from '../store/authStore'
 import { caseService, type CaseGenerationParams, type WorkflowInput } from '../services/caseService'
 import ReviewDisplay from '../components/ReviewDisplay'
 import AILoadingAnimation from '../components/AILoadingAnimation'
+import PflegeinfoWorkflowEmbedded from '../components/PflegeinfoWorkflowEmbedded'
 
 interface GeneratorParams extends CaseGenerationParams {
   alter: string
@@ -1106,9 +1107,9 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                                 <ClipboardList className="h-5 w-5 text-gray-700" />
                               </div>
                               <div>
-                                <h3 className="font-medium text-gray-900 mb-1">Pflegerelevante Infos</h3>
+                                <h3 className="font-medium text-gray-900 mb-1">Pflegeinfo-Bewertung</h3>
                                 <p className="text-sm text-gray-600 font-light">
-                                  Extrahieren Sie pflegerelevante Informationen und ordnen Sie sie den ABEDL-Bereichen zu
+                                  KI-Bewertung pflegerelevanter Informationen mit strukturiertem Feedback
                                 </p>
                               </div>
                             </div>
@@ -1432,8 +1433,35 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
               </div>
             )}
 
-            {/* Pflegeinfo Workflow */}
+            {/* Pflegeinfo Workflow - Using PflegeinfoWorkflow component */}
             {result && selectedWorkflow === 'pflegeinfo' && !showReview && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Fallbeispiel Sidebar */}
+                <div className="lg:order-2">
+                  <Card className="sticky top-4">
+                    <CardHeader>
+                      <CardTitle className="text-lg">Fallbeispiel</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="max-h-96 overflow-y-auto">
+                        <p className="text-sm text-gray-700 whitespace-pre-wrap">{result}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Pflegeinfo Workflow */}
+                <div className="lg:order-1">
+                  <PflegeinfoWorkflowEmbedded 
+                    fallbeispiel={result}
+                    onBack={resetWorkflow}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Original Pflegeinfo Form - keeping as fallback */}
+            {false && result && selectedWorkflow === 'pflegeinfo' && !showReview && (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Fallbeispiel Sidebar */}
                 <div className="lg:order-2">
