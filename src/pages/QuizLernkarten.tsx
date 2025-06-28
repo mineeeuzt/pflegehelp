@@ -14,7 +14,13 @@ import {
   ChevronDown,
   ChevronRight,
   Search,
-  Home
+  Home,
+  Settings,
+  Pause,
+  X,
+  Clock,
+  BarChart3,
+  Tag
 } from 'lucide-react'
 import { Button, Card, CardHeader, CardTitle, CardContent } from '../components/ui'
 import { useQuizStore } from '../store/quizStore'
@@ -62,6 +68,9 @@ const QuizLernkarten = () => {
   const [navigationPath, setNavigationPath] = useState<string[]>([])
   const [isGeneratingQuiz, setIsGeneratingQuiz] = useState(false)
   const [isGeneratingFlashcards, setIsGeneratingFlashcards] = useState(false)
+  const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null)
+  const [isPaused, setIsPaused] = useState(false)
+  const [showSessionMenu, setShowSessionMenu] = useState(false)
 
   const handleStartQuiz = async () => {
     if (selectedCategories.length === 0) {
@@ -268,6 +277,65 @@ const QuizLernkarten = () => {
     clearSelectedCategories()
   }
 
+  // Enhanced navigation functions
+  const navigateToLevel = (level: number) => {
+    if (level === 0) {
+      navigateHome()
+    } else if (level === 1 && navigationPath.length > 1) {
+      setCurrentView('subcategory')
+      setSelectedSubcategory(null)
+      setNavigationPath([navigationPath[0]])
+    }
+  }
+
+  const startSession = (mode: 'quiz' | 'flashcards') => {
+    setSessionStartTime(new Date())
+    setIsPaused(false)
+    if (mode === 'quiz') {
+      handleStartQuiz()
+    } else {
+      handleStartFlashcards()
+    }
+  }
+
+  const pauseSession = () => {
+    setIsPaused(!isPaused)
+  }
+
+  const exitSession = () => {
+    if (confirm('Möchten Sie die aktuelle Sitzung wirklich beenden? Ihr Fortschritt geht verloren.')) {
+      resetSession()
+      setSessionStartTime(null)
+      setIsPaused(false)
+    }
+  }
+
+  const formatElapsedTime = () => {
+    if (!sessionStartTime) return '0:00'
+    const elapsed = Math.floor((Date.now() - sessionStartTime.getTime()) / 1000)
+    const minutes = Math.floor(elapsed / 60)
+    const seconds = elapsed % 60
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`
+  }
+
+  const getSessionProgress = () => {
+    if (currentSession) {
+      return {
+        current: currentSession.currentQuestionIndex + 1,
+        total: currentSession.questions.length,
+        percentage: ((currentSession.currentQuestionIndex + 1) / currentSession.questions.length) * 100
+      }
+    }
+    if (flashcards.length > 0) {
+      return {
+        current: currentFlashcardIndex + 1,
+        total: flashcards.length,
+        percentage: ((currentFlashcardIndex + 1) / flashcards.length) * 100
+      }
+    }
+    return { current: 0, total: 0, percentage: 0 }
+  }
+
   const selectCategory = (categoryId: string) => {
     // Find the category in all category lists
     const allCategories = [
@@ -312,24 +380,158 @@ const QuizLernkarten = () => {
     return leafCategories
   }
 
-  // Breadcrumb Navigation
+  // Enhanced Navigation Components
+  const NavigationHeader = () => {
+    const isInSession = currentSession || flashcards.length > 0
+    const progress = getSessionProgress()
+    
+    return (
+      <div className="sticky top-0 bg-white border-b border-gray-200 z-40 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+              {selectedCategories.length > 0 && (
+              <SelectedCategoriesChips />
+            )}
+          </div>
+          
+          <div className="flex items-center gap-3">
+            {isInSession && (
+              <>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Clock className="w-4 h-4" />
+                  {formatElapsedTime()}
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <BarChart3 className="w-4 h-4" />
+                  {progress.current}/{progress.total}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowSessionMenu(!showSessionMenu)}
+                >
+                  <Settings className="w-4 h-4" />
+                </Button>
+              </>
+            )}
+            {!isInSession && currentView !== 'main' && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={navigateHome}
+              >
+                <Home className="w-4 h-4 mr-2" />
+                Zur Übersicht
+              </Button>
+            )}
+          </div>
+        </div>
+        
+        {isInSession && (
+          <div className="mt-3">
+            <ProgressBar percentage={progress.percentage} />
+          </div>
+        )}
+        
+        {showSessionMenu && (
+          <SessionMenu onClose={() => setShowSessionMenu(false)} />
+        )}
+      </div>
+    )
+  }
+
   const BreadcrumbNav = () => (
-    <div className="flex items-center gap-2 mb-4 text-sm">
+    <div className="flex items-center gap-2 text-sm">
       <button
         onClick={navigateHome}
-        className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+        className="flex items-center gap-1 text-blue-600 hover:text-blue-800 transition-colors"
       >
         <Home className="w-4 h-4" />
-        Start
+        Quiz & Lernkarten
       </button>
       {navigationPath.map((pathItem, index) => (
         <div key={index} className="flex items-center gap-2">
           <ChevronRight className="w-4 h-4 text-gray-400" />
-          <span className={`${index === navigationPath.length - 1 ? 'text-gray-900 font-medium' : 'text-blue-600'}`}>
+          <button
+            onClick={() => navigateToLevel(index + 1)}
+            className={`transition-colors ${
+              index === navigationPath.length - 1 
+                ? 'text-gray-900 font-medium cursor-default' 
+                : 'text-blue-600 hover:text-blue-800'
+            }`}
+            disabled={index === navigationPath.length - 1}
+          >
             {pathItem}
-          </span>
+          </button>
         </div>
       ))}
+    </div>
+  )
+
+  const SelectedCategoriesChips = () => (
+    <div className="flex items-center gap-2">
+      <Tag className="w-4 h-4 text-gray-500" />
+      <div className="flex flex-wrap gap-1">
+        {selectedCategories.slice(0, 3).map((categoryId, index) => {
+          const allCategories = [
+            ...medicalBasicsCategories,
+            ...pathologyCategories,
+            ...pharmacologyCategories,
+            ...nursingTheoriesCategories,
+            ...nursingLawEthicsCategories,
+            ...nursingTechniquesCategories
+          ]
+          const category = findCategoryById(allCategories, categoryId)
+          return (
+            <span
+              key={index}
+              className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+            >
+              {category?.name || categoryId}
+            </span>
+          )
+        })}
+        {selectedCategories.length > 3 && (
+          <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+            +{selectedCategories.length - 3} weitere
+          </span>
+        )}
+      </div>
+    </div>
+  )
+
+  const ProgressBar = ({ percentage }: { percentage: number }) => (
+    <div className="w-full bg-gray-200 rounded-full h-2">
+      <div 
+        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+        style={{ width: `${percentage}%` }}
+      />
+    </div>
+  )
+
+  const SessionMenu = ({ onClose }: { onClose: () => void }) => (
+    <div className="absolute right-0 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg p-2 min-w-48 z-50">
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={pauseSession}
+        className="w-full justify-start"
+      >
+        <Pause className="w-4 h-4 mr-2" />
+        {isPaused ? 'Fortsetzen' : 'Pausieren'}
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => {
+          exitSession()
+          onClose()
+        }}
+        className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+      >
+        <X className="w-4 h-4 mr-2" />
+        Sitzung beenden
+      </Button>
     </div>
   )
 
@@ -569,7 +771,6 @@ const QuizLernkarten = () => {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <BreadcrumbNav />
               <h2 className="text-2xl font-light text-gray-900 mb-2">🏥 Anatomie & Physiologie</h2>
               <p className="text-gray-600 font-light">Wähle ein Organsystem aus, um die Details zu sehen:</p>
             </div>
@@ -591,7 +792,6 @@ const QuizLernkarten = () => {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <BreadcrumbNav />
               <h2 className="text-2xl font-light text-gray-900 mb-2">🦠 Krankheitslehre</h2>
               <p className="text-gray-600 font-light">Wähle einen Krankheitsbereich aus, um die Details zu sehen:</p>
             </div>
@@ -615,7 +815,6 @@ const QuizLernkarten = () => {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <BreadcrumbNav />
               <h2 className="text-2xl font-light text-gray-900 mb-2">💊 Pharmakologie</h2>
               <p className="text-gray-600 font-light">Medikamente und Wirkweisen</p>
             </div>
@@ -637,7 +836,6 @@ const QuizLernkarten = () => {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <BreadcrumbNav />
               <h2 className="text-2xl font-light text-gray-900 mb-2">🎯 Pflegetheorien & -modelle</h2>
               <p className="text-gray-600 font-light">Theoretische Grundlagen der Pflege</p>
             </div>
@@ -659,7 +857,6 @@ const QuizLernkarten = () => {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <BreadcrumbNav />
               <h2 className="text-2xl font-light text-gray-900 mb-2">⚖️ Pflegerecht & Ethik</h2>
               <p className="text-gray-600 font-light">Rechtliche und ethische Grundlagen der Pflege</p>
             </div>
@@ -681,7 +878,6 @@ const QuizLernkarten = () => {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <BreadcrumbNav />
               <h2 className="text-2xl font-light text-gray-900 mb-2">🩺 Pflegetechniken & Interventionen</h2>
               <p className="text-gray-600 font-light">Praktische Fertigkeiten in der Pflege</p>
             </div>
@@ -742,7 +938,6 @@ const QuizLernkarten = () => {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <BreadcrumbNav />
               <h2 className="text-2xl font-light text-gray-900 mb-2">🔍 Assessment & Diagnostik</h2>
               <p className="text-gray-600 font-light">Einschätzung und Bewertung</p>
             </div>
@@ -791,7 +986,6 @@ const QuizLernkarten = () => {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <BreadcrumbNav />
               <h2 className="text-2xl font-light text-gray-900 mb-2">📋 Pflegeorganisation & Management</h2>
               <p className="text-gray-600 font-light">Organisation und Führung in der Pflege</p>
             </div>
@@ -816,7 +1010,6 @@ const QuizLernkarten = () => {
     <div className="mb-12">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <BreadcrumbNav />
           <h2 className="text-2xl font-light text-gray-900 mb-2">
             {selectedSubcategory?.icon} {selectedSubcategory?.name}
           </h2>
@@ -1172,6 +1365,7 @@ const QuizLernkarten = () => {
   if (isGeneratingQuiz) {
     return (
       <div className="min-h-screen bg-white">
+        <NavigationHeader />
         <div className="max-w-4xl mx-auto px-6 py-16">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-light text-gray-900 mb-4">
@@ -1182,6 +1376,18 @@ const QuizLernkarten = () => {
             </p>
           </div>
           <AILoadingAnimation message="Quiz wird generiert..." size="lg" />
+          <div className="mt-8 text-center">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsGeneratingQuiz(false)
+                // Cancel any ongoing requests if possible
+              }}
+            >
+              <X className="w-4 h-4 mr-2" />
+              Abbrechen
+            </Button>
+          </div>
         </div>
       </div>
     )
@@ -1191,6 +1397,7 @@ const QuizLernkarten = () => {
   if (isGeneratingFlashcards) {
     return (
       <div className="min-h-screen bg-white">
+        <NavigationHeader />
         <div className="max-w-4xl mx-auto px-6 py-16">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-light text-gray-900 mb-4">
@@ -1201,6 +1408,18 @@ const QuizLernkarten = () => {
             </p>
           </div>
           <AILoadingAnimation message="Lernkarten werden generiert..." size="lg" />
+          <div className="mt-8 text-center">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsGeneratingFlashcards(false)
+                // Cancel any ongoing requests if possible
+              }}
+            >
+              <X className="w-4 h-4 mr-2" />
+              Abbrechen
+            </Button>
+          </div>
         </div>
       </div>
     )
@@ -1217,16 +1436,22 @@ const QuizLernkarten = () => {
 
   if (currentSession) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <QuizInterface />
+      <div className="min-h-screen bg-white">
+        <NavigationHeader />
+        <div className="container mx-auto px-4 py-8">
+          <QuizInterface />
+        </div>
       </div>
     )
   }
 
   if (flashcards.length > 0 && selectedCategories.length > 0) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <FlashcardInterface />
+      <div className="min-h-screen bg-white">
+        <NavigationHeader />
+        <div className="container mx-auto px-4 py-8">
+          <FlashcardInterface />
+        </div>
       </div>
     )
   }
@@ -1234,6 +1459,7 @@ const QuizLernkarten = () => {
   // Main selection screen
   return (
     <div className="min-h-screen bg-white">
+      <NavigationHeader />
       <div className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-16">
           <motion.div
@@ -1255,7 +1481,7 @@ const QuizLernkarten = () => {
           <div className="flex gap-4 justify-center">
             <Button
               size="lg"
-              onClick={handleStartQuiz}
+              onClick={() => startSession('quiz')}
               disabled={selectedCategories.length === 0 || isGeneratingQuiz || isGeneratingFlashcards}
               className="px-8 py-3 text-base"
             >
@@ -1274,7 +1500,7 @@ const QuizLernkarten = () => {
             <Button
               size="lg"
               variant="outline"
-              onClick={handleStartFlashcards}
+              onClick={() => startSession('flashcards')}
               disabled={selectedCategories.length === 0 || isGeneratingQuiz || isGeneratingFlashcards}
               className="px-8 py-3 text-base"
             >
