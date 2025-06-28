@@ -1,6 +1,13 @@
 import { generateAIResponse, generateStreamingAIResponse, AI_PROMPTS } from '../lib/openai'
 import { useCaseStore } from '../store/caseStore'
 import { authService } from './authService'
+import { getCategoryNamesFromIds, findCategoryById, getAllChildCategoryNames } from '../utils/categoryHelpers'
+import { medicalBasicsCategories } from '../data/categories/medical-basics'
+import { pathologyCategories } from '../data/categories/pathology'
+import { pharmacologyCategories } from '../data/categories/pharmacology'
+import { nursingTheoriesCategories } from '../data/categories/nursing-theories'
+import { nursingLawEthicsCategories } from '../data/categories/nursing-law-ethics'
+import { nursingTechniquesCategories } from '../data/categories/nursing-techniques'
 
 export interface CaseGenerationParams {
   bereich?: string
@@ -357,12 +364,25 @@ ${input.beobachtungen ? `Beobachtungen: ${input.beobachtungen}` : ''}
     try {
       await authService.incrementUsageCount(userId, 'care_plan')
 
-      const categoryNames = categories.join(', ')
-      const userInput = `Kategorie: ${categoryNames}
+      // Get all category data
+      const allCategories = [
+        ...medicalBasicsCategories,
+        ...pathologyCategories,
+        ...pharmacologyCategories,
+        ...nursingTheoriesCategories,
+        ...nursingLawEthicsCategories,
+        ...nursingTechniquesCategories
+      ]
+
+      // Convert category IDs to names
+      const categoryNames = getCategoryNamesFromIds(allCategories, categories)
+      const categoryNamesString = categoryNames.join(', ')
+      
+      const userInput = `Kategorie: ${categoryNamesString}
 Schwierigkeitsgrad: ${difficulty}
 
-Erstelle 15 Quiz-Fragen nur zu dieser Kategorie: ${categoryNames}
-Alle Fragen müssen zu "${categoryNames}" passen - keine anderen Themen.`
+Erstelle 15 Quiz-Fragen nur zu dieser Kategorie: ${categoryNamesString}
+Alle Fragen müssen zu "${categoryNamesString}" passen - keine anderen Themen.`
 
       const response = await generateAIResponse(AI_PROMPTS.quiz, userInput)
       
@@ -389,7 +409,7 @@ Alle Fragen müssen zu "${categoryNames}" passen - keine anderen Themen.`
       }
 
       const caseData = {
-        title: `Quiz - ${categoryNames}`,
+        title: `Quiz - ${categoryNamesString}`,
         content: userInput,
         case_type: 'pflegeplanung' as const,
         ai_response: response,
@@ -412,9 +432,22 @@ Alle Fragen müssen zu "${categoryNames}" passen - keine anderen Themen.`
     try {
       await authService.incrementUsageCount(userId, 'care_plan')
 
-      const categoryNames = categories.join(', ')
+      // Get all category data
+      const allCategories = [
+        ...medicalBasicsCategories,
+        ...pathologyCategories,
+        ...pharmacologyCategories,
+        ...nursingTheoriesCategories,
+        ...nursingLawEthicsCategories,
+        ...nursingTechniquesCategories
+      ]
+
+      // Convert category IDs to names
+      const categoryNames = getCategoryNamesFromIds(allCategories, categories)
+      const categoryNamesString = categoryNames.join(', ')
+      
       const userInput = `
-Kategorien: ${categoryNames}
+Kategorien: ${categoryNamesString}
 Erstelle Lernkarten zu diesen Pflegethemen.
       `.trim()
 
@@ -429,7 +462,7 @@ Erstelle Lernkarten zu diesen Pflegethemen.
       }
 
       const caseData = {
-        title: `Lernkarten - ${categoryNames}`,
+        title: `Lernkarten - ${categoryNamesString}`,
         content: userInput,
         case_type: 'pflegeplanung' as const,
         ai_response: response,

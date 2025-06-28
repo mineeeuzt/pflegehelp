@@ -28,6 +28,7 @@ import { pharmacologyCategories } from '../data/categories/pharmacology'
 import { nursingTheoriesCategories } from '../data/categories/nursing-theories'
 import { nursingLawEthicsCategories } from '../data/categories/nursing-law-ethics'
 import { nursingTechniquesCategories } from '../data/categories/nursing-techniques'
+import { getAllChildCategoryIds, findCategoryById } from '../utils/categoryHelpers'
 
 const QuizLernkarten = () => {
   const { user } = useAuthStore()
@@ -264,11 +265,34 @@ const QuizLernkarten = () => {
   }
 
   const selectCategory = (categoryId: string) => {
-    // Single-select behavior: replace previous selection instead of adding to it
-    const newSelection = selectedCategories.includes(categoryId)
-      ? [] // If already selected, deselect it
-      : [categoryId] // If not selected, select only this one (replace others)
-    setSelectedCategories(newSelection)
+    // Find the category in all category lists
+    const allCategories = [
+      ...medicalBasicsCategories,
+      ...pathologyCategories,
+      ...pharmacologyCategories,
+      ...nursingTheoriesCategories,
+      ...nursingLawEthicsCategories,
+      ...nursingTechniquesCategories
+    ]
+    
+    const category = findCategoryById(allCategories, categoryId)
+    
+    if (category) {
+      // Get all child category IDs including the selected one
+      const allCategoryIds = getAllChildCategoryIds(category)
+      
+      // Single-select behavior: replace previous selection
+      const newSelection = selectedCategories.includes(categoryId)
+        ? [] // If already selected, deselect it
+        : allCategoryIds // Select this category and all its children
+      setSelectedCategories(newSelection)
+    } else {
+      // Fallback for categories not in hierarchical structure
+      const newSelection = selectedCategories.includes(categoryId)
+        ? []
+        : [categoryId]
+      setSelectedCategories(newSelection)
+    }
   }
 
   // Get all leaf categories (categories without children)

@@ -1,4 +1,4 @@
-import { Category } from './medical-basics'
+import { Category } from '../../types/Category'
 
 export const pathologyCategories: Category[] = [
   {
