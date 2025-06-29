@@ -430,64 +430,103 @@ Erstelle genau 15 Lernkarten zur angegebenen Kategorie.
 - Praxisrelevante Inhalte für die Pflegeausbildung
 - Verwende aktuelle Pflegestandards und Fachwissen`,
   
-  pflegereview: `Bewerte diese Pflegeplanung streng und realistisch. Antworte AUSSCHLIESSLICH mit validem JSON:
+  pflegereview: `Du bist ein erfahrener Pflegeexperte und bewertest diese Pflegeplanung nach deutschen Pflegestandards. Antworte AUSSCHLIESSLICH mit validem JSON:
 
 {
   "overallScore": 0-100,
-  "generalFeedback": "Kurze Gesamteinschätzung",
+  "generalFeedback": "Detaillierte pflegefachliche Gesamtbeurteilung",
   "sections": [
     {
       "title": "Pflegeprobleme",
       "userText": "Exakter User-Text",
       "score": 0-100,
-      "feedback": "Bewertung",
-      "positives": ["Stärken"],
-      "improvements": ["Verbesserungen"]
+      "feedback": "PESR-Schema Bewertung",
+      "positives": ["Stärken bei Problemidentifikation"],
+      "improvements": ["Verbesserungen für PESR-Schema"]
     },
     {
       "title": "Nahziele",
       "userText": "Exakter User-Text", 
       "score": 0-100,
-      "feedback": "SMART-Bewertung",
-      "positives": ["Stärken"],
-      "improvements": ["Verbesserungen"]
+      "feedback": "SMART-Kriterien Analyse",
+      "positives": ["Stärken bei Zielformulierung"],
+      "improvements": ["SMART-Kriterien Optimierung"]
     },
     {
       "title": "Fernziele",
       "userText": "Exakter User-Text",
       "score": 0-100,
-      "feedback": "Langfristige Ziele",
-      "positives": ["Stärken"],
-      "improvements": ["Verbesserungen"]
+      "feedback": "Langfristige Zielplanung Bewertung",
+      "positives": ["Stärken bei Langzeitplanung"],
+      "improvements": ["Verbesserungen für Fernziele"]
     },
     {
       "title": "Pflegemaßnahmen", 
       "userText": "Exakter User-Text",
       "score": 0-100,
-      "feedback": "Durchführbarkeit",
-      "positives": ["Stärken"],
-      "improvements": ["Verbesserungen"]
+      "feedback": "5-W-Regel und Durchführbarkeit",
+      "positives": ["Stärken bei Maßnahmenplanung"],
+      "improvements": ["Optimierung der 5-W-Regel"]
     },
     {
       "title": "Begründung",
       "userText": "Exakter User-Text",
       "score": 0-100,
-      "feedback": "Fachlichkeit",
-      "positives": ["Stärken"],
-      "improvements": ["Verbesserungen"]
+      "feedback": "Evidenzbasierte Begründung",
+      "positives": ["Stärken bei Fachbegründung"],
+      "improvements": ["Verbesserung der Evidenzbasis"]
     },
     {
       "title": "Evaluation",
       "userText": "Exakter User-Text",
       "score": 0-100,
-      "feedback": "Messbarkeit",
-      "positives": ["Stärken"],
-      "improvements": ["Verbesserungen"]
+      "feedback": "Messbare Erfolgskriterien",
+      "positives": ["Stärken bei Evaluation"],
+      "improvements": ["Verbesserung der Messbarkeit"]
     }
   ]
 }
 
-Bewerte: PESR-Schema, SMART-Kriterien, Konkretheit, Evidenz, Messbarkeit.`,
+BEWERTUNGSKRITERIEN:
+
+PFLEGEPROBLEME (PESR-Schema):
+- Problem: Ist das Pflegeproblem klar und spezifisch formuliert?
+- Etiologie: Sind die Ursachen/Risikofaktoren benannt?
+- Symptome: Sind die Anzeichen/Merkmale beschrieben?
+- Ressourcen: Sind die Fähigkeiten/Stärken des Pflegebedürftigen berücksichtigt?
+
+NAHZIELE (SMART-Kriterien):
+- Spezifisch: Ist das Ziel konkret und eindeutig?
+- Messbar: Sind messbare Kriterien definiert?
+- Akzeptiert: Ist das Ziel für den Pflegebedürftigen erreichbar?
+- Realistisch: Ist das Ziel praktisch umsetzbar?
+- Terminiert: Ist ein klarer Zeitrahmen definiert?
+
+FERNZIELE:
+- Langfristige Perspektive und Nachhaltigkeit
+- Bezug zu Lebensqualität und Autonomie
+- Realistische Langzeitprognose
+
+PFLEGEMASSNAHMEN (5-W-Regel):
+- Wer: Ist klar, wer die Maßnahme durchführt?
+- Was: Ist die Maßnahme konkret beschrieben?
+- Wann: Ist der Zeitpunkt/die Häufigkeit festgelegt?
+- Wie: Ist die Durchführung detailliert beschrieben?
+- Warum: Ist der Bezug zum Pflegeproblem erkennbar?
+
+BEGRÜNDUNG:
+- Evidenzbasierte Pflegepraxis
+- Fachliche Korrektheit
+- Bezug zu Pflegestandards und Leitlinien
+- Individualität der Pflege
+
+EVALUATION:
+- Messbare Erfolgskriterien
+- Zeitrahmen für Überprüfung
+- Anpassungsstrategien bei Zielnichterreichung
+- Dokumentation der Ergebnisse
+
+Bewerte streng nach deutschen Pflegestandards. Gib konkretes, konstruktives Feedback mit spezifischen Verbesserungsvorschlägen.`,
 
   abedlinfo: `Du bist ein erfahrener Pflegepädagoge und bewertest die Fähigkeit von Auszubildenden, pflegerelevante Informationen aus Fallbeispielen zu identifizieren und korrekt den ABEDL-Bereichen zuzuordnen.
 
