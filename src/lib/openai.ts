@@ -430,83 +430,64 @@ Erstelle genau 15 Lernkarten zur angegebenen Kategorie.
 - Praxisrelevante Inhalte für die Pflegeausbildung
 - Verwende aktuelle Pflegestandards und Fachwissen`,
   
-  pflegereview: `Du bist ein erfahrener Pflegepädagoge und bewertest Pflegeplanungen von Auszubildenden nach deutschen Ausbildungsstandards.
+  pflegereview: `Bewerte diese Pflegeplanung streng und realistisch. Antworte AUSSCHLIESSLICH mit validem JSON:
 
-WICHTIG: Bewerte STRENG und REALISTISCH basierend auf dem tatsächlich Geschriebenen!
-
-Analysiere die folgende Pflegeplanung EXAKT wie sie geschrieben wurde und gib strukturiertes Feedback im JSON-Format zurück.
-
-KRITISCH: Antworte AUSSCHLIESSLICH mit validem JSON! Keine zusätzlichen Texte, Kommentare oder Erklärungen außerhalb des JSON!
-
-Antworte ausschließlich im folgenden JSON-Format:
 {
   "overallScore": 0-100,
-  "generalFeedback": "Kurze, konstruktive Gesamteinschätzung der Pflegeplanung mit Hervorhebung der wichtigsten Stärken und Schwächen.",
+  "generalFeedback": "Kurze Gesamteinschätzung",
   "sections": [
     {
       "title": "Pflegeprobleme",
-      "userText": "Zitiere hier EXAKT was der User geschrieben hat",
-      "score": 0-100,
-      "feedback": "Detaillierte Analyse des Textes mit spezifischen Verbesserungen",
-      "positives": ["Liste der gut gemachten Aspekte"],
-      "improvements": [
-        "Konkreter Verbesserungsvorschlag mit Beispiel",
-        "Weitere spezifische Empfehlung"
-      ]
-    },
-    {
-      "title": "Nahziele", 
       "userText": "Exakter User-Text",
       "score": 0-100,
-      "feedback": "Bewertung der SMART-Kriterien und Formulierung",
-      "positives": ["Positive Aspekte"],
-      "improvements": ["Konkrete Verbesserungen mit Beispielen"]
+      "feedback": "Bewertung",
+      "positives": ["Stärken"],
+      "improvements": ["Verbesserungen"]
+    },
+    {
+      "title": "Nahziele",
+      "userText": "Exakter User-Text", 
+      "score": 0-100,
+      "feedback": "SMART-Bewertung",
+      "positives": ["Stärken"],
+      "improvements": ["Verbesserungen"]
     },
     {
       "title": "Fernziele",
-      "userText": "Exakter User-Text", 
+      "userText": "Exakter User-Text",
       "score": 0-100,
-      "feedback": "Bewertung der langfristigen Ziele",
-      "positives": ["Positive Aspekte"],
-      "improvements": ["Konkrete Verbesserungen"]
+      "feedback": "Langfristige Ziele",
+      "positives": ["Stärken"],
+      "improvements": ["Verbesserungen"]
     },
     {
-      "title": "Pflegemaßnahmen",
+      "title": "Pflegemaßnahmen", 
       "userText": "Exakter User-Text",
-      "score": 0-100, 
-      "feedback": "Bewertung der Durchführbarkeit und Fachlichkeit",
-      "positives": ["Positive Aspekte"],
-      "improvements": ["Konkrete Verbesserungen"]
+      "score": 0-100,
+      "feedback": "Durchführbarkeit",
+      "positives": ["Stärken"],
+      "improvements": ["Verbesserungen"]
     },
     {
       "title": "Begründung",
       "userText": "Exakter User-Text",
       "score": 0-100,
-      "feedback": "Bewertung der fachlichen Begründung", 
-      "positives": ["Positive Aspekte"],
-      "improvements": ["Konkrete Verbesserungen"]
+      "feedback": "Fachlichkeit",
+      "positives": ["Stärken"],
+      "improvements": ["Verbesserungen"]
     },
     {
       "title": "Evaluation",
       "userText": "Exakter User-Text",
       "score": 0-100,
-      "feedback": "Bewertung der Evaluationsmethoden",
-      "positives": ["Positive Aspekte"], 
-      "improvements": ["Konkrete Verbesserungen"]
+      "feedback": "Messbarkeit",
+      "positives": ["Stärken"],
+      "improvements": ["Verbesserungen"]
     }
   ]
 }
 
-Bewertungskriterien:
-- Pflegeprobleme: PESR-Schema, Fallbezug, Fachsprache
-- Ziele: SMART-Kriterien, positive Formulierung, Patientenzentrierung
-- Maßnahmen: Konkretheit, Durchführbarkeit, Prophylaxen
-- Begründung: Evidenzbasierung, Fachlichkeit
-- Evaluation: Messbarkeit, Realismus
-
-Jeder Verbesserungsvorschlag muss KONKRET und mit BEISPIEL formuliert sein!
-
-REMEMBER: Antwort muss valides JSON sein - beginne mit { und ende mit }!`,
+Bewerte: PESR-Schema, SMART-Kriterien, Konkretheit, Evidenz, Messbarkeit.`,
 
   abedlinfo: `Du bist ein erfahrener Pflegepädagoge und bewertest die Fähigkeit von Auszubildenden, pflegerelevante Informationen aus Fallbeispielen zu identifizieren und korrekt den ABEDL-Bereichen zuzuordnen.
 
@@ -724,12 +705,12 @@ export async function generateAIResponse(
     
     try {
       const completion = await aiClient.chat.completions.create({
-        model: 'gpt-4',
+        model: 'gpt-4o',
         messages: [
           { role: 'system', content: prompt },
           { role: 'user', content: userInput }
         ],
-        max_tokens: 2000,
+        max_tokens: 4000,
         temperature: 0.7
       })
 
@@ -759,10 +740,12 @@ export async function generateAIResponse(
     (userInput.length < 100 && !promptLower.includes('pflegeplanung'))
   )
   
-  // Spezielle Model-Auswahl für Quiz (mehr Token-Kapazität)
+  // Spezielle Model-Auswahl für verschiedene Tasks
   let model: string
   if (promptLower.includes('quiz')) {
     model = 'gpt-4-turbo'
+  } else if (promptLower.includes('pflegereview') || promptLower.includes('pflegeinfo')) {
+    model = 'gpt-4o' // Besser für strukturierte JSON-Outputs
   } else {
     model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
   }
@@ -773,9 +756,11 @@ export async function generateAIResponse(
   else if (promptLower.includes('medikamentenszenario')) maxTokens = 800
   else if (promptLower.includes('fallbeispielprofi')) maxTokens = 1800
   else if (promptLower.includes('quiz')) maxTokens = 4000 // Reduziert von 8000 auf 4000 wegen 4096 Token-Limit
-  else if (promptLower.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten  
+  else if (promptLower.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten
+  else if (promptLower.includes('pflegereview')) maxTokens = 4000 // Angepasst an GPT-4 Limits
+  else if (promptLower.includes('pflegeinfo')) maxTokens = 4000 // Angepasst an GPT-4 Limits  
   else if (isSimpleTask) maxTokens = 800
-  else maxTokens = 2000
+  else maxTokens = 4000
   
   // Erweiterte Caching-Strategie für häufige Tasks
   const cacheableTask = (
@@ -855,10 +840,12 @@ export async function generateStreamingAIResponse(
     (userInput.length < 100 && !promptLowerStreaming.includes('pflegeplanung'))
   )
   
-  // Spezielle Model-Auswahl für Quiz (mehr Token-Kapazität)
+  // Spezielle Model-Auswahl für verschiedene Tasks
   let model: string
   if (promptLowerStreaming.includes('quiz')) {
     model = 'gpt-4-turbo'
+  } else if (promptLowerStreaming.includes('pflegereview') || promptLowerStreaming.includes('pflegeinfo')) {
+    model = 'gpt-4o' // Besser für strukturierte JSON-Outputs
   } else {
     model = isSimpleTask ? 'gpt-3.5-turbo' : 'gpt-4'
   }
@@ -870,8 +857,10 @@ export async function generateStreamingAIResponse(
   else if (promptLowerStreaming.includes('fallbeispielprofi')) maxTokens = 1800
   else if (promptLowerStreaming.includes('quiz')) maxTokens = 4000 // Reduziert von 8000 auf 4000 wegen 4096 Token-Limit
   else if (promptLowerStreaming.includes('flashcards')) maxTokens = 3000 // Erhöht für Lernkarten
+  else if (promptLowerStreaming.includes('pflegereview')) maxTokens = 4000 // Angepasst an GPT-4 Limits
+  else if (promptLowerStreaming.includes('pflegeinfo')) maxTokens = 4000 // Angepasst an GPT-4 Limits
   else if (isSimpleTask) maxTokens = 800
-  else maxTokens = 2000
+  else maxTokens = 4000
   
   // Erweiterte Caching-Strategie - bei Streaming nicht verwenden für bessere UX
   const cacheableTask = (
@@ -982,7 +971,7 @@ export async function generateMedicationScenario(
           content: userInput,
         },
       ],
-      max_tokens: 2000,
+      max_tokens: 4000,
       temperature: 0.8,
     })
 

@@ -486,6 +486,9 @@ const FallbeispielGenerator = () => {
     if (!user) return
 
     setReviewLoading(true)
+    setReviewResult('')
+    setReviewData(null) // Clear previous review data
+    
     try {
       const pflegeplanungText = `
 Fallbeispiel:
@@ -510,41 +513,30 @@ Evaluation:
 ${pflegeplanungData.evaluation}
       `.trim()
 
-      const response = await caseService.reviewWorkflow('pflegeplanung', pflegeplanungText, user.id)
+      console.log('Starting Pflegeplanung review with regular API for JSON stability')
       
-      try {
-        // First try direct parsing
-        const parsedData = JSON.parse(response)
-        setReviewData(parsedData)
-        setShowReview(true)
-      } catch (parseError) {
-        console.error('Failed to parse JSON response:', parseError)
-        console.log('Response content:', response)
-        
-        // Try to extract JSON from response if it's wrapped in text
-        try {
-          const jsonMatch = response.match(/\{[\s\S]*\}/)
-          if (jsonMatch) {
-            const cleanedJson = jsonMatch[0]
-            console.log('Extracted JSON:', cleanedJson)
-            const parsedData = JSON.parse(cleanedJson)
-            setReviewData(parsedData)
-            setShowReview(true)
-          } else {
-            // Fallback to raw text
-            console.log('No JSON found in response, using raw text')
-            setReviewResult(response)
-            setShowReview(true)
-          }
-        } catch (secondError) {
-          console.error('Second parsing attempt failed:', secondError)
-          setReviewResult(response)
-          setShowReview(true)
-        }
+      const response = await caseService.reviewWorkflow('pflegeplanung', pflegeplanungText, user.id)
+      console.log('Review API response received:', response.substring(0, 200) + '...')
+      
+      // Robust JSON parsing with multiple fallback strategies
+      const parsedReview = parseReviewResponse(response)
+      
+      if (parsedReview) {
+        // Successfully parsed structured data
+        console.log('Successfully parsed review data:', parsedReview)
+        setReviewData(parsedReview)
+      } else {
+        // Fallback to raw text display
+        console.log('Using raw text fallback for review display')
+        setReviewResult(response)
       }
+      
+      setShowReview(true)
+      setReviewLoading(false)
+      
     } catch (error) {
       console.error('Review error:', error)
-    } finally {
+      setError('Fehler bei der Bewertung. Bitte versuchen Sie es erneut.')
       setReviewLoading(false)
     }
   }
@@ -574,8 +566,83 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
         setShowReview(true)
       } catch (parseError) {
         console.error('Failed to parse JSON response:', parseError)
-        setReviewResult(response)
-        setShowReview(true)
+        console.log('Response content:', response)
+        
+        // Use the same robust JSON extraction logic
+        try {
+          const jsonStart = response.indexOf('{')
+          const jsonEnd = response.lastIndexOf('}')
+          
+          if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
+            const jsonStr = response.substring(jsonStart, jsonEnd + 1)
+            console.log('Extracted JSON substring:', jsonStr.substring(0, 100) + '...')
+            
+            // Try to fix common JSON issues
+            let fixedJson = jsonStr
+            
+            // Fix truncated arrays - close any open arrays before the final }
+            const openBrackets = (fixedJson.match(/\[/g) || []).length
+            const closeBrackets = (fixedJson.match(/\]/g) || []).length
+            if (openBrackets > closeBrackets) {
+              const lastCommaIndex = fixedJson.lastIndexOf(',')
+              if (lastCommaIndex > fixedJson.length - 50) {
+                fixedJson = fixedJson.substring(0, lastCommaIndex) + ']'.repeat(openBrackets - closeBrackets) + '}'
+              } else {
+                fixedJson = fixedJson.substring(0, fixedJson.lastIndexOf('}')) + ']'.repeat(openBrackets - closeBrackets) + '}'
+              }
+            }
+            
+            // Fix truncated strings - close any open quotes
+            const quoteCount = (fixedJson.match(/"/g) || []).length
+            if (quoteCount % 2 !== 0) {
+              const lastBracketIndex = Math.max(
+                fixedJson.lastIndexOf(']'),
+                fixedJson.lastIndexOf('}'),
+                fixedJson.lastIndexOf(',')
+              )
+              if (lastBracketIndex > 0) {
+                fixedJson = fixedJson.substring(0, lastBracketIndex) + '"' + fixedJson.substring(lastBracketIndex)
+              }
+            }
+            
+            console.log('Attempting to parse fixed JSON...')
+            const parsedData = JSON.parse(fixedJson)
+            
+            // Validate the structure
+            if (parsedData && typeof parsedData === 'object') {
+              // Check if generalFeedback contains JSON string by mistake
+              if (parsedData.generalFeedback && parsedData.generalFeedback.includes('"overallScore"')) {
+                console.warn('generalFeedback contains JSON structure, extracting actual feedback')
+                // Try to extract the actual feedback text
+                const feedbackMatch = parsedData.generalFeedback.match(/"generalFeedback"\s*:\s*"([^"]+)"/);
+                if (feedbackMatch) {
+                  parsedData.generalFeedback = feedbackMatch[1];
+                } else {
+                  parsedData.generalFeedback = 'Bewertung wurde erfolgreich durchgeführt.';
+                }
+              }
+              
+              // Ensure sections is an array
+              if (!Array.isArray(parsedData.sections)) {
+                parsedData.sections = [];
+              }
+              
+              console.log('Validated review data:', parsedData)
+              setReviewData(parsedData)
+              setShowReview(true)
+            } else {
+              throw new Error('Invalid parsed data structure')
+            }
+          } else {
+            console.log('No valid JSON structure found in response')
+            setReviewResult(response)
+            setShowReview(true)
+          }
+        } catch (secondError) {
+          console.error('JSON extraction/repair failed:', secondError)
+          setReviewResult(response)
+          setShowReview(true)
+        }
       }
     } catch (error) {
       console.error('Review error:', error)
@@ -607,6 +674,116 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
       abedl: '',
       begruendung: ''
     })
+  }
+
+  // Robust JSON parsing function for review responses
+  const parseReviewResponse = (response: string) => {
+    try {
+      // First attempt: direct JSON parsing
+      const directParsed = JSON.parse(response)
+      if (validateReviewStructure(directParsed)) {
+        return directParsed
+      }
+    } catch (e) {
+      console.log('Direct JSON parse failed, trying extraction...')
+    }
+
+    try {
+      // Second attempt: extract JSON from response text
+      let cleanedJson = response.trim()
+      
+      // Remove any text before the first {
+      const jsonStart = cleanedJson.indexOf('{')
+      if (jsonStart > 0) {
+        cleanedJson = cleanedJson.substring(jsonStart)
+      }
+      
+      // Remove any text after the last }
+      const jsonEnd = cleanedJson.lastIndexOf('}')
+      if (jsonEnd > 0) {
+        cleanedJson = cleanedJson.substring(0, jsonEnd + 1)
+      }
+      
+      // Try to parse the cleaned JSON
+      const extractedParsed = JSON.parse(cleanedJson)
+      if (validateReviewStructure(extractedParsed)) {
+        return extractedParsed
+      }
+    } catch (e) {
+      console.log('JSON extraction failed, trying repair...')
+    }
+
+    try {
+      // Third attempt: repair common JSON issues
+      let repairedJson = response.trim()
+      
+      // Extract JSON portion
+      const jsonStart = repairedJson.indexOf('{')
+      const jsonEnd = repairedJson.lastIndexOf('}')
+      
+      if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
+        repairedJson = repairedJson.substring(jsonStart, jsonEnd + 1)
+        
+        // Fix common issues
+        // Fix unmatched brackets
+        const openBrackets = (repairedJson.match(/\[/g) || []).length
+        const closeBrackets = (repairedJson.match(/\]/g) || []).length
+        if (openBrackets > closeBrackets) {
+          const missingBrackets = ']'.repeat(openBrackets - closeBrackets)
+          repairedJson = repairedJson.replace(/,?\s*}$/, missingBrackets + '}')
+        }
+        
+        // Fix unmatched quotes
+        const quoteCount = (repairedJson.match(/"/g) || []).length
+        if (quoteCount % 2 !== 0) {
+          // Find the last incomplete value and close it
+          repairedJson = repairedJson.replace(/,?\s*}$/, '"}')
+        }
+        
+        const repairedParsed = JSON.parse(repairedJson)
+        if (validateReviewStructure(repairedParsed)) {
+          return repairedParsed
+        }
+      }
+    } catch (e) {
+      console.log('JSON repair failed:', e)
+    }
+    
+    // All parsing attempts failed
+    console.warn('All JSON parsing attempts failed, falling back to raw text')
+    return null
+  }
+
+  // Validate that parsed data has the expected structure
+  const validateReviewStructure = (data: any): boolean => {
+    if (!data || typeof data !== 'object') {
+      return false
+    }
+    
+    // Check for required fields
+    if (!('overallScore' in data) || typeof data.overallScore !== 'number') {
+      return false
+    }
+    
+    if (!('generalFeedback' in data) || typeof data.generalFeedback !== 'string') {
+      return false
+    }
+    
+    if (!('sections' in data) || !Array.isArray(data.sections)) {
+      return false
+    }
+    
+    // Clean up any nested JSON in generalFeedback
+    if (data.generalFeedback.includes('{') && data.generalFeedback.includes('"overallScore"')) {
+      const feedbackMatch = data.generalFeedback.match(/"generalFeedback"\s*:\s*"([^"]+)"/)
+      if (feedbackMatch) {
+        data.generalFeedback = feedbackMatch[1]
+      } else {
+        data.generalFeedback = 'Bewertung wurde erfolgreich durchgeführt.'
+      }
+    }
+    
+    return true
   }
 
   const resetAll = () => {
@@ -1630,29 +1807,66 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
                 
                 {reviewData ? (
                   <ReviewDisplay 
-                    reviewData={reviewData.sections}
-                    overallScore={reviewData.overallScore}
-                    generalFeedback={reviewData.generalFeedback}
+                    reviewData={reviewData.sections || []}
+                    overallScore={reviewData.overallScore || 0}
+                    generalFeedback={reviewData.generalFeedback || 'Keine allgemeine Bewertung verfügbar'}
                   />
                 ) : reviewResult ? (
-                  <Card 
-                    className="border border-gray-200"
-                    style={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                      backdropFilter: 'blur(20px) saturate(180%)',
-                      WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                    }}
-                  >
-                    <CardContent className="p-6">
-                      <div className="prose max-w-none">
-                        <div className="bg-white/60 backdrop-blur-sm border border-gray-200/60 rounded-xl p-6">
-                          <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
-                            {reviewResult}
-                          </pre>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  // Try to parse reviewResult as JSON before showing as raw text
+                  (() => {
+                    try {
+                      // Try to extract and parse JSON from reviewResult
+                      let jsonToTry = reviewResult;
+                      
+                      // If it doesn't start with {, try to find JSON in the string
+                      if (!reviewResult.trim().startsWith('{')) {
+                        const jsonMatch = reviewResult.match(/\{[\s\S]*\}/);
+                        if (jsonMatch) {
+                          jsonToTry = jsonMatch[0];
+                        }
+                      }
+                      
+                      const parsed = JSON.parse(jsonToTry);
+                      
+                      // If we successfully parsed it and it has the right structure, use ReviewDisplay
+                      if (parsed && typeof parsed === 'object' && 
+                          'overallScore' in parsed && 
+                          'generalFeedback' in parsed && 
+                          'sections' in parsed) {
+                        return (
+                          <ReviewDisplay 
+                            reviewData={parsed.sections || []}
+                            overallScore={parsed.overallScore || 0}
+                            generalFeedback={parsed.generalFeedback || 'Keine allgemeine Bewertung verfügbar'}
+                          />
+                        );
+                      } else {
+                        throw new Error('Invalid structure');
+                      }
+                    } catch (e) {
+                      // If parsing fails, show as raw text
+                      return (
+                        <Card 
+                          className="border border-gray-200"
+                          style={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                            backdropFilter: 'blur(20px) saturate(180%)',
+                            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                          }}
+                        >
+                          <CardContent className="p-6">
+                            <div className="prose max-w-none">
+                              <div className="bg-white/60 backdrop-blur-sm border border-gray-200/60 rounded-xl p-6">
+                                <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans leading-relaxed">
+                                  {reviewResult}
+                                </pre>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    }
+                  })()
                 ) : null}
               </div>
             )}
