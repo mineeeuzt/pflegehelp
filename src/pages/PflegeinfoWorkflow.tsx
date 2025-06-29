@@ -103,33 +103,64 @@ const PflegeinfoWorkflow = () => {
       const response = await caseService.evaluatePflegeinfo(input, user.id)
       console.log('Pflegeinfo evaluation response:', response)
       
-      // Try to parse JSON response and validate structure
-      try {
-        const parsed = JSON.parse(response)
-        console.log('Parsed result:', parsed)
-        
-        // Use safe parsing to ensure all required properties exist
-        const safeResult = PflegeinfoSafeAccess.parseResult(parsed)
-        setResult(safeResult)
-      } catch (e) {
-        // If parsing fails, try to clean and parse again
-        console.warn('JSON parsing failed, attempting cleanup:', e)
+      // Enhanced JSON parsing with multiple extraction strategies
+      const parseResponse = (rawResponse: string) => {
+        // Strategy 1: Direct JSON parsing
         try {
-          // Try to extract JSON from response if it's wrapped in text
-          const jsonMatch = response.match(/\{[\s\S]*\}/)
-          if (jsonMatch) {
-            const cleanedJson = jsonMatch[0]
-            const parsed = JSON.parse(cleanedJson)
-            const safeResult = PflegeinfoSafeAccess.parseResult(parsed)
-            setResult(safeResult)
-          } else {
-            // Use as string fallback
-            setResult(response)
-          }
-        } catch (secondError) {
-          console.warn('Second parsing attempt failed:', secondError)
-          setResult(response)
+          const parsed = JSON.parse(rawResponse)
+          return PflegeinfoSafeAccess.parseResult(parsed)
+        } catch (e) {
+          console.warn('Direct JSON parsing failed:', e)
         }
+
+        // Strategy 2: Extract JSON from mixed content
+        const jsonPatterns = [
+          /\{[\s\S]*\}/,                    // Standard JSON block
+          /```json\s*(\{[\s\S]*?\})\s*```/, // JSON in code blocks
+          /JSON:\s*(\{[\s\S]*?\})/i,       // JSON with prefix
+        ]
+
+        for (const pattern of jsonPatterns) {
+          try {
+            const match = rawResponse.match(pattern)
+            if (match) {
+              const jsonStr = match[1] || match[0]
+              const parsed = JSON.parse(jsonStr)
+              return PflegeinfoSafeAccess.parseResult(parsed)
+            }
+          } catch (e) {
+            continue
+          }
+        }
+
+        // Strategy 3: Clean and retry
+        try {
+          const cleaned = rawResponse
+            .replace(/^[^{]*/, '')        // Remove text before first {
+            .replace(/[^}]*$/, '')        // Remove text after last }
+            .replace(/\n/g, ' ')          // Replace newlines
+            .replace(/\s+/g, ' ')         // Normalize whitespace
+          
+          if (cleaned.startsWith('{') && cleaned.endsWith('}')) {
+            const parsed = JSON.parse(cleaned)
+            return PflegeinfoSafeAccess.parseResult(parsed)
+          }
+        } catch (e) {
+          console.warn('Cleanup parsing failed:', e)
+        }
+
+        // Fallback: Return raw response
+        console.warn('All parsing strategies failed, using raw response')
+        return rawResponse
+      }
+
+      try {
+        const parsed = parseResponse(response)
+        console.log('Successfully parsed result:', parsed)
+        setResult(parsed)
+      } catch (error) {
+        console.error('Final parsing error:', error)
+        setResult(response)
       }
     } catch (error) {
       console.error('Pflegeinfo evaluation error:', {

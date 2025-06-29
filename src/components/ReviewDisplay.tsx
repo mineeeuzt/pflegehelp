@@ -68,6 +68,84 @@ interface ReviewDisplayProps {
 
 const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisplayProps) => {
   const [expandedSection, setExpandedSection] = useState<number | null>(null)
+  
+  // Ensure we have valid data
+  const safeReviewData = Array.isArray(reviewData) ? reviewData : []
+  const safeOverallScore = typeof overallScore === 'number' ? overallScore : 0
+  
+  // Enhanced feedback cleaning function
+  const cleanFeedbackText = (rawFeedback: string | undefined): string => {
+    if (!rawFeedback || typeof rawFeedback !== 'string') {
+      return 'Bewertung wurde erfolgreich durchgeführt.'
+    }
+
+    // Check if feedback contains JSON-like structures
+    const hasJsonMarkers = rawFeedback.includes('{') && rawFeedback.includes('}')
+    const hasJsonFields = rawFeedback.includes('"') && (
+      rawFeedback.includes('"overallScore"') || 
+      rawFeedback.includes('"sections"') ||
+      rawFeedback.includes('"feedback"') ||
+      rawFeedback.includes('"bewertung"')
+    )
+
+    if (!hasJsonMarkers && !hasJsonFields) {
+      return rawFeedback.trim()
+    }
+
+    console.warn('Detected structured data in feedback, extracting readable text...')
+
+    // Extraction strategies
+    const strategies = [
+      // Extract from quoted feedback field
+      () => {
+        const patterns = [
+          /"(?:generalFeedback|bewertungBegruendung|feedback)"\s*:\s*"([^"]+)"/i,
+          /"([^"]*(?:bewertung|feedback|einschätzung)[^"]*?)"/i
+        ]
+        for (const pattern of patterns) {
+          const match = rawFeedback.match(pattern)
+          if (match?.[1]?.length > 10) return match[1]
+        }
+        return null
+      },
+      
+      // Extract text before JSON structure
+      () => {
+        const jsonStart = rawFeedback.indexOf('{')
+        if (jsonStart > 5) {
+          const beforeJson = rawFeedback.substring(0, jsonStart).trim()
+          if (beforeJson.length > 10 && !beforeJson.includes('"')) {
+            return beforeJson
+          }
+        }
+        return null
+      },
+      
+      // Extract meaningful sentences
+      () => {
+        const sentences = rawFeedback
+          .replace(/\{[^}]*\}/g, '') // Remove JSON blocks
+          .split(/[.!?]+/)
+          .map(s => s.trim())
+          .filter(s => s.length > 15 && !s.includes('"') && !s.includes('{'))
+        
+        return sentences.length > 0 ? sentences.join('. ') + '.' : null
+      }
+    ]
+
+    for (const strategy of strategies) {
+      try {
+        const result = strategy()
+        if (result) return result
+      } catch (e) {
+        continue
+      }
+    }
+
+    return 'Die Pflegeplanung wurde erfolgreich bewertet. Details finden Sie in den Bewertungsabschnitten unten.'
+  }
+
+  const cleanedFeedback = cleanFeedbackText(generalFeedback)
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-600 bg-green-50 border-green-200'
@@ -96,21 +174,21 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
           <CardTitle className="flex items-center justify-between">
             <span className="text-gray-900 font-medium">Gesamtbewertung</span>
             <div className="flex items-center space-x-4">
-              <CircleChart score={overallScore} size={100} />
-              <div className={`flex items-center space-x-2 px-4 py-2 rounded-xl border backdrop-blur-sm ${getScoreColor(overallScore)}`}>
-                {getScoreIcon(overallScore)}
-                <span className="font-bold">{overallScore}%</span>
+              <CircleChart score={safeOverallScore} size={100} />
+              <div className={`flex items-center space-x-2 px-4 py-2 rounded-xl border backdrop-blur-sm ${getScoreColor(safeOverallScore)}`}>
+                {getScoreIcon(safeOverallScore)}
+                <span className="font-bold">{safeOverallScore}%</span>
               </div>
             </div>
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
-          <p className="text-gray-700 leading-relaxed font-light">{generalFeedback}</p>
+          <p className="text-gray-700 leading-relaxed font-light">{cleanedFeedback}</p>
         </CardContent>
       </Card>
       
       {/* Section Scores Overview */}
-      {reviewData.length > 1 && (
+      {safeReviewData.length > 1 && (
         <Card 
           className="border border-gray-200/60 shadow-lg overflow-hidden"
           style={{
@@ -124,7 +202,7 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
           </CardHeader>
           <CardContent className="p-6">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {reviewData.map((section, index) => (
+              {safeReviewData.map((section, index) => (
                 <div key={index} className="text-center">
                   <CircleChart score={section.score} size={80} />
                   <p className="text-sm text-gray-600 mt-2 font-medium">{section.title}</p>
@@ -136,7 +214,7 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
       )}
 
       {/* Section Reviews */}
-      {reviewData.map((section, index) => (
+      {safeReviewData.map((section, index) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 20 }}
