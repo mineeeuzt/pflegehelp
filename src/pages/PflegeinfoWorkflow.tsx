@@ -6,12 +6,15 @@ import { useAuthStore } from '../store/authStore'
 import { caseService, type PflegeinfoInput } from '../services/caseService'
 import { 
   type PflegeinfoResult, 
+  type PflegeinfoFormData,
   type FeedbackSection, 
   type FeedbackError,
   PflegeinfoSafeAccess,
+  PflegeinfoToReviewAdapter,
   ScoreColorUtils,
   isPflegeinfoResult 
 } from '../types/pflegeinfo'
+import ReviewDisplay from '../components/ReviewDisplay'
 
 // ABEDL Kategorien
 const ABEDL_CATEGORIES = [
@@ -387,6 +390,10 @@ const PflegeinfoWorkflow = () => {
           </motion.div>
 
           {isStructuredResult ? (
+            <ReviewDisplay 
+              {...PflegeinfoToReviewAdapter.convertToReviewDisplay(result, formData)}
+            />
+          ) : false ? (
             <>
               {/* Overall Score and Summary */}
               <Card className="mb-8">

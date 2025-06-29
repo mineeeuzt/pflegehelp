@@ -136,6 +136,58 @@ export class PflegeinfoSafeAccess {
   }
 }
 
+// Adapter to convert PflegeinfoResult to ReviewDisplay format
+export interface ReviewSection {
+  title: string
+  userText: string
+  score: number
+  feedback: string
+  improvements: string[]
+  positives: string[]
+}
+
+export interface ReviewDisplayData {
+  reviewData: ReviewSection[]
+  overallScore: number
+  generalFeedback: string
+}
+
+export class PflegeinfoToReviewAdapter {
+  static convertToReviewDisplay(result: PflegeinfoResult, inputData: PflegeinfoFormData): ReviewDisplayData {
+    const sections: ReviewSection[] = []
+    
+    // Map each feedback section to ReviewSection format
+    const sectionMappings = [
+      { key: 'dokumentation', title: 'Dokumentation', userText: inputData.pflegeInfo },
+      { key: 'pflegemassnahmen', title: 'Pflegemaßnahmen & ABEDL-Zuordnung', userText: inputData.selectedABEDL.join(', ') },
+      { key: 'beobachtungen', title: 'Beobachtungen & Begründung', userText: inputData.begruendung },
+      { key: 'struktur', title: 'Struktur & Vollständigkeit', userText: inputData.pflegeInfo },
+      { key: 'fachlichkeit', title: 'Fachliche Korrektheit', userText: inputData.pflegeInfo },
+      { key: 'rechtliches', title: 'Rechtliche Aspekte', userText: inputData.pflegeInfo }
+    ]
+
+    sectionMappings.forEach(mapping => {
+      const feedbackSection = result.feedback[mapping.key as keyof PflegeinfoFeedback]
+      if (feedbackSection) {
+        sections.push({
+          title: mapping.title,
+          userText: mapping.userText || 'Keine Eingabe',
+          score: feedbackSection.score,
+          feedback: feedbackSection.note || 'Keine spezifischen Anmerkungen',
+          improvements: feedbackSection.fehler.map(error => error.korrektur),
+          positives: feedbackSection.positiv
+        })
+      }
+    })
+
+    return {
+      reviewData: sections,
+      overallScore: result.gesamtbewertung,
+      generalFeedback: result.bewertungBegruendung
+    }
+  }
+}
+
 // Utility functions for styling
 export class ScoreColorUtils {
   static getScoreColor(score: number): string {
