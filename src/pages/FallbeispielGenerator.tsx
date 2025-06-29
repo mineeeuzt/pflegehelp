@@ -781,9 +781,9 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
       const scoreMatch = response.match(/"overallScore"\s*:\s*(\d+)/)
       const extractedScore = scoreMatch ? parseInt(scoreMatch[1]) : 75
       
-      // Extract general feedback
-      const feedbackMatch = response.match(/"generalFeedback"\s*:\s*"([^"]+)"/)
-      const extractedFeedback = feedbackMatch ? feedbackMatch[1] : 'Bewertung wurde durchgeführt.'
+      // Extract general feedback with better pattern to capture full content
+      const feedbackMatch = response.match(/"generalFeedback"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/)
+      const extractedFeedback = feedbackMatch ? feedbackMatch[1].replace(/\\"/g, '"') : 'Bewertung wurde durchgeführt.'
       
       // Extract sections data
       const sectionsMatch = response.match(/"sections"\s*:\s*\[(.*)\]/)
@@ -791,28 +791,55 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
       
       if (sectionsMatch) {
         const sectionsText = sectionsMatch[1]
-        // Extract individual section objects
-        const sectionMatches = sectionsText.match(/\{[^}]*"title"\s*:\s*"([^"]+)"[^}]*"score"\s*:\s*(\d+)[^}]*"feedback"\s*:\s*"([^"]+)"[^}]*\}/g)
+        // Enhanced section extraction with better regex patterns
+        const sectionObjects = []
+        let currentIndex = 0
         
-        if (sectionMatches) {
-          extractedSections = sectionMatches.map(sectionText => {
-            const titleMatch = sectionText.match(/"title"\s*:\s*"([^"]+)"/)
-            const scoreMatch = sectionText.match(/"score"\s*:\s*(\d+)/)
-            const feedbackMatch = sectionText.match(/"feedback"\s*:\s*"([^"]+)"/)
-            
-            return {
-              title: titleMatch ? titleMatch[1] : 'Bewertung',
-              score: scoreMatch ? parseInt(scoreMatch[1]) : 75,
-              feedback: feedbackMatch ? feedbackMatch[1] : 'Feedback verfügbar',
-              positives: ['Strukturierte Bewertung erstellt'],
-              improvements: ['Weitere Details können hinzugefügt werden']
+        // Find all section objects more reliably
+        while (currentIndex < sectionsText.length) {
+          const sectionStart = sectionsText.indexOf('{', currentIndex)
+          if (sectionStart === -1) break
+          
+          let braceCount = 0
+          let sectionEnd = sectionStart
+          
+          // Find matching closing brace
+          for (let i = sectionStart; i < sectionsText.length; i++) {
+            if (sectionsText[i] === '{') braceCount++
+            if (sectionsText[i] === '}') braceCount--
+            if (braceCount === 0) {
+              sectionEnd = i
+              break
             }
-          })
+          }
+          
+          const sectionText = sectionsText.substring(sectionStart, sectionEnd + 1)
+          
+          // Extract fields with improved patterns
+          const titleMatch = sectionText.match(/"title"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/)
+          const scoreMatch = sectionText.match(/"score"\s*:\s*(\d+)/)
+          const feedbackMatch = sectionText.match(/"feedback"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/)
+          const userTextMatch = sectionText.match(/"userText"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/)
+          
+          if (titleMatch) {
+            sectionObjects.push({
+              title: titleMatch[1].replace(/\\"/g, '"'),
+              score: scoreMatch ? parseInt(scoreMatch[1]) : 75,
+              feedback: feedbackMatch ? feedbackMatch[1].replace(/\\"/g, '"') : 'Feedback verfügbar',
+              userText: userTextMatch ? userTextMatch[1].replace(/\\"/g, '"') : '',
+              positives: ['Analyse durchgeführt'],
+              improvements: ['Weitere Optimierungen möglich']
+            })
+          }
+          
+          currentIndex = sectionEnd + 1
         }
+        
+        extractedSections = sectionObjects
       }
       
-      // Fallback if no sections found
-      if (extractedSections.length === 0) {
+      // Only use fallback if NO sections were extracted AND no valid content found
+      if (extractedSections.length === 0 && (!extractedFeedback || extractedFeedback === 'Bewertung wurde durchgeführt.')) {
         extractedSections = [
           {
             title: 'Bewertung',
@@ -820,6 +847,17 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
             feedback: 'Die Bewertung wurde erfolgreich durchgeführt. Weitere Details sind in der vollständigen Analyse verfügbar.',
             positives: ['Bewertung abgeschlossen'],
             improvements: ['Detailliertere Analyse verfügbar']
+          }
+        ]
+      } else if (extractedSections.length === 0) {
+        // Create section from general feedback if no sections but good feedback exists
+        extractedSections = [
+          {
+            title: 'Gesamtbewertung',
+            score: extractedScore,
+            feedback: extractedFeedback,
+            positives: ['Analyse durchgeführt'],
+            improvements: ['Siehe Gesamtbewertung für Details']
           }
         ]
       }
