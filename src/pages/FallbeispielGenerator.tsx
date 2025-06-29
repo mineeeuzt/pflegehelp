@@ -783,7 +783,9 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
           {
             title: 'Bewertung',
             score: 85,
-            feedback: response.length > 200 ? response.substring(200, 400) + '...' : response
+            feedback: response.length > 200 ? response.substring(200, 400) + '...' : response,
+            positives: ['Bewertung wurde erfolgreich durchgeführt'],
+            improvements: ['Weitere Optimierungen möglich']
           }
         ]
       }

@@ -275,7 +275,7 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
                   className="space-y-4 border-t border-gray-200/60 pt-4"
                 >
                   {/* Positives */}
-                  {section.positives.length > 0 && (
+                  {(section.positives?.length || 0) > 0 && (
                     <div 
                       className="border border-green-200/60 p-4 rounded-xl"
                       style={{
@@ -289,7 +289,7 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
                         <h4 className="font-medium text-green-800">Das war gut:</h4>
                       </div>
                       <ul className="space-y-1">
-                        {section.positives.map((positive, idx) => (
+                        {(section.positives || []).map((positive, idx) => (
                           <li key={idx} className="text-sm text-green-700 flex items-start space-x-2 font-light">
                             <span className="text-green-500 mt-1">•</span>
                             <span>{positive}</span>
@@ -300,7 +300,7 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
                   )}
 
                   {/* Improvements */}
-                  {section.improvements.length > 0 && (
+                  {(section.improvements?.length || 0) > 0 && (
                     <div 
                       className="border border-gray-300/60 p-4 rounded-xl"
                       style={{
@@ -314,7 +314,7 @@ const ReviewDisplay = ({ reviewData, overallScore, generalFeedback }: ReviewDisp
                         <h4 className="font-medium text-gray-800">Verbesserungsvorschläge:</h4>
                       </div>
                       <ul className="space-y-2">
-                        {section.improvements.map((improvement, idx) => (
+                        {(section.improvements || []).map((improvement, idx) => (
                           <li key={idx} className="text-sm text-gray-700 flex items-start space-x-2 font-light">
                             <Edit3 className="h-3 w-3 text-gray-600 mt-1 flex-shrink-0" />
                             <span>{improvement}</span>
