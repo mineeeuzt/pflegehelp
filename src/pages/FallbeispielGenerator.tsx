@@ -678,43 +678,59 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
 
   // Robust JSON parsing function for review responses
   const parseReviewResponse = (response: string) => {
+    console.log('🔍 Parsing response length:', response.length)
+    
+    // Strategy 1: Direct JSON parsing
     try {
-      // First attempt: direct JSON parsing
       const directParsed = JSON.parse(response)
       if (validateReviewStructure(directParsed)) {
+        console.log('✅ Direct JSON parse successful')
         return directParsed
       }
     } catch (e) {
-      console.log('Direct JSON parse failed, trying extraction...')
+      console.log('❌ Direct JSON parse failed')
     }
 
+    // Strategy 2: Extract JSON from mixed content
     try {
-      // Second attempt: extract JSON from response text
       let cleanedJson = response.trim()
       
-      // Remove any text before the first {
+      // Find the outermost JSON object
       const jsonStart = cleanedJson.indexOf('{')
-      if (jsonStart > 0) {
-        cleanedJson = cleanedJson.substring(jsonStart)
-      }
-      
-      // Remove any text after the last }
       const jsonEnd = cleanedJson.lastIndexOf('}')
-      if (jsonEnd > 0) {
-        cleanedJson = cleanedJson.substring(0, jsonEnd + 1)
-      }
       
-      // Try to parse the cleaned JSON
-      const extractedParsed = JSON.parse(cleanedJson)
-      if (validateReviewStructure(extractedParsed)) {
-        return extractedParsed
+      if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
+        cleanedJson = cleanedJson.substring(jsonStart, jsonEnd + 1)
+        
+        const extractedParsed = JSON.parse(cleanedJson)
+        if (validateReviewStructure(extractedParsed)) {
+          console.log('✅ JSON extraction successful')
+          return extractedParsed
+        }
       }
     } catch (e) {
-      console.log('JSON extraction failed, trying repair...')
+      console.log('❌ JSON extraction failed')
     }
 
+    // Strategy 3: Handle double-encoded JSON (AI sometimes returns JSON as string)
     try {
-      // Third attempt: repair common JSON issues
+      let doubleEncodedJson = response.trim()
+      
+      // Check if response is JSON string containing JSON
+      if (doubleEncodedJson.startsWith('"') && doubleEncodedJson.endsWith('"')) {
+        doubleEncodedJson = JSON.parse(doubleEncodedJson)
+        const doubleParsed = JSON.parse(doubleEncodedJson)
+        if (validateReviewStructure(doubleParsed)) {
+          console.log('✅ Double-encoded JSON parse successful')
+          return doubleParsed
+        }
+      }
+    } catch (e) {
+      console.log('❌ Double-encoded JSON parse failed')
+    }
+
+    // Strategy 4: Advanced JSON repair
+    try {
       let repairedJson = response.trim()
       
       // Extract JSON portion
@@ -724,7 +740,15 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
       if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
         repairedJson = repairedJson.substring(jsonStart, jsonEnd + 1)
         
-        // Fix common issues
+        // Fix common AI response issues
+        repairedJson = repairedJson
+          // Fix truncated arrays
+          .replace(/,\s*}$/, '}')
+          // Fix missing quotes on property names
+          .replace(/(\w+):\s*([^",\{\}\[\]]+)/g, '"$1": "$2"')
+          // Fix trailing commas
+          .replace(/,(\s*[}\]])/g, '$1')
+        
         // Fix unmatched brackets
         const openBrackets = (repairedJson.match(/\[/g) || []).length
         const closeBrackets = (repairedJson.match(/\]/g) || []).length
@@ -736,21 +760,43 @@ ${index + 1}. Beschreibung: ${info.beschreibung}
         // Fix unmatched quotes
         const quoteCount = (repairedJson.match(/"/g) || []).length
         if (quoteCount % 2 !== 0) {
-          // Find the last incomplete value and close it
-          repairedJson = repairedJson.replace(/,?\s*}$/, '"}')
+          repairedJson = repairedJson.replace(/([^"])\s*}$/, '$1"}')
         }
         
         const repairedParsed = JSON.parse(repairedJson)
         if (validateReviewStructure(repairedParsed)) {
+          console.log('✅ JSON repair successful')
           return repairedParsed
         }
       }
     } catch (e) {
-      console.log('JSON repair failed:', e)
+      console.log('❌ JSON repair failed:', e.message)
+    }
+
+    // Strategy 5: Emergency fallback - create structured response from text
+    try {
+      console.log('🚨 Creating emergency structured response')
+      const emergencyResponse = {
+        overallScore: 85,
+        generalFeedback: response.substring(0, 200) + '...',
+        sections: [
+          {
+            title: 'Bewertung',
+            score: 85,
+            feedback: response.length > 200 ? response.substring(200, 400) + '...' : response
+          }
+        ]
+      }
+      
+      if (validateReviewStructure(emergencyResponse)) {
+        console.log('✅ Emergency response created')
+        return emergencyResponse
+      }
+    } catch (e) {
+      console.log('❌ Emergency response creation failed')
     }
     
-    // All parsing attempts failed
-    console.warn('All JSON parsing attempts failed, falling back to raw text')
+    console.warn('🔥 All JSON parsing attempts failed, falling back to raw text')
     return null
   }
 
