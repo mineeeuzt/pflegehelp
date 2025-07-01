@@ -309,6 +309,8 @@ Bitte überprüfe jede Information in der Antwort des Nutzers Schritt für Schri
    • Welche Einschränkung ergibt sich?
    • Was muss die Pflegekraft tun?
 
+WICHTIG: Bei der "korrektur" musst du IMMER die originale Formulierung des Users nehmen und diese konkret verbessern. Zeige genau, wie der User es hätte besser schreiben können.
+
 WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 
 {
@@ -325,7 +327,7 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
         {
           "zitat": "Exaktes Zitat aus der Benutzereingabe",
           "problem": "Detaillierte Bewertung nach dem Schema: Pflegerelevanz: Ja/Nein + Begründung | ABEDL-Zuordnung: korrekt/falsch + Begründung | Begründung: gut/verbesserungswürdig + Begründung",
-          "korrektur": "Verbesserungsvorschlag: Bessere Version der Information mit korrekter ABEDL-Zuordnung und ausführlicher Begründung"
+          "korrektur": "VERBESSERTE VERSION DER USER-EINGABE: Nimm das originale Zitat und schreibe es in verbesserter Form mit korrekter ABEDL-Zuordnung und ausführlicher Begründung. Zeige genau, wie der User es hätte formulieren sollen."
         }
       ],
       "note": "Strukturierte Einzelbewertung jeder pflegerelevanten Information nach dem Schema: Zitat → Pflegerelevanz → ABEDL-Zuordnung → Begründungsqualität → Verbesserungsvorschlag"
@@ -340,7 +342,7 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
         {
           "zitat": "Zitat der ABEDL-Zuordnung aus der Eingabe",
           "problem": "ABEDL-Zuordnung: korrekt/falsch + fachliche Begründung warum diese Zuordnung richtig oder falsch ist",
-          "korrektur": "Korrekte ABEDL-Zuordnung mit fachlicher Begründung"
+          "korrektur": "VERBESSERTE VERSION: Zeige die korrekte ABEDL-Zuordnung basierend auf der originalen User-Eingabe"
         }
       ],
       "note": "Bewertung der ABEDL-Zuordnung: Passen die gewählten Bereiche zur beschriebenen Information?"
@@ -355,7 +357,7 @@ WICHTIG: Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
         {
           "zitat": "Zitat der Begründung aus der Eingabe",
           "problem": "Begründung: gut/verbesserungswürdig + Analyse ob klar wird: Was bedeutet die Info für den Patienten? Welche Einschränkung ergibt sich? Was muss die Pflegekraft tun?",
-          "korrektur": "Verbesserte Begründung die klar macht: Patientenbedeutung, entstehende Einschränkungen, erforderliche Pflegemaßnahmen"
+          "korrektur": "VERBESSERTE BEGRÜNDUNG: Nimm die originale Begründung des Users und verbessere sie konkret. Zeige, wie eine vollständige Begründung aussehen sollte, die Patientenbedeutung, Einschränkungen und Pflegemaßnahmen klar macht."
         }
       ],
       "note": "Bewertung der Begründungsqualität: Wird die Pflegerelevanz fachlich korrekt und ausführlich begründet?"
@@ -376,14 +378,18 @@ Behandle jede pflegerelevante Information einzeln nach diesem Schema:
 • Pflegerelevanz: Ja/Nein + Begründung
 • ABEDL-Zuordnung: korrekt/falsch + Begründung  
 • Begründung: gut/verbesserungswürdig + Begründung
-• Verbesserungsvorschlag: Bessere Version mit korrekter ABEDL-Zuordnung und Begründung
+• VERBESSERTE VERSION: Nimm die EXAKTE User-Eingabe und verbessere sie konkret
 
 **Beispiel einer Bewertung:**
-Zitat: „Alter: 87 Jahre – ABEDL 1 – weil alt ist"
+User schrieb: „Alter: 87 Jahre – ABEDL 1 – weil alt ist"
+
+Bewertung:
+• Zitat: „Alter: 87 Jahre – ABEDL 1 – weil alt ist"
 • Pflegerelevanz: Ja. Alter ist relevant, da hohes Alter mit erhöhtem Risiko für Einschränkungen einhergeht.
 • ABEDL-Zuordnung: Falsch. ABEDL 1 (Kommunikation) passt nicht. Richtig wäre ABEDL-übergreifend.
 • Begründung: Verbesserungswürdig. Zu kurz und ungenau.
-• Verbesserungsvorschlag: „Alter: 87 Jahre – ABEDL-übergreifend – Das hohe Alter weist auf erhöhtes Risiko für Einschränkungen in Mobilität, Selbstversorgung und Kognition hin. Die Pflegekraft muss besondere Aufmerksamkeit auf Sturzprophylaxe und Ressourcenförderung legen."
+• VERBESSERTE VERSION von „Alter: 87 Jahre – ABEDL 1 – weil alt ist":
+  „Alter: 87 Jahre – ABEDL-übergreifend – Das hohe Alter erhöht das Risiko für Einschränkungen in Mobilität, Selbstversorgung und Kognition. Die Pflegekraft muss besondere Aufmerksamkeit auf Sturzprophylaxe, Förderung der verbliebenen Ressourcen und altersbedingte Veränderungen legen."
 
 Integriere diese strukturierte Bewertung in das JSON-Format in den entsprechenden Feldern.`,
 
@@ -430,7 +436,11 @@ Erstelle genau 15 Lernkarten zur angegebenen Kategorie.
 - Praxisrelevante Inhalte für die Pflegeausbildung
 - Verwende aktuelle Pflegestandards und Fachwissen`,
   
-  pflegereview: `Du bist ein erfahrener Pflegeexperte und bewertest diese Pflegeplanung nach deutschen Pflegestandards. Antworte AUSSCHLIESSLICH mit validem JSON:
+  pflegereview: `Du bist ein erfahrener Pflegeexperte und bewertest diese Pflegeplanung nach deutschen Pflegestandards. 
+
+WICHTIG: Bei den "improvements" musst du IMMER konkrete verbesserte Versionen der User-Eingaben zeigen. Nimm die originale Formulierung und zeige, wie sie hätte geschrieben werden sollen.
+
+Antworte AUSSCHLIESSLICH mit validem JSON:
 
 {
   "overallScore": 0-100,
@@ -442,7 +452,10 @@ Erstelle genau 15 Lernkarten zur angegebenen Kategorie.
       "score": 0-100,
       "feedback": "PESR-Schema Bewertung",
       "positives": ["Stärken bei Problemidentifikation"],
-      "improvements": ["Verbesserungen für PESR-Schema"]
+      "improvements": [
+        "VERBESSERTE VERSION: [Nimm den User-Text und zeige die korrekte PESR-Formulierung]",
+        "Konkrete Verbesserung mit Beispiel basierend auf der User-Eingabe"
+      ]
     },
     {
       "title": "Nahziele",
@@ -450,7 +463,10 @@ Erstelle genau 15 Lernkarten zur angegebenen Kategorie.
       "score": 0-100,
       "feedback": "SMART-Kriterien Analyse",
       "positives": ["Stärken bei Zielformulierung"],
-      "improvements": ["SMART-Kriterien Optimierung"]
+      "improvements": [
+        "VERBESSERTE VERSION: [Zeige wie das Nahziel nach SMART-Kriterien formuliert werden sollte]",
+        "Konkrete Optimierung der User-Formulierung"
+      ]
     },
     {
       "title": "Fernziele",
@@ -458,7 +474,10 @@ Erstelle genau 15 Lernkarten zur angegebenen Kategorie.
       "score": 0-100,
       "feedback": "Langfristige Zielplanung Bewertung",
       "positives": ["Stärken bei Langzeitplanung"],
-      "improvements": ["Verbesserungen für Fernziele"]
+      "improvements": [
+        "VERBESSERTE VERSION: [Zeige die optimierte Fernziel-Formulierung]",
+        "Konkrete Verbesserung basierend auf User-Text"
+      ]
     },
     {
       "title": "Pflegemaßnahmen", 
@@ -466,7 +485,10 @@ Erstelle genau 15 Lernkarten zur angegebenen Kategorie.
       "score": 0-100,
       "feedback": "5-W-Regel und Durchführbarkeit",
       "positives": ["Stärken bei Maßnahmenplanung"],
-      "improvements": ["Optimierung der 5-W-Regel"]
+      "improvements": [
+        "VERBESSERTE VERSION: [Zeige die Maßnahme mit vollständiger 5-W-Regel]",
+        "Konkrete Optimierung der User-Maßnahme"
+      ]
     },
     {
       "title": "Begründung",
@@ -474,7 +496,10 @@ Erstelle genau 15 Lernkarten zur angegebenen Kategorie.
       "score": 0-100,
       "feedback": "Evidenzbasierte Begründung",
       "positives": ["Stärken bei Fachbegründung"],
-      "improvements": ["Verbesserung der Evidenzbasis"]
+      "improvements": [
+        "VERBESSERTE VERSION: [Zeige eine evidenzbasierte Begründung]",
+        "Konkrete fachliche Verbesserung der User-Begründung"
+      ]
     },
     {
       "title": "Evaluation",
@@ -482,7 +507,10 @@ Erstelle genau 15 Lernkarten zur angegebenen Kategorie.
       "score": 0-100,
       "feedback": "Messbare Erfolgskriterien",
       "positives": ["Stärken bei Evaluation"],
-      "improvements": ["Verbesserung der Messbarkeit"]
+      "improvements": [
+        "VERBESSERTE VERSION: [Zeige messbare Evaluationskriterien]",
+        "Konkrete Verbesserung der User-Evaluation"
+      ]
     }
   ]
 }
@@ -526,11 +554,24 @@ EVALUATION:
 - Anpassungsstrategien bei Zielnichterreichung
 - Dokumentation der Ergebnisse
 
-Bewerte streng nach deutschen Pflegestandards. Gib konkretes, konstruktives Feedback mit spezifischen Verbesserungsvorschlägen.`,
+WICHTIGE ANWEISUNG FÜR VERBESSERUNGSVORSCHLÄGE:
+Bei jedem "improvements" Array MUSST du:
+1. Die EXAKTE User-Eingabe nehmen
+2. Diese konkret verbessern und als "VERBESSERTE VERSION:" kennzeichnen
+3. Zeigen, wie die korrekte Formulierung aussehen sollte
+4. Niemals allgemeine Tipps geben, sondern IMMER die konkrete verbesserte Formulierung zeigen
+
+Beispiel:
+User schrieb: "Patient hat Schmerzen"
+Improvement: "VERBESSERTE VERSION: Frau Müller hat seit 3 Tagen stechende Schmerzen im rechten Kniegelenk (P), aufgrund der fortgeschrittenen Gonarthrose (E), erkennbar an Schonhaltung und eingeschränkter Beweglichkeit (S), kann aber noch kurze Strecken mit Rollator gehen (R)."
+
+Bewerte streng nach deutschen Pflegestandards. Gib konkretes, konstruktives Feedback mit spezifischen verbesserten Formulierungen der User-Eingaben.`,
 
   abedlinfo: `Du bist ein erfahrener Pflegepädagoge und bewertest die Fähigkeit von Auszubildenden, pflegerelevante Informationen aus Fallbeispielen zu identifizieren und korrekt den ABEDL-Bereichen zuzuordnen.
 
 Analysiere die Informationssammlung des Auszubildenden und gib strukturiertes Feedback im JSON-Format zurück.
+
+WICHTIG: Bei den "improvements" musst du IMMER die originale User-Eingabe nehmen und konkret zeigen, wie sie verbessert werden sollte.
 
 Antworte ausschließlich im folgenden JSON-Format:
 {
@@ -544,8 +585,8 @@ Antworte ausschließlich im folgenden JSON-Format:
       "feedback": "Bewertung der Information und ABEDL-Zuordnung",
       "positives": ["Korrekt identifizierte Aspekte"],
       "improvements": [
-        "Konkrete Verbesserung der Informationssammlung",
-        "Bessere ABEDL-Zuordnung mit Begründung"
+        "VERBESSERTE VERSION: [Nimm die User-Eingabe und zeige die korrekte Formulierung mit richtiger ABEDL-Zuordnung]",
+        "Konkrete Verbesserung: [Zeige wie die Information präziser erfasst werden sollte]"
       ]
     }
   ]
@@ -557,7 +598,17 @@ Bewertungskriterien:
 - Fachliche Präzision der Beschreibungen
 - Relevanz für die Pflegeplanung
 
-Bewerte KONSTRUKTIV und gib konkrete Verbesserungsvorschläge für jede Information.`,
+WICHTIGE ANWEISUNG:
+Bei jedem Verbesserungsvorschlag:
+1. Nimm die EXAKTE User-Formulierung
+2. Zeige die VERBESSERTE VERSION mit korrekter ABEDL-Zuordnung
+3. Erkläre konkret, was verbessert wurde
+
+Beispiel:
+User schrieb: "Patient isst wenig - ABEDL 3"
+Improvement: "VERBESSERTE VERSION: 'Herr Schmidt isst seit 5 Tagen nur noch 1/3 der Portionen, lehnt besonders Fleisch ab - ABEDL 2 (Essen und Trinken) - Risiko für Mangelernährung, BMI-Kontrolle und Ernährungsberatung erforderlich'"
+
+Bewerte KONSTRUKTIV und gib konkrete verbesserte Formulierungen für jede Information.`,
 
   medikamentenszenario: `Du bist ein erfahrener Notfallmediziner und Pflegepädagoge. Erstelle abwechslungsreiche, realistische Medikamenten-Trainingsszenarien für Pflegekräfte.
 
